@@ -7,6 +7,12 @@ class GradeSerializer(serializers.ModelSerializer):
         model = models.Grade
         fields = '__all__'
 
+class InstructorSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Instructor
+        fields = '__all__'
+
 class AssignatureSerializer(serializers.ModelSerializer):
 
     class Meta:

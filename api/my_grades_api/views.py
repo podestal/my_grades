@@ -18,3 +18,6 @@ class StudentViewSet(ModelViewSet):
     queryset = models.Student.objects.all()
     serializer_class = serializers.StudentSerializer
 
+class InstructorViewSet(ModelViewSet):
+    queryset = models.Instructor.objects.all()
+    serializer_class = serializers.InstructorSerializer
