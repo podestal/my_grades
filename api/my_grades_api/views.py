@@ -7,8 +7,14 @@ class GradeViewSet(ModelViewSet):
     serializer_class = serializers.GradeSerializer
 
 class AssignatureViewSet(ModelViewSet):
-    queryset = models.Assignature.objects.all()
-    serializer_class = serializers.AssignatureSerializer
+
+    def get_queryset(self):
+        return models.Assignature.objects.filter(Instructor_id=self.request.user.id)
+    
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return serializers.CreateAssignatureSerializer
+        return serializers.GetAssignatureSerializer
 
 class AssignmentViewSet(ModelViewSet):
     queryset = models.Assignment.objects.all()

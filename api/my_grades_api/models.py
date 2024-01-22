@@ -26,7 +26,7 @@ class Assignature(models.Model):
 class Student(models.Model):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    grade = models.ForeignKey(Grade, on_delete=models.PROTECT)
+    grade = models.ForeignKey(Grade, on_delete=models.PROTECT, related_name='students')
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}'
@@ -58,10 +58,4 @@ class Atendance(models.Model):
 
     created_at = models.DateField(auto_now_add=True)
     status = models.BooleanField(default=True)
-    student = models.ForeignKey(Student, on_delete=models.PROTECT)
-
-
-
-
-
-
+    student = models.ForeignKey(Student, on_delete=models.PROTECT, related_name='atendances')

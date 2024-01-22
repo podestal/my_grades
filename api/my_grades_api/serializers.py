@@ -2,11 +2,21 @@ from rest_framework import serializers
 from core.serializers import GetUserSerializer
 from . import models
 
+class SimpleStudentSerializer(serializers.ModelSerializer):
+
+    user = GetUserSerializer()
+
+    class Meta:
+        model = models.Student
+        fields = ['id', 'user']
+
 class GradeSerializer(serializers.ModelSerializer):
+
+    students = SimpleStudentSerializer(many=True)
 
     class Meta:
         model = models.Grade
-        fields = '__all__'
+        fields = ['id', 'title', 'description', 'students']
 
 class GetInstructorSerializer(serializers.ModelSerializer):
 
@@ -22,11 +32,20 @@ class CreateInstructorSerializer(serializers.ModelSerializer):
         model = models.Instructor
         fields = '__all__'
 
-class AssignatureSerializer(serializers.ModelSerializer):
+class CreateAssignatureSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Assignature
         fields = '__all__'
+
+class GetAssignatureSerializer(serializers.ModelSerializer):
+
+    grade = GradeSerializer()
+    Instructor = GetInstructorSerializer()
+
+    class Meta:
+        model = models.Assignature
+        fields = ['id', 'title', 'grade', 'Instructor']
 
 class AssignmentSerializer(serializers.ModelSerializer):
 
@@ -50,9 +69,9 @@ class GetStudentSerializer(serializers.ModelSerializer):
 
     grade = GradeSerializer()
     user = GetUserSerializer()
-    # atendance = AtendanceSerializer(many=True)
+    atendances = AtendanceSerializer(many=True)
 
     class Meta:
         model = models.Student
-        fields = ['id', 'user', 'grade']
+        fields = ['id', 'user', 'grade', 'atendances']
 
