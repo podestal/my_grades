@@ -53,6 +53,15 @@ class Assignment(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Atendance(models.Model):
+
+    created_at = models.DateField(auto_now_add=True)
+    status = models.BooleanField(default=True)
+    student = models.ForeignKey(Student, on_delete=models.PROTECT)
+
+
+
 
 
 

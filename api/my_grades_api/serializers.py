@@ -34,6 +34,12 @@ class AssignmentSerializer(serializers.ModelSerializer):
         model = models.Assignment
         fields = '__all__'
 
+class AtendanceSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Atendance
+        fields = '__all__'
+
 class CreateStudentSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -44,7 +50,9 @@ class GetStudentSerializer(serializers.ModelSerializer):
 
     grade = GradeSerializer()
     user = GetUserSerializer()
+    # atendance = AtendanceSerializer(many=True)
 
     class Meta:
         model = models.Student
         fields = ['id', 'user', 'grade']
+

@@ -8,5 +8,6 @@ router.register('assignatures', views.AssignatureViewSet)
 router.register('assignments', views.AssignmentViewSet)
 router.register('students', views.StudentViewSet)
 router.register('instructors', views.InstructorViewSet)
+router.register('atendances', views.AtendanceViewSet)
 
 urlpatterns = router.urls
