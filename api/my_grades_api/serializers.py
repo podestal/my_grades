@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from core.serializers import GetUserSerializer
 from . import models
 
 class GradeSerializer(serializers.ModelSerializer):
@@ -7,7 +8,15 @@ class GradeSerializer(serializers.ModelSerializer):
         model = models.Grade
         fields = '__all__'
 
-class InstructorSerializer(serializers.ModelSerializer):
+class GetInstructorSerializer(serializers.ModelSerializer):
+
+    user = GetUserSerializer()
+
+    class Meta:
+        model = models.Instructor
+        fields = ['id', 'user']
+
+class CreateInstructorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Instructor
@@ -25,8 +34,17 @@ class AssignmentSerializer(serializers.ModelSerializer):
         model = models.Assignment
         fields = '__all__'
 
-class StudentSerializer(serializers.ModelSerializer):
+class CreateStudentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Student
         fields = '__all__'
+
+class GetStudentSerializer(serializers.ModelSerializer):
+
+    grade = GradeSerializer()
+    user = GetUserSerializer()
+
+    class Meta:
+        model = models.Student
+        fields = ['id', 'user', 'grade']

@@ -16,8 +16,16 @@ class AssignmentViewSet(ModelViewSet):
 
 class StudentViewSet(ModelViewSet):
     queryset = models.Student.objects.all()
-    serializer_class = serializers.StudentSerializer
+    
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return serializers.CreateStudentSerializer
+        return serializers.GetStudentSerializer
 
 class InstructorViewSet(ModelViewSet):
     queryset = models.Instructor.objects.all()
-    serializer_class = serializers.InstructorSerializer
+    
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return serializers.GetInstructorSerializer
+        return serializers.CreateInstructorSerializer

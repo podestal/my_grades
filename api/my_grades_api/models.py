@@ -22,6 +22,14 @@ class Assignature(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Student(models.Model):
+
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    grade = models.ForeignKey(Grade, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return f'{self.user.first_name} {self.user.last_name}'
 
 class Assignment(models.Model):
 
@@ -41,17 +49,10 @@ class Assignment(models.Model):
     due_date = models.DateTimeField()
     assignature = models.ForeignKey(Assignature, on_delete=models.PROTECT)
     grade = models.ForeignKey(Grade, on_delete=models.PROTECT)
+    student = models.ForeignKey(Student, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.title
 
-
-class Student(models.Model):
-
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    grade = models.ForeignKey(Grade, on_delete=models.PROTECT)
-
-    def __str__(self):
-        return f'{self.user.first_name} {self.user.last_name}'
 
 
