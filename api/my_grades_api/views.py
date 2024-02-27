@@ -2,6 +2,21 @@ from rest_framework.viewsets import ModelViewSet
 from . import models
 from . import serializers
 
+class SchoolViewSet(ModelViewSet):
+
+    queryset = models.School.objects.all()
+    serializer_class = serializers.SchoolSerializer
+
+class ClaseViewSet(ModelViewSet):
+
+    queryset = models.Clase.objects.all()
+    serializer_class = serializers.ClaseSerializer
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return serializers.CreateClaseSerializer
+        return serializers.ClaseSerializer
+
 class AssignatureViewSet(ModelViewSet):
 
     def get_queryset(self):

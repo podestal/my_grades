@@ -4,6 +4,8 @@ from django.conf import settings
 class School(models.Model):
 
     name = models.CharField(max_length=255)
+    def __str__(self):
+        return self.name
     
 class Clase(models.Model):
 
@@ -31,9 +33,9 @@ class Clase(models.Model):
         (LEVEL_SECONDARY, 'Secondary')
     ]
 
-    description = models.TextField()
+    bulk = models.BooleanField()
     school = models.ForeignKey(School, on_delete=models.CASCADE)
-    grade =  models.CharField(max_length=1, choices=GRADE_CHOICES)
+    grade =  models.CharField(max_length=1, choices=GRADE_CHOICES, null=True, blank=True)
     level = models.CharField(max_length=1, choices=LEVEL_CHOICES)
     section = models.CharField(max_length=1, default='A')
 
@@ -69,11 +71,20 @@ class Assignment(models.Model):
     ASSIGNMENT_TYPE_PROJECT = 'P'
     ASSIGNMENT_TYPE_QUIZZ = 'Q'
     ASSIGNMENT_TYPE_TEST = 'T'
+    ASSIGNMENT_TYPE_HOMEWORK = 'H'
 
     ASSIGNMENT_TYPE_CHOICES = [
         (ASSIGNMENT_TYPE_PROJECT, 'Project'),
         (ASSIGNMENT_TYPE_QUIZZ, 'Quizz'),
         (ASSIGNMENT_TYPE_TEST, 'Test'),
+        (ASSIGNMENT_TYPE_HOMEWORK, 'Homework')
+    ]
+
+    CALIFICATION_CHOICES = [
+        ('AD', 'AD'),
+        ('A', 'A'),
+        ('B', 'B'),
+        ('C', 'C')
     ]
 
     title = models.CharField(max_length=255)
@@ -83,6 +94,7 @@ class Assignment(models.Model):
     assignature = models.ForeignKey(Assignature, on_delete=models.PROTECT)
     clase = models.ForeignKey(Clase, on_delete=models.PROTECT)
     student = models.ForeignKey(Student, on_delete=models.PROTECT)
+    califaction = models.CharField(max_length=2, choices=CALIFICATION_CHOICES, blank=True, null=True)
 
     def __str__(self):
         return self.title
