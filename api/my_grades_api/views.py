@@ -2,10 +2,6 @@ from rest_framework.viewsets import ModelViewSet
 from . import models
 from . import serializers
 
-class GradeViewSet(ModelViewSet):
-    queryset = models.Grade.objects.all()
-    serializer_class = serializers.GradeSerializer
-
 class AssignatureViewSet(ModelViewSet):
 
     def get_queryset(self):

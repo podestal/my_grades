@@ -1,23 +1,56 @@
 from django.db import models
 from django.conf import settings
 
-class Grade(models.Model):
-    title = models.CharField(max_length=255)
+class School(models.Model):
+
+    name = models.CharField(max_length=255)
+    
+class Clase(models.Model):
+
+    GRADE_FIRST = '1'
+    GRADE_SECOND = '2'
+    GRADE_THIRD = '3'
+    GRADE_FOURTH = '4'
+    GRADE_FIFTH = '5'
+    GRADE_SIXTH = '6'
+
+    GRADE_CHOICES = [
+        (GRADE_FIRST, 'First'),
+        (GRADE_SECOND, 'Second'),
+        (GRADE_THIRD, 'Third'),
+        (GRADE_FOURTH, 'Fourth'),
+        (GRADE_FIFTH, 'Fifth'),
+        (GRADE_SIXTH, 'Sixth'),
+    ]
+
+    LEVEL_PRIMARY = 'P'
+    LEVEL_SECONDARY = 'S'
+
+    LEVEL_CHOICES = [
+        (LEVEL_PRIMARY, 'Primary'),
+        (LEVEL_SECONDARY, 'Secondary')
+    ]
+
     description = models.TextField()
+    school = models.ForeignKey(School, on_delete=models.CASCADE)
+    grade =  models.CharField(max_length=1, choices=GRADE_CHOICES)
+    level = models.CharField(max_length=1, choices=LEVEL_CHOICES)
+    section = models.CharField(max_length=1, default='A')
 
     def __str__(self):
-        return self.title
+        return f'{self.title}-{self.section}'
 
 class Instructor(models.Model):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    school = models.ForeignKey(School, on_delete=models.CASCADE )
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}'
 
 class Assignature(models.Model):
     title = models.CharField(max_length=255)
-    grade = models.ForeignKey(Grade, on_delete=models.PROTECT)
+    clase =  models.ForeignKey(Clase, on_delete=models.CASCADE)
     Instructor = models.ForeignKey(Instructor, on_delete=models.PROTECT, blank=True, null=True)
 
     def __str__(self):
@@ -26,7 +59,7 @@ class Assignature(models.Model):
 class Student(models.Model):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    grade = models.ForeignKey(Grade, on_delete=models.PROTECT, related_name='students')
+    clase = models.ForeignKey(Clase, on_delete=models.PROTECT, related_name='students')
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}'
@@ -48,7 +81,7 @@ class Assignment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     due_date = models.DateTimeField()
     assignature = models.ForeignKey(Assignature, on_delete=models.PROTECT)
-    grade = models.ForeignKey(Grade, on_delete=models.PROTECT)
+    clase = models.ForeignKey(Clase, on_delete=models.PROTECT)
     student = models.ForeignKey(Student, on_delete=models.PROTECT)
 
     def __str__(self):
