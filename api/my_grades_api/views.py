@@ -71,6 +71,7 @@ class StudentViewSet(ModelViewSet):
 
 class InstructorViewSet(ModelViewSet):
     queryset = models.Instructor.objects.all()
+    permission_classes = [IsAdminUser]
     
     def get_serializer_class(self):
         if self.request.method == 'POST':
