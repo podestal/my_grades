@@ -1,4 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from . import permissions
 from . import models
 from . import serializers
@@ -14,6 +15,13 @@ class ClaseViewSet(ModelViewSet):
 
     queryset = models.Clase.objects.all()
     serializer_class = serializers.ClaseSerializer
+    http_method_names = ['get', 'post', 'patch', 'delete']
+
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return[IsAuthenticated()]
+        if self.request.method in ['PATCH', 'POST', 'DELETE']:
+            return [IsAdminUser()]
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
@@ -25,6 +33,12 @@ class AssignatureViewSet(ModelViewSet):
     def get_queryset(self):
         return models.Assignature.objects.filter(Instructor_id=self.request.user.id)
     
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return[IsAuthenticated()]
+        if self.request.method in ['PATCH', 'POST', 'DELETE']:
+            return [IsAdminUser()]
+    
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return serializers.CreateAssignatureSerializer
@@ -33,6 +47,13 @@ class AssignatureViewSet(ModelViewSet):
 class AssignmentViewSet(ModelViewSet):
     queryset = models.Assignment.objects.all()
     serializer_class = serializers.AssignmentSerializer
+
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return[IsAuthenticated()]
+        if self.request.method in ['PATCH', 'POST', 'DELETE']:
+            return [IsAdminUser()]
+    
 
 class StudentViewSet(ModelViewSet):
     queryset = models.Student.objects.all()

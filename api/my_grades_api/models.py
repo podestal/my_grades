@@ -40,7 +40,7 @@ class Clase(models.Model):
     section = models.CharField(max_length=1, default='A')
 
     def __str__(self):
-        return f'{self.title}-{self.section}'
+        return f'{self.grade}-{self.section}'
 
 class Instructor(models.Model):
 
@@ -95,7 +95,7 @@ class Assignment(models.Model):
     title = models.CharField(max_length=255)
     assignment_type = models.CharField(max_length=1, choices=ASSIGNMENT_TYPE_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
-    due_date = models.DateTimeField()
+    due_date = models.DateField(null=True, blank=True)
     assignature = models.ForeignKey(Assignature, on_delete=models.PROTECT)
     clase = models.ForeignKey(Clase, on_delete=models.PROTECT)
     student = models.ForeignKey(Student, on_delete=models.PROTECT)
