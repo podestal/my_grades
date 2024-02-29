@@ -79,3 +79,10 @@ class TutorViewSet(ModelViewSet):
 class AtendanceViewSet(ModelViewSet):
     queryset = models.Atendance.objects.all()
     serializer_class = serializers.AtendanceSerializer
+
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return[IsAuthenticated()]
+        if self.request.method in ['PATCH', 'POST', 'DELETE']:
+            return [IsAdminUser()]
+    

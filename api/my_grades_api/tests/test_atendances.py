@@ -3,105 +3,100 @@ from rest_framework import status
 from rest_framework.test import APIClient
 from model_bakery import baker
 from my_grades_api import models
-import datetime
 import pytest
 
 @pytest.mark.django_db
-class TestGetAssignments:
+class TestGetAtendances:
 
     def test_if_user_is_anonymous_returns_401(self):
         client = APIClient()
-        response = client.get('/api/assignments/')
+        response = client.get('/api/atendances/')
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_if_user_is_not_staff_returns_200(self):
         client = APIClient()
         client.force_authenticate(user=User(is_staff=False))
-        response = client.get('/api/assignments/')
+        response = client.get('/api/atendances/')
         assert response.status_code == status.HTTP_200_OK
 
     def test_if_user_is_staff_returns_200(self):
         client = APIClient()
         client.force_authenticate(user=User(is_staff=True))
-        response = client.get('/api/assignments/')
+        response = client.get('/api/atendances/')
         assert response.status_code == status.HTTP_200_OK
 
     def test_if_user_is_superuser_returns_200(self):
         client = APIClient()
         client.force_authenticate(user=User(is_superuser=True))   
-        response = client.get('/api/assignments/')
+        response = client.get('/api/atendances/')
         assert response.status_code == status.HTTP_200_OK
 
 @pytest.mark.django_db
-class TestCreateAssignment:
+class TestCreateAtendances:
 
     def test_if_user_is_anonymous_returns_401(self):
         client = APIClient()
-        response = client.post('/api/assignments/')
+        response = client.post('/api/atendances/')
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_if_user_is_not_staff_returns_403(self):
         client = APIClient()
         client.force_authenticate(user=User(is_staff=False))
-        response = client.post('/api/assignments/')
+        response = client.post('/api/atendances/')
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
+# student = models.ForeignKey(Student, on_delete=models.PROTECT, related_name='atendances')
+
+
     def test_if_user_is_staff_returns_200(self):
-        date = datetime.datetime.date
-        assignature = baker.make(models.Assignature)
-        clase = baker.make(models.Clase)
         student = baker.make(models.Student)
         client = APIClient()
         client.force_authenticate(user=User(is_staff=True))
-        response = client.post('/api/assignments/', {
-            'title': 'Homework',
-            'assignment_type': 'P',
-            'assignature': assignature.pk,
-            'clase': clase.pk,
+        response = client.post('/api/atendances/', {
             'student': student.pk,
         })
         assert response.status_code == status.HTTP_201_CREATED
 
 @pytest.mark.django_db
-class TestUpdateAssignments:
+class TestUpdateAtendances:
 
     def test_if_user_is_anonymous_returns_401(self):
         client = APIClient()
-        response = client.patch('/api/assignments/')
+        response = client.patch('/api/atendances/')
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_if_user_is_not_staff_returns_403(self):
         client = APIClient()
         client.force_authenticate(user=User(is_staff=False))
-        response = client.patch('/api/assignments/')
+        response = client.patch('/api/atendances/')
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_if_user_is_staff_returns_200(self):
-        assignment = baker.make(models.Assignment)
+        atendance = baker.make(models.Atendance)
         client = APIClient()
         client.force_authenticate(user=User(is_staff=True))
-        response = client.patch(f'/api/assignments/{assignment.id}/', {
-            'title': 'Project',
+        response = client.patch(f'/api/atendances/{atendance.id}/', {
+            'status': False,
         })
         assert response.status_code == status.HTTP_200_OK
 
 @pytest.mark.django_db
-class TestDeleteAssignments:
+class TestDeleteAtendances:
 
     def test_if_user_is_anonymous_returns_401(self):
         client = APIClient()
-        response = client.delete('/api/assignments/')
+        response = client.delete('/api/atendances/')
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_if_user_is_not_staff_returns_403(self):
         client = APIClient()
         client.force_authenticate(user=User(is_staff=False))
-        response = client.delete('/api/assignments/')
+        response = client.delete('/api/atendances/')
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_if_user_is_staff_returns_204(self):
-        assignment = baker.make(models.Assignment)
+        atendance = baker.make(models.Atendance)
         client = APIClient()
         client.force_authenticate(user=User(is_staff=True))
-        response = client.delete(f'/api/assignments/{assignment.id}/')
+        response = client.delete(f'/api/atendances/{atendance.id}/')
         assert response.status_code == status.HTTP_204_NO_CONTENT
