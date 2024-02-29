@@ -63,6 +63,12 @@ class StudentViewSet(ModelViewSet):
             return serializers.CreateStudentSerializer
         return serializers.GetStudentSerializer
 
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return[IsAuthenticated()]
+        if self.request.method in ['PATCH', 'POST', 'DELETE']:
+            return [IsAdminUser()]
+
 class InstructorViewSet(ModelViewSet):
     queryset = models.Instructor.objects.all()
     
