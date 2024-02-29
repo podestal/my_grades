@@ -8,37 +8,6 @@ class SchoolSerializer(serializers.ModelSerializer):
         model = models.School
         fields = '__all__'
 
-    # kk bulk = models.BooleanField()
-    # kk description = models.TextField(blank=True, null=True)
-    # kk school = models.ForeignKey(School, on_delete=models.CASCADE)
-    # grade =  models.CharField(max_length=1, choices=GRADE_CHOICES)
-    # kk level = models.CharField(max_length=1, choices=LEVEL_CHOICES)
-    # kk section = models.CharField(max_length=1, default='A')
-        
-    # GRADE_FIRST = '1'
-    # GRADE_SECOND = '2'
-    # GRADE_THIRD = '3'
-    # GRADE_FOURTH = '4'
-    # GRADE_FIFTH = '5'
-    # GRADE_SIXTH = '6'
-
-#    account = self.validated_data.get('account')
-#         screen_limit = account.service.screen_limit
-#         service = account.service
-#         username = account.username
-#         password = account.password
-#         if self.validated_data.get('bulk') == True:
-#             screens = [models.Screen(
-#                 position = screen+1,
-#                 service = service,
-#                 username = username,
-#                 password = password,
-#                 **self.validated_data
-#             )for screen in range(0, screen_limit)]
-#             return models.Screen.objects.bulk_create(screens)
-#         else:
-#             return models.Screen.objects.create(service = service, username = username, password = password, **self.validated_data)
-
 class ClaseSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -123,6 +92,12 @@ class CreateStudentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Student
+        fields = '__all__'
+
+class TutorSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Tutor
         fields = '__all__'
 
 class GetStudentSerializer(serializers.ModelSerializer):

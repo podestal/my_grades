@@ -46,6 +46,11 @@ class InstructorViewSet(ModelViewSet):
         if self.request.method == 'POST':
             return serializers.GetInstructorSerializer
         return serializers.CreateInstructorSerializer
+    
+class TutorViewSet(ModelViewSet):
+
+    queryset = models.Tutor.objects.all()
+    serializer_class = serializers.TutorSerializer
 
 class AtendanceViewSet(ModelViewSet):
     queryset = models.Atendance.objects.all()
