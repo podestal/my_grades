@@ -1,4 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
+from . import permissions
 from . import models
 from . import serializers
 
@@ -6,6 +7,8 @@ class SchoolViewSet(ModelViewSet):
 
     queryset = models.School.objects.all()
     serializer_class = serializers.SchoolSerializer
+    permission_classes = [permissions.IsSuperUserOrReadOnly]
+    http_method_names = ['get', 'post', 'patch', 'delete']
 
 class ClaseViewSet(ModelViewSet):
 

@@ -12,6 +12,9 @@ djoser = "*"
 djangorestframework-simplejwt = "*"
 django-cors-headers = "*"
 pymysql = "*"
+pytest = "*"
+pytest-django = "*"
+model-bakery = "*"
 
 [dev-packages]
 
