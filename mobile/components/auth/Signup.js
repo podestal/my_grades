@@ -14,6 +14,7 @@ const Signup = () => {
   const [email, setEmail] = useState("")
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
+  const [schoolCode, setSchoolCode] = useState("")
 
   const handleSignup = () => {
     console.log('Registered')
@@ -21,7 +22,6 @@ const Signup = () => {
 
   return (
     <>
-        <Title>Regístrate</Title>
         <Container>
             <Input 
               label={'Usuario'}
@@ -49,6 +49,11 @@ const Signup = () => {
               label={'Apellidos'}
               value={lastName}
               setter={setLastName}
+            />
+            <Input 
+              label={'Código de colegio'}
+              value={schoolCode}
+              setter={setSchoolCode}
             />
             <ButtonElement 
               title="Enviar"
