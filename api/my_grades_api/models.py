@@ -46,6 +46,7 @@ class Instructor(models.Model):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     school = models.ForeignKey(School, on_delete=models.CASCADE )
+    school = models.ForeignKey(School, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}'
@@ -62,6 +63,7 @@ class Student(models.Model):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     clase = models.ForeignKey(Clase, on_delete=models.PROTECT, related_name='students')
+    school = models.ForeignKey(School, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}'
@@ -70,6 +72,8 @@ class Tutor(models.Model):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     student = models.ForeignKey(Student, on_delete=models.PROTECT, related_name='tutor')
+    school = models.ForeignKey(School, on_delete=models.CASCADE)
+    
 
 class Assignment(models.Model):
 

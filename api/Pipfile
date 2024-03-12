@@ -15,6 +15,7 @@ pymysql = "*"
 pytest = "*"
 pytest-django = "*"
 model-bakery = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
 

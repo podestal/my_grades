@@ -43,14 +43,16 @@ class TestCreateTutors:
     # user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     # student = models.ForeignKey(Student, on_delete=models.PROTECT, related_name='tutor')
 
-    def test_if_user_is_staff_returns_200(self):
+    def test_if_user_is_staff_returns_201(self):
         student = baker.make(models.Student)
+        school = baker.make(models.School)
         user = baker.make(settings.AUTH_USER_MODEL)
         client = APIClient()
         client.force_authenticate(user=User(is_staff=True))
         response = client.post('/api/tutors/', {
             'student': student.pk,
             'user': user.pk,
+            'school': school.pk        
         })
         print(response.data)
         assert response.status_code == status.HTTP_201_CREATED
