@@ -22,41 +22,39 @@ const Signup = () => {
   return (
     <>
         <Title>Regístrate</Title>
-        <ScrollView>
-          <Container>
-              <Input 
-                label={'Usuario'}
-                value={username}
-                setter={setUsername}
-              />
-              <Input 
-                label={'Contraseña'}
-                secure={true}
-                value={password}
-                setter={setPassword}
-              />
-              <Input 
-                label={'Correo Electrónico'}
-                value={email}
-                setter={setEmail}
-                type={'email-address'}
-              />
-              <Input 
-                label={'Nombres'}
-                value={firstName}
-                setter={setFirstName}
-              />
-              <Input 
-                label={'Apellidos'}
-                value={lastName}
-                setter={setLastName}
-              />
-              <ButtonElement 
-                title="Enviar"
-                onPress={handleSignup}
-              />
-          </Container>
-        </ScrollView>
+        <Container>
+            <Input 
+              label={'Usuario'}
+              value={username}
+              setter={setUsername}
+            />
+            <Input 
+              label={'Contraseña'}
+              secure={true}
+              value={password}
+              setter={setPassword}
+            />
+            <Input 
+              label={'Correo Electrónico'}
+              value={email}
+              setter={setEmail}
+              type={'email-address'}
+            />
+            <Input 
+              label={'Nombres'}
+              value={firstName}
+              setter={setFirstName}
+            />
+            <Input 
+              label={'Apellidos'}
+              value={lastName}
+              setter={setLastName}
+            />
+            <ButtonElement 
+              title="Enviar"
+              onPress={handleSignup}
+            />
+        </Container>
     </>
   )
 }
