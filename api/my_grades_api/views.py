@@ -18,10 +18,9 @@ class ClaseViewSet(ModelViewSet):
     http_method_names = ['get', 'post', 'patch', 'delete']
 
     def get_permissions(self):
-        if self.request.method == 'GET':
-            return[IsAuthenticated()]
         if self.request.method in ['PATCH', 'POST', 'DELETE']:
             return [IsAdminUser()]
+        return[IsAuthenticated()]
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
@@ -34,10 +33,9 @@ class AssignatureViewSet(ModelViewSet):
         return models.Assignature.objects.filter(Instructor_id=self.request.user.id)
     
     def get_permissions(self):
-        if self.request.method == 'GET':
-            return[IsAuthenticated()]
         if self.request.method in ['PATCH', 'POST', 'DELETE']:
             return [IsAdminUser()]
+        return[IsAuthenticated()]
     
     def get_serializer_class(self):
         if self.request.method == 'POST':
@@ -49,10 +47,9 @@ class AssignmentViewSet(ModelViewSet):
     serializer_class = serializers.AssignmentSerializer
 
     def get_permissions(self):
-        if self.request.method == 'GET':
-            return[IsAuthenticated()]
         if self.request.method in ['PATCH', 'POST', 'DELETE']:
             return [IsAdminUser()]
+        return[IsAuthenticated()]
     
 
 class StudentViewSet(ModelViewSet):
@@ -64,10 +61,9 @@ class StudentViewSet(ModelViewSet):
         return serializers.GetStudentSerializer
 
     def get_permissions(self):
-        if self.request.method == 'GET':
-            return[IsAuthenticated()]
         if self.request.method in ['PATCH', 'POST', 'DELETE']:
             return [IsAdminUser()]
+        return [IsAuthenticated()]
 
 class InstructorViewSet(ModelViewSet):
     queryset = models.Instructor.objects.all()
@@ -84,18 +80,16 @@ class TutorViewSet(ModelViewSet):
     serializer_class = serializers.TutorSerializer
     
     def get_permissions(self):
-        if self.request.method == 'POST':
-            return[IsAdminUser()]
-        if self.request.method in ['PATCH', 'DELETE', 'GET']:
+        if self.request.method in ['PATCH', 'DELETE', 'GET', 'HEAD', 'OPTIONS']:
             return [IsAuthenticated()]
+        return [IsAdminUser()]
 
 class AtendanceViewSet(ModelViewSet):
     queryset = models.Atendance.objects.all()
     serializer_class = serializers.AtendanceSerializer
 
     def get_permissions(self):
-        if self.request.method == 'GET':
-            return[IsAuthenticated()]
         if self.request.method in ['PATCH', 'POST', 'DELETE']:
             return [IsAdminUser()]
+        return [IsAuthenticated()]
     
