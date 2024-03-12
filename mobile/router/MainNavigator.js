@@ -9,8 +9,12 @@ const MainNavigator = () => {
 
   return (
     <NavigationContainer>
-        {console.log('user from navitaor', user)}
+        {user.isAuthenticated 
+        ?
+        <AuthNavigator />
+        :
         <NoAuthNavigator />
+        }
     </NavigationContainer>
   )
 }
