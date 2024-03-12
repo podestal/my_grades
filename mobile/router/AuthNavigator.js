@@ -1,8 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Login from '../components/auth/Login'
-import Signup from '../components/auth/Signup'
+import Appearance from '../components/school/Appearance'
 
-const NoAuthNavigator = () => {
+const AuthNavigator = () => {
 
     const Stack = createNativeStackNavigator()
 
@@ -17,21 +16,14 @@ const NoAuthNavigator = () => {
             }}
         >
             <Stack.Screen 
-                name='Login' 
-                component={Login} 
+                name='Appearance' 
+                component={Appearance} 
                 options={{
-                    title: 'Ingresa'
-                }}
-            />
-            <Stack.Screen 
-                name='Signup' 
-                component={Signup} 
-                options={{
-                    title: 'Regístrate'
+                    title: 'Asistencia',
                 }}
             />
         </Stack.Navigator>
     )
 }
 
-export default NoAuthNavigator
+export default AuthNavigator

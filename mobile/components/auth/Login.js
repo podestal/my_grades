@@ -1,27 +1,50 @@
 import Input from "../utils/Input"
 import ButtonElement from "../utils/Button"
 import Container from "../utils/Container"
+import ErrorMsg from "../utils/ErrorMsg"
 import { Text, Button, View } from "react-native"
 import { useState } from "react"
 import { useNavigation } from "@react-navigation/native"
 import useAuth from "../../hooks/useAuth"
+import { useMutation } from "@tanstack/react-query"
+import { login } from "../../api/api"
 
 const Login = () => {
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const [errorMsh, setErrorMsg] = useState("")
 
     const navigator = useNavigation()
-    const { user } = useAuth()
+    const { user, setUser } = useAuth()
+
+    const {mutate: loginMutation} = useMutation({
+        mutationFn: data => login(data),
+        onSuccess: res => {
+            setUser({ isAuthenticated: true, ...res.data })
+            setErrorMsg('')
+            setUsername('')
+            setPassword('')
+        },
+        onError: err => {
+            if (err.message == 'Request failed with status code 401') {
+                setErrorMsg('No se encontró usuario o contraseña ingresada')
+            } else if (err.message == 'Network Error') {
+                setErrorMsg('Problemas con el servidor, vuélvalo a intentar en unos minutos')
+            }
+        },
+    })
 
 
     const handleLogin = () => {
-        console.log('User:', user);
+        setErrorMsg('')
+        loginMutation({ username, password })
     }
 
   return (
     <>
         <Container>
+            {errorMsh && <ErrorMsg>{errorMsh}</ErrorMsg>}
             <Input 
                 label={'Usuario'}
                 value={username}
