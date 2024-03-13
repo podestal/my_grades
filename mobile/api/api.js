@@ -9,3 +9,7 @@ export const login = (userData) => axios.post(`${URL}auth/jwt/create/`, userData
 export const getUser = (token) => axios.get(`${URL}auth/users/me/`, {
     headers: { Authorization: `JWT ${token}` }
 })
+
+export const getAssignatures = token => axios.get(`${URL}api/assignatures/` ,{
+    headers: { Authorization: `JWT ${token}` }
+})

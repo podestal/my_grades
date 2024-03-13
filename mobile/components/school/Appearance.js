@@ -16,7 +16,7 @@ const Appearance = () => {
   return (
     <>
         {console.log(user)}
-        <Container title={'Appearance'}/>
+        <Container title={'Asistencia'}/>
     </>
   )
 }
