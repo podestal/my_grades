@@ -14,10 +14,10 @@ class ClaseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Clase
-        fields = ['id', 'title', 'school']
+        fields = ['id', 'title', 'school', 'level']
 
     def get_title(self, clase=models.Clase):
-        return f'{clase.grade}-{clase.section}-{clase.level}'
+        return f'{clase.grade}-{clase.section}'
 
 class CreateClaseSerializer(serializers.ModelSerializer):
 

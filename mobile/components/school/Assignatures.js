@@ -1,22 +1,8 @@
-import Container from "../utils/Container"
 import { useQuery } from "@tanstack/react-query"
 import { getAssignatures } from "../../api/api"
 import useAuth from "../../hooks/useAuth"
-import { FlatList, Text, View } from "react-native"
-
-const Assignature = ({ assignature }) => {
-
-    return (
-        <View>
-            {/* <Text>{title}</Text>
-            <Text>{clase}</Text> */}
-            {console.log(assignature)}
-            <Text>{assignature.title}</Text>
-            <Text>{assignature.clase.title}</Text>
-        </View>
-    )
-
-}
+import { FlatList, Text, View, StyleSheet, Pressable } from "react-native"
+import Assignature from "./Assignature"
 
 const Assignatures = () => {
 
@@ -32,6 +18,8 @@ const Assignatures = () => {
         {assignatures && <FlatList 
             data={assignatures.data}
             keyExtractor={ item => item.id}
+            style={styles.container}
+            contentContainerStyle={styles}
             renderItem={ itemData => <Assignature assignature={itemData.item} />}
         />}
     </>
@@ -40,10 +28,14 @@ const Assignatures = () => {
 
 export default Assignatures
 
-// data={expenses}
-// renderItem={(itemData) => (
-//   <ExpenseItem
-//     expense={itemData.item}
-//   />
-// )}
-// keyExtractor={(item) => item.id}
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: '#fff',
+        padding: 40, 
+    },
+    contentContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
+})
