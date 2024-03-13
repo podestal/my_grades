@@ -40,21 +40,20 @@ class Clase(models.Model):
     section = models.CharField(max_length=1, default='A')
 
     def __str__(self):
-        return f'{self.grade}-{self.section}'
+        return f'{self.grade}-{self.section}-{self.level}'
 
 class Instructor(models.Model):
 
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    school = models.ForeignKey(School, on_delete=models.CASCADE )
-    school = models.ForeignKey(School, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='instructor')
+    school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='instructors')
 
-    def __str__(self):
-        return f'{self.user.first_name} {self.user.last_name}'
+    # def __str__(self):
+    #     return f'{self.user.first_name} {self.user.last_name}'
 
 class Assignature(models.Model):
     title = models.CharField(max_length=255)
-    clase =  models.ForeignKey(Clase, on_delete=models.CASCADE)
-    Instructor = models.ForeignKey(Instructor, on_delete=models.PROTECT, blank=True, null=True)
+    clase =  models.ForeignKey(Clase, on_delete=models.CASCADE, related_name='assignatures')
+    Instructor = models.ForeignKey(Instructor, on_delete=models.PROTECT, blank=True, null=True, related_name='assignatures')
 
     def __str__(self):
         return self.title
@@ -63,7 +62,7 @@ class Student(models.Model):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     clase = models.ForeignKey(Clase, on_delete=models.PROTECT, related_name='students')
-    school = models.ForeignKey(School, on_delete=models.CASCADE)
+    school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='students')
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}'
@@ -71,8 +70,8 @@ class Student(models.Model):
 class Tutor(models.Model):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    student = models.ForeignKey(Student, on_delete=models.PROTECT, related_name='tutor')
-    school = models.ForeignKey(School, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.PROTECT, related_name='tutors')
+    school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='tutors')
     
 
 class Assignment(models.Model):

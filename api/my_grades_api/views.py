@@ -13,7 +13,7 @@ class SchoolViewSet(ModelViewSet):
 
 class ClaseViewSet(ModelViewSet):
 
-    queryset = models.Clase.objects.all()
+    queryset = models.Clase.objects.select_related('school')
     serializer_class = serializers.ClaseSerializer
     http_method_names = ['get', 'post', 'patch', 'delete']
 
@@ -29,8 +29,12 @@ class ClaseViewSet(ModelViewSet):
 
 class AssignatureViewSet(ModelViewSet):
 
-    def get_queryset(self):
-        return models.Assignature.objects.filter(Instructor_id=self.request.user.id)
+    queryset =  models.Assignature.objects.select_related('clase', 'Instructor')
+
+    # def get_queryset(self):
+    #     if self.request.user.is_superuser:
+    #         return models.Assignature.objects.select_related('clase', 'Instructor')
+    #     return models.Assignature.objects.filter(Instructor_id=self.request.user.id)
     
     def get_permissions(self):
         if self.request.method in ['PATCH', 'POST', 'DELETE']:
@@ -41,6 +45,7 @@ class AssignatureViewSet(ModelViewSet):
         if self.request.method == 'POST':
             return serializers.CreateAssignatureSerializer
         return serializers.GetAssignatureSerializer
+    
 
 class AssignmentViewSet(ModelViewSet):
     queryset = models.Assignment.objects.all()
@@ -53,7 +58,7 @@ class AssignmentViewSet(ModelViewSet):
     
 
 class StudentViewSet(ModelViewSet):
-    queryset = models.Student.objects.all()
+    queryset = models.Student.objects.select_related('school', 'clase', 'user')
     
     def get_serializer_class(self):
         if self.request.method == 'POST':
@@ -66,13 +71,13 @@ class StudentViewSet(ModelViewSet):
         return [IsAuthenticated()]
 
 class InstructorViewSet(ModelViewSet):
-    queryset = models.Instructor.objects.all()
+    queryset = models.Instructor.objects.select_related('school').prefetch_related('user')
     permission_classes = [IsAdminUser]
     
     def get_serializer_class(self):
         if self.request.method == 'POST':
-            return serializers.GetInstructorSerializer
-        return serializers.CreateInstructorSerializer
+            return serializers.CreateInstructorSerializer
+        return serializers.GetInstructorSerializer
     
 class TutorViewSet(ModelViewSet):
 

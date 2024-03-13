@@ -10,9 +10,14 @@ class SchoolSerializer(serializers.ModelSerializer):
 
 class ClaseSerializer(serializers.ModelSerializer):
 
+    title = serializers.SerializerMethodField('get_title')
+
     class Meta:
         model = models.Clase
-        fields = '__all__'
+        fields = ['id', 'title', 'school']
+
+    def get_title(self, clase=models.Clase):
+        return f'{clase.grade}-{clase.section}-{clase.level}'
 
 class CreateClaseSerializer(serializers.ModelSerializer):
 
@@ -59,18 +64,18 @@ class CreateInstructorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Instructor
-        fields = '__all__'
+        fields = ['user', 'school']
 
 class CreateAssignatureSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Assignature
-        fields = '__all__'
+        fields = ['title', 'clase', 'Instructor']
 
 class GetAssignatureSerializer(serializers.ModelSerializer):
 
     clase = ClaseSerializer()
-    Instructor = GetInstructorSerializer()
+    # Instructor = GetInstructorSerializer()
 
     class Meta:
         model = models.Assignature
@@ -92,7 +97,7 @@ class CreateStudentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Student
-        fields = '__all__'
+        fields = ['clase', 'user', 'school']
 
 class TutorSerializer(serializers.ModelSerializer):
 
