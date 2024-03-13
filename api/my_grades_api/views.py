@@ -13,7 +13,7 @@ class SchoolViewSet(ModelViewSet):
 
 class ClaseViewSet(ModelViewSet):
 
-    queryset = models.Clase.objects.select_related('school')
+    queryset = models.Clase.objects.select_related('school').prefetch_related('assignatures')
     serializer_class = serializers.ClaseSerializer
     http_method_names = ['get', 'post', 'patch', 'delete']
 
@@ -58,7 +58,7 @@ class AssignmentViewSet(ModelViewSet):
     
 
 class StudentViewSet(ModelViewSet):
-    queryset = models.Student.objects.select_related('school', 'clase', 'user')
+    queryset = models.Student.objects.select_related('school', 'clase', 'user').prefetch_related('atendances')
     
     def get_serializer_class(self):
         if self.request.method == 'POST':

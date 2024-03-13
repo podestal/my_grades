@@ -64,8 +64,8 @@ class Student(models.Model):
     clase = models.ForeignKey(Clase, on_delete=models.PROTECT, related_name='students')
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='students')
 
-    def __str__(self):
-        return f'{self.user.first_name} {self.user.last_name}'
+    # def __str__(self):
+    #     return f'{self.user.first_name} {self.user.last_name}'
 
 class Tutor(models.Model):
 
