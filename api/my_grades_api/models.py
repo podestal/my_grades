@@ -78,6 +78,9 @@ class Competence(models.Model):
     title = models.CharField(max_length=255)
     value = models.FloatField()
     instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
     
 
 class Assignment(models.Model):
@@ -94,9 +97,6 @@ class Assignment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     due_date = models.DateField(null=True, blank=True)
     assignature = models.ForeignKey(Assignature, on_delete=models.PROTECT)
-    clase = models.ForeignKey(Clase, on_delete=models.PROTECT)
-    student = models.ForeignKey(Student, on_delete=models.PROTECT)
-    califaction = models.CharField(max_length=2, choices=CALIFICATION_CHOICES, blank=True, null=True)
 
     def __str__(self):
         return self.title

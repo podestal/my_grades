@@ -46,8 +46,17 @@ class AssignatureViewSet(ModelViewSet):
     
 
 class AssignmentViewSet(ModelViewSet):
-    queryset = models.Assignment.objects.all()
-    serializer_class = serializers.AssignmentSerializer
+
+    queryset = models.Assignment.objects.select_related('competence', 'assignature')
+    http_method_names = ['get', 'post', 'patch', 'delete']
+
+    def get_serializer_class(self):
+
+        if self.request.method == 'POST':
+            return serializers.CreateAssignmentSerializer
+        elif self.request.method == 'PATCH':
+            return serializers.UpdateAssignmentSerializer
+        return serializers.GetAssignmentSerializer
 
     def get_permissions(self):
         if self.request.method in ['PATCH', 'POST', 'DELETE']:
@@ -83,6 +92,8 @@ class InstructorViewSet(ModelViewSet):
         return serializers.GetInstructorSerializer
     
 class CompetenceViewSet(ModelViewSet):
+
+    permission_classes = [IsAdminUser]
 
     def get_queryset(self):
 

@@ -103,11 +103,23 @@ class CreateCompetenceSerializer(serializers.ModelSerializer):
         instructor_id = self.context['instructor_id']
         return models.Competence.objects.create(instructor_id=instructor_id, **validated_data)
 
-class AssignmentSerializer(serializers.ModelSerializer):
+class GetAssignmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Assignment
         fields = '__all__'
+
+class CreateAssignmentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Assignment
+        fields = ['title', 'due_date', 'competence', 'assignature']
+
+class UpdateAssignmentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Assignment
+        fields = ['title', 'due_date', 'competence', 'assignature']
 
 class AtendanceSerializer(serializers.ModelSerializer):
 
