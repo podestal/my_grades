@@ -29,22 +29,19 @@ class ClaseViewSet(ModelViewSet):
 
 class AssignatureViewSet(ModelViewSet):
 
-    queryset =  models.Assignature.objects.select_related('clase', 'Instructor')
+    permission_classes = [permissions.IsSuperUserOrReadOnly]
 
-    # def get_queryset(self):
-    #     if self.request.user.is_superuser:
-    #         return models.Assignature.objects.select_related('clase', 'Instructor')
-    #     return models.Assignature.objects.filter(Instructor_id=self.request.user.id)
-    
-    def get_permissions(self):
-        if self.request.method in ['PATCH', 'POST', 'DELETE']:
-            return [IsAdminUser()]
-        return[IsAuthenticated()]
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return models.Assignature.objects.select_related('clase', 'Instructor')
+        return models.Assignature.objects.select_related('clase', 'Instructor').filter(Instructor_id=self.request.user.id)
     
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return serializers.CreateAssignatureSerializer
-        return serializers.GetAssignatureSerializer
+        if self.request.user.is_staff:
+            return serializers.GetAssignatureAsInstructorSeralizer
+        return serializers.GetAssignatureAsTutorSerializer
     
 
 class AssignmentViewSet(ModelViewSet):
@@ -76,8 +73,8 @@ class InstructorViewSet(ModelViewSet):
 
     def get_queryset(self):
         if self.request.user.is_superuser:
-            return models.Instructor.objects.select_related('school').prefetch_related('user')
-        return models.Instructor.objects.select_related('school').prefetch_related('user').filter(user_id=self.request.user.id)
+            return models.Instructor.objects.select_related('school', 'user')
+        return models.Instructor.objects.select_related('school', 'user').filter(user_id=self.request.user.id)
     
     def get_serializer_class(self):
         if self.request.method == 'POST':

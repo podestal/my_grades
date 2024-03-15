@@ -72,14 +72,20 @@ class CreateAssignatureSerializer(serializers.ModelSerializer):
         model = models.Assignature
         fields = ['title', 'clase', 'Instructor']
 
-class GetAssignatureSerializer(serializers.ModelSerializer):
+class GetAssignatureAsTutorSerializer(serializers.ModelSerializer):
 
-    clase = ClaseSerializer()
-    # Instructor = GetInstructorSerializer()
+    Instructor = GetInstructorSerializer()
 
     class Meta:
         model = models.Assignature
-        fields = ['id', 'title', 'clase', 'Instructor']
+        fields = ['id', 'title', 'Instructor']
+
+class GetAssignatureAsInstructorSeralizer(serializers.ModelSerializer):
+    clase = ClaseSerializer()
+
+    class Meta:
+        model = models.Assignature
+        fields = ['id', 'title', 'clase']
 
 class GetCompetenceSerializer(serializers.ModelSerializer):
 
