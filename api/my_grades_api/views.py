@@ -131,3 +131,7 @@ class AtendanceViewSet(ModelViewSet):
             return [IsAdminUser()]
         return [IsAuthenticated()]
     
+class GradeViewSet(ModelViewSet):
+
+    queryset = models.Grade.objects.select_related('student', 'assignment')
+    serializer_class = serializers.GetGradeSerializer

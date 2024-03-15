@@ -149,3 +149,9 @@ class GetStudentSerializer(serializers.ModelSerializer):
         model = models.Student
         fields = ['id', 'user', 'clase', 'atendances']
 
+class GetGradeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Grade
+        fields = '__all__'
+
