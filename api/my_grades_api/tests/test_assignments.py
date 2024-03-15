@@ -47,7 +47,7 @@ class TestCreateAssignment:
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_if_user_is_staff_returns_200(self):
-        date = datetime.datetime.date
+        competence = baker.make(models.Competence)
         assignature = baker.make(models.Assignature)
         clase = baker.make(models.Clase)
         student = baker.make(models.Student)
@@ -55,7 +55,7 @@ class TestCreateAssignment:
         client.force_authenticate(user=User(is_staff=True))
         response = client.post('/api/assignments/', {
             'title': 'Homework',
-            'assignment_type': 'P',
+            'competence': competence.pk,
             'assignature': assignature.pk,
             'clase': clase.pk,
             'student': student.pk,

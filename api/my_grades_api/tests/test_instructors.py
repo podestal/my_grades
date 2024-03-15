@@ -9,16 +9,16 @@ import pytest
 @pytest.mark.django_db
 class TestGetInstructors:
 
-    def test_if_user_is_anonymous_returns_401(self):
+    def test_if_user_is_anonymous_returns_200(self):
         client = APIClient()
         response = client.get('/api/instructors/')
-        assert response.status_code == status.HTTP_401_UNAUTHORIZED
+        assert response.status_code == status.HTTP_200_OK
 
-    def test_if_user_is_not_staff_returns_403(self):
+    def test_if_user_is_not_staff_returns_200(self):
         client = APIClient()
         client.force_authenticate(user=User(is_staff=False))
         response = client.get('/api/instructors/')
-        assert response.status_code == status.HTTP_403_FORBIDDEN
+        assert response.status_code == status.HTTP_200_OK
 
     def test_if_user_is_staff_returns_200(self):
         client = APIClient()
@@ -40,36 +40,12 @@ class TestCreateInstructors:
         response = client.post('/api/instructors/')
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
+    def test_if_user_is_staff_returns_403(self):
+        client = APIClient()
+        client.force_authenticate(user=User(is_staff=True))
+        response = client.post('/api/instructors/')
+        assert response.status_code == status.HTTP_403_FORBIDDEN
 
-    # FIX CREATE INSTRUCTOR
-
-    # user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    # school = models.ForeignKey(School, on_delete=models.CASCADE )
-
-    # def test_if_user_is_staff_returns_201(self):
-    #     school = baker.make(models.School)
-    #     user = baker.make(settings.AUTH_USER_MODEL)
-    #     client = APIClient()
-    #     client.force_authenticate(user=User(is_staff=True))
-    #     print('user', user)
-    #     response = client.post('/api/instructors/', {
-    #         'user': user.id,
-    #         'school': school.pk,
-    #     })
-    #     print(response.data)
-    #     assert response.status_code == status.HTTP_201_CREATED
-
-    # def test_if_user_is_staff_returns_200(self):
-    #     clase = baker.make(models.Clase)
-    #     user = baker.make(settings.AUTH_USER_MODEL)
-    #     client = APIClient()
-    #     client.force_authenticate(user=User(is_staff=True))
-    #     response = client.post('/api/students/', {
-    #         'clase': clase.pk,
-    #         'user': user.pk,
-    #     })
-    #     print(response.data)
-    #     assert response.status_code == status.HTTP_201_CREATED
 
 @pytest.mark.django_db
 class TestUpdateInstructors:
@@ -85,7 +61,7 @@ class TestUpdateInstructors:
         response = client.patch('/api/instructors/')
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
-    def test_if_user_is_staff_returns_200(self):
+    def test_if_user_is_staff_returns_403(self):
         instructor = baker.make(models.Instructor)
         school = baker.make(models.School)
         client = APIClient()
@@ -93,7 +69,7 @@ class TestUpdateInstructors:
         response = client.patch(f'/api/instructors/{instructor.id}/', {
             'school': school.pk,
         })
-        assert response.status_code == status.HTTP_200_OK
+        assert response.status_code == status.HTTP_403_FORBIDDEN
 
 @pytest.mark.django_db
 class TestDeleteInstructors:
@@ -109,9 +85,9 @@ class TestDeleteInstructors:
         response = client.delete('/api/instructors/')
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
-    def test_if_user_is_staff_returns_204(self):
+    def test_if_user_is_staff_returns_403(self):
         instructor = baker.make(models.Instructor)
         client = APIClient()
         client.force_authenticate(user=User(is_staff=True))
         response = client.delete(f'/api/instructors/{instructor.id}/')
-        assert response.status_code == status.HTTP_204_NO_CONTENT
+        assert response.status_code == status.HTTP_403_FORBIDDEN

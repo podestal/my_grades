@@ -8,10 +8,10 @@ import pytest
 @pytest.mark.django_db
 class TestGetAssignatures:
 
-    def test_if_user_is_anonymous_returns_401(self):
+    def test_if_user_is_anonymous_returns_200(self):
         client = APIClient()
         response = client.get('/api/assignatures/')
-        assert response.status_code == status.HTTP_401_UNAUTHORIZED
+        assert response.status_code == status.HTTP_200_OK
 
     def test_if_user_is_not_staff_returns_200(self):
         client = APIClient()
@@ -45,7 +45,7 @@ class TestCreateAssignatures:
         response = client.post('/api/assignatures/')
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
-    def test_if_user_is_staff_returns_200(self):
+    def test_if_user_is_staff_returns_403(self):
         clase = baker.make(models.Clase)
         instructor = baker.make(models.Instructor)
         client = APIClient()
@@ -55,7 +55,7 @@ class TestCreateAssignatures:
             'clase': clase.pk,
             'Instructor': instructor.pk,
         })
-        assert response.status_code == status.HTTP_201_CREATED
+        assert response.status_code == status.HTTP_403_FORBIDDEN
 
 @pytest.mark.django_db
 class TestUpdateAssignatures:
@@ -71,14 +71,14 @@ class TestUpdateAssignatures:
         response = client.patch('/api/assignatures/')
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
-    def test_if_user_is_staff_returns_200(self):
+    def test_if_user_is_staff_returns_403(self):
         assignature = baker.make(models.Assignature)
         client = APIClient()
         client.force_authenticate(user=User(is_staff=True))
         response = client.patch(f'/api/assignatures/{assignature.id}/', {
             'title': 'Chem-101',
         })
-        assert response.status_code == status.HTTP_200_OK
+        assert response.status_code == status.HTTP_403_FORBIDDEN
 
 @pytest.mark.django_db
 class TestDeleteAssignatures:
@@ -94,9 +94,9 @@ class TestDeleteAssignatures:
         response = client.delete('/api/assignatures/')
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
-    def test_if_user_is_staff_returns_204(self):
+    def test_if_user_is_staff_returns_403(self):
         assignature = baker.make(models.Assignature)
         client = APIClient()
         client.force_authenticate(user=User(is_staff=True))
         response = client.delete(f'/api/assignatures/{assignature.id}/')
-        assert response.status_code == status.HTTP_204_NO_CONTENT
+        assert response.status_code == status.HTTP_403_FORBIDDEN

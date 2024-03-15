@@ -69,7 +69,7 @@ class StudentViewSet(ModelViewSet):
 
 class InstructorViewSet(ModelViewSet):
 
-    permission_classes = [IsAdminUser]
+    permission_classes = [permissions.IsSuperUserOrReadOnly]
 
     def get_queryset(self):
         if self.request.user.is_superuser:
