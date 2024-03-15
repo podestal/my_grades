@@ -34,7 +34,8 @@ class AssignatureViewSet(ModelViewSet):
     def get_queryset(self):
         if self.request.user.is_superuser:
             return models.Assignature.objects.select_related('clase', 'Instructor')
-        return models.Assignature.objects.select_related('clase', 'Instructor').filter(Instructor_id=self.request.user.id)
+        instructor = models.Instructor.objects.get(user_id = self.request.user.id)
+        return models.Assignature.objects.select_related('clase', 'Instructor').filter(Instructor_id=instructor.id)
     
     def get_serializer_class(self):
         if self.request.method == 'POST':
@@ -83,8 +84,22 @@ class InstructorViewSet(ModelViewSet):
     
 class CompetenceViewSet(ModelViewSet):
 
-    queryset = models.Competence.objects.all()
-    serializer_class = serializers.GetCompetenceSerializer
+    def get_queryset(self):
+
+        if self.request.user.is_superuser:
+            return models.Competence.objects.select_related('instructor')
+        instructor = models.Instructor.objects.get(user_id = self.request.user.id)
+        return models.Competence.objects.select_related('instructor').filter(instructor_id=instructor.id)
+    
+    def get_serializer_class(self, *args, **kwargs):
+
+        if self.request.method == 'POST':
+            return serializers.CreateCompetenceSerializer
+        return serializers.GetCompetenceSerializer
+    
+    def get_serializer_context(self):
+        instructor = models.Instructor.objects.get(user_id = self.request.user.id)
+        return {'instructor_id': instructor.id}
     
 class TutorViewSet(ModelViewSet):
 

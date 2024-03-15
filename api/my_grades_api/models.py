@@ -77,7 +77,6 @@ class Competence(models.Model):
 
     title = models.CharField(max_length=255)
     value = models.FloatField()
-    assignature = models.ManyToManyField(Assignature, blank=True)
     instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE)
     
 
