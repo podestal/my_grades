@@ -81,6 +81,12 @@ class GetAssignatureSerializer(serializers.ModelSerializer):
         model = models.Assignature
         fields = ['id', 'title', 'clase', 'Instructor']
 
+class GetCompetenceSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Competence
+        fields = '__all__'
+
 class AssignmentSerializer(serializers.ModelSerializer):
 
     class Meta:

@@ -72,21 +72,16 @@ class Tutor(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     student = models.ForeignKey(Student, on_delete=models.PROTECT, related_name='tutors')
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='tutors')
+
+class Competence(models.Model):
+
+    title = models.CharField(max_length=255)
+    value = models.FloatField()
+    assignature = models.ManyToManyField(Assignature, blank=True)
+    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE)
     
 
 class Assignment(models.Model):
-
-    ASSIGNMENT_TYPE_PROJECT = 'P'
-    ASSIGNMENT_TYPE_QUIZZ = 'Q'
-    ASSIGNMENT_TYPE_TEST = 'T'
-    ASSIGNMENT_TYPE_HOMEWORK = 'H'
-
-    ASSIGNMENT_TYPE_CHOICES = [
-        (ASSIGNMENT_TYPE_PROJECT, 'Project'),
-        (ASSIGNMENT_TYPE_QUIZZ, 'Quizz'),
-        (ASSIGNMENT_TYPE_TEST, 'Test'),
-        (ASSIGNMENT_TYPE_HOMEWORK, 'Homework')
-    ]
 
     CALIFICATION_CHOICES = [
         ('AD', 'AD'),
@@ -96,7 +91,7 @@ class Assignment(models.Model):
     ]
 
     title = models.CharField(max_length=255)
-    assignment_type = models.CharField(max_length=1, choices=ASSIGNMENT_TYPE_CHOICES)
+    competence = models.ForeignKey(Competence, on_delete=models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
     due_date = models.DateField(null=True, blank=True)
     assignature = models.ForeignKey(Assignature, on_delete=models.PROTECT)

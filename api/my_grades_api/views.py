@@ -71,13 +71,23 @@ class StudentViewSet(ModelViewSet):
         return [IsAuthenticated()]
 
 class InstructorViewSet(ModelViewSet):
-    queryset = models.Instructor.objects.select_related('school').prefetch_related('user')
+
     permission_classes = [IsAdminUser]
+
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return models.Instructor.objects.select_related('school').prefetch_related('user')
+        return models.Instructor.objects.select_related('school').prefetch_related('user').filter(user_id=self.request.user.id)
     
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return serializers.CreateInstructorSerializer
         return serializers.GetInstructorSerializer
+    
+class CompetenceViewSet(ModelViewSet):
+
+    queryset = models.Competence.objects.all()
+    serializer_class = serializers.GetCompetenceSerializer
     
 class TutorViewSet(ModelViewSet):
 
