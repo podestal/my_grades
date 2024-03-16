@@ -104,13 +104,17 @@ class InstructorViewSet(ModelViewSet):
 class CompetenceViewSet(ModelViewSet):
 
     permission_classes = [IsAdminUser]
+    http_method_names = ['get', 'post', 'patch', 'delete']
 
     def get_queryset(self):
-
         if self.request.user.is_superuser:
             return models.Competence.objects.select_related('instructor')
-        instructor = models.Instructor.objects.get(user_id = self.request.user.id)
-        return models.Competence.objects.select_related('instructor').filter(instructor_id=instructor.id)
+        try:
+            instructor = models.Instructor.objects.get(user_id = self.request.user.id)
+            return models.Competence.objects.select_related('instructor').filter(instructor_id=instructor.id)
+        except:
+            print('no instructor id found')
+        return models.Competence.objects.select_related('instructor').filter(instructor_id=0)
     
     def get_serializer_class(self, *args, **kwargs):
 
@@ -118,9 +122,13 @@ class CompetenceViewSet(ModelViewSet):
             return serializers.CreateCompetenceSerializer
         return serializers.GetCompetenceSerializer
     
-    def get_serializer_context(self):
-        instructor = models.Instructor.objects.get(user_id = self.request.user.id)
-        return {'instructor_id': instructor.id}
+    # def get_serializer_context(self):
+
+    #     try:
+    #         instructor = models.Instructor.objects.get(user_id = self.request.user.id)
+    #         return {'instructor_id': instructor.id}
+    #     except:
+    #         return {}
     
 class TutorViewSet(ModelViewSet):
 
