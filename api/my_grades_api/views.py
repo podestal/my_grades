@@ -1,5 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
+from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 from . import permissions
 from . import models
@@ -30,20 +31,28 @@ class ClaseViewSet(ModelViewSet):
 
 class AssignatureViewSet(ModelViewSet):
 
-    permission_classes = [permissions.IsSuperUserOrReadOnly]
-
     def get_queryset(self):
         if self.request.user.is_superuser:
             return models.Assignature.objects.select_related('clase', 'Instructor')
-        instructor = models.Instructor.objects.get(user_id = self.request.user.id)
-        return models.Assignature.objects.select_related('clase', 'Instructor').filter(Instructor_id=instructor.id)
-    
+        try:
+            instructor = models.Instructor.objects.get(user_id = self.request.user.id)
+            return models.Assignature.objects.select_related('clase', 'Instructor').filter(Instructor_id=instructor.id)
+        except:
+            print('no instructor')
+            
+        return models.Assignature.objects.select_related('clase', 'Instructor').filter(Instructor_id=0)
+
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return serializers.CreateAssignatureSerializer
         if self.request.user.is_staff:
             return serializers.GetAssignatureAsInstructorSeralizer
         return serializers.GetAssignatureAsTutorSerializer
+    
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [IsAuthenticated()]
+        return [permissions.IsSuperUserOrReadOnly()]
     
 
 class AssignmentViewSet(ModelViewSet):

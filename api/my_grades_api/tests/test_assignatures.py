@@ -8,10 +8,10 @@ import pytest
 @pytest.mark.django_db
 class TestGetAssignatures:
 
-    def test_if_user_is_anonymous_returns_200(self):
+    def test_if_user_is_anonymous_returns_401(self):
         client = APIClient()
         response = client.get('/api/assignatures/')
-        assert response.status_code == status.HTTP_200_OK
+        assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_if_user_is_not_staff_returns_200(self):
         client = APIClient()
