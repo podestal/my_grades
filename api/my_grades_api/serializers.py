@@ -12,9 +12,10 @@ class ClaseSerializer(serializers.ModelSerializer):
 
     title = serializers.SerializerMethodField('get_title')
 
+
     class Meta:
         model = models.Clase
-        fields = ['id', 'title', 'school', 'level']
+        fields = ['id', 'title', 'school', 'level', 'students']
 
     def get_title(self, clase=models.Clase):
         return f'{clase.grade}-{clase.section}'
@@ -118,6 +119,50 @@ class CreateAssignmentSerializer(serializers.ModelSerializer):
         model = models.Assignment
         fields = ['title', 'due_date', 'competence', 'assignature']
 
+    def create(self, validated_data):
+
+
+        # assignment_id = self.context['assignment_id']
+        # clase = models.Assignment.objects.get(id=assignment_id).assignature.clase.id
+        # # assignature_id = assignment.assignature_id
+        # # assignature = models.Assignature.objects.get(id=assignature_id)
+        # students = models.Student.objects.filter(clase_id=clase)
+        # for student in students:
+        #     print('student id: ',student.id)
+
+
+        # account = self.validated_data.get('account')
+        # screen_limit = account.service.screen_limit
+        # service = account.service
+        # username = account.username
+        # password = account.password
+        # if self.validated_data.get('bulk') == True:
+        #     screens = [models.Screen(
+        #         position = screen+1,
+        #         service = service,
+        #         username = username,
+        #         password = password,
+        #         **self.validated_data
+        #     )for screen in range(0, screen_limit)]
+        #     return models.Screen.objects.bulk_create(screens)
+        # else:
+        #     return models.Screen.objects.create(service = service, username = username, password = password, **self.validated_data)
+        assignment = models.Assignment.objects.create(**validated_data)
+        assignature_id = assignment.assignature.id
+        clase_id = models.Assignature.objects.get(id=assignature_id).clase.id
+        students = models.Student.objects.filter(clase=clase_id)
+
+
+        grades = [models.Grade(
+            assignment=assignment,
+            student = student
+        ) for student in students]
+
+        models.Grade.objects.bulk_create(grades)
+        return assignment
+
+
+
 class UpdateAssignmentSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -164,7 +209,3 @@ class CreateGradeSerializer(serializers.ModelSerializer):
         model = models.Grade
         fields = ['student']
 
-    def create(self, validated_data):
-        assignment_id = self.context['assignment_id']
-
-        return models.Grade.objects.create(assignment_id=assignment_id, **validated_data)
