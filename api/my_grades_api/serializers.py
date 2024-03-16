@@ -156,5 +156,15 @@ class GetGradeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Grade
-        fields = '__all__'
+        fields = ['id', 'calification', 'student', 'assignment']
 
+class CreateGradeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Grade
+        fields = ['student']
+
+    def create(self, validated_data):
+        assignment_id = self.context['assignment_id']
+
+        return models.Grade.objects.create(assignment_id=assignment_id, **validated_data)

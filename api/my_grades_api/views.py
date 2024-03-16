@@ -151,7 +151,6 @@ class AtendanceViewSet(ModelViewSet):
     
 class GradeViewSet(ModelViewSet):
 
-    queryset = models.Grade.objects.select_related('student', 'assignment')
     serializer_class = serializers.GetGradeSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['assignment']
@@ -159,5 +158,15 @@ class GradeViewSet(ModelViewSet):
     def get_queryset(self):
         return models.Grade.objects.select_related('student', 'assignment').filter(assignment_id=self.kwargs['assignment_pk']) 
     
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return serializers.CreateGradeSerializer
+        return serializers.GetGradeSerializer
+
     def get_permissions(self):
-        return [IsAuthenticated()]
+        if self.request.method == 'GET':
+            return [IsAuthenticated()]
+        return [IsAdminUser()]
+    
+    def get_serializer_context(self):
+        return {'assignment_id': self.kwargs['assignment_pk']}
