@@ -155,3 +155,10 @@ class GradeViewSet(ModelViewSet):
     serializer_class = serializers.GetGradeSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['assignment']
+
+    # calification 
+    # student 
+    # assignment
+    
+    def get_permissions(self):
+        return [IsAuthenticated()]
