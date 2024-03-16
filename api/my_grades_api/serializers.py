@@ -107,7 +107,7 @@ class GetAssignmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Assignment
-        fields = '__all__'
+        fields = ['id', 'title', 'created_at', 'due_date', 'competence', 'assignature']
 
 class CreateAssignmentSerializer(serializers.ModelSerializer):
 

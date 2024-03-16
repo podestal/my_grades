@@ -103,12 +103,13 @@ class Atendance(models.Model):
 class Grade(models.Model):
 
     CALIFICATION_CHOICES = [
+        ('NA', 'NA'),
         ('AD', 'AD'),
         ('A', 'A'),
         ('B', 'B'),
         ('C', 'C')
     ]
 
-    calification = models.CharField(max_length=2, choices=CALIFICATION_CHOICES)
-    student = models.ForeignKey(Student, on_delete=models.PROTECT, related_name='grade')
-    assignment = models.ForeignKey(Assignment, on_delete=models.PROTECT, related_name='grade')
+    calification = models.CharField(max_length=2, choices=CALIFICATION_CHOICES, default='NA')
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='grades')
+    assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE, related_name='grades')

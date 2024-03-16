@@ -1,5 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
+from django_filters.rest_framework import DjangoFilterBackend
 from . import permissions
 from . import models
 from . import serializers
@@ -135,3 +136,5 @@ class GradeViewSet(ModelViewSet):
 
     queryset = models.Grade.objects.select_related('student', 'assignment')
     serializer_class = serializers.GetGradeSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['assignment']
