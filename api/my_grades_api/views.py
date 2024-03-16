@@ -156,9 +156,8 @@ class GradeViewSet(ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['assignment']
 
-    # calification 
-    # student 
-    # assignment
+    def get_queryset(self):
+        return models.Grade.objects.select_related('student', 'assignment').filter(assignment_id=self.kwargs['assignment_pk']) 
     
     def get_permissions(self):
         return [IsAuthenticated()]
