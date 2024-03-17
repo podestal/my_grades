@@ -16,7 +16,7 @@ class SchoolViewSet(ModelViewSet):
 
 class ClaseViewSet(ModelViewSet):
 
-    queryset = models.Clase.objects.select_related('school').prefetch_related('assignatures')
+    queryset = models.Clase.objects.select_related('school').prefetch_related('assignatures', 'students')
     serializer_class = serializers.ClaseSerializer
     http_method_names = ['get', 'post', 'patch', 'delete']
     filter_backends = [DjangoFilterBackend]
@@ -25,7 +25,7 @@ class ClaseViewSet(ModelViewSet):
 
     def get_permissions(self):
         if self.request.method in ['PATCH', 'POST', 'DELETE']:
-            return [IsAdminUser()]
+            return [permissions.IsSuperUserOrReadOnly()]
         return[IsAuthenticated()]
 
     def get_serializer_class(self):
