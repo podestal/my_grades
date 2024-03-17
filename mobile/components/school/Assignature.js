@@ -1,12 +1,17 @@
 import { Text, StyleSheet, Pressable } from "react-native"
 import Title from "../utils/Title"
+import { useNavigation } from "@react-navigation/native"
 
 const Assignature = ({ assignature }) => {
 
+    const navigator = useNavigation()
     const level = assignature?.clase?.level == 'P' ? 'Primaria' : 'Secundaria'
 
     const handlePress = () => {
         console.log(`${assignature.title} pressed`);
+        navigator.navigate('Assignments', {
+            assignatureId: assignature.id
+        })
     }
 
     return (

@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Appearance from '../components/school/Appearance'
 import BottonNavigator from './BottomNavigator'
+import Assignments from '../components/school/Assignments'
+import Assignatures from '../components/school/Assignatures'
 
 const AuthNavigator = () => {
 
@@ -9,14 +10,22 @@ const AuthNavigator = () => {
     return (
         <Stack.Navigator
             screenOptions={{
-                // headerStyle: { backgroundColor: '#000' },
-                // headerTintColor: '#fff',              
-                // headerTitleStyle: {
-                //     fontSize: 25,
-                // }
-                headerShown: false
+                headerStyle: { backgroundColor: '#000' },
+                headerTintColor: '#fff',              
+                headerTitleStyle: {
+                    fontSize: 25,
+                }
+                // headerShown: false
             }}
         >
+            <Stack.Screen 
+                name='Assignatures' 
+                component={Assignatures} 
+            />
+            <Stack.Screen 
+                name='Assignments' 
+                component={Assignments} 
+            />
             <Stack.Screen 
                 name='Appearance' 
                 component={BottonNavigator} 

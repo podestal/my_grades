@@ -13,3 +13,7 @@ export const getUser = (token) => axios.get(`${URL}auth/users/me/`, {
 export const getAssignatures = token => axios.get(`${URL}api/assignatures/` ,{
     headers: { Authorization: `JWT ${token}` }
 })
+
+export const getAssignments = data => axios.get(`${URL}api/assignments/?assignature=${data.assignature}` ,{
+    headers: { Authorization: `JWT ${data.token}` }
+})

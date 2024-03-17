@@ -17,7 +17,7 @@ const BottonNavigator = () => {
         }}
     >   
         <Tab.Screen name='Main' component={Main} options={{ title: 'Inicio' }}/>
-        <Tab.Screen name='Appearance' component={Appearance} options={{ title: 'Asistencias' }}/>
+        {/* <Tab.Screen name='Appearance' component={Appearance} options={{ title: 'Asistencias' }}/> */}
         <Tab.Screen name='Assignments' component={Assignatures} options={{ title: 'Cursos' }}/>
     </Tab.Navigator>
   )
