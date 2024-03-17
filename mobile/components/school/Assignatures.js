@@ -1,27 +1,31 @@
 import { useQuery } from "@tanstack/react-query"
 import { getAssignatures } from "../../api/api"
 import useAuth from "../../hooks/useAuth"
-import { FlatList, Text, View, StyleSheet, Pressable } from "react-native"
+import { Text, StyleSheet } from "react-native"
 import Assignature from "./Assignature"
+import List from "../utils/List"
 
 const Assignatures = () => {
 
     const {user} = useAuth()
 
-    const { data: assignatures } = useQuery({
+    const { data: assignatures, isLoading, isError, error } = useQuery({
         queryKey: ['assignatures'],
         queryFn: () => getAssignatures(user.access)
     })
 
+    if (isLoading) return <Text>Loading ...</Text>
+
+    if (isError) return <Text>{error.message}</Text>
+
   return (
     <>
-        {assignatures && <FlatList 
+    
+        <List 
             data={assignatures.data}
-            keyExtractor={ item => item.id}
-            style={styles.container}
-            contentContainerStyle={styles}
-            renderItem={ itemData => <Assignature assignature={itemData.item} />}
-        />}
+            DetailComponent={Assignature}
+        />
+
     </>
   )
 }

@@ -1,27 +1,31 @@
-import { FlatList, StyleSheet } from "react-native"
+import { FlatList, StyleSheet, Text } from "react-native"
 import { useQuery } from "@tanstack/react-query"
 import { getAssignments } from "../../api/api"
 import useAuth from "../../hooks/useAuth"
 import Assignment from "./Assignment"
+import List from "../utils/List"
 
 const Assignments = ({ route }) => {
 
     const assignatureId = route.params.assignatureId
     const {user} = useAuth()
-    const {data: assignments} = useQuery({
+    const {data: assignments, isLoading, isError, error} = useQuery({
         queryKey: ['assignments'],
         queryFn: () => getAssignments({token: user.access, assignature:assignatureId})
     })
 
+    if (isLoading) return <Text>Loading ...</Text>
+
+    if (isError) return <Text>{error.message}</Text>
+
   return (
     <>
-        {assignments && <FlatList 
-            data={assignments.data}
-            keyExtractor={ item => item.id}
-            style={styles.container}
-            contentContainerStyle={styles}
-            renderItem={ itemData => <Assignment assignment={itemData.item} />}
-        />}
+        {assignments && 
+            <List 
+                data={assignments.data}
+                DetailComponent={Assignment}
+            />
+        }
     </>
   )
 }

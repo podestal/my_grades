@@ -4,25 +4,28 @@ import { getGrades } from '../../api/api'
 import useAuth from '../../hooks/useAuth'
 import { StyleSheet, Text, FlatList } from 'react-native'
 import Grade from './Grade'
+import List from '../utils/List'
 
-const Grades = () => {
+const Grades = ({ route }) => {
 
     const { user } = useAuth()
+    const assignmentId = route.params.assignmentId
 
-    const {data: grades} = useQuery({
+    const {data: grades, isLoading, isError, error} = useQuery({
         queryKey: ['grades'],
-        queryFn: () => getGrades({ token: user.access })
+        queryFn: () => getGrades({ token: user.access, assignmentId })
     })
+
+    if (isLoading) return <Text>Loading ...</Text>
+
+    if (isError) return <Text>{error.message}</Text>
 
   return (
     <>  
-        {grades && <FlatList 
+        <List 
             data={grades.data}
-            keyExtractor={ item => item.id}
-            style={styles.container}
-            contentContainerStyle={styles}
-            renderItem={ itemData => <Grade grade={itemData.item} />}
-        />}
+            DetailComponent={Grade}
+        />
     </>
   )
 }

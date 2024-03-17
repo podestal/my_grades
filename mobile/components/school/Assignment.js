@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { Text, StyleSheet, Pressable } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 
-const Assignment = ({ assignment }) => {
+const Assignment = ({ data: assignment }) => {
 
     const navigator = useNavigation()
 
@@ -11,7 +11,9 @@ const Assignment = ({ assignment }) => {
     }, [])
 
     const handlePress = () => {
-        navigator.navigate('Grades')
+        navigator.navigate('Grades', {
+            assignmentId: assignment.id
+        })
     }
 
   return (

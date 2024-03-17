@@ -18,6 +18,6 @@ export const getAssignments = data => axios.get(`${URL}api/assignments/?assignat
     headers: { Authorization: `JWT ${data.token}` }
 })
 
-export const getGrades = data => axios.get(`${URL}api/assignments/22/grades/` ,{
+export const getGrades = data => axios.get(`${URL}api/assignments/${data.assignmentId}/grades/` ,{
     headers: { Authorization: `JWT ${data.token}` }
 })
