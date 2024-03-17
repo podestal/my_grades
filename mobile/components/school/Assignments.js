@@ -1,9 +1,8 @@
-import Title from "../utils/Title"
 import { FlatList, StyleSheet } from "react-native"
 import { useQuery } from "@tanstack/react-query"
 import { getAssignments } from "../../api/api"
 import useAuth from "../../hooks/useAuth"
-import { useEffect } from "react"
+import Assignment from "./Assignment"
 
 const Assignments = ({ route }) => {
 
@@ -14,10 +13,6 @@ const Assignments = ({ route }) => {
         queryFn: () => getAssignments({token: user.access, assignature:assignatureId})
     })
 
-    useEffect(() => {
-        console.log('Assignature:', assignatureId)
-    }, [])
-
   return (
     <>
         {assignments && <FlatList 
@@ -25,7 +20,7 @@ const Assignments = ({ route }) => {
             keyExtractor={ item => item.id}
             style={styles.container}
             contentContainerStyle={styles}
-            renderItem={ itemData => <Title text={itemData.item.title} />}
+            renderItem={ itemData => <Assignment assignment={itemData.item} />}
         />}
     </>
   )

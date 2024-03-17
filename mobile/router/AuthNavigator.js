@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import BottonNavigator from './BottomNavigator'
 import Assignments from '../components/school/Assignments'
 import Assignatures from '../components/school/Assignatures'
+import Grades from '../components/school/Grades'
 
 const AuthNavigator = () => {
 
@@ -27,8 +28,8 @@ const AuthNavigator = () => {
                 component={Assignments} 
             />
             <Stack.Screen 
-                name='Appearance' 
-                component={BottonNavigator} 
+                name='Grades' 
+                component={Grades} 
             />
         </Stack.Navigator>
     )

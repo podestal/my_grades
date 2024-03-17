@@ -8,7 +8,6 @@ const Assignature = ({ assignature }) => {
     const level = assignature?.clase?.level == 'P' ? 'Primaria' : 'Secundaria'
 
     const handlePress = () => {
-        console.log(`${assignature.title} pressed`);
         navigator.navigate('Assignments', {
             assignatureId: assignature.id
         })
