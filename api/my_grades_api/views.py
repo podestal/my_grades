@@ -1,6 +1,7 @@
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
+from rest_framework.decorators import action, permission_classes
 from django_filters.rest_framework import DjangoFilterBackend
 from . import permissions
 from . import models
@@ -103,6 +104,14 @@ class InstructorViewSet(ModelViewSet):
         if self.request.method == 'POST':
             return serializers.CreateInstructorSerializer
         return serializers.GetInstructorSerializer
+    
+    @action(detail=False, methods=['GET'], permission_classes=[IsAuthenticated])
+    def me(self, request):
+        instructor = models.Instructor.objects.get(user_id=self.request.user.id)
+        serializer = serializers.GetInstructorSerializer(instructor)
+        return Response(serializer.data)
+
+    
     
 class CompetenceViewSet(ModelViewSet):
 
