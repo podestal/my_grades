@@ -136,7 +136,6 @@ class CreateAssignmentSerializer(serializers.ModelSerializer):
         return assignment
 
 
-
 class UpdateAssignmentSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -163,7 +162,6 @@ class TutorSerializer(serializers.ModelSerializer):
 
 class GetStudentSerializer(serializers.ModelSerializer):
 
-    clase = ClaseSerializer()
     user = GetUserSerializer()
     atendances = AtendanceSerializer(many=True)
 

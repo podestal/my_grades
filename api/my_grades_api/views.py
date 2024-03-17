@@ -65,6 +65,9 @@ class AssignmentViewSet(ModelViewSet):
     queryset = models.Assignment.objects.select_related('competence', 'assignature')
     http_method_names = ['get', 'post', 'patch', 'delete']
 
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['assignature']
+
     def get_serializer_class(self):
 
         if self.request.method == 'POST':
