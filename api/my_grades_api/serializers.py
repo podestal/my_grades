@@ -188,3 +188,8 @@ class CreateGradeSerializer(serializers.ModelSerializer):
         model = models.Grade
         fields = ['student']
 
+class UpgradeGradeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Grade
+        fields = ['calification']

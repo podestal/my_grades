@@ -171,6 +171,7 @@ class GradeViewSet(ModelViewSet):
     serializer_class = serializers.GetGradeSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['assignment']
+    http_method_names = ['get', 'post', 'patch', 'delete']
 
     def get_queryset(self):
         return models.Grade.objects.select_related('student', 'assignment').filter(assignment_id=self.kwargs['assignment_pk']) 
@@ -178,6 +179,8 @@ class GradeViewSet(ModelViewSet):
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return serializers.CreateGradeSerializer
+        if self.request.method == 'PATCH':
+            return serializers.UpgradeGradeSerializer
         return serializers.GetGradeSerializer
 
     def get_permissions(self):
