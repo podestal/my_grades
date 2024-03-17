@@ -121,32 +121,6 @@ class CreateAssignmentSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
 
-
-        # assignment_id = self.context['assignment_id']
-        # clase = models.Assignment.objects.get(id=assignment_id).assignature.clase.id
-        # # assignature_id = assignment.assignature_id
-        # # assignature = models.Assignature.objects.get(id=assignature_id)
-        # students = models.Student.objects.filter(clase_id=clase)
-        # for student in students:
-        #     print('student id: ',student.id)
-
-
-        # account = self.validated_data.get('account')
-        # screen_limit = account.service.screen_limit
-        # service = account.service
-        # username = account.username
-        # password = account.password
-        # if self.validated_data.get('bulk') == True:
-        #     screens = [models.Screen(
-        #         position = screen+1,
-        #         service = service,
-        #         username = username,
-        #         password = password,
-        #         **self.validated_data
-        #     )for screen in range(0, screen_limit)]
-        #     return models.Screen.objects.bulk_create(screens)
-        # else:
-        #     return models.Screen.objects.create(service = service, username = username, password = password, **self.validated_data)
         assignment = models.Assignment.objects.create(**validated_data)
         assignature_id = assignment.assignature.id
         clase_id = models.Assignature.objects.get(id=assignature_id).clase.id

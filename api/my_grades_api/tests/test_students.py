@@ -46,7 +46,7 @@ class TestCreateStudents:
         response = client.post('/api/students/')
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
-    def test_if_user_is_staff_returns_201(self):
+    def test_if_user_is_staff_returns_403(self):
         clase = baker.make(models.Clase)
         school = baker.make(models.School)
         user = baker.make(settings.AUTH_USER_MODEL)
@@ -58,7 +58,7 @@ class TestCreateStudents:
             'school': school.pk,
         })
         print(response.data)
-        assert response.status_code == status.HTTP_201_CREATED
+        assert response.status_code == status.HTTP_403_FORBIDDEN
 
 @pytest.mark.django_db
 class TestUpdateStudents:
@@ -74,7 +74,7 @@ class TestUpdateStudents:
         response = client.patch('/api/students/')
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
-    def test_if_user_is_staff_returns_200(self):
+    def test_if_user_is_staff_returns_403(self):
         student = baker.make(models.Student)
         clase = baker.make(models.Clase)
         client = APIClient()
@@ -82,7 +82,7 @@ class TestUpdateStudents:
         response = client.patch(f'/api/students/{student.id}/', {
             'clase': clase.pk,
         })
-        assert response.status_code == status.HTTP_200_OK
+        assert response.status_code == status.HTTP_403_FORBIDDEN
 
 @pytest.mark.django_db
 class TestDeleteStudents:
@@ -98,9 +98,9 @@ class TestDeleteStudents:
         response = client.delete('/api/students/')
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
-    def test_if_user_is_staff_returns_204(self):
+    def test_if_user_is_staff_returns_403(self):
         student = baker.make(models.Student)
         client = APIClient()
         client.force_authenticate(user=User(is_staff=True))
         response = client.delete(f'/api/students/{student.id}/')
-        assert response.status_code == status.HTTP_204_NO_CONTENT
+        assert response.status_code == status.HTTP_403_FORBIDDEN

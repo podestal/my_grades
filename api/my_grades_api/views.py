@@ -1,7 +1,7 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
-from rest_framework.decorators import action, permission_classes
+from rest_framework.decorators import action
 from django_filters.rest_framework import DjangoFilterBackend
 from . import permissions
 from . import models
@@ -13,6 +13,7 @@ class SchoolViewSet(ModelViewSet):
     serializer_class = serializers.SchoolSerializer
     permission_classes = [permissions.IsSuperUserOrReadOnly]
     http_method_names = ['get', 'post', 'patch', 'delete']
+
 
 class ClaseViewSet(ModelViewSet):
 
@@ -79,17 +80,22 @@ class AssignmentViewSet(ModelViewSet):
     
 
 class StudentViewSet(ModelViewSet):
+
     queryset = models.Student.objects.select_related('school', 'clase', 'user').prefetch_related('atendances')
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['clase']
+    http_method_names = ['get', 'post', 'patch', 'delete']
+
+    def get_permissions(self):
+        if self.request.method in ['PATCH', 'POST', 'DELETE']:
+            return [permissions.IsSuperUserOrReadOnly()]
+        return[IsAuthenticated()]
     
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return serializers.CreateStudentSerializer
         return serializers.GetStudentSerializer
 
-    def get_permissions(self):
-        if self.request.method in ['PATCH', 'POST', 'DELETE']:
-            return [IsAdminUser()]
-        return [IsAuthenticated()]
 
 class InstructorViewSet(ModelViewSet):
 
@@ -134,27 +140,23 @@ class CompetenceViewSet(ModelViewSet):
             return serializers.CreateCompetenceSerializer
         return serializers.GetCompetenceSerializer
     
-    # def get_serializer_context(self):
-
-    #     try:
-    #         instructor = models.Instructor.objects.get(user_id = self.request.user.id)
-    #         return {'instructor_id': instructor.id}
-    #     except:
-    #         return {}
     
 class TutorViewSet(ModelViewSet):
 
     queryset = models.Tutor.objects.all()
     serializer_class = serializers.TutorSerializer
-    
+    http_method_names = ['get', 'post', 'patch', 'delete']
+
     def get_permissions(self):
         if self.request.method in ['PATCH', 'DELETE', 'GET', 'HEAD', 'OPTIONS']:
             return [IsAuthenticated()]
         return [IsAdminUser()]
 
 class AtendanceViewSet(ModelViewSet):
-    queryset = models.Atendance.objects.all()
+    queryset = models.Atendance.objects.select_related('student')
     serializer_class = serializers.AtendanceSerializer
+    filter_backends = [DjangoFilterBackend]
+    http_method_names = ['get', 'post', 'patch', 'delete']
 
     def get_permissions(self):
         if self.request.method in ['PATCH', 'POST', 'DELETE']:
