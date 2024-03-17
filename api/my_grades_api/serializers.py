@@ -82,7 +82,6 @@ class GetAssignatureAsTutorSerializer(serializers.ModelSerializer):
         fields = ['id', 'title', 'Instructor']
 
 class GetAssignatureAsInstructorSeralizer(serializers.ModelSerializer):
-    clase = ClaseSerializer()
 
     class Meta:
         model = models.Assignature
@@ -152,7 +151,7 @@ class CreateStudentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Student
-        fields = ['clase', 'user', 'school']
+        fields = ['clase', 'user', 'school', 'first_name', 'last_name']
 
 class TutorSerializer(serializers.ModelSerializer):
 
@@ -162,18 +161,26 @@ class TutorSerializer(serializers.ModelSerializer):
 
 class GetStudentSerializer(serializers.ModelSerializer):
 
-    user = GetUserSerializer()
     atendances = AtendanceSerializer(many=True)
 
     class Meta:
         model = models.Student
-        fields = ['id', 'user', 'clase', 'atendances']
+        fields = ['id', 'user', 'clase', 'atendances', 'first_name', 'last_name']
+
+class GetSimplestudentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Student
+        fields = ['id', 'first_name', 'last_name']
 
 class GetGradeSerializer(serializers.ModelSerializer):
 
+    student = GetSimplestudentSerializer()
+
     class Meta:
         model = models.Grade
-        fields = ['id', 'calification', 'student', 'assignment']
+        fields = ['id', 'calification', 'assignment', 'student']
+
 
 class CreateGradeSerializer(serializers.ModelSerializer):
 

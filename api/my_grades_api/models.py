@@ -60,6 +60,8 @@ class Assignature(models.Model):
     
 class Student(models.Model):
 
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     clase = models.ForeignKey(Clase, on_delete=models.PROTECT, related_name='students')
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='students')
