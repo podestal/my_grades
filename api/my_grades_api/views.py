@@ -18,6 +18,9 @@ class ClaseViewSet(ModelViewSet):
     queryset = models.Clase.objects.select_related('school').prefetch_related('assignatures')
     serializer_class = serializers.ClaseSerializer
     http_method_names = ['get', 'post', 'patch', 'delete']
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['school']
+
 
     def get_permissions(self):
         if self.request.method in ['PATCH', 'POST', 'DELETE']:
