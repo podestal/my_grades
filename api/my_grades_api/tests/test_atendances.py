@@ -51,6 +51,7 @@ class TestCreateAtendances:
         client.force_authenticate(user=User(is_staff=True))
         response = client.post('/api/atendances/', {
             'student': student.pk,
+            'status': 'N'
         })
         assert response.status_code == status.HTTP_201_CREATED
 
@@ -73,7 +74,7 @@ class TestUpdateAtendances:
         client = APIClient()
         client.force_authenticate(user=User(is_staff=True))
         response = client.patch(f'/api/atendances/{atendance.id}/', {
-            'status': False,
+            'status': 'L',
         })
         assert response.status_code == status.HTTP_200_OK
 

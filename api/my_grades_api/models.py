@@ -96,9 +96,16 @@ class Assignment(models.Model):
     
 class Atendance(models.Model):
 
+    STATUS_CHOICES = [
+        ('L', 'Late'),
+        ('N', 'Not Attended'),
+    ]
+
     created_at = models.DateField(auto_now_add=True)
-    status = models.BooleanField(default=True)
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES)
     student = models.ForeignKey(Student, on_delete=models.PROTECT, related_name='atendances')
+    hour = models.TimeField(null=True, blank=True)
+
 
 class Grade(models.Model):
 
