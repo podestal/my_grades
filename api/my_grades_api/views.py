@@ -114,7 +114,7 @@ class InstructorViewSet(ModelViewSet):
             return serializers.CreateInstructorSerializer
         return serializers.GetInstructorSerializer
     
-    @action(detail=False, methods=['GET'], permission_classes=[IsAuthenticated])
+    @action(detail=False, methods=['GET'], permission_classes=[IsAdminUser])
     def me(self, request):
         instructor = models.Instructor.objects.get(user_id=self.request.user.id)
         serializer = serializers.GetInstructorSerializer(instructor)
@@ -126,6 +126,8 @@ class CompetenceViewSet(ModelViewSet):
 
     permission_classes = [IsAdminUser]
     http_method_names = ['get', 'post', 'patch', 'delete']
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['instructor']
 
     def get_queryset(self):
         if self.request.user.is_superuser:
@@ -143,6 +145,10 @@ class CompetenceViewSet(ModelViewSet):
             return serializers.CreateCompetenceSerializer
         return serializers.GetCompetenceSerializer
     
+    def get_serializer_context(self):
+        instructor = models.Instructor.objects.get(user_id = self.request.user.id)
+        return { 'instructor_id': instructor.id }
+
     
 class TutorViewSet(ModelViewSet):
 

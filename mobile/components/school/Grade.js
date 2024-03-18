@@ -3,7 +3,7 @@ import { useState } from "react"
 import { Text, View, StyleSheet } from "react-native"
 import Calification from "../utils/Calification"
 import { updateGrades } from "../../api/api"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import useAuth from "../../hooks/useAuth"
 
 const color = {
@@ -20,10 +20,11 @@ const Grade = ({ data: grade }) => {
     const califications = ['NA', 'C', 'B', 'A', 'AD']
     const [calification, setCalification] = useState(grade?.calification || "default")
     const { user } = useAuth()
+    const client = useQueryClient()
     const {mutate: updateGradesMutation} = useMutation({
         mutationFn: data => updateGrades(data),
         onSuccess: res => {
-            console.log('updated', res.data)
+            client.invalidateQueries(['grades'])
         },
         onError: err => console.log('error', err),
     })

@@ -13,7 +13,7 @@ const Grades = ({ route }) => {
 
     const {data: grades, isLoading, isError, error} = useQuery({
         queryKey: ['grades'],
-        queryFn: () => getGrades({ token: user.access, assignmentId })
+        queryFn: () => getGrades({ token: user.access, assignmentId }),
     })
 
     if (isLoading) return <Text>Loading ...</Text>

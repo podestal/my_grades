@@ -97,14 +97,11 @@ class CreateCompetenceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Competence
-        fields = ['title', 'value', 'instructor']
+        fields = ['title', 'value']
 
     def create(self, validated_data):
-        try:
-            instructor_id = self.context['instructor_id']
-            return models.Competence.objects.create(instructor_id=instructor_id, **validated_data)
-        except:
-            return models.Competence.objects.create(**validated_data)
+        instructor_id = self.context['instructor_id']
+        return models.Competence.objects.create(instructor_id=instructor_id, **validated_data)
 
 class GetAssignmentSerializer(serializers.ModelSerializer):
 
