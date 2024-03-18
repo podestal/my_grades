@@ -1,23 +1,22 @@
 import { useState } from "react"
 import { View, Text, StyleSheet, Pressable } from "react-native"
-const color = {
-    'default': '#ecf0f1',
-    'NA': 'blue',
-    'C': 'orange',
-    'B': 'yellow',
-    'A': 'green',
-    'AD': '',
-}
+// const color = {
+//     'default': '#ecf0f1',
+//     'NA': 'blue',
+//     'C': 'orange',
+//     'B': 'yellow',
+//     'A': 'green',
+//     'AD': 'purple',
+// }
 
-const Calification = ({ calification, currentCalification }) => {
+const Calification = ({ calification, currentCalification, color, updateCalification }) => {
 
     const [current, setCurrent] = useState(currentCalification)
 
     const fontColor = currentCalification == 'default' ? '#000' : '#fff'
 
-    const updateCalification = () => {
-        console.log(`Calification: ${calification} || Current calification: ${current}`);
-        setCurrent(calification)
+    const handlePress = () => {
+        updateCalification(calification)
     }
 
     const styles = StyleSheet.create({
@@ -27,7 +26,7 @@ const Calification = ({ calification, currentCalification }) => {
             textAlign: 'center',
             borderRadius: 20,
             justifyContent: 'center',
-            backgroundColor: color[current],
+            backgroundColor: color,
         },
         grade: {
             textAlign: 'center',
@@ -39,7 +38,7 @@ const Calification = ({ calification, currentCalification }) => {
     })
 
   return (
-    <Pressable onPress={updateCalification} style={styles.gradeContainer}>
+    <Pressable onPress={handlePress} style={styles.gradeContainer}>
         <Text style={styles.grade}>{calification}</Text>
     </Pressable>
   )
