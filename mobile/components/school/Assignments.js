@@ -6,6 +6,7 @@ import useCompetencies from "../../hooks/useCompetencies"
 import Assignment from "./Assignment"
 import List from "../utils/List"
 import AssignmentForm from "./AssignmentForm"
+import Container from "../utils/Container"
 import { useEffect } from "react"
 
 const Assignments = ({ route }) => {
@@ -33,7 +34,7 @@ const Assignments = ({ route }) => {
     if (isError) return <Text>{error.message}</Text>
 
   return (
-    <> 
+    <Container> 
         <AssignmentForm />
         {assignments && 
             <List 
@@ -41,7 +42,7 @@ const Assignments = ({ route }) => {
                 DetailComponent={Assignment}
             />
         }
-    </>
+    </Container>
   )
 }
 

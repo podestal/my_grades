@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import BottonNavigator from './BottomNavigator'
 import useAuth from '../hooks/useAuth'
+import useCompetencies from '../hooks/useCompetencies'
 import { getCompetencies } from '../api/api'
 import Assignments from '../components/school/Assignments'
 import Assignatures from '../components/school/Assignatures'
@@ -11,7 +12,7 @@ import { useQuery } from '@tanstack/react-query'
 const AuthNavigator = () => {
 
     const { user } = useAuth()
-
+    const {setCompetencies} = useCompetencies()
     const Stack = createNativeStackNavigator()
     const {data: competencies, isSuccess} = useQuery({
         queryKey: ['competencies'],
@@ -19,11 +20,10 @@ const AuthNavigator = () => {
     })
 
     useEffect(() => {
-        console.log('User: ', user)
         if (isSuccess) {
-            console.log('Competencies from auth navigator:', competencies?.data);
+            setCompetencies(competencies.data)
         }
-    }, [competencies])
+    }, [])
 
     return (
         <Stack.Navigator
