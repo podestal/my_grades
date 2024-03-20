@@ -33,8 +33,8 @@ const AuthNavigator = () => {
                 headerTintColor: '#fff',              
                 headerTitleStyle: {
                     fontSize: 25,
-                }
-                // headerShown: false
+                },
+                headerShown: false
             }}
         >
             <Stack.Screen 

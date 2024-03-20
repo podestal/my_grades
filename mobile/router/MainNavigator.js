@@ -2,6 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import NoAuthNavigator from './NoAuthNavigator';
 import AuthNavigator from './AuthNavigator';
 import useAuth from '../hooks/useAuth';
+import BottonNavigator from './BottomNavigator';
 
 const MainNavigator = () => {
 
@@ -11,7 +12,7 @@ const MainNavigator = () => {
     <NavigationContainer>
         {user.isAuthenticated 
         ?
-        <AuthNavigator />
+        <BottonNavigator />
         :
         <NoAuthNavigator />
         }
