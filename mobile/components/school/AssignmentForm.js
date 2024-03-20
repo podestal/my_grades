@@ -6,8 +6,9 @@ import Input from "../utils/Input"
 import { useEffect, useState } from "react"
 import Title from "../utils/Title"
 import { createAssignment } from "../../api/api"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import useAuth from "../../hooks/useAuth"
+import { useNavigation } from "@react-navigation/native"
 
 const AssignmentForm = ({ route }) => {
 
@@ -17,10 +18,15 @@ const AssignmentForm = ({ route }) => {
     const [competence, setCompetence] = useState('')
     const assignatureId = route?.params?.assignatureId
     const { user } = useAuth()
+    const navigator = useNavigation()
+    const queryClient = useQueryClient()
 
     const {mutate: createAssignmentMutation} = useMutation({
         mutationFn: data => createAssignment(data),
-        onSuccess: res => console.log(res.data),
+        onSuccess: res => {
+            console.log(res.data)
+            queryClient.invalidateQueries(['assignments'])
+        },
         onError: err => console.log(err)
     })
 
@@ -29,15 +35,24 @@ const AssignmentForm = ({ route }) => {
     }, [])
 
     const handleCreateAssignment = () => {
-        createAssignmentMutation({ 
-            token: user.access, 
-            assignment:{
-                title: 'New Assignment',
-                due_date: '2024-03-20',
-                competence: 4,
-                assignature: assignatureId,
-            } 
-        })
+        try {
+            createAssignmentMutation({ 
+                token: user.access, 
+                assignment:{
+                    title,
+                    due_date: dueDate,
+                    competence,
+                    assignature: assignatureId,
+                } 
+            })
+            setTitle('')
+            setDueDate('')
+            setCompetence('')
+        }
+        catch {
+            console.log('Ocurrió un error')
+        }
+            
     }
 
   return (
