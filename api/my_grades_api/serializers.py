@@ -110,7 +110,7 @@ class CreateCompetenceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Competence
-        fields = ['title', 'value']
+        fields = ['id', 'title', 'value']
 
     def create(self, validated_data):
         instructor_id = self.context['instructor_id']

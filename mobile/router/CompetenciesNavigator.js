@@ -14,11 +14,10 @@ const CompetenciesNavigator = () => {
             headerTitleStyle: {
                 fontSize: 25,
             },
-            headerShown: false
         }}
     >
         <Stack.Screen 
-            name='Competencies'
+            name='Comp'
             component={Competencies}
         />
         <Stack.Screen 

@@ -16,7 +16,6 @@ const AuthNavigator = () => {
                 headerTitleStyle: {
                     fontSize: 25,
                 },
-                headerShown: false
             }}
         >
             <Stack.Screen 

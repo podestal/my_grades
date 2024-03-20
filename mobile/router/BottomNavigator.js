@@ -30,10 +30,11 @@ const BottonNavigator = () => {
             headerTintColor: '#fff',              
             headerTitleStyle: {
                 fontSize: 25,
-            }
+            },
+            headerShown: false
         }}
     >   
-        <Tab.Screen name='Assignatures' component={AuthNavigator} options={{ title: 'Cursos' }}/>
+        <Tab.Screen name='AssignaturesBottom' component={AuthNavigator} options={{ title: 'Cursos' }}/>
         <Tab.Screen name='Comptencies' component={CompetenciesNavigator} options={{ title: 'Competencias' }}/>
         <Tab.Screen name='Appearance' component={Appearance} options={{ title: 'Asistencias' }}/>
         {/* <Tab.Screen name='Assignments' component={Assignatures} options={{ title: 'Cursos' }}/> */}
