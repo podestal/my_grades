@@ -8,7 +8,8 @@ import Title from "../utils/Title"
 import { createAssignment } from "../../api/api"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import useAuth from "../../hooks/useAuth"
-import { useNavigation } from "@react-navigation/native"
+import ErrorMsg from "../utils/ErrorMsg"
+import SuccessMsg from "../utils/SuccessMsg"
 
 const AssignmentForm = ({ route }) => {
 
@@ -18,16 +19,17 @@ const AssignmentForm = ({ route }) => {
     const [competence, setCompetence] = useState('')
     const assignatureId = route?.params?.assignatureId
     const { user } = useAuth()
-    const navigator = useNavigation()
     const queryClient = useQueryClient()
+    const [errorMsg, setErrorMsg] = useState('')
+    const [successMsg, setSuccessMsg] = useState('')
 
     const {mutate: createAssignmentMutation} = useMutation({
         mutationFn: data => createAssignment(data),
         onSuccess: res => {
-            console.log(res.data)
+            setSuccessMsg('Su tarea ha sido creada')
             queryClient.invalidateQueries(['assignments'])
         },
-        onError: err => console.log(err)
+        onError: err => setErrorMsg('Ocurrió un error, vuélvalo a intentar')
     })
 
     useEffect(() => {
@@ -35,6 +37,9 @@ const AssignmentForm = ({ route }) => {
     }, [])
 
     const handleCreateAssignment = () => {
+
+        setErrorMsg('')
+        setSuccessMsg('')
         try {
             createAssignmentMutation({ 
                 token: user.access, 
@@ -58,6 +63,8 @@ const AssignmentForm = ({ route }) => {
   return (
     <Container>
         <Title text={'Crear Assignment'}/>
+        {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
+        {successMsg && <SuccessMsg>{successMsg}</SuccessMsg>}
         <Input 
             label={'Título'}
             value={title}
