@@ -4,8 +4,9 @@ import Container from "../utils/Container"
 import ButtonElement from "../utils/Button"
 import Input from "../utils/Input"
 import { useEffect, useState } from "react"
+import Title from "../utils/Title"
 
-const AssignmentForm = () => {
+const AssignmentForm = ({ route }) => {
 
     const {competencies} = useCompetencies()
     const [title, setTitle] = useState('')
@@ -14,10 +15,12 @@ const AssignmentForm = () => {
 
     useEffect(() => {
         console.log('competencies from assignment form', competencies);
+        console.log('assignature Id', route.params.assignatureId);
     }, [])
 
   return (
     <Container>
+        <Title text={'Crear Assignment'}/>
         <Input 
             label={'Título'}
             value={title}

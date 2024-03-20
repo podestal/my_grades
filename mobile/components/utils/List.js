@@ -19,7 +19,7 @@ export default List
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
-        padding: 40, 
+        padding: 20, 
     },
     contentContainer: {
         flex: 1,

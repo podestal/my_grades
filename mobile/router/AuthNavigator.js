@@ -1,5 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import BottonNavigator from './BottomNavigator'
+import AssignmentForm from '../components/school/AssignmentForm'
 import useAuth from '../hooks/useAuth'
 import useCompetencies from '../hooks/useCompetencies'
 import { getCompetencies } from '../api/api'
@@ -47,6 +48,10 @@ const AuthNavigator = () => {
             <Stack.Screen 
                 name='Grades' 
                 component={Grades} 
+            />
+            <Stack.Screen 
+                name='Create-Assignment'
+                component={AssignmentForm}
             />
         </Stack.Navigator>
     )

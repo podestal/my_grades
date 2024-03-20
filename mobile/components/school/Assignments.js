@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text } from "react-native"
+import { FlatList, StyleSheet, Text, View } from "react-native"
 import { useQuery, useMutation } from "@tanstack/react-query"
 import { getAssignments, getCompetencies } from "../../api/api"
 import useAuth from "../../hooks/useAuth"
@@ -7,6 +7,8 @@ import Assignment from "./Assignment"
 import List from "../utils/List"
 import AssignmentForm from "./AssignmentForm"
 import Container from "../utils/Container"
+import ButtonElement from "../utils/Button"
+import { useNavigation } from "@react-navigation/native"
 import { useEffect } from "react"
 
 const Assignments = ({ route }) => {
@@ -14,15 +16,7 @@ const Assignments = ({ route }) => {
     const assignatureId = route.params.assignatureId
     const {user} = useAuth()
     const {setCompetencies} = useCompetencies()
-
-    // const {mutate: getCompetencies} = useMutation({
-    //     mutationFn: data => getCompetencies(data),
-    //     onSuccess: res => console.log(res.data)
-    // })
-
-    // useEffect(() => {
-    //     getCompetencies({ token: user.access })
-    // })
+    const navigator = useNavigation()
 
     const {data: assignments, isLoading, isError, error} = useQuery({
         queryKey: ['assignments'],
@@ -34,28 +28,38 @@ const Assignments = ({ route }) => {
     if (isError) return <Text>{error.message}</Text>
 
   return (
-    <Container> 
-        <AssignmentForm />
+    <View style={styles.container}>
+        <ButtonElement 
+            title={'Crear'}
+            onPress={() => navigator.navigate('Create-Assignment', {
+                assignatureId
+            })}
+        />
         {assignments && 
             <List 
                 data={assignments.data}
                 DetailComponent={Assignment}
             />
         }
-    </Container>
+    </View>
   )
 }
 
 export default Assignments
 
+
+
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#fff',
-        padding: 40, 
-    },
     contentContainer: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-    }
+    },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+        // height: 200,
+    },
 })
