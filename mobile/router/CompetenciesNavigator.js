@@ -17,7 +17,7 @@ const CompetenciesNavigator = () => {
         }}
     >
         <Stack.Screen 
-            name='Comp'
+            name='Competencies'
             component={Competencies}
         />
         <Stack.Screen 
