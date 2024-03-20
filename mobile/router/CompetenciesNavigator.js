@@ -1,5 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Competencies from '../components/competencies/Competencies'
+import CompetenciesForm from '../components/competencies/CompetenciesForm'
 
 const CompetenciesNavigator = () => {
 
@@ -19,6 +20,10 @@ const CompetenciesNavigator = () => {
         <Stack.Screen 
             name='Competencies'
             component={Competencies}
+        />
+        <Stack.Screen 
+            name='Create-Competencie'
+            component={CompetenciesForm}
         />
     </Stack.Navigator>
   )

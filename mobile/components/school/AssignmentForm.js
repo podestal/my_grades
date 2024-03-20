@@ -66,9 +66,7 @@ const AssignmentForm = ({ route }) => {
         {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
         {successMsg && <SuccessMsg>{successMsg}</SuccessMsg>}
         <Input 
-            label={'Título'}
-            value={title}
-            setter={setTitle}
+e
         />
         <Input 
             label={'Fecha de entrega'}
