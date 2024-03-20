@@ -15,9 +15,8 @@ const Assignature = ({ data: assignature }) => {
 
     return (
         <Pressable style={styles.pressable} onPress={handlePress}>
-            {console.log(assignature)}
             <Title text={assignature.title}/>
-            <Text  style={styles.text} >Clase: {assignature.clase.title}</Text>
+            <Text  style={styles.text} >Clase: {assignature?.clase?.title}</Text>
             <Text style={styles.text}>Nivel: {level}</Text>
         </Pressable>
     )

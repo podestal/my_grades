@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { getAssignatures } from "../../api/api"
 import useAuth from "../../hooks/useAuth"
-import { Text, StyleSheet } from "react-native"
+import { Text, StyleSheet, View } from "react-native"
 import Assignature from "./Assignature"
 import List from "../utils/List"
 
@@ -19,14 +19,12 @@ const Assignatures = () => {
     if (isError) return <Text>{error.message}</Text>
 
   return (
-    <>
-    
+    <View style={styles.container}>
         <List 
             data={assignatures.data}
             DetailComponent={Assignature}
         />
-
-    </>
+    </View>
   )
 }
 
@@ -35,7 +33,7 @@ export default Assignatures
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
-        padding: 40, 
+        paddingBottom: 60,
     },
     contentContainer: {
         flex: 1,

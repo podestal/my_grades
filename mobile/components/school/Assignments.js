@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, View } from "react-native"
+import { FlatList, StyleSheet, Text, View, Button } from "react-native"
 import { useQuery, useMutation } from "@tanstack/react-query"
 import { getAssignments, getCompetencies } from "../../api/api"
 import useAuth from "../../hooks/useAuth"
@@ -28,20 +28,32 @@ const Assignments = ({ route }) => {
     if (isError) return <Text>{error.message}</Text>
 
   return (
-    <View style={styles.container}>
+    <>
+        {/* <View style={styles.container}>
+            <ButtonElement 
+                title={'Crear'}
+                onPress={() => navigator.navigate('Create-Assignment', {
+                    assignatureId
+                })}
+            />
+        </View> */}
         <ButtonElement 
             title={'Crear'}
             onPress={() => navigator.navigate('Create-Assignment', {
                 assignatureId
             })}
         />
-        {assignments && 
-            <List 
-                data={assignments.data}
-                DetailComponent={Assignment}
-            />
-        }
-    </View>
+
+            {assignments && 
+                <View style={{ paddingBottom: 200, backgroundColor: '#fff' }}> 
+                <List 
+                    data={assignments.data}
+                    DetailComponent={Assignment}
+                />
+                </View>
+            }
+
+    </>
   )
 }
 
@@ -60,6 +72,5 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-        // height: 200,
     },
 })
