@@ -5,13 +5,30 @@ import Title from "../utils/Title"
 import Competencie from "./Competencie"
 import ButtonElement from "../utils/Button"
 import { useNavigation } from "@react-navigation/native"
+import { useQuery } from "@tanstack/react-query"
+import { getCompetencies } from "../../api/api"
+import useAuth from "../../hooks/useAuth"
+
 
 const Competencies = () => {
 
-    const { competencies } = useCompetencies()
     const navigator = useNavigation()
-    const totalValue = competencies.reduce((sum, competencie) => {
-        return sum + competencie.value}, 0)
+    let totalValue = 0
+    const { user } = useAuth()
+
+    const {data: competencies, isLoading, isError, isSuccess} = useQuery({
+        queryKey: ['competencies'],
+        queryFn: () => getCompetencies({ token: user.access })
+    })
+
+    if (isLoading) return <Text>Cargando ...</Text>
+
+    if (isError) return <Text>Error</Text>
+
+    if (isSuccess) {
+        totalValue = competencies.data.reduce((sum, competencie) => {
+            return sum + competencie.value}, 0)
+    }
 
   return (
     <View style={styles.container}>
@@ -19,9 +36,9 @@ const Competencies = () => {
             title={'Crear'}
             onPress={() => navigator.navigate('Create-Competencie')}
         />
-        <Title text={`Total Value: ${totalValue*100}%`}/>
+        <Title text={`Valor total: ${(totalValue*100).toFixed(0)}%`}/>
         <List 
-            data={competencies}
+            data={competencies.data}
             DetailComponent={Competencie}
         />
     </View>

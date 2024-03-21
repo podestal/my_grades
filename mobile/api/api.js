@@ -48,3 +48,11 @@ export const getCompetencies = data => axios.get(`${URL}api/competences/` ,{
 export const createCompetencie = data => axios.post(`${URL}api/competences/`, data.competencie,{
     headers: { Authorization: `JWT ${data.token}` }
 })
+
+export const deleteCompetencie = data => axios.delete(`${URL}api/competences/${data.competencieId}/`, {
+    headers: { Authorization: `JWT ${data.token}` }
+})
+
+export const updateCompetencie = data => axios.patch(`${URL}api/competences/${data.competencieId}/`, data.updates, {
+    headers: { Authorization: `JWT ${data.token}` }
+})
