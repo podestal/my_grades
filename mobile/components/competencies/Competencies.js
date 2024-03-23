@@ -40,6 +40,7 @@ const Competencies = () => {
         <List 
             data={competencies.data}
             DetailComponent={Competencie}
+            style={{marginBottom: 120}}
         />
     </View>
   )

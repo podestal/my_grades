@@ -1,16 +1,17 @@
-import { StyleSheet, FlatList } from "react-native"
+import { StyleSheet, FlatList, View } from "react-native"
+import Input from "./Input"
 
-const List = ({ data, DetailComponent }) => {
+const List = ({ data, DetailComponent, style }) => {
   return (
-    <>
+    <View style={styles.container}>
         {data && <FlatList 
             data={data}
             keyExtractor={ item => item.id}
-            style={styles.container}
-            contentContainerStyle={styles}
             renderItem={ itemData => <DetailComponent data={itemData.item} />}
+            // contentContainerStyle={{height:'100%'}}
+            style={style}
         />}
-    </>
+    </View>
   )
 }
 
@@ -20,6 +21,8 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
         padding: 20, 
+        // marginBottom:30,
+        // height:'100%'
     },
     contentContainer: {
         flex: 1,

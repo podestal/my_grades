@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { getGrades } from '../../api/api'
 import useAuth from '../../hooks/useAuth'
-import { StyleSheet, Text, TextInput } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import Grade from './Grade'
 import List from '../utils/List'
 import Input from '../utils/Input'
@@ -25,20 +25,24 @@ const Grades = ({ route }) => {
 
 
   return (
-    <>      
-            {/* <Title  text={`${grade?.student?.first_name} ${grade?.student?.last_name}`}/> */}
-        <TextInput 
-            placeholder='Nombre o Apellido'
-            value={name}
-            onChangeText={(value) => setName(value)}
-        />
-        <List 
-            data={grades.data.filter( grade => (
-                grade?.student?.first_name.toLowerCase().includes(name.toLocaleLowerCase()) ||  
-                grade?.student?.last_name.toLowerCase().includes(name.toLocaleLowerCase()))
-            )}
-            DetailComponent={Grade}
-        />
+
+    <>
+        <View style={{backgroundColor:'#fff', padding: 10}}>      
+            <Input 
+                label={'Buscar...'}
+                value={name}
+                setter={setName}
+                placeholder={'Nombre o Apellido'}
+            />
+            <List 
+                data={grades.data.filter( grade => (
+                    grade?.student?.first_name.toLowerCase().includes(name.toLocaleLowerCase()) ||  
+                    grade?.student?.last_name.toLowerCase().includes(name.toLocaleLowerCase()))
+                )}
+                style={{marginBottom: 250}}
+                DetailComponent={Grade}
+            />
+        </View>    
     </>
   )
 }

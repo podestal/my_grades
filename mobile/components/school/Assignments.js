@@ -24,30 +24,21 @@ const Assignments = ({ route }) => {
 
   return (
     <>
-        {/* <View style={styles.container}>
-            <ButtonElement 
-                title={'Crear'}
-                onPress={() => navigator.navigate('Create-Assignment', {
-                    assignatureId
-                })}
-            />
-        </View> */}
         <ButtonElement 
             title={'Crear'}
             onPress={() => navigator.navigate('Create-Assignment', {
                 assignatureId
             })}
         />
-
-            {assignments && 
-                <View style={{ paddingBottom: 200, backgroundColor: '#fff' }}> 
+        {assignments && 
+            <View style={{ backgroundColor: '#fff' }}> 
                 <List 
                     data={assignments.data}
                     DetailComponent={Assignment}
+                    style={{marginBottom: 50}}
                 />
-                </View>
-            }
-
+            </View>
+        }
     </>
   )
 }
