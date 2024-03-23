@@ -18,7 +18,7 @@ const Competencie = ({ data: competencie }) => {
   const {mutate: deleteCompetencieMutation} = useMutation({
     mutationFn: data => deleteCompetencie(data),
     onSuccess: res => queryClient.invalidateQueries(['competencies']),
-    onError: err => setErrorMsg('Su competencia no pudo ser eliminada')
+    onError: err => setErrorMsg('Su competencia no pudo ser eliminada, debido a que está siendo utilizada')
   })
 
   const {mutate: updateCompetencieMutation} = useMutation({

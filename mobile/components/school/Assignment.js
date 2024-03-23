@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Text, StyleSheet, Pressable } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 
@@ -10,6 +10,7 @@ const Assignment = ({ data: assignment }) => {
         console.log('assignment:', assignment);
     }, [])
 
+
     const handlePress = () => {
         navigator.navigate('Grades', {
             assignmentId: assignment.id
@@ -19,7 +20,7 @@ const Assignment = ({ data: assignment }) => {
   return (
     <Pressable style={styles.pressable} onPress={handlePress}>
         <Text style={styles.subTitle}>{assignment.title}</Text>
-        <Text style={styles.text}>{assignment.competence}</Text>
+        <Text style={styles.text}>{assignment.competence.title}</Text>
         <Text style={styles.text}>{assignment.created_at}</Text>
         <Text style={styles.text}>{assignment.due_date}</Text>
     </Pressable>
