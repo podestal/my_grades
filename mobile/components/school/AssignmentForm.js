@@ -1,7 +1,7 @@
 import { StyleSheet, ScrollView } from "react-native"
 import ButtonElement from "../utils/Button"
 import Input from "../utils/Input"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import Title from "../utils/Title"
 import { createAssignment } from "../../api/api"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
@@ -9,6 +9,9 @@ import useAuth from "../../hooks/useAuth"
 import ErrorMsg from "../utils/ErrorMsg"
 import SuccessMsg from "../utils/SuccessMsg"
 import Calendario from "../utils/Calendario"
+import Select from "../utils/Select"
+import { useScrollToTop } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native"
 
 const AssignmentForm = ({ route }) => {
 
@@ -20,6 +23,8 @@ const AssignmentForm = ({ route }) => {
     const queryClient = useQueryClient()
     const [errorMsg, setErrorMsg] = useState('')
     const [successMsg, setSuccessMsg] = useState('')
+    const ref = useRef(null)
+    const navigator = useNavigation()
 
     const {mutate: createAssignmentMutation} = useMutation({
         mutationFn: data => createAssignment(data),
@@ -30,14 +35,14 @@ const AssignmentForm = ({ route }) => {
         onError: err => setErrorMsg('Ocurrió un error, vuélvalo a intentar')
     })
 
-    const handleNext = () => {
-        setCurrentMonth(currentMonth+1)
-        setDueDate(selectedDate)
-    }
+    const topScroll = useScrollToTop(
+        useRef({
+          scrollToTop: () => ref.current?.scrollTo({ y: 100 }),
+        })
+      );
 
-    const handlePrev = () => {
-        setCurrentMonth(currentMonth-1)
-        setDueDate(selectedDate)
+    const goToTop = () => {
+
     }
 
     const handleCreateAssignment = () => {
@@ -57,6 +62,7 @@ const AssignmentForm = ({ route }) => {
             setTitle('')
             setDueDate('')
             setCompetence('')
+            navigator.goBack()
         }
         catch {
             console.log('Ocurrió un error')
@@ -65,7 +71,7 @@ const AssignmentForm = ({ route }) => {
     }
 
   return (
-    <ScrollView style={{backgroundColor: '#fff', flex:1}}>
+    <ScrollView ref={ref} style={{backgroundColor: '#fff', flex:1}}>
         <Title 
             text={'Crea una Tarea'}
         />
@@ -80,10 +86,9 @@ const AssignmentForm = ({ route }) => {
             setDueDate={setDueDate}
             title={'Fecha de entrega'}
         />
-        <Input 
-            label={'Competencia'}
-            value={competence}
-            setter={setCompetence}
+        <Select 
+            setCompetence={setCompetence}
+            title={'Competencia'}
         />
         <ButtonElement 
             title={'Crear'}
