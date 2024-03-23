@@ -1,20 +1,17 @@
-import { View, Button, StyleSheet } from "react-native"
-import useCompetencies from "../../hooks/useCompetencies"
-import Container from "../utils/Container"
+import { StyleSheet, ScrollView } from "react-native"
 import ButtonElement from "../utils/Button"
 import Input from "../utils/Input"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Title from "../utils/Title"
 import { createAssignment } from "../../api/api"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import useAuth from "../../hooks/useAuth"
 import ErrorMsg from "../utils/ErrorMsg"
 import SuccessMsg from "../utils/SuccessMsg"
-import { Calendar, toDateId } from "@marceloterreiro/flash-calendar";
+import Calendario from "../utils/Calendario"
 
 const AssignmentForm = ({ route }) => {
 
-    const {competencies} = useCompetencies()
     const [title, setTitle] = useState('')
     const [dueDate, setDueDate] = useState('')
     const [competence, setCompetence] = useState('')
@@ -23,9 +20,6 @@ const AssignmentForm = ({ route }) => {
     const queryClient = useQueryClient()
     const [errorMsg, setErrorMsg] = useState('')
     const [successMsg, setSuccessMsg] = useState('')
-    const [currentMonth, setCurrentMonth] = useState(new Date().getMonth())
-    const today = toDateId(new Date(2024, currentMonth, 1))
-    const [selectedDate, setSelectedDate] = useState(today);
 
     const {mutate: createAssignmentMutation} = useMutation({
         mutationFn: data => createAssignment(data),
@@ -36,10 +30,15 @@ const AssignmentForm = ({ route }) => {
         onError: err => setErrorMsg('Ocurrió un error, vuélvalo a intentar')
     })
 
-    // useEffect(() => {
-    //     console.log('competencies from assignment form', competencies);
-    //     console.log('current month',currentMonth)
-    // }, [])
+    const handleNext = () => {
+        setCurrentMonth(currentMonth+1)
+        setDueDate(selectedDate)
+    }
+
+    const handlePrev = () => {
+        setCurrentMonth(currentMonth-1)
+        setDueDate(selectedDate)
+    }
 
     const handleCreateAssignment = () => {
 
@@ -66,42 +65,20 @@ const AssignmentForm = ({ route }) => {
     }
 
   return (
-    <View style={{backgroundColor: '#fff', flex:1}}>
-
-        {console.log('Due date', dueDate)}
-        {/* <Title text={'Crear Assignment'}/> */}
+    <ScrollView style={{backgroundColor: '#fff', flex:1}}>
+        <Title 
+            text={'Crea una Tarea'}
+        />
         {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
         {successMsg && <SuccessMsg>{successMsg}</SuccessMsg>}
         <Input 
-            label={'Título'}
+            label={'Título de la tarea'}
             value={title}
             setter={setTitle}
         />
-        {/* <Input 
-            label={'Fecha de entrega'}
-            value={dueDate}
-            setter={setDueDate}
-        /> */}
-        <View style={styles.buttonsContainer}>
-            <Button onPress={() => setCurrentMonth(currentMonth-1)} title="previous"/>
-            <Button onPress={() => setCurrentMonth(currentMonth+1)} title="next"/>
-        </View>
-        <Calendar
-            calendarActiveDateRanges={[
-                {
-                startId: selectedDate,
-                endId: selectedDate,
-                },
-            ]}
-            calendarFirstDayOfWeek="sunday"
-            calendarMonthId={today}
-            calendarRowHorizontalSpacing={16}
-            calendarRowVerticalSpacing={16}
-            calendarInitialMonthId={today}
-            onCalendarDayPress={(selected) => {
-                setSelectedDate(selected)
-                setDueDate(selected)}}
-            
+        <Calendario 
+            setDueDate={setDueDate}
+            title={'Fecha de entrega'}
         />
         <Input 
             label={'Competencia'}
@@ -112,7 +89,7 @@ const AssignmentForm = ({ route }) => {
             title={'Crear'}
             onPress={handleCreateAssignment}
         />
-    </View>
+    </ScrollView>
   )
 }
 
