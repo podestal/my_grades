@@ -12,7 +12,6 @@ class ClaseSerializer(serializers.ModelSerializer):
 
     title = serializers.SerializerMethodField('get_title')
 
-
     class Meta:
         model = models.Clase
         fields = ['id', 'title', 'school', 'level', 'students']
@@ -117,6 +116,8 @@ class CreateCompetenceSerializer(serializers.ModelSerializer):
         return models.Competence.objects.create(instructor_id=instructor_id, **validated_data)
 
 class GetAssignmentSerializer(serializers.ModelSerializer):
+
+    competence = GetCompetenceSerializer()
 
     class Meta:
         model = models.Assignment
