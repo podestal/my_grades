@@ -67,7 +67,8 @@ const AssignmentForm = ({ route }) => {
 
   return (
     <View style={{backgroundColor: '#fff', flex:1}}>
-        {console.log('Selected', selectedDate)}
+
+        {console.log('Due date', dueDate)}
         {/* <Title text={'Crear Assignment'}/> */}
         {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
         {successMsg && <SuccessMsg>{successMsg}</SuccessMsg>}
@@ -97,7 +98,9 @@ const AssignmentForm = ({ route }) => {
             calendarRowHorizontalSpacing={16}
             calendarRowVerticalSpacing={16}
             calendarInitialMonthId={today}
-            onCalendarDayPress={setSelectedDate}
+            onCalendarDayPress={(selected) => {
+                setSelectedDate(selected)
+                setDueDate(selected)}}
             
         />
         <Input 
