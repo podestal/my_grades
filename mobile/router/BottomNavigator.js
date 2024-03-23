@@ -36,7 +36,7 @@ const BottonNavigator = () => {
     >   
         <Tab.Screen name='AssignaturesBottom' component={AuthNavigator} options={{ title: 'Cursos' }}/>
         <Tab.Screen name='Comptencies' component={CompetenciesNavigator} options={{ title: 'Competencias' }}/>
-        <Tab.Screen name='Appearance' component={Appearance} options={{ title: 'Asistencias' }}/>
+        <Tab.Screen name='Students' component={Appearance} options={{ title: 'Estudiantes' }}/>
         {/* <Tab.Screen name='Assignments' component={Assignatures} options={{ title: 'Cursos' }}/> */}
     </Tab.Navigator>
   )
