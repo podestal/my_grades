@@ -16,8 +16,11 @@ import { useNavigation } from "@react-navigation/native"
 const AssignmentForm = ({ route }) => {
 
     const [title, setTitle] = useState('')
+    const [titleError, setTitleError] = useState('') 
     const [dueDate, setDueDate] = useState('')
+    const [dueDateError, setDueDateError] = useState('')
     const [competence, setCompetence] = useState('')
+    const [competenceError, setCompetenceError] = useState('')
     const assignatureId = route?.params?.assignatureId
     const { user } = useAuth()
     const queryClient = useQueryClient()
@@ -35,20 +38,25 @@ const AssignmentForm = ({ route }) => {
         onError: err => setErrorMsg('Ocurrió un error, vuélvalo a intentar')
     })
 
-    const topScroll = useScrollToTop(
-        useRef({
-          scrollToTop: () => ref.current?.scrollTo({ y: 100 }),
-        })
-      );
-
-    const goToTop = () => {
-
-    }
-
     const handleCreateAssignment = () => {
 
         setErrorMsg('')
         setSuccessMsg('')
+        setTitleError('')
+        setDueDateError('')
+        setCompetenceError('')
+        if (title.length == 0) {
+            setTitleError('Se necesita un título para la tarea')
+            return
+        }
+        if (dueDate.length == 0) {
+            setDueDateError('Porfavor, seleccione una fecha de entrega')
+            return
+        }
+        if (competence.length == 0) {
+            setCompetenceError('Porfavor, seleccione una competencia')
+            return
+        }
         try {
             createAssignmentMutation({ 
                 token: user.access, 
@@ -77,15 +85,18 @@ const AssignmentForm = ({ route }) => {
         />
         {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
         {successMsg && <SuccessMsg>{successMsg}</SuccessMsg>}
+        {titleError && <ErrorMsg>{titleError}</ErrorMsg>}
         <Input 
             label={'Título de la tarea'}
             value={title}
             setter={setTitle}
         />
+        {dueDateError && <ErrorMsg>{dueDateError}</ErrorMsg>}
         <Calendario 
             setDueDate={setDueDate}
             title={'Fecha de entrega'}
         />
+        {competenceError && <ErrorMsg>{competenceError}</ErrorMsg>}
         <Select 
             setCompetence={setCompetence}
             title={'Competencia'}
