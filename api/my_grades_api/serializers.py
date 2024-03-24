@@ -170,13 +170,14 @@ class TutorSerializer(serializers.ModelSerializer):
         model = models.Tutor
         fields = '__all__'
 
+
 class GetStudentSerializer(serializers.ModelSerializer):
 
     atendances = AtendanceSerializer(many=True)
 
     class Meta:
         model = models.Student
-        fields = ['id', 'user', 'clase', 'atendances', 'first_name', 'last_name']
+        fields = ['id', 'user', 'clase', 'atendances', 'first_name', 'last_name',]
 
 class GetSimplestudentSerializer(serializers.ModelSerializer):
 
@@ -204,3 +205,17 @@ class UpgradeGradeSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Grade
         fields = ['calification']
+
+class GetSimpleAssignmentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Assignment
+        fields = ['id', 'title', 'competence', 'assignature']
+
+class GetDetailGradeSerializer(serializers.ModelSerializer):
+
+    assignment = GetSimpleAssignmentSerializer()
+
+    class Meta:
+        model = models.Grade
+        fields = ['id', 'calification', 'assignment', 'student']

@@ -196,3 +196,11 @@ class GradeViewSet(ModelViewSet):
     
     def get_serializer_context(self):
         return {'assignment_id': self.kwargs['assignment_pk']}
+
+class AllGradesViewSet(ModelViewSet):
+
+    queryset = models.Grade.objects.select_related('student', 'assignment')
+    serializer_class = serializers.GetDetailGradeSerializer
+    http_method_names = ['get']
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['student']
