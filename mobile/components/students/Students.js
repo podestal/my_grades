@@ -7,6 +7,7 @@ const Students = () => {
 
   return (
     <>
+        {console.log(user)}
         <Text>Students</Text>
     </>
   )
