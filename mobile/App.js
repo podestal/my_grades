@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import AuthContextProvider from './context/auth';
 import CompetenciesContextProvider from './context/competencies';
+import AssignatureContextProvider from './context/assignatures';
 import MainNavigator from './router/MainNavigator';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
@@ -10,10 +11,12 @@ export default function App() {
   return (
     <AuthContextProvider>
       <CompetenciesContextProvider>
-        <QueryClientProvider client={client}>
-          <MainNavigator />
-          <StatusBar style="light" />
-        </QueryClientProvider>
+        <AssignatureContextProvider>
+          <QueryClientProvider client={client}>
+            <MainNavigator />
+            <StatusBar style="light" />
+          </QueryClientProvider>
+        </AssignatureContextProvider>
       </CompetenciesContextProvider>
     </AuthContextProvider>
   );
