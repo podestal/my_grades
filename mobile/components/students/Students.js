@@ -1,19 +1,15 @@
 import { Text } from "react-native"
 import List from "../utils/List"
 import useAssignatures from "../../hooks/useAssignatures"
-import Clases from "./Clases"
 
-const Students = () => {
+const Students = ({ route }) => {
 
     const {assignatures} = useAssignatures()
+    const claseId = route?.params?.claseId
 
   return (
     <>
-        {/* <List 
-            data={assignatures}
-        /> */}
-        <Text>Students</Text>
-        <Clases />
+        <Text>Clase Id: {claseId}</Text>
     </>
   )
 }

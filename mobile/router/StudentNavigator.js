@@ -17,8 +17,12 @@ const StudentNavigator = () => {
         }}
     >
         <Stack.Screen 
-            name='Students'
+            name='Clases'
             component={Clases}
+        />
+        <Stack.Screen 
+            name='Students'
+            component={Students}
         />
         {/* <Stack.Screen 
             name='Create-Competencie'
