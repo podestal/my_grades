@@ -12,7 +12,6 @@ const Clases = () => {
         if (!filteredClases.includes(assignature.clase.title)) {
             filteredClases.push(assignature.clase.title)
             filteredAssignatures.push(assignature)
-
         }
     })
 

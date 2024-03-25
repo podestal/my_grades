@@ -9,7 +9,8 @@ const AuthNavigator = () => {
     const Stack = createNativeStackNavigator()
 
     return (
-        <Stack.Navigator
+        <>
+            <Stack.Navigator
             screenOptions={{
                 headerStyle: { backgroundColor: '#000' },
                 headerTintColor: '#fff',              
@@ -47,6 +48,7 @@ const AuthNavigator = () => {
                 }}
             />
         </Stack.Navigator>
+        </>
     )
 }
 
