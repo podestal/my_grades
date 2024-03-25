@@ -18,7 +18,7 @@ const BottonNavigator = () => {
     })
 
     if (isSuccess) {
-        setAssignatures(assignatures.data)
+        // setAssignatures(assignatures.data)
     }
 
   return (

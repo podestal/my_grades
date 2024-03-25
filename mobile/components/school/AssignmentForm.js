@@ -1,7 +1,7 @@
 import { StyleSheet, ScrollView } from "react-native"
 import ButtonElement from "../utils/Button"
 import Input from "../utils/Input"
-import { useRef, useState } from "react"
+import { useState } from "react"
 import Title from "../utils/Title"
 import { createAssignment } from "../../api/api"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
@@ -10,7 +10,6 @@ import ErrorMsg from "../utils/ErrorMsg"
 import SuccessMsg from "../utils/SuccessMsg"
 import Calendario from "../utils/Calendario"
 import Select from "../utils/Select"
-import { useScrollToTop } from '@react-navigation/native';
 import { useNavigation } from "@react-navigation/native"
 
 const AssignmentForm = ({ route }) => {
@@ -26,7 +25,6 @@ const AssignmentForm = ({ route }) => {
     const queryClient = useQueryClient()
     const [errorMsg, setErrorMsg] = useState('')
     const [successMsg, setSuccessMsg] = useState('')
-    const ref = useRef(null)
     const navigator = useNavigation()
 
     const {mutate: createAssignmentMutation} = useMutation({
@@ -79,7 +77,7 @@ const AssignmentForm = ({ route }) => {
     }
 
   return (
-    <ScrollView ref={ref} style={{backgroundColor: '#fff', flex:1}}>
+    <ScrollView style={{backgroundColor: '#fff', flex:1}}>
         <Title 
             text={'Crea una Tarea'}
         />
@@ -105,6 +103,28 @@ const AssignmentForm = ({ route }) => {
             title={'Crear'}
             onPress={handleCreateAssignment}
         />
+        {/* {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
+        {successMsg && <SuccessMsg>{successMsg}</SuccessMsg>}
+        {titleError && <ErrorMsg>{titleError}</ErrorMsg>}
+        <Input 
+            label={'Título de la tarea'}
+            value={title}
+            setter={setTitle}
+        />
+        {dueDateError && <ErrorMsg>{dueDateError}</ErrorMsg>}
+        <Calendario 
+            setDueDate={setDueDate}
+            title={'Fecha de entrega'}
+        />
+        {competenceError && <ErrorMsg>{competenceError}</ErrorMsg>}
+        <Select 
+            setCompetence={setCompetence}
+            title={'Competencia'}
+        />
+        <ButtonElement 
+            title={'Crear'}
+            onPress={handleCreateAssignment}
+        /> */}
     </ScrollView>
   )
 }

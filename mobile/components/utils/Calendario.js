@@ -11,12 +11,10 @@ const Calendario = ({ setDueDate, title }) => {
 
     const handleNext = () => {
         setCurrentMonth(currentMonth+1)
-        setDueDate(selectedDate)
     }
 
     const handlePrev = () => {
         setCurrentMonth(currentMonth-1)
-        setDueDate(selectedDate)
     }
 
   return (

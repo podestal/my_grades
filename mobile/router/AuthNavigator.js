@@ -43,7 +43,7 @@ const AuthNavigator = () => {
                 name='Create-Assignment'
                 component={AssignmentForm}
                 options={{
-                    headerTitle: ''
+                    headerTitle: 'Crear'
                 }}
             />
         </Stack.Navigator>

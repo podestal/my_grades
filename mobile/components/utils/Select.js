@@ -10,17 +10,21 @@ const Select = ({ setCompetence, title }) => {
     const [focus, setFocus] = useState(false)
     const { user } = useAuth()
 
-    const { data: competencies } = useQuery({
+    const { data: competencies, isLoading, isError, error } = useQuery({
         queryKey: ['competencies'],
         queryFn: () => getCompetencies({ token: user.access })
     })
 
+    if (isLoading) return <Text>Loading ...</Text>
+
+    if (isError) return <Text>{error.message}</Text>
+
   return (
     <>
         <Text style={{fontSize: 16, textAlign: 'center'}}>{title}</Text>
+        {console.log(competencies.data)}
         <ScrollView 
             style={styles.dropdownContainer}
-            // contentContainerStyle={styles.dropdownContentContainer}
         >
             <Dropdown 
                 data={competencies && competencies.data}
@@ -51,6 +55,5 @@ const styles = StyleSheet.create({
     dropdownContentContainer: {
         alignItems: 'center',
         width: 300,
-
     }
 })
