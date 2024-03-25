@@ -1,14 +1,19 @@
 import { Text } from "react-native"
-import useAuth from "../../hooks/useAuth"
+import List from "../utils/List"
+import useAssignatures from "../../hooks/useAssignatures"
+import Clases from "./Clases"
 
 const Students = () => {
 
-    const {user} = useAuth()
+    const {assignatures} = useAssignatures()
 
   return (
     <>
-        {console.log(user)}
+        {/* <List 
+            data={assignatures}
+        /> */}
         <Text>Students</Text>
+        <Clases />
     </>
   )
 }

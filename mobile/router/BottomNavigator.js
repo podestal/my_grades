@@ -4,27 +4,22 @@ import AuthNavigator from './AuthNavigator'
 import useAuth from '../hooks/useAuth'
 import StudentNavigator from './StudentNavigator'
 import { getAssignatures } from '../api/api'
-import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
+import useAssignatures from '../hooks/useAssignatures'
 
 const BottonNavigator = () => {
 
     const Tab = createBottomTabNavigator()
     const { user, setUser } = useAuth()
+    const { setAssignatures } = useAssignatures()
     const {data: assignatures, isSuccess} = useQuery({
         queryKey: ['assignatures'],
         queryFn: () => getAssignatures({ token: user.access })
     })
 
     if (isSuccess) {
-        console.log('From bottom navigator', assignatures.data)
+        setAssignatures(assignatures.data)
     }
-
-    // useEffect(() => {
-    //     if (isSuccess) {
-    //         console.log('From bottom navigator', assignatures.data)
-    //     }
-    // }, [])
 
   return (
     <Tab.Navigator

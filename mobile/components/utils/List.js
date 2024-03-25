@@ -8,7 +8,6 @@ const List = ({ data, DetailComponent, style }) => {
             data={data}
             keyExtractor={ item => item.id}
             renderItem={ itemData => <DetailComponent data={itemData.item} />}
-            // contentContainerStyle={{height:'100%'}}
             style={style}
         />}
     </View>
@@ -21,8 +20,6 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
         padding: 20, 
-        // marginBottom:30,
-        // height:'100%'
     },
     contentContainer: {
         flex: 1,
