@@ -203,4 +203,4 @@ class AllGradesViewSet(ModelViewSet):
     serializer_class = serializers.GetDetailGradeSerializer
     http_method_names = ['get']
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['student']
+    filterset_fields = ['student', 'assignature']

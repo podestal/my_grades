@@ -122,4 +122,5 @@ class Grade(models.Model):
     calification = models.CharField(max_length=2, choices=CALIFICATION_CHOICES, default='NA')
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='grades')
     assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE, related_name='grades')
+    assignature = models.ForeignKey(Assignature, on_delete=models.CASCADE, related_name='grades')
     # created_at = models.DateField(auto_now_add=True)

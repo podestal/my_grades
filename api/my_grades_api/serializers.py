@@ -133,13 +133,15 @@ class CreateAssignmentSerializer(serializers.ModelSerializer):
 
         assignment = models.Assignment.objects.create(**validated_data)
         assignature_id = assignment.assignature.id
-        clase_id = models.Assignature.objects.get(id=assignature_id).clase.id
+        assignature = models.Assignature.objects.get(id=assignature_id)
+        clase_id = assignature.clase.id
         students = models.Student.objects.filter(clase=clase_id)
 
 
         grades = [models.Grade(
             assignment=assignment,
-            student = student
+            student = student,
+            assignature = assignature
         ) for student in students]
 
         models.Grade.objects.bulk_create(grades)
@@ -191,7 +193,7 @@ class GetGradeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Grade
-        fields = ['id', 'calification', 'assignment', 'student']
+        fields = ['id', 'calification', 'assignment', 'student', 'assignature']
 
 
 class CreateGradeSerializer(serializers.ModelSerializer):
