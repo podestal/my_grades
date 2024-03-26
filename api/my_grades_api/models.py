@@ -1,6 +1,13 @@
 from django.db import models
 from django.conf import settings
 
+class Area(models.Model):
+    title = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.title
+
+
 class School(models.Model):
 
     name = models.CharField(max_length=255)
@@ -46,14 +53,17 @@ class Instructor(models.Model):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='instructor')
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='instructors')
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
 
-    # def __str__(self):
-    #     return f'{self.user.first_name} {self.user.last_name}'
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
 
 class Assignature(models.Model):
     title = models.CharField(max_length=255)
     clase =  models.ForeignKey(Clase, on_delete=models.CASCADE, related_name='assignatures')
     Instructor = models.ForeignKey(Instructor, on_delete=models.PROTECT, blank=True, null=True, related_name='assignatures')
+    area = models.ForeignKey(Area, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
@@ -66,8 +76,8 @@ class Student(models.Model):
     clase = models.ForeignKey(Clase, on_delete=models.PROTECT, related_name='students')
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='students')
 
-    # def __str__(self):
-    #     return f'{self.user.first_name} {self.user.last_name}'
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
 
 class Tutor(models.Model):
 
@@ -78,12 +88,24 @@ class Tutor(models.Model):
 class Competence(models.Model):
 
     title = models.CharField(max_length=255)
-    value = models.FloatField()
-    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE)
+    area = models.ForeignKey(Area, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
     
+class Capacity(models.Model):
+
+    title = models.CharField(max_length=255)
+    competence = models.ForeignKey(Competence, on_delete=models.CASCADE)
+
+class Activity(models.Model):
+
+    title = models.CharField(max_length=255)
+    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE)
+    assignature = models.ForeignKey(Assignature, on_delete=models.CASCADE)
+    competence = models.ForeignKey(Competence, on_delete=models.CASCADE)
+    capacity = models.ForeignKey(Capacity, on_delete=models.CASCADE)
+
 
 class Assignment(models.Model):
 
@@ -121,6 +143,6 @@ class Grade(models.Model):
 
     calification = models.CharField(max_length=2, choices=CALIFICATION_CHOICES, default='NA')
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='grades')
-    assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE, related_name='grades')
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='grades')
     assignature = models.ForeignKey(Assignature, on_delete=models.CASCADE, related_name='grades')
-    # created_at = models.DateField(auto_now_add=True)
+    created_at = models.DateField(auto_now_add=True)
