@@ -1,7 +1,9 @@
-# from rest_framework_nested import routers
-# from . import views
+from rest_framework_nested import routers
+from . import views
 
-# router = routers.DefaultRouter()
+router = routers.DefaultRouter()
+
+router.register('areas', views.AreaViewSet)
 
 # router.register('schools', views.SchoolViewSet)
 # router.register('clases', views.ClaseViewSet, basename='clases')
@@ -18,3 +20,5 @@
 # assignments_router.register('grades', views.GradeViewSet, basename='grades')
 
 # urlpatterns = router.urls + assignments_router.urls
+
+urlpatterns = router.urls

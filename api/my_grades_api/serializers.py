@@ -1,6 +1,11 @@
-# from rest_framework import serializers
-# from core.serializers import GetUserSerializer
-# from . import models
+from rest_framework import serializers
+from core.serializers import GetUserSerializer
+from . import models
+
+class GetAreaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Area
+        fields = '__all__'
 
 # class SchoolSerializer(serializers.ModelSerializer):
 

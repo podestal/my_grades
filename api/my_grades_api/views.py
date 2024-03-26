@@ -1,11 +1,16 @@
-# from rest_framework.viewsets import ModelViewSet
-# from rest_framework.response import Response
-# from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
-# from rest_framework.decorators import action
-# from django_filters.rest_framework import DjangoFilterBackend
-# from . import permissions
-# from . import models
-# from . import serializers
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
+from rest_framework.decorators import action
+from django_filters.rest_framework import DjangoFilterBackend
+from . import permissions
+from . import models
+from . import serializers
+
+class AreaViewSet(ModelViewSet):
+    queryset = models.Area.objects.all()
+    serializer_class = serializers.GetAreaSerializer
+    permission_classes=[permissions.IsSuperUserOrReadOnly]
 
 # class SchoolViewSet(ModelViewSet):
 
