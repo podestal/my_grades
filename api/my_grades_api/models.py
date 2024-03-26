@@ -97,6 +97,9 @@ class Capacity(models.Model):
     title = models.CharField(max_length=255)
     competence = models.ForeignKey(Competence, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.title
+
 class Activity(models.Model):
 
     title = models.CharField(max_length=255)
@@ -104,6 +107,8 @@ class Activity(models.Model):
     assignature = models.ForeignKey(Assignature, on_delete=models.CASCADE)
     competence = models.ForeignKey(Competence, on_delete=models.CASCADE)
     capacity = models.ForeignKey(Capacity, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    due_date = models.DateField()
 
 
 class Assignment(models.Model):

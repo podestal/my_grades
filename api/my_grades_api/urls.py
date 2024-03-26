@@ -8,11 +8,12 @@ router.register('schools', views.SchoolViewSet)
 router.register('competences', views.CompetenceViewSet)
 router.register('clases', views.ClaseViewSet, basename='clases')
 router.register('instructors', views.InstructorViewSet, basename='instructors')
+router.register('assignatures', views.AssignatureViewSet, basename='assignatures')
+router.register('activities', views.ActivityViewSet, basename='activities')
 
 competences_router = routers.NestedDefaultRouter(router, 'competences', lookup='competence') 
 competences_router.register('capacities', views.CapacityViewSet, basename='capacities')
 
-# router.register('assignatures', views.AssignatureViewSet, basename='assignatures')
 # router.register('assignments', views.AssignmentViewSet)
 # router.register('students', views.StudentViewSet)
 # router.register('competences', views.CompetenceViewSet, basename='competences')

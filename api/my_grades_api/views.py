@@ -17,7 +17,7 @@ class SchoolViewSet(ModelViewSet):
 
     queryset = models.School.objects.all()
     serializer_class = serializers.SchoolSerializer
-    permission_classes = [permissions.IsSuperUserOrReadOnly]
+    # permission_classes = [permissions.IsSuperUserOrReadOnly]
     http_method_names = ['get', 'post', 'patch', 'delete']
 
 class CompetenceViewSet(ModelViewSet):
@@ -76,7 +76,17 @@ class ClaseViewSet(ModelViewSet):
 #             return serializers.CreateClaseSerializer
 #         return serializers.ClaseSerializer    
 
-# class AssignatureViewSet(ModelViewSet):
+class AssignatureViewSet(ModelViewSet):
+
+    queryset = models.Assignature.objects.select_related('clase', 'Instructor', 'area')
+    serializer_class = serializers.GetAssignatureSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['clase', 'Instructor']
+
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [IsAuthenticated()]
+        return [permissions.IsSuperUserOrReadOnly()]
 
 #     def get_queryset(self):
 #         if self.request.user.is_superuser:
@@ -96,11 +106,10 @@ class ClaseViewSet(ModelViewSet):
 #             return serializers.GetAssignatureAsInstructorSeralizer
 #         return serializers.GetAssignatureAsTutorSerializer
     
-#     def get_permissions(self):
-#         if self.request.method == 'GET':
-#             return [IsAuthenticated()]
-#         return [permissions.IsSuperUserOrReadOnly()]
-    
+class ActivityViewSet(ModelViewSet):
+
+    queryset = models.Activity.objects.all()
+    serializer_class = serializers.GetActivitySerializer
 
 # class AssignmentViewSet(ModelViewSet):
 
