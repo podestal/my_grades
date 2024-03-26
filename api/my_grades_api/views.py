@@ -39,13 +39,14 @@ class CapacityViewSet(ModelViewSet):
     
 
 
-# class ClaseViewSet(ModelViewSet):
+class ClaseViewSet(ModelViewSet):
 
-#     queryset = models.Clase.objects.select_related('school').prefetch_related('assignatures', 'students')
-#     serializer_class = serializers.ClaseSerializer
-#     http_method_names = ['get', 'post', 'patch', 'delete']
-#     filter_backends = [DjangoFilterBackend]
-#     filterset_fields = ['school']
+    queryset = models.Clase.objects.select_related('school').prefetch_related('assignatures', 'students')
+    serializer_class = serializers.GetClaseSerializer
+    http_method_names = ['get', 'post', 'patch', 'delete']
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['school']
+    permission_classes = [permissions.IsSuperUserOrReadOnly]
 
 
 #     def get_permissions(self):

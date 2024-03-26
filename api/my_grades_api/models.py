@@ -40,7 +40,6 @@ class Clase(models.Model):
         (LEVEL_SECONDARY, 'Secondary')
     ]
 
-    bulk = models.BooleanField()
     school = models.ForeignKey(School, on_delete=models.CASCADE)
     grade =  models.CharField(max_length=1, choices=GRADE_CHOICES, null=True, blank=True)
     level = models.CharField(max_length=1, choices=LEVEL_CHOICES)
