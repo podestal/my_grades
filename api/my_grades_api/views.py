@@ -110,6 +110,18 @@ class ActivityViewSet(ModelViewSet):
 
     queryset = models.Activity.objects.all()
     serializer_class = serializers.GetActivitySerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['assignature']
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return serializers.CreateActivitySerializer 
+        return serializers.GetActivitySerializer
+
+    def get_permissions(self):
+        if self.request.method in ['PATCH', 'POST', 'DELETE']:
+            return [IsAdminUser()]
+        return[IsAuthenticated()]
 
 # class AssignmentViewSet(ModelViewSet):
 

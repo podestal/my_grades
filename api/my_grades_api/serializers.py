@@ -52,7 +52,37 @@ class GetActivitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Activity
-        fields = '__all__'
+        fields = ['id', 'title', 'created_at', 'due_date', 'instructor', 'assignature', 'competence', 'capacity']
+
+class CreateActivitySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Activity
+        fields = ['title', 'due_date', 'instructor', 'assignature', 'competence', 'capacity']
+
+# class CreateAssignmentSerializer(serializers.ModelSerializer):
+
+#     class Meta:
+#         model = models.Assignment
+#         fields = ['title', 'due_date', 'competence', 'assignature']
+
+#     def create(self, validated_data):
+
+#         assignment = models.Assignment.objects.create(**validated_data)
+#         assignature_id = assignment.assignature.id
+#         assignature = models.Assignature.objects.get(id=assignature_id)
+#         clase_id = assignature.clase.id
+#         students = models.Student.objects.filter(clase=clase_id)
+
+
+#         grades = [models.Grade(
+#             assignment=assignment,
+#             student = student,
+#             assignature = assignature
+#         ) for student in students]
+
+#         models.Grade.objects.bulk_create(grades)
+#         return assignment
 
 # class CreateClaseSerializer(serializers.ModelSerializer):
 

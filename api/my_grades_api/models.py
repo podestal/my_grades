@@ -54,6 +54,7 @@ class Instructor(models.Model):
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='instructors')
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
+    is_instructor = models.BooleanField(default=True)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
@@ -74,6 +75,7 @@ class Student(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     clase = models.ForeignKey(Clase, on_delete=models.PROTECT, related_name='students')
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='students')
+    is_student = models.BooleanField(default=True)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
@@ -83,6 +85,7 @@ class Tutor(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     student = models.ForeignKey(Student, on_delete=models.PROTECT, related_name='tutors')
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='tutors')
+    is_tutor = models.BooleanField(default=True)
 
 class Competence(models.Model):
 
