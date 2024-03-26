@@ -4,8 +4,9 @@ from . import views
 router = routers.DefaultRouter()
 
 router.register('areas', views.AreaViewSet)
+router.register('schools', views.SchoolViewSet)
+router.register('competences', views.CompetenceViewSet)
 
-# router.register('schools', views.SchoolViewSet)
 # router.register('clases', views.ClaseViewSet, basename='clases')
 # router.register('assignatures', views.AssignatureViewSet, basename='assignatures')
 # router.register('assignments', views.AssignmentViewSet)

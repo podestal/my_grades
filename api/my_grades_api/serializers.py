@@ -7,11 +7,17 @@ class GetAreaSerializer(serializers.ModelSerializer):
         model = models.Area
         fields = '__all__'
 
-# class SchoolSerializer(serializers.ModelSerializer):
+class SchoolSerializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = models.School
-#         fields = '__all__'
+    class Meta:
+        model = models.School
+        fields = '__all__'
+
+class GetCompetenciesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Competence
+        fields = '__all__'
 
 # class ClaseSerializer(serializers.ModelSerializer):
 

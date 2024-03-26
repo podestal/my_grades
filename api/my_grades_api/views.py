@@ -10,14 +10,20 @@ from . import serializers
 class AreaViewSet(ModelViewSet):
     queryset = models.Area.objects.all()
     serializer_class = serializers.GetAreaSerializer
-    permission_classes=[permissions.IsSuperUserOrReadOnly]
+    # permission_classes=[permissions.IsSuperUserOrReadOnly]
+    http_method_names = ['get', 'post', 'patch', 'delete']
 
-# class SchoolViewSet(ModelViewSet):
+class SchoolViewSet(ModelViewSet):
 
-#     queryset = models.School.objects.all()
-#     serializer_class = serializers.SchoolSerializer
-#     permission_classes = [permissions.IsSuperUserOrReadOnly]
-#     http_method_names = ['get', 'post', 'patch', 'delete']
+    queryset = models.School.objects.all()
+    serializer_class = serializers.SchoolSerializer
+    permission_classes = [permissions.IsSuperUserOrReadOnly]
+    http_method_names = ['get', 'post', 'patch', 'delete']
+
+class CompetenceViewSet(ModelViewSet):
+
+    queryset = models.Competence.objects.all()
+    serializer_class = serializers.GetCompetenciesSerializer
 
 
 # class ClaseViewSet(ModelViewSet):
