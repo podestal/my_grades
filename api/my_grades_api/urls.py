@@ -11,6 +11,9 @@ router.register('instructors', views.InstructorViewSet, basename='instructors')
 router.register('assignatures', views.AssignatureViewSet, basename='assignatures')
 router.register('activities', views.ActivityViewSet, basename='activities')
 router.register('grades', views.GradesViewSet)
+router.register('atendances', views.AtendanceViewSet)
+router.register('students', views.StudentViewSet)
+router.register('tutors', views.TutorViewSet)
 
 competences_router = routers.NestedDefaultRouter(router, 'competences', lookup='competence') 
 competences_router.register('capacities', views.CapacityViewSet, basename='capacities')
@@ -18,8 +21,6 @@ competences_router.register('capacities', views.CapacityViewSet, basename='capac
 # router.register('assignments', views.AssignmentViewSet)
 # router.register('students', views.StudentViewSet)
 # router.register('competences', views.CompetenceViewSet, basename='competences')
-# router.register('tutors', views.TutorViewSet)
-# router.register('atendances', views.AtendanceViewSet)
 # router.register('grades', views.AllGradesViewSet)
 
 # assignments_router = routers.NestedDefaultRouter(router, 'assignments', lookup='assignment')
