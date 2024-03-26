@@ -122,6 +122,14 @@ class ActivityViewSet(ModelViewSet):
         if self.request.method in ['PATCH', 'POST', 'DELETE']:
             return [IsAdminUser()]
         return[IsAuthenticated()]
+    
+class GradesViewSet(ModelViewSet):
+
+    queryset = models.Grade.objects.select_related('student', 'activity')
+    serializer_class = serializers.GetGradeSerializer
+    http_method_names = ['get', 'post', 'patch', 'delete']
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['student', 'assignature']
 
 # class AssignmentViewSet(ModelViewSet):
 
