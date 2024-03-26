@@ -19,6 +19,12 @@ class GetCompetenciesSerializer(serializers.ModelSerializer):
         model = models.Competence
         fields = '__all__'
 
+class GetCapacitiesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Capacity
+        fields = '__all__'
+
 # class ClaseSerializer(serializers.ModelSerializer):
 
 #     title = serializers.SerializerMethodField('get_title')

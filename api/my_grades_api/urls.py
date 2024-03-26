@@ -7,6 +7,9 @@ router.register('areas', views.AreaViewSet)
 router.register('schools', views.SchoolViewSet)
 router.register('competences', views.CompetenceViewSet)
 
+competences_router = routers.NestedDefaultRouter(router, 'competences', lookup='competence') 
+competences_router.register('capacities', views.CapacityViewSet, basename='capacities')
+
 # router.register('clases', views.ClaseViewSet, basename='clases')
 # router.register('assignatures', views.AssignatureViewSet, basename='assignatures')
 # router.register('assignments', views.AssignmentViewSet)
@@ -22,4 +25,4 @@ router.register('competences', views.CompetenceViewSet)
 
 # urlpatterns = router.urls + assignments_router.urls
 
-urlpatterns = router.urls
+urlpatterns = router.urls + competences_router.urls
