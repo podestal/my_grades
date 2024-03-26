@@ -29,10 +29,13 @@ class CompetenceViewSet(ModelViewSet):
 
 class CapacityViewSet(ModelViewSet):
 
-    queryset = models.Capacity.objects.select_related('competence')
     serializer_class = serializers.GetCapacitiesSerializer
     permission_classes=[permissions.IsSuperUserOrReadOnly]
     http_method_names = ['get', 'post', 'patch', 'delete']
+
+    def get_queryset(self):
+
+        return models.Capacity.objects.select_related('competence').filter(competence_id=self.kwargs['competence_pk'])
     
 
 
