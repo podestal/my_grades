@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Students from '../components/students/Students'
 import Clases from '../components/students/Clases'
+import StudentDetail from '../components/students/StudentDetail'
 
 const StudentNavigator = () => {
 
@@ -23,6 +24,10 @@ const StudentNavigator = () => {
         <Stack.Screen 
             name='Students'
             component={Students}
+        />
+        <Stack.Screen 
+            name='Student-Detail'
+            component={StudentDetail}
         />
         {/* <Stack.Screen 
             name='Create-Competencie'
