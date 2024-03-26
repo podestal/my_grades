@@ -37,7 +37,26 @@ class CapacityViewSet(ModelViewSet):
 
         return models.Capacity.objects.select_related('competence').filter(competence_id=self.kwargs['competence_pk'])
     
+class InstructorViewSet(ModelViewSet):
 
+    permission_classes = [permissions.IsSuperUserOrReadOnly]
+    serializer_class = serializers.GetInstructorSerializer
+
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return models.Instructor.objects.select_related('school', 'user')
+        return models.Instructor.objects.select_related('school', 'user').filter(user_id=self.request.user.id)
+    
+    # def get_serializer_class(self):
+    #     if self.request.method == 'POST':
+    #         return serializers.CreateInstructorSerializer
+    #     return serializers.GetInstructorSerializer
+    
+    # @action(detail=False, methods=['GET'], permission_classes=[IsAdminUser])
+    # def me(self, request):
+    #     instructor = models.Instructor.objects.get(user_id=self.request.user.id)
+    #     serializer = serializers.GetInstructorSerializer(instructor)
+    #     return Response(serializer.data)
 
 class ClaseViewSet(ModelViewSet):
 
@@ -46,18 +65,16 @@ class ClaseViewSet(ModelViewSet):
     http_method_names = ['get', 'post', 'patch', 'delete']
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['school']
-    permission_classes = [permissions.IsSuperUserOrReadOnly]
 
-
-#     def get_permissions(self):
-#         if self.request.method in ['PATCH', 'POST', 'DELETE']:
-#             return [permissions.IsSuperUserOrReadOnly()]
-#         return[IsAuthenticated()]
+    def get_permissions(self):
+        if self.request.method in ['PATCH', 'POST', 'DELETE']:
+            return [permissions.IsSuperUserOrReadOnly()]
+        return[IsAuthenticated()]
 
 #     def get_serializer_class(self):
 #         if self.request.method == 'POST':
 #             return serializers.CreateClaseSerializer
-#         return serializers.ClaseSerializer
+#         return serializers.ClaseSerializer    
 
 # class AssignatureViewSet(ModelViewSet):
 
@@ -125,25 +142,6 @@ class ClaseViewSet(ModelViewSet):
 #         return serializers.GetStudentSerializer
 
 
-# class InstructorViewSet(ModelViewSet):
-
-#     permission_classes = [permissions.IsSuperUserOrReadOnly]
-
-#     def get_queryset(self):
-#         if self.request.user.is_superuser:
-#             return models.Instructor.objects.select_related('school', 'user')
-#         return models.Instructor.objects.select_related('school', 'user').filter(user_id=self.request.user.id)
-    
-#     def get_serializer_class(self):
-#         if self.request.method == 'POST':
-#             return serializers.CreateInstructorSerializer
-#         return serializers.GetInstructorSerializer
-    
-#     @action(detail=False, methods=['GET'], permission_classes=[IsAdminUser])
-#     def me(self, request):
-#         instructor = models.Instructor.objects.get(user_id=self.request.user.id)
-#         serializer = serializers.GetInstructorSerializer(instructor)
-#         return Response(serializer.data)
 
     
     

@@ -36,6 +36,12 @@ class GetClaseSerializer(serializers.ModelSerializer):
     def get_title(self, clase=models.Clase):
         return f'{clase.grade}-{clase.section}'
 
+class GetInstructorSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Instructor
+        fields = '__all__'
+
 # class CreateClaseSerializer(serializers.ModelSerializer):
 
 #     class Meta:
