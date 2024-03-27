@@ -3,13 +3,16 @@ import AssignmentForm from '../components/school/AssignmentForm'
 import Assignments from '../components/school/Assignments'
 import Assignatures from '../components/school/Assignatures'
 import Grades from '../components/school/Grades'
+import useAuth from '../hooks/useAssignatures'
 
 const AuthNavigator = () => {
 
     const Stack = createNativeStackNavigator()
+    const { user } = useAuth()
 
     return (
-        <>
+        <>  
+            {console.log('user from navigator:', user)}
             <Stack.Navigator
             screenOptions={{
                 headerStyle: { backgroundColor: '#000' },
@@ -26,7 +29,7 @@ const AuthNavigator = () => {
                     headerTitle: 'Cursos'
                 }}
             />
-            <Stack.Screen 
+            {/* <Stack.Screen 
                 name='Assignments' 
                 component={Assignments} 
                 options={{
@@ -46,7 +49,7 @@ const AuthNavigator = () => {
                 options={{
                     headerTitle: 'Crear'
                 }}
-            />
+            /> */}
         </Stack.Navigator>
         </>
     )

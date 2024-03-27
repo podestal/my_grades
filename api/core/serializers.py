@@ -10,7 +10,7 @@ class GetGroupSerializer(UserSerializer):
 class GetUserSerializer(UserSerializer):
 
     class Meta(UserSerializer.Meta):
-        fields = ['id', 'username', 'profile', 'first_name', 'last_name']
+        fields = ['id', 'username', 'profile']
 
     def get_is_staff(self, user=models.User):
         return user.is_staff

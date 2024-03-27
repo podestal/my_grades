@@ -38,6 +38,8 @@ class GetClaseSerializer(serializers.ModelSerializer):
 
 class GetInstructorSerializer(serializers.ModelSerializer):
 
+    user = GetUserSerializer()
+
     class Meta:
         model = models.Instructor
         fields = ['id', 'first_name', 'last_name', 'user', 'school']

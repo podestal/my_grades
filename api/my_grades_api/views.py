@@ -40,12 +40,11 @@ class InstructorViewSet(ModelViewSet):
 
     permission_classes = [permissions.IsSuperUserOrReadOnly]
     serializer_class = serializers.GetInstructorSerializer
-    queryset = models.Instructor.objects.select_related('school', 'user')
 
-    # def get_queryset(self):
-    #     if self.request.user.is_superuser:
-    #         return models.Instructor.objects.select_related('school', 'user')
-    #     return models.Instructor.objects.select_related('school', 'user').filter(user_id=self.request.user.id)
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return models.Instructor.objects.select_related('school', 'user')
+        return models.Instructor.objects.select_related('school', 'user').filter(user_id=self.request.user.id)
     
     # def get_serializer_class(self):
     #     if self.request.method == 'POST':
