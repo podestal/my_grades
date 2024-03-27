@@ -10,6 +10,7 @@ import { useNavigation } from "@react-navigation/native"
 const Assignments = ({ route }) => {
 
     const assignatureId = route.params.assignatureId
+    const assignature = route.params.assignature
     const {user} = useAuth()
     const navigator = useNavigation()
 
@@ -27,7 +28,8 @@ const Assignments = ({ route }) => {
         <ButtonElement 
             title={'Crear'}
             onPress={() => navigator.navigate('Create-Assignment', {
-                assignatureId
+                assignatureId,
+                assignature
             })}
         />
         {assignments && 

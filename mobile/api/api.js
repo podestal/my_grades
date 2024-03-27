@@ -49,9 +49,7 @@ export const updateGrades = data => axios.patch(`${URL}api/assignments/${data.as
 
 // COMPETENCIES
 
-export const getCompetencies = data => axios.get(`${URL}api/competences/` ,{
-    headers: { Authorization: `JWT ${data.token}` }
-})
+export const getCompetencies = data => axios.get(`${URL}api/competences/?area=${data.filter}`)
 
 export const createCompetencie = data => axios.post(`${URL}api/competences/`, data.competencie,{
     headers: { Authorization: `JWT ${data.token}` }

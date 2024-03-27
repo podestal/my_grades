@@ -5,14 +5,14 @@ import { getCompetencies } from "../../api/api";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 
-const Select = ({ setCompetence, title }) => {
+const Select = ({ setter, title, apiGetter, filter }) => {
 
     const [focus, setFocus] = useState(false)
     const { user } = useAuth()
 
-    const { data: competencies, isLoading, isError, error } = useQuery({
+    const { data, isLoading, isError, error } = useQuery({
         queryKey: ['competencies'],
-        queryFn: () => getCompetencies({ token: user.access })
+        queryFn: () => apiGetter({ filter })
     })
 
     if (isLoading) return <Text>Loading ...</Text>
@@ -22,12 +22,12 @@ const Select = ({ setCompetence, title }) => {
   return (
     <>
         <Text style={{fontSize: 16, textAlign: 'center'}}>{title}</Text>
-        {console.log(competencies.data)}
+        {console.log(data.data)}
         <ScrollView 
             style={styles.dropdownContainer}
         >
             <Dropdown 
-                data={competencies && competencies.data}
+                data={data && data.data}
                 search
                 labelField="title"
                 valueField="id"
@@ -35,7 +35,7 @@ const Select = ({ setCompetence, title }) => {
                 onBlur={() => setFocus(false)}
                 searchPlaceholder={"Selecciona Competencia"}
                 placeholder="Selecciona una competencia"
-                onChange={item => setCompetence(item.id)}
+                onChange={item => setter(item.id)}
                 selectedTextStyle={{fontSize:20}}
                 placeholderStyle={{fontSize:20}}
                 containerStyle={{padding: 40}}

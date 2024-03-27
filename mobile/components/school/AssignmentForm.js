@@ -11,6 +11,7 @@ import SuccessMsg from "../utils/SuccessMsg"
 import Calendario from "../utils/Calendario"
 import Select from "../utils/Select"
 import { useNavigation } from "@react-navigation/native"
+import { getCompetencies } from "../../api/api"
 
 const AssignmentForm = ({ route }) => {
 
@@ -20,7 +21,8 @@ const AssignmentForm = ({ route }) => {
     const [dueDateError, setDueDateError] = useState('')
     const [competence, setCompetence] = useState('')
     const [competenceError, setCompetenceError] = useState('')
-    const assignatureId = route?.params?.assignatureId
+    const area = route?.params?.assignature?.area
+    const assignatureId = route?.params?.assignature?.id
     const { user } = useAuth()
     const queryClient = useQueryClient()
     const [errorMsg, setErrorMsg] = useState('')
@@ -78,6 +80,7 @@ const AssignmentForm = ({ route }) => {
 
   return (
     <ScrollView style={{backgroundColor: '#fff', flex:1}}>
+        {console.log('Route params form',route?.params?.assignature?.area)}
         <Title 
             text={'Crea una Tarea'}
         />
@@ -96,8 +99,10 @@ const AssignmentForm = ({ route }) => {
         />
         {competenceError && <ErrorMsg>{competenceError}</ErrorMsg>}
         <Select 
-            setCompetence={setCompetence}
+            setter={setCompetence}
             title={'Competencia'}
+            apiGetter={getCompetencies}
+            filter={area}
         />
         <ButtonElement 
             title={'Crear'}

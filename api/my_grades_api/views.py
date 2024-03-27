@@ -26,6 +26,8 @@ class CompetenceViewSet(ModelViewSet):
     serializer_class = serializers.GetCompetenciesSerializer
     permission_classes=[permissions.IsSuperUserOrReadOnly]
     http_method_names = ['get', 'post', 'patch', 'delete']
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['area']
 
 class CapacityViewSet(ModelViewSet):
 

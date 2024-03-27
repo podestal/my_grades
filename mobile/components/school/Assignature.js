@@ -9,7 +9,8 @@ const Assignature = ({ data: assignature }) => {
 
     const handlePress = () => {
         navigator.navigate('Assignments', {
-            assignatureId: assignature.id
+            assignatureId: assignature.id,
+            assignature
         })
     }
 

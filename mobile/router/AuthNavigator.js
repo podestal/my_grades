@@ -12,7 +12,6 @@ const AuthNavigator = () => {
 
     return (
         <>  
-            {console.log('user from navigator:', user)}
             <Stack.Navigator
             screenOptions={{
                 headerStyle: { backgroundColor: '#000' },
