@@ -1,13 +1,5 @@
 import { useState } from "react"
 import { View, Text, StyleSheet, Pressable } from "react-native"
-// const color = {
-//     'default': '#ecf0f1',
-//     'NA': 'blue',
-//     'C': 'orange',
-//     'B': 'yellow',
-//     'A': 'green',
-//     'AD': 'purple',
-// }
 
 const Calification = ({ calification, currentCalification, color, updateCalification }) => {
 

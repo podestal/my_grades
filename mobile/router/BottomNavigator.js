@@ -20,7 +20,7 @@ const BottonNavigator = () => {
         }}
     >   
         <Tab.Screen name='AssignaturesBottom' component={AuthNavigator} options={{ title: 'Cursos' }}/>
-        <Tab.Screen name='Comptencies' component={CompetenciesNavigator} options={{ title: 'Competencias' }}/>
+        {/* <Tab.Screen name='Comptencies' component={CompetenciesNavigator} options={{ title: 'Competencias' }}/> */}
         <Tab.Screen name='Student' component={StudentNavigator} options={{ title: 'Estudiantes' }}/>
     </Tab.Navigator>
   )

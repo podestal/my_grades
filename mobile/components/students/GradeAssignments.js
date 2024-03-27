@@ -1,21 +1,28 @@
-import { Text, View, StyleSheet } from "react-native"
+import { Text, View, StyleSheet, Button } from "react-native"
 import ButtonElement from "../utils/Button"
 
 const GradeAssignments = ({ data: grade }) => {
+
+    const handleUpdateGrade = () => {
+
+    }
+
   return (
     <View style={styles.container}>
         <View style={styles.textContainer}>
+            {console.log(grade)}
             <Text style={styles.text}>{grade?.assignment?.title}</Text>
             <Text style={styles.text}>Calificación: {grade?.calification}</Text>   
         </View>
-        {/* <View>
-            <ButtonElement 
-                title={'Modificar'}
-            />
-        </View> */}
-                    <ButtonElement 
-                title={'Modificar'}
-            />
+        <View>
+            <Button title="Editar" />
+        </View>
+                    {/* <ButtonElement 
+                token: user.access, 
+                assignmentId: grade.assignment, 
+                gradeId: grade.id, 
+                calification: { calification: selectedCalification } })
+            /> */}
     </View>
   )
 }
