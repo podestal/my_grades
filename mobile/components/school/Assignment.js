@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#ecf0f1',
         height: 200,
-        borderRadius: 30,
+        borderRadius: 30,   
     },
     subTitle: {
         fontSize: 25

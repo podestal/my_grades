@@ -29,13 +29,14 @@ const AuthNavigator = () => {
                     headerTitle: 'Cursos'
                 }}
             />
-            {/* <Stack.Screen 
+            <Stack.Screen 
                 name='Assignments' 
                 component={Assignments} 
                 options={{
                     headerTitle: 'Tareas'
                 }}
             />
+            {/* 
             <Stack.Screen 
                 name='Grades' 
                 component={Grades} 

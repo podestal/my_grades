@@ -9,29 +9,27 @@ import useAssignatures from "../../hooks/useAssignatures"
 const Assignatures = () => {
 
     const {user} = useAuth()
-    // const { setAssignatures } = useAssignatures()
+    const { setAssignatures } = useAssignatures()
 
-    // const { data: assignatures, isLoading, isError, error, isSuccess } = useQuery({
-    //     queryKey: ['assignatures'],
-    //     queryFn: () => getAssignatures(user.access)
-    // })
+    const { data: assignatures, isLoading, isError, error, isSuccess } = useQuery({
+        queryKey: ['assignatures'],
+        queryFn: () => getAssignatures(user.access)
+    })
 
-    // if (isLoading) return <Text>Loading ...</Text>
+    if (isLoading) return <Text>Loading ...</Text>
 
-    // if (isError) return <Text>{error.message}</Text>
+    if (isError) return <Text>{error.message}</Text>
 
-    // if (isSuccess) {
-    //     setAssignatures(assignatures.data)
-    // }
+    if (isSuccess) {
+        setAssignatures(assignatures.data)
+    }
 
   return (
     <View style={styles.container}>
-        {/* <List 
+        <List 
             data={assignatures.data}
             DetailComponent={Assignature}
-        /> */}
-        <Text>Assignatures</Text>
-        {console.log(user)}
+        />
     </View>
   )
 }
