@@ -27,11 +27,17 @@ class GetCapacitiesSerializer(serializers.ModelSerializer):
 
 class GetClaseSerializer(serializers.ModelSerializer):
 
+    class Meta:
+        model = models.Clase
+        fields = '__all__'
+    
+class GetSimpleClaseSerializer(serializers.ModelSerializer):
+
     title = serializers.SerializerMethodField('get_title')
 
     class Meta:
         model = models.Clase
-        fields = '__all__'
+        fields = ['id', 'title', 'level']
 
     def get_title(self, clase=models.Clase):
         return f'{clase.grade}-{clase.section}'
@@ -45,6 +51,8 @@ class GetInstructorSerializer(serializers.ModelSerializer):
         fields = ['id', 'first_name', 'last_name', 'user', 'school']
 
 class GetAssignatureSerializer(serializers.ModelSerializer):
+
+    clase = GetSimpleClaseSerializer()
 
     class Meta:
         model = models.Assignature

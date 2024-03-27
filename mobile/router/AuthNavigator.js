@@ -36,7 +36,6 @@ const AuthNavigator = () => {
                     headerTitle: 'Tareas'
                 }}
             />
-            {/* 
             <Stack.Screen 
                 name='Grades' 
                 component={Grades} 
@@ -50,7 +49,7 @@ const AuthNavigator = () => {
                 options={{
                     headerTitle: 'Crear'
                 }}
-            /> */}
+            />
         </Stack.Navigator>
         </>
     )
