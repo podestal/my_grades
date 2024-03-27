@@ -1,4 +1,4 @@
-import { StyleSheet, ScrollView } from "react-native"
+import { StyleSheet, ScrollView, Text } from "react-native"
 import ButtonElement from "../utils/Button"
 import Input from "../utils/Input"
 import { useState } from "react"
@@ -11,7 +11,7 @@ import SuccessMsg from "../utils/SuccessMsg"
 import Calendario from "../utils/Calendario"
 import Select from "../utils/Select"
 import { useNavigation } from "@react-navigation/native"
-import { getCompetencies } from "../../api/api"
+import { getCompetencies, getCapacities } from "../../api/api"
 
 const AssignmentForm = ({ route }) => {
 
@@ -20,6 +20,7 @@ const AssignmentForm = ({ route }) => {
     const [dueDate, setDueDate] = useState('')
     const [dueDateError, setDueDateError] = useState('')
     const [competence, setCompetence] = useState('')
+    const [capacity, setCapacity] = useState('')
     const [competenceError, setCompetenceError] = useState('')
     const area = route?.params?.assignature?.area
     const assignatureId = route?.params?.assignature?.id
@@ -80,9 +81,8 @@ const AssignmentForm = ({ route }) => {
 
   return (
     <ScrollView style={{backgroundColor: '#fff', flex:1}}>
-        {console.log('Route params form',route?.params?.assignature?.area)}
         <Title 
-            text={'Crea una Tarea'}
+            text={'Crea una Actividad'}
         />
         {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
         {successMsg && <SuccessMsg>{successMsg}</SuccessMsg>}
@@ -103,7 +103,18 @@ const AssignmentForm = ({ route }) => {
             title={'Competencia'}
             apiGetter={getCompetencies}
             filter={area}
+            keyWord={'competencies'}
         />
+        {console.log('competence',competence)}
+        {competence > 0 &&
+        <Select 
+            setter={setCapacity}
+            title={'Capacity'}
+            apiGetter={getCapacities}
+            filter={competence}
+            keyWord={'capacities'}
+        />
+        }
         <ButtonElement 
             title={'Crear'}
             onPress={handleCreateAssignment}

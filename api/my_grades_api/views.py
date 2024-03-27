@@ -31,12 +31,15 @@ class CompetenceViewSet(ModelViewSet):
 
 class CapacityViewSet(ModelViewSet):
 
+    queryset =  models.Capacity.objects.select_related('competence')
     serializer_class = serializers.GetCapacitiesSerializer
     permission_classes=[permissions.IsSuperUserOrReadOnly]
     http_method_names = ['get', 'post', 'patch', 'delete']
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['competence']
 
-    def get_queryset(self):
-        return models.Capacity.objects.select_related('competence').filter(competence_id=self.kwargs['competence_pk'])
+    # def get_queryset(self):
+    #     return models.Capacity.objects.select_related('competence').filter(competence_id=self.kwargs['competence_pk'])
     
 class InstructorViewSet(ModelViewSet):
 

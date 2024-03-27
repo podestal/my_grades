@@ -1,17 +1,14 @@
 import { ScrollView, StyleSheet, Text } from "react-native"
 import { Dropdown } from 'react-native-element-dropdown';
 import { useState } from "react";
-import { getCompetencies } from "../../api/api";
 import { useQuery } from "@tanstack/react-query";
-import useAuth from "../../hooks/useAuth";
 
-const Select = ({ setter, title, apiGetter, filter }) => {
+const Select = ({ setter, title, apiGetter, filter, keyWord }) => {
 
     const [focus, setFocus] = useState(false)
-    const { user } = useAuth()
 
     const { data, isLoading, isError, error } = useQuery({
-        queryKey: ['competencies'],
+        queryKey: [`${keyWord}`],
         queryFn: () => apiGetter({ filter })
     })
 
@@ -33,8 +30,8 @@ const Select = ({ setter, title, apiGetter, filter }) => {
                 valueField="id"
                 onFocus={() => setFocus(true)}
                 onBlur={() => setFocus(false)}
-                searchPlaceholder={"Selecciona Competencia"}
-                placeholder="Selecciona una competencia"
+                searchPlaceholder={`Selecciona ${title}`}
+                placeholder={`Selecciona ${title}`}
                 onChange={item => setter(item.id)}
                 selectedTextStyle={{fontSize:20}}
                 placeholderStyle={{fontSize:20}}
