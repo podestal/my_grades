@@ -34,18 +34,18 @@ class CapacityViewSet(ModelViewSet):
     http_method_names = ['get', 'post', 'patch', 'delete']
 
     def get_queryset(self):
-
         return models.Capacity.objects.select_related('competence').filter(competence_id=self.kwargs['competence_pk'])
     
 class InstructorViewSet(ModelViewSet):
 
     permission_classes = [permissions.IsSuperUserOrReadOnly]
     serializer_class = serializers.GetInstructorSerializer
+    queryset = models.Instructor.objects.select_related('school', 'user')
 
-    def get_queryset(self):
-        if self.request.user.is_superuser:
-            return models.Instructor.objects.select_related('school', 'user')
-        return models.Instructor.objects.select_related('school', 'user').filter(user_id=self.request.user.id)
+    # def get_queryset(self):
+    #     if self.request.user.is_superuser:
+    #         return models.Instructor.objects.select_related('school', 'user')
+    #     return models.Instructor.objects.select_related('school', 'user').filter(user_id=self.request.user.id)
     
     # def get_serializer_class(self):
     #     if self.request.method == 'POST':
