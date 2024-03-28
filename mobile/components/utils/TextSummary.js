@@ -4,10 +4,10 @@ const TextSummary = ({ title, item, setItem, extraSetter }) => {
   return (
     <View style={styles.textContainer}>
         <Text style={styles.textTitle}>{title}</Text>
-        <Text style={styles.text}>{item.title}</Text>
+        <Text style={styles.text}>{item}</Text>
         <Button onPress={() => {
             setItem()
-            extraSetter()}} title={`Selecciona ${title}`}/>
+            extraSetter && extraSetter()}} title={`Selecciona ${title}`}/>
     </View> 
   )
 }

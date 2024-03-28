@@ -109,18 +109,28 @@ const AssignmentForm = ({ route }) => {
             setter={setTitle}
         />
         {dueDateError && <ErrorMsg>{dueDateError}</ErrorMsg>}
+        {console.log('Due Date', dueDate)}
+        {dueDate 
+        ?
+        <TextSummary 
+            title={'Fecha de entrega'}
+            item={dueDate}
+            setItem={setDueDate}
+        />
+        :
         <Calendario 
             setDueDate={setDueDate}
             title={'Fecha de entrega'}
         />
+        }
         {competenceError && <ErrorMsg>{competenceError}</ErrorMsg>}
         {competence
         ?
         <TextSummary 
-            title={'Capacidad'}
-            item={capacity}
-            setItem={setCapacity}
-            extraSetter={setCompetence}
+            title={'Competencia'}
+            item={competence.title}
+            setItem={setCompetence}
+            extraSetter={setCapacity}
         />
         :
         <View>
@@ -143,7 +153,7 @@ const AssignmentForm = ({ route }) => {
         // </View> 
         <TextSummary 
             title={'Capacidad'}
-            item={capacity}
+            item={capacity.title}
             setItem={setCapacity}
         />
         :
