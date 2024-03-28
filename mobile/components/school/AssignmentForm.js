@@ -3,7 +3,7 @@ import ButtonElement from "../utils/Button"
 import Input from "../utils/Input"
 import { useEffect, useState } from "react"
 import Title from "../utils/Title"
-import { createAssignment } from "../../api/api"
+import { createActivity } from "../../api/api"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import useAuth from "../../hooks/useAuth"
 import ErrorMsg from "../utils/ErrorMsg"
@@ -37,18 +37,17 @@ const AssignmentForm = ({ route }) => {
     const filteredCometences = getFilteredCompetences(area)
     const filteredCapacities = competence && getFilteredCapacities(competence?.id)
 
-    const {mutate: createAssignmentMutation} = useMutation({
-        mutationFn: data => createAssignment(data),
+    const {mutate: createActivityMutation} = useMutation({
+        mutationFn: data => createActivity(data),
         onSuccess: res => {
             setSuccessMsg('Su tarea ha sido creada')
             queryClient.invalidateQueries(['assignments'])
         },
-        onError: err => setErrorMsg('Ocurrió un error, vuélvalo a intentar')
+        onError: err => {
+            setErrorMsg('Ocurrió un error, vuélvalo a intentar')
+            console.log('Error',err);
+        }
     })
-
-    const handleSelectCompetence = (competence) => {
-        console.log(competence)
-    }
 
     const handleCreateAssignment = () => {
 
@@ -70,14 +69,14 @@ const AssignmentForm = ({ route }) => {
             return
         }
         try {
-            createAssignmentMutation({ 
+            createActivityMutation({ 
                 token: user.access, 
-                assignment:{
+                activity:{
                     title,
                     due_date: dueDate,
-                    competence,
+                    competence: competence.id,
                     assignature: assignatureId,
-                    capacity
+                    capacity: capacity.id
                 } 
             })
             setTitle('')
@@ -91,10 +90,6 @@ const AssignmentForm = ({ route }) => {
             
     }
 
-    useEffect(() => {
-        console.log('Competence: ',competence)
-    }, [competence])
-
   return (
     <ScrollView style={{backgroundColor: '#fff', flex:1}}>
         <Title 
@@ -103,8 +98,9 @@ const AssignmentForm = ({ route }) => {
         {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
         {successMsg && <SuccessMsg>{successMsg}</SuccessMsg>}
         {titleError && <ErrorMsg>{titleError}</ErrorMsg>}
+        <Text style={styles.textTitle}>Título de la Tarea</Text>
         <Input 
-            label={'Título de la tarea'}
+            // label={'Título de la tarea'}
             value={title}
             setter={setTitle}
         />
@@ -118,10 +114,12 @@ const AssignmentForm = ({ route }) => {
             setItem={setDueDate}
         />
         :
-        <Calendario 
-            setDueDate={setDueDate}
-            title={'Fecha de entrega'}
-        />
+        <>
+            <Text style={styles.textTitle}>Selecciona una fecha de entrega</Text>
+            <Calendario 
+                setDueDate={setDueDate}
+            />
+        </>
         }
         {competenceError && <ErrorMsg>{competenceError}</ErrorMsg>}
         {competence
@@ -134,7 +132,7 @@ const AssignmentForm = ({ route }) => {
         />
         :
         <View>
-            <Text>Selecciona una Competencia</Text>
+            <Text style={styles.textTitle}>Selecciona una Competencia</Text>
             {filteredCometences.map(competence => (
                 <Options 
                     key={competence.id}
@@ -146,11 +144,6 @@ const AssignmentForm = ({ route }) => {
         }
         {capacity 
         ? 
-        // <View style={styles.textContainer}>
-        //     <Text style={styles.textTitle}>Capacidad</Text>
-        //     <Text style={styles.text}>{capacity.title}</Text>
-        //     <Button onPress={() => setCapacity()} title="Seleccionar Capacidad"/>
-        // </View> 
         <TextSummary 
             title={'Capacidad'}
             item={capacity.title}
@@ -158,7 +151,7 @@ const AssignmentForm = ({ route }) => {
         />
         :
         competence && <View>
-            <Text>Selecciona una Capacidad</Text>
+            <Text style={styles.textTitle}>Selecciona una Capacidad</Text>
             {filteredCapacities.map(capacity => (
                 <Options 
                     key={capacity.id}
@@ -168,55 +161,10 @@ const AssignmentForm = ({ route }) => {
             ))}
         </View>
         }
-        {/* <Select 
-            setter={setCompetence}
-            title={'Competencia'}
-            data={competenciesData}
-        />
-        {console.log('competenciesData:', competenciesData)}
-        {console.log('filteredCometences: ', filteredCometences)} */}
-
-        
-        {/* <Select 
-            setter={setCapacity}
-            title={'Capacity'}
-            data={capacitiesData.filter( capactity => capactity.competence == 5)}
-        /> */}
-        {/* <Select 
-            setter={setCompetence}
-            title={'Competencia'}
-            apiGetter={getCompetencies}
-            filter={area}
-            keyWord={'competencies'}
-        />
-        {console.log('competence',competence)}
-        } */}
         <ButtonElement 
             title={'Crear'}
             onPress={handleCreateAssignment}
         />
-        {/* {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
-        {successMsg && <SuccessMsg>{successMsg}</SuccessMsg>}
-        {titleError && <ErrorMsg>{titleError}</ErrorMsg>}
-        <Input 
-            label={'Título de la tarea'}
-            value={title}
-            setter={setTitle}
-        />
-        {dueDateError && <ErrorMsg>{dueDateError}</ErrorMsg>}
-        <Calendario 
-            setDueDate={setDueDate}
-            title={'Fecha de entrega'}
-        />
-        {competenceError && <ErrorMsg>{competenceError}</ErrorMsg>}
-        <Select 
-            setCompetence={setCompetence}
-            title={'Competencia'}
-        />
-        <ButtonElement 
-            title={'Crear'}
-            onPress={handleCreateAssignment}
-        /> */}
     </ScrollView>
   )
 }
@@ -236,7 +184,8 @@ const styles = StyleSheet.create({
     },
     textTitle: {
         fontSize: 22,
-        marginVertical: 12,
+        // marginVertical: 12,
+        textAlign: 'center'
     },
     text: {
         textAlign: 'center',

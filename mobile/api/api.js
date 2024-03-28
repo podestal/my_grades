@@ -29,7 +29,7 @@ export const getAssignments = data => axios.get(`${URL}api/activities/?assignatu
     headers: { Authorization: `JWT ${data.token}` }
 })
 
-export const createAssignment = data => axios.post(`${URL}api/assignments/`, data.assignment ,{
+export const createActivity = data => axios.post(`${URL}api/activities/`, data.activity ,{
     headers: { Authorization: `JWT ${data.token}` }
 })
 

@@ -14,8 +14,6 @@ const TextSummary = ({ title, item, setItem, extraSetter }) => {
 
 export default TextSummary
 
-
-
 const styles = StyleSheet.create({
     textContainer: {
         justifyContent: 'center',
