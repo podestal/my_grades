@@ -1,7 +1,7 @@
-import { StyleSheet, ScrollView, Text } from "react-native"
+import { StyleSheet, ScrollView, Text, View, Pressable, Button } from "react-native"
 import ButtonElement from "../utils/Button"
 import Input from "../utils/Input"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Title from "../utils/Title"
 import { createAssignment } from "../../api/api"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
@@ -11,7 +11,9 @@ import SuccessMsg from "../utils/SuccessMsg"
 import Calendario from "../utils/Calendario"
 import Select from "../utils/Select"
 import { useNavigation } from "@react-navigation/native"
-import { getCompetencies, getCapacities } from "../../api/api"
+import { capacitiesData } from "../../data/capacities"
+import { competenciesData, getFilteredCompetences } from "../../data/competencies"
+import Competencie from "./Competencie"
 
 const AssignmentForm = ({ route }) => {
 
@@ -29,6 +31,9 @@ const AssignmentForm = ({ route }) => {
     const [errorMsg, setErrorMsg] = useState('')
     const [successMsg, setSuccessMsg] = useState('')
     const navigator = useNavigation()
+    const [selected, setSelected] = useState("")
+
+    const filteredCometences = getFilteredCompetences(area)
 
     const {mutate: createAssignmentMutation} = useMutation({
         mutationFn: data => createAssignment(data),
@@ -38,6 +43,10 @@ const AssignmentForm = ({ route }) => {
         },
         onError: err => setErrorMsg('Ocurrió un error, vuélvalo a intentar')
     })
+
+    const handleSelectCompetence = (competence) => {
+        console.log(competence)
+    }
 
     const handleCreateAssignment = () => {
 
@@ -66,6 +75,7 @@ const AssignmentForm = ({ route }) => {
                     due_date: dueDate,
                     competence,
                     assignature: assignatureId,
+                    capacity
                 } 
             })
             setTitle('')
@@ -78,6 +88,10 @@ const AssignmentForm = ({ route }) => {
         }
             
     }
+
+    useEffect(() => {
+        console.log('Competence: ',competence)
+    }, [competence])
 
   return (
     <ScrollView style={{backgroundColor: '#fff', flex:1}}>
@@ -98,7 +112,40 @@ const AssignmentForm = ({ route }) => {
             title={'Fecha de entrega'}
         />
         {competenceError && <ErrorMsg>{competenceError}</ErrorMsg>}
-        <Select 
+        {competence
+        ?
+        <View>
+            <Text>Competencia</Text>
+            <Text>{competence.title}</Text>
+            <Button onPress={() => setCompetence()} title="Seleccionar Competencia"/>
+        </View> 
+        :
+        <View>
+            <Text>Selecciona una Competencia</Text>
+            {filteredCometences.map(competence => (
+                <Competencie 
+                    key={competence.id}
+                    competence={competence}
+                    setCompetence={setCompetence}
+                />
+            ))}
+        </View>
+        }
+        {/* <Select 
+            setter={setCompetence}
+            title={'Competencia'}
+            data={competenciesData}
+        />
+        {console.log('competenciesData:', competenciesData)}
+        {console.log('filteredCometences: ', filteredCometences)} */}
+
+        
+        {/* <Select 
+            setter={setCapacity}
+            title={'Capacity'}
+            data={capacitiesData.filter( capactity => capactity.competence == 5)}
+        /> */}
+        {/* <Select 
             setter={setCompetence}
             title={'Competencia'}
             apiGetter={getCompetencies}
@@ -106,15 +153,7 @@ const AssignmentForm = ({ route }) => {
             keyWord={'competencies'}
         />
         {console.log('competence',competence)}
-        {competence > 0 &&
-        <Select 
-            setter={setCapacity}
-            title={'Capacity'}
-            apiGetter={getCapacities}
-            filter={competence}
-            keyWord={'capacities'}
-        />
-        }
+        } */}
         <ButtonElement 
             title={'Crear'}
             onPress={handleCreateAssignment}
