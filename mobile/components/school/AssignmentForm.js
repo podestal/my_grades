@@ -115,10 +115,12 @@ const AssignmentForm = ({ route }) => {
         {competenceError && <ErrorMsg>{competenceError}</ErrorMsg>}
         {competence
         ?
-        <View>
-            <Text>Competencia</Text>
-            <Text>{competence.title}</Text>
-            <Button onPress={() => setCompetence()} title="Seleccionar Competencia"/>
+        <View style={styles.textContainer}>
+            <Text style={styles.textTitle}>Competencia</Text>
+            <Text style={styles.text}>{competence.title}</Text>
+            <Button onPress={() => {
+                setCompetence()
+                setCapacity()}} title="Seleccionar Competencia"/>
         </View> 
         :
         <View>
@@ -134,9 +136,9 @@ const AssignmentForm = ({ route }) => {
         }
         {capacity 
         ? 
-        <View>
-            <Text>Capacidad</Text>
-            <Text>{capacity.title}</Text>
+        <View style={styles.textContainer}>
+            <Text style={styles.textTitle}>Capacidad</Text>
+            <Text style={styles.text}>{capacity.title}</Text>
             <Button onPress={() => setCapacity()} title="Seleccionar Capacidad"/>
         </View> 
         :
@@ -211,5 +213,20 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    textContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 8,
+    },
+    textTitle: {
+        fontSize: 22,
+        marginVertical: 12,
+    },
+    text: {
+        textAlign: 'center',
+        fontSize: 15,
+        marginBottom: 16,
     }
+
 })
