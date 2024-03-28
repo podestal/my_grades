@@ -102,7 +102,6 @@ class Capacity(models.Model):
 class Activity(models.Model):
 
     title = models.CharField(max_length=255)
-    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE)
     assignature = models.ForeignKey(Assignature, on_delete=models.CASCADE)
     competence = models.ForeignKey(Competence, on_delete=models.CASCADE)
     capacity = models.ForeignKey(Capacity, on_delete=models.CASCADE)
