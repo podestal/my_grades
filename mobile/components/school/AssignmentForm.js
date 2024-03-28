@@ -14,6 +14,7 @@ import { useNavigation } from "@react-navigation/native"
 import { capacitiesData, getFilteredCapacities } from "../../data/capacities"
 import { competenciesData, getFilteredCompetences } from "../../data/competencies"
 import Options from "../utils/Options"
+import TextSummary from "../utils/TextSummary"
 
 const AssignmentForm = ({ route }) => {
 
@@ -115,13 +116,12 @@ const AssignmentForm = ({ route }) => {
         {competenceError && <ErrorMsg>{competenceError}</ErrorMsg>}
         {competence
         ?
-        <View style={styles.textContainer}>
-            <Text style={styles.textTitle}>Competencia</Text>
-            <Text style={styles.text}>{competence.title}</Text>
-            <Button onPress={() => {
-                setCompetence()
-                setCapacity()}} title="Seleccionar Competencia"/>
-        </View> 
+        <TextSummary 
+            title={'Capacidad'}
+            item={capacity}
+            setItem={setCapacity}
+            extraSetter={setCompetence}
+        />
         :
         <View>
             <Text>Selecciona una Competencia</Text>
@@ -136,11 +136,16 @@ const AssignmentForm = ({ route }) => {
         }
         {capacity 
         ? 
-        <View style={styles.textContainer}>
-            <Text style={styles.textTitle}>Capacidad</Text>
-            <Text style={styles.text}>{capacity.title}</Text>
-            <Button onPress={() => setCapacity()} title="Seleccionar Capacidad"/>
-        </View> 
+        // <View style={styles.textContainer}>
+        //     <Text style={styles.textTitle}>Capacidad</Text>
+        //     <Text style={styles.text}>{capacity.title}</Text>
+        //     <Button onPress={() => setCapacity()} title="Seleccionar Capacidad"/>
+        // </View> 
+        <TextSummary 
+            title={'Capacidad'}
+            item={capacity}
+            setItem={setCapacity}
+        />
         :
         competence && <View>
             <Text>Selecciona una Capacidad</Text>
