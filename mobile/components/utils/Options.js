@@ -1,17 +1,16 @@
 import { Text, Pressable, StyleSheet, View } from "react-native"
 
-const Competencie = ({ competence, setCompetence}) => {
-
+const Options = ({ item, setter}) => {
   return (
-    <Pressable style={({ pressed }) => pressed && styles.container} onPress={() => setCompetence(competence)}>
+    <Pressable style={({ pressed }) => pressed && styles.container} onPress={() => setter(item)}>
         <View style={styles.innerContainer}>
-            <Text style={styles.text}>{competence.title}</Text>
+            <Text style={styles.text}>{item.title}</Text>
         </View>
     </Pressable>
   )
 }
 
-export default Competencie
+export default Options
 
 const styles = StyleSheet.create({
     container: {

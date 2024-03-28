@@ -13,6 +13,7 @@ import Select from "../utils/Select"
 import { useNavigation } from "@react-navigation/native"
 import { capacitiesData } from "../../data/capacities"
 import { competenciesData, getFilteredCompetences } from "../../data/competencies"
+import Options from "../utils/Options"
 import Competencie from "./Competencie"
 
 const AssignmentForm = ({ route }) => {
@@ -123,10 +124,10 @@ const AssignmentForm = ({ route }) => {
         <View>
             <Text>Selecciona una Competencia</Text>
             {filteredCometences.map(competence => (
-                <Competencie 
+                <Options 
                     key={competence.id}
-                    competence={competence}
-                    setCompetence={setCompetence}
+                    item={competence}
+                    setter={setCompetence}
                 />
             ))}
         </View>
