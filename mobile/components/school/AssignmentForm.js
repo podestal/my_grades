@@ -11,10 +11,9 @@ import SuccessMsg from "../utils/SuccessMsg"
 import Calendario from "../utils/Calendario"
 import Select from "../utils/Select"
 import { useNavigation } from "@react-navigation/native"
-import { capacitiesData } from "../../data/capacities"
+import { capacitiesData, getFilteredCapacities } from "../../data/capacities"
 import { competenciesData, getFilteredCompetences } from "../../data/competencies"
 import Options from "../utils/Options"
-import Competencie from "./Competencie"
 
 const AssignmentForm = ({ route }) => {
 
@@ -35,6 +34,7 @@ const AssignmentForm = ({ route }) => {
     const [selected, setSelected] = useState("")
 
     const filteredCometences = getFilteredCompetences(area)
+    const filteredCapacities = competence && getFilteredCapacities(competence?.id)
 
     const {mutate: createAssignmentMutation} = useMutation({
         mutationFn: data => createAssignment(data),
@@ -128,6 +128,25 @@ const AssignmentForm = ({ route }) => {
                     key={competence.id}
                     item={competence}
                     setter={setCompetence}
+                />
+            ))}
+        </View>
+        }
+        {capacity 
+        ? 
+        <View>
+            <Text>Capacidad</Text>
+            <Text>{capacity.title}</Text>
+            <Button onPress={() => setCapacity()} title="Seleccionar Capacidad"/>
+        </View> 
+        :
+        competence && <View>
+            <Text>Selecciona una Capacidad</Text>
+            {filteredCapacities.map(capacity => (
+                <Options 
+                    key={capacity.id}
+                    item={capacity}
+                    setter={setCapacity}
                 />
             ))}
         </View>
