@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Button } from "react-native"
 import { useQuery } from "@tanstack/react-query"
-import { getAssignments } from "../../api/api"
+import { getActivities } from "../../api/api"
 import useAuth from "../../hooks/useAuth"
 import Assignment from "./Assignment"
 import List from "../utils/List"
@@ -16,7 +16,7 @@ const Assignments = ({ route }) => {
 
     const {data: assignments, isLoading, isError, error} = useQuery({
         queryKey: ['assignments'],
-        queryFn: () => getAssignments({token: user.access, assignature:assignatureId}),
+        queryFn: () => getActivities({token: user.access, assignature:assignatureId}),
     })
 
     if (isLoading) return <Text>Loading ...</Text>

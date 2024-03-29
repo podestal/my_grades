@@ -86,7 +86,15 @@ class CreateActivitySerializer(serializers.ModelSerializer):
         models.Grade.objects.bulk_create(grades)
         return activity
 
+class GetStudentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Student
+        fields = '__all__'
+
 class GetGradeSerializer(serializers.ModelSerializer):
+
+    student = GetStudentSerializer()
 
     class Meta:
         model = models.Grade
@@ -96,12 +104,6 @@ class GetAtendanceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Atendance
-        fields = '__all__'
-
-class GetStudentSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = models.Student
         fields = '__all__'
 
 class GetTutorSerializer(serializers.ModelSerializer):

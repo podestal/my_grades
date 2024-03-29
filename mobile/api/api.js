@@ -25,7 +25,7 @@ export const getAssignatures = token => axios.get(`${URL}api/assignatures/` ,{
 
 // ASIGNMENTS
 
-export const getAssignments = data => axios.get(`${URL}api/activities/?assignature=${data.assignature}` ,{
+export const getActivities = data => axios.get(`${URL}api/activities/?assignature=${data.assignature}` ,{
     headers: { Authorization: `JWT ${data.token}` }
 })
 
@@ -35,7 +35,7 @@ export const createActivity = data => axios.post(`${URL}api/activities/`, data.a
 
 // GRADES
 
-export const getGrades = data => axios.get(`${URL}api/assignments/${data.assignmentId}/grades/` ,{
+export const getGrades = data => axios.get(`${URL}api/grades/?student=&assignature=4` ,{
     headers: { Authorization: `JWT ${data.token}` }
 })
 
