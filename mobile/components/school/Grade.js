@@ -34,7 +34,6 @@ const Grade = ({ data: grade }) => {
         try {
             updateGradesMutation({ 
                 token: user.access, 
-                assignmentId: grade.assignment, 
                 gradeId: grade.id, 
                 calification: { calification: selectedCalification } })
             setCalification(selectedCalification)

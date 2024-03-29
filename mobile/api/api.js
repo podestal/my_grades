@@ -43,7 +43,7 @@ export const getDetailGrade = data => axios.get(`${URL}/api/grades/?student=${da
     headers: { Authorization: `JWT ${data.token}` }
 })
 
-export const updateGrades = data => axios.patch(`${URL}api/assignments/${data.assignmentId}/grades/${data.gradeId}/`,  data.calification,{
+export const updateGrades = data => axios.patch(`${URL}api/grades/${data.gradeId}/`,  data.calification,{
     headers: { Authorization: `JWT ${data.token}` }
 })
 
