@@ -1,28 +1,23 @@
-import { useEffect, useState } from "react"
 import { Text, StyleSheet, Pressable } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 
-const Assignment = ({ data: assignment }) => {
+const Assignment = ({ data: activity }) => {
 
     const navigator = useNavigation()
-
-    useEffect(() => {
-        console.log('assignment:', assignment);
-    }, [])
 
 
     const handlePress = () => {
         navigator.navigate('Grades', {
-            assignmentId: assignment.id
+            activityId: activity.id
         })
     }
 
   return (
     <Pressable style={styles.pressable} onPress={handlePress}>
-        <Text style={styles.subTitle}>{assignment.title}</Text>
-        <Text style={styles.text}>{assignment.competence.title}</Text>
-        <Text style={styles.text}>{assignment.created_at}</Text>
-        <Text style={styles.text}>{assignment.due_date}</Text>
+        <Text style={styles.subTitle}>{activity.title}</Text>
+        <Text style={styles.text}>{activity.competence.title}</Text>
+        <Text style={styles.text}>{activity.created_at}</Text>
+        <Text style={styles.text}>{activity.due_date}</Text>
     </Pressable>
   )
 }

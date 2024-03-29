@@ -10,13 +10,13 @@ import { useState } from 'react'
 const Grades = ({ route }) => {
 
     const { user } = useAuth()
-    const assignmentId = route.params.assignmentId
+    const activityId = route.params.activityId
     const [name, setName] = useState('')
     const [filteredGrades, setFilteredGrades] = useState('')
 
     const {data: grades, isLoading, isError, error, isSuccess} = useQuery({
         queryKey: ['grades'],
-        queryFn: () => getGrades({ token: user.access, assignmentId }),
+        queryFn: () => getGrades({ token: user.access, activityId }),
     })
 
     if (isLoading) return <Text>Loading ...</Text>

@@ -14,7 +14,7 @@ const Assignments = ({ route }) => {
     const {user} = useAuth()
     const navigator = useNavigation()
 
-    const {data: assignments, isLoading, isError, error} = useQuery({
+    const {data: activities, isLoading, isError, error} = useQuery({
         queryKey: ['assignments'],
         queryFn: () => getActivities({token: user.access, assignature:assignatureId}),
     })
@@ -32,10 +32,10 @@ const Assignments = ({ route }) => {
                 assignature
             })}
         />
-        {assignments && 
+        {activities && 
             <View style={{ backgroundColor: '#fff' }}> 
                 <List 
-                    data={assignments.data}
+                    data={activities.data}
                     DetailComponent={Assignment}
                     style={{marginBottom: 50}}
                 />
