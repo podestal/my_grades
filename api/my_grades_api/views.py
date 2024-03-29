@@ -135,6 +135,11 @@ class GradesViewSet(ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['student', 'assignature']
 
+    def get_serializer_class(self):
+        if self.request.method == 'PATCH':
+            return serializers.UpdateGradeSerializer
+        return serializers.GetGradeSerializer
+
     def get_permissions(self):
         if self.request.method in ['PATCH', 'POST', 'DELETE']:
             return [IsAdminUser()]
