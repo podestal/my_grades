@@ -27,7 +27,8 @@ const Grades = ({ route }) => {
   return (
 
     <>
-        <View style={{backgroundColor:'#fff', padding: 10}}>      
+        <View style={{backgroundColor:'#fff', padding: 10}}>    
+            {console.log('Grades:', grades.data)}  
             <Input 
                 label={'Buscar...'}
                 value={name}

@@ -131,7 +131,7 @@ class GradesViewSet(ModelViewSet):
 
     queryset = models.Grade.objects.select_related('student', 'activity', 'assignature')
     serializer_class = serializers.GetGradeSerializer
-    http_method_names = ['get', 'post', 'patch', 'delete']
+    http_method_names = ['get', 'patch', 'delete']
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['student', 'assignature', 'activity']
 

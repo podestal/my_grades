@@ -19,7 +19,6 @@ const GradeDetail = ({ studentId, assignatureId, capcityId }) => {
 
   return (
     <>
-        {console.log(grades.data)}
         <List 
             data={grades.data.filter(grade => grade?.activity?.capacity == capcityId)}
             DetailComponent={GradeAssignments}

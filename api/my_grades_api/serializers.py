@@ -100,12 +100,12 @@ class GetSimpleActivitySerializer(serializers.ModelSerializer):
 
 class GetGradeSerializer(serializers.ModelSerializer):
 
-    # student = GetStudentSerializer()
+    student = GetStudentSerializer()
     activity = GetSimpleActivitySerializer()
 
     class Meta:
         model = models.Grade
-        fields = ['id', 'calification', 'activity']
+        fields = ['id', 'calification', 'activity', 'student']
 
 class UpdateGradeSerializer(serializers.ModelSerializer):
 
