@@ -112,7 +112,7 @@ class AssignatureViewSet(ModelViewSet):
     
 class ActivityViewSet(ModelViewSet):
 
-    queryset = models.Activity.objects.all()
+    queryset = models.Activity.objects.select_related('competence', 'capacity')
     serializer_class = serializers.GetActivitySerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['assignature']
@@ -129,7 +129,7 @@ class ActivityViewSet(ModelViewSet):
     
 class GradesViewSet(ModelViewSet):
 
-    queryset = models.Grade.objects.select_related('student', 'activity')
+    queryset = models.Grade.objects.select_related('student', 'activity', 'assignature')
     serializer_class = serializers.GetGradeSerializer
     http_method_names = ['get', 'post', 'patch', 'delete']
     filter_backends = [DjangoFilterBackend]

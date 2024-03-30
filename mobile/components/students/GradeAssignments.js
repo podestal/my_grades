@@ -10,19 +10,12 @@ const GradeAssignments = ({ data: grade }) => {
   return (
     <View style={styles.container}>
         <View style={styles.textContainer}>
-            {console.log(grade)}
-            <Text style={styles.text}>{grade?.assignment?.title}</Text>
+            <Text style={styles.mainText}>{grade?.activity?.title}</Text>
             <Text style={styles.text}>Calificación: {grade?.calification}</Text>   
         </View>
         <View>
             <Button title="Editar" />
         </View>
-                    {/* <ButtonElement 
-                token: user.access, 
-                assignmentId: grade.assignment, 
-                gradeId: grade.id, 
-                calification: { calification: selectedCalification } })
-            /> */}
     </View>
   )
 }
@@ -37,6 +30,12 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         width: '60%'
+    },
+    mainText: {
+        fontSize: 16,
+        margin: 10,
+        fontWeight: 'bold'
+
     },
     text: {
         fontSize: 16,

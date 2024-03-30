@@ -19,7 +19,6 @@ const GradeDetail = ({ studentId, assignatureId }) => {
 
   return (
     <>
-        {console.log(grades.data)}
         <List 
             data={grades.data}
             DetailComponent={GradeAssignments}

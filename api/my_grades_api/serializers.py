@@ -92,13 +92,20 @@ class GetStudentSerializer(serializers.ModelSerializer):
         model = models.Student
         fields = '__all__'
 
+class GetSimpleActivitySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Activity
+        fields = ['id', 'title', 'competence', 'capacity']
+
 class GetGradeSerializer(serializers.ModelSerializer):
 
-    student = GetStudentSerializer()
+    # student = GetStudentSerializer()
+    activity = GetSimpleActivitySerializer()
 
     class Meta:
         model = models.Grade
-        fields = ['id', 'calification', 'activity', 'student', 'assignature']
+        fields = ['id', 'calification', 'activity']
 
 class UpdateGradeSerializer(serializers.ModelSerializer):
 
