@@ -6,13 +6,15 @@ import Grade from './Grade'
 import List from '../utils/List'
 import Input from '../utils/Input'
 import { useState } from 'react'
+import useGrades from '../../hooks/useGrades'
 
 const Grades = ({ route }) => {
 
     const { user } = useAuth()
     const activityId = route.params.activityId
     const [name, setName] = useState('')
-    const [filteredGrades, setFilteredGrades] = useState('')
+
+    // const {} = useGrades()
 
     const {data: grades, isLoading, isError, error, isSuccess} = useQuery({
         queryKey: ['grades'],
