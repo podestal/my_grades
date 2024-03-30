@@ -18,12 +18,10 @@ const GradeDetail = ({ studentId, assignatureId, capcityId }) => {
     if (isError) return <Text>{error.message}</Text>
 
   return (
-    <>
-        <List 
-            data={grades.data.filter(grade => grade?.activity?.capacity == capcityId)}
-            DetailComponent={GradeAssignments}
-        />
-    </>
+    <List 
+        data={grades.data.filter(grade => grade?.activity?.capacity == capcityId)}
+        DetailComponent={GradeAssignments}
+    />
   )
 }
 

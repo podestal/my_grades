@@ -17,9 +17,6 @@ const Clases = () => {
 
   return (
     <>
-        {/* {assignatures && assignatures.map(assignature => <Clase assignature={assignature}/>)} */}
-        {/* {console.log(assignatures)} */}
-        {/* {console.log('filtered', filteredAssignatures)} */}
         <List 
             data={filteredAssignatures}
             DetailComponent={Clase}

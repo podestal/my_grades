@@ -1,4 +1,4 @@
-import { Text } from "react-native"
+import { Text, View, StyleSheet } from "react-native"
 import { getStudents } from "../../api/api"
 import useAuth from "../../hooks/useAuth"
 import { useQuery } from "@tanstack/react-query"
@@ -6,6 +6,7 @@ import List from "../utils/List"
 import Student from "./Student"
 import Input from "../utils/Input"
 import { useState } from "react"
+import NonScrollableContainer from "../utils/NonScrollableContainer"
 
 const Students = ({ route }) => {
 
@@ -22,7 +23,7 @@ const Students = ({ route }) => {
     if (isError) return <Text>{error.message}</Text>
 
   return (
-    <>  
+    <NonScrollableContainer>  
         <Input 
             label={'Buscar...'}
             value={name}
@@ -36,7 +37,7 @@ const Students = ({ route }) => {
           )}
             DetailComponent={Student}
         />
-    </>
+    </NonScrollableContainer>
   )
 }
 
