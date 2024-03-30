@@ -24,7 +24,7 @@ const Grade = ({ data: grade }) => {
     const {mutate: updateGradesMutation} = useMutation({
         mutationFn: data => updateGrades(data),
         onSuccess: res => {
-            client.invalidateQueries(['grades'])
+            // client.invalidateQueries(['grades'])
         },
         onError: err => console.log('error', err),
     })

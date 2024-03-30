@@ -158,7 +158,7 @@ class AtendanceViewSet(ModelViewSet):
     
 class StudentViewSet(ModelViewSet):
 
-    queryset = models.Student.objects.select_related('school', 'clase', 'user').prefetch_related('atendances')
+    queryset = models.Student.objects.select_related('school', 'clase').prefetch_related('atendances')
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['clase']
     http_method_names = ['get', 'post', 'patch', 'delete']
