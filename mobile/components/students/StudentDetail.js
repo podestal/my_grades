@@ -1,4 +1,4 @@
-import { Text } from "react-native"
+import { Text, View, StyleSheet } from "react-native"
 import Title from "../utils/Title"
 import GradeDetail from "./GradeDetail"
 import List from "../utils/List"
@@ -12,7 +12,7 @@ const StudentDetail = ({ route }) => {
     const competences = getFilteredCompetences(assignatures[0].area)
 
   return (
-    <>  
+    <View style={styles.container}>  
         {assignatures.length > 1 
         ? 
         <Text>Assignature list</Text> 
@@ -22,14 +22,19 @@ const StudentDetail = ({ route }) => {
             <List 
               data={competences}
               DetailComponent={Competence}
-            />
-            <GradeDetail 
-                studentId={student.id}
-                assignatureId={assignatures[0].id}
+              extraData={{ student, assignature: assignatures[0]}}
             />
         </>}
-    </>
+    </View>
   )
 }
 
 export default StudentDetail
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#fff',
+    flex: 1,
+    marginBottom: 100,
+  },
+})

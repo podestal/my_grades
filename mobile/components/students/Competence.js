@@ -5,20 +5,23 @@ import { getFilteredCapacities } from "../../data/capacities"
 import Capacity from "./Capacity"
 
 
-const Competence = ({ data }) => {
+const Competence = ({ data, extraData }) => {
 
     const [show, setShow] = useState(false)
     const capacities = getFilteredCapacities(data.id)
 
   return (
-    <Pressable onPress={() => setShow(!show)}>
-        <Text style={styles.text}>{data.title}</Text>
+    <View>
+        <Pressable onPress={() => setShow(!show)}>
+            <Text style={styles.text}>{data.title}</Text>
+        </Pressable>
         {show &&         
         <List 
             data={capacities}
             DetailComponent={Capacity}
+            extraData={extraData}
         />}
-    </Pressable>
+    </View>
   )
 }
 
