@@ -15,15 +15,24 @@ const Assignments = ({ route }) => {
     const assignature = route.params.assignature
     const {user} = useAuth()
     const navigator = useNavigation()
-    const {setGrades}= useGrades
+    const {grades, setGrades}= useGrades()
 
     const { mutate: getGradesMutation } = useMutation({
         mutationFn: data => getGradesByAssignature(data),
-        onSuccess: res => setGrades(res.data)
+        onSuccess: res => setGrades( prev => ([ ...prev, ...res.data ]))
     })
 
     useEffect(() => {
-        getGradesMutation({ token: user.access, assignatureId })
+
+        if (grades.length == 0) {
+            console.log('Getting grades ')
+            getGradesMutation({ token: user.access, assignatureId })
+         } else {
+            const filteredGrades = grades.filter( grade => grade.assignature == assignatureId)
+            console.log('filteredGrades for assignment',filteredGrades)
+            filteredGrades.length > 0 ? console.log('Let api alone') : getGradesMutation({ token: user.access, assignatureId })
+        
+        }
     }, [])
 
     const {data: activities, isLoading, isError, error} = useQuery({

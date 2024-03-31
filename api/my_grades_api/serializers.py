@@ -105,7 +105,7 @@ class GetGradeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Grade
-        fields = ['id', 'calification', 'activity', 'student']
+        fields = ['id', 'calification', 'activity', 'student', 'assignature']
 
 class UpdateGradeSerializer(serializers.ModelSerializer):
 
