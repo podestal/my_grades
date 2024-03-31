@@ -1,16 +1,12 @@
 import { Text } from "react-native"
-import useAssignatures from "../../hooks/useAssignatures"
-import Clases from "../students/Clases"
 import useAuth from "../../hooks/useAuth"
 import { useQuery } from "@tanstack/react-query"
 import { getClases } from "../../api/api"
-import { useEffect, useState } from "react"
+import Students from "./Students"
 
 const Attendance = () => {
 
-    const {assignatures} = useAssignatures()
     const { user } = useAuth()
-    const schoolId = user?.school
     const {data: clases, isLoading, isError, error} = useQuery({
         queryKey: ['clases'],
         queryFn: () => getClases({ token: user.access, schoolId: user.school })
@@ -23,7 +19,9 @@ const Attendance = () => {
   return (
     <>
         {console.log('clases', clases.data)}
-        <Clases />
+        <Students 
+            clases={clases.data}
+        />
     </>
   )
 }

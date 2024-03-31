@@ -15,7 +15,7 @@ const Select = ({ setter, title, data }) => {
             <Dropdown 
                 data={data}
                 search
-                labelField="title"
+                labelField='title'
                 valueField="id"
                 onFocus={() => setFocus(true)}
                 onBlur={() => setFocus(false)}
