@@ -38,7 +38,6 @@ const Students = ({ clases, schoolId }) => {
             placeholder={'Nombre o Apellido'}
         />
         <List 
-            // data, DetailComponent, style, extraData
             data={students.data
                     .filter(student => student.clase == clase)
                     .filter(student => (
