@@ -1,11 +1,8 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { View } from 'react-native'
 import { useState } from 'react'
 import GradesApi from './GradesApi'
 import useGrades from '../../hooks/useGrades'
-import Grade from './Grade'
-import Input from '../utils/Input'
-import List from '../utils/List'
-
+import GradesLocal from './GradesLocal'
 
 const Grades = ({ route }) => {
 
@@ -18,8 +15,6 @@ const Grades = ({ route }) => {
 
   return (
     <View style={{backgroundColor:'#fff', padding: 10}}> 
-        {console.log('grades length', grades.length)}
-        {console.log('grades', grades)}
         {filteredGrades.length == 0 
         ? 
         <GradesApi 
@@ -28,22 +23,11 @@ const Grades = ({ route }) => {
             setName={setName}
         />
         :
-        <>
-            <Input
-                label={'Buscar...'}
-                value={name}
-                setter={setName}
-                placeholder={'Nombre o Apellido'}
-            />
-            <List 
-                data={filteredGrades.filter( grade => (
-                    grade?.student?.first_name.toLowerCase().includes(name.toLocaleLowerCase()) ||  
-                    grade?.student?.last_name.toLowerCase().includes(name.toLocaleLowerCase()))
-                )}
-                style={{marginBottom: 250}}
-                DetailComponent={Grade}
-            /> 
-        </>
+        <GradesLocal 
+            activityId={activityId}
+            name={name}
+            setName={setName}
+        />
     }
     </View>    
 
@@ -51,15 +35,3 @@ const Grades = ({ route }) => {
 }
 
 export default Grades
-
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#fff',
-        padding: 40, 
-    },
-    contentContainer: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    }
-})

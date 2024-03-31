@@ -5,9 +5,6 @@ import { Text } from "react-native"
 import Input from "../utils/Input"
 import List from "../utils/List"
 import Grade from "./Grade"
-import useGrades from "../../hooks/useGrades"
-import { useEffect } from "react"
-import GradesLocal from "./GradesLocal"
 
 
 const GradesApi = ({ activityId, name, setName }) => {
@@ -39,9 +36,6 @@ const GradesApi = ({ activityId, name, setName }) => {
             style={{marginBottom: 250}}
             DetailComponent={Grade}
         /> 
-        <GradesLocal 
-            grades={grades.data}
-        />
     </>
   )
 }
