@@ -13,12 +13,12 @@ export default function App() {
     <AuthContextProvider>
       <CompetenciesContextProvider>
         <AssignatureContextProvider>
-          <QueryClientProvider client={client}>
-            <GradesContextProvider>
+          <GradesContextProvider>
+            <QueryClientProvider client={client}>
               <MainNavigator />
               <StatusBar style="light" />
-            </GradesContextProvider>
-          </QueryClientProvider>
+            </QueryClientProvider>
+          </GradesContextProvider>
         </AssignatureContextProvider>
       </CompetenciesContextProvider>
     </AuthContextProvider>

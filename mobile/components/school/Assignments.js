@@ -1,12 +1,13 @@
 import { StyleSheet, Text, View, Button } from "react-native"
-import { useQuery } from "@tanstack/react-query"
-import { getActivities } from "../../api/api"
+import { useQuery, useMutation } from "@tanstack/react-query"
+import { getActivities, getGradesByAssignature } from "../../api/api"
 import useAuth from "../../hooks/useAuth"
 import Assignment from "./Assignment"
 import List from "../utils/List"
 import ButtonElement from "../utils/Button"
 import { useNavigation } from "@react-navigation/native"
 import useGrades from "../../hooks/useGrades"
+import { useEffect } from "react"
 
 const Assignments = ({ route }) => {
 
@@ -14,7 +15,16 @@ const Assignments = ({ route }) => {
     const assignature = route.params.assignature
     const {user} = useAuth()
     const navigator = useNavigation()
-    const {grades}= useGrades
+    const {setGrades}= useGrades
+
+    const { mutate: getGradesMutation } = useMutation({
+        mutationFn: data => getGradesByAssignature(data),
+        onSuccess: res => setGrades(res.data)
+    })
+
+    useEffect(() => {
+        getGradesMutation({ token: user.access, assignatureId })
+    }, [])
 
     const {data: activities, isLoading, isError, error} = useQuery({
         queryKey: ['assignments'],

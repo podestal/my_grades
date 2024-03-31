@@ -8,7 +8,6 @@ const GradesLocal = ({ grades }) => {
 
     useEffect(() => {
         setGrades( prev => ([ ...prev, ...grades ]))
-
     }, [])
 
   return (

@@ -2,6 +2,10 @@ import { StyleSheet, Text, View } from 'react-native'
 import { useState } from 'react'
 import GradesApi from './GradesApi'
 import useGrades from '../../hooks/useGrades'
+import Grade from './Grade'
+import Input from '../utils/Input'
+import List from '../utils/List'
+
 
 const Grades = ({ route }) => {
 
@@ -14,12 +18,33 @@ const Grades = ({ route }) => {
 
   return (
     <View style={{backgroundColor:'#fff', padding: 10}}> 
-        {console.log('local grades length', grades.length)}
-        {filteredGrades.length == 0 && <GradesApi 
+        {console.log('grades length', grades.length)}
+        {console.log('grades', grades)}
+        {filteredGrades.length == 0 
+        ? 
+        <GradesApi 
             activityId={activityId}
             name={name}
             setName={setName}
-        />}
+        />
+        :
+        <>
+            <Input
+                label={'Buscar...'}
+                value={name}
+                setter={setName}
+                placeholder={'Nombre o Apellido'}
+            />
+            <List 
+                data={filteredGrades.filter( grade => (
+                    grade?.student?.first_name.toLowerCase().includes(name.toLocaleLowerCase()) ||  
+                    grade?.student?.last_name.toLowerCase().includes(name.toLocaleLowerCase()))
+                )}
+                style={{marginBottom: 250}}
+                DetailComponent={Grade}
+            /> 
+        </>
+    }
     </View>    
 
   )
