@@ -19,7 +19,7 @@ const Clases = () => {
     <>
         <List 
             data={filteredAssignatures}
-            DetailComponent={Clase}
+            DetailComponent={Clase} 
         />
     </>
   )
