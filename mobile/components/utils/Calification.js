@@ -8,6 +8,7 @@ const Calification = ({ calification, currentCalification, color, updateCalifica
     const fontColor = currentCalification == 'default' ? '#000' : '#fff'
 
     const handlePress = () => {
+        console.log('Current calification',calification)
         updateCalification(calification)
     }
 

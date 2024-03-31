@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react"
 import useGrades from "../../hooks/useGrades"
 import Input from "../utils/Input"
 import List from "../utils/List"
@@ -6,7 +7,8 @@ import Grade from "./Grade"
 const GradesLocal = ({ activityId, name, setName }) => {
 
     const {grades} = useGrades()
-    const filteredGrades = grades.filter( grade => grade.activity.id == activityId)
+    const [filteredGrades, setFilteredGrades] = useState(grades.filter( grade => grade.activity.id == activityId) || [])
+
 
   return (
     <>
