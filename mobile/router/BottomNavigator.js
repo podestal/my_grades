@@ -2,6 +2,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import CompetenciesNavigator from './CompetenciesNavigator'
 import AuthNavigator from './AuthNavigator'
 import StudentNavigator from './StudentNavigator'
+import AttendanceNavigator from './AttendanceNavigator'
 
 const BottonNavigator = () => {
 
@@ -19,9 +20,10 @@ const BottonNavigator = () => {
             headerShown: false
         }}
     >   
-        <Tab.Screen name='AssignaturesBottom' component={AuthNavigator} options={{ title: 'Cursos' }}/>
+        <Tab.Screen name='assignatures' component={AuthNavigator} options={{ title: 'Cursos' }}/>
         {/* <Tab.Screen name='Comptencies' component={CompetenciesNavigator} options={{ title: 'Competencias' }}/> */}
         <Tab.Screen name='Student' component={StudentNavigator} options={{ title: 'Estudiantes' }}/>
+        <Tab.Screen name='attendance' component={AttendanceNavigator} options={{ title: 'Asistencia' }}/>
     </Tab.Navigator>
   )
 }

@@ -42,7 +42,7 @@ const Grade = ({ data: grade }) => {
         setCalification(updatedGrade.califiaction)
         console.log('Calification',calification)
         console.log('Grade', grade.calification)
-    }, [grades])
+    }, [grades])    
 
     const updateCalification = (selectedCalification) => {
         try {
@@ -76,7 +76,6 @@ const Grade = ({ data: grade }) => {
                 />
             ))}
         </View>
-
     </>
   )
 }
