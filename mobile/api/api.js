@@ -77,6 +77,10 @@ export const getStudents = data => axios.get(`${URL}api/students/?clase=${data.c
     headers: { Authorization: `JWT ${data.token}`}
 })
 
+export const getStudentsBySchool = data => axios.get(`${URL}api/students/?clase=&school=${data.schoolId}`, {
+    headers: { Authorization: `JWT ${data.token}`}
+})
+
 // CLASES
 
 export const getClases = data => axios.get(`${URL}api/clases/?school=${data.schoolId}` , {

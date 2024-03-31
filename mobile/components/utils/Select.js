@@ -36,7 +36,7 @@ export default Select
 
 const styles = StyleSheet.create({
     dropdownContainer: {
-        height:250,
+        height:20,
     },
     dropdownContentContainer: {
         alignItems: 'center',
