@@ -6,6 +6,7 @@ import Assignment from "./Assignment"
 import List from "../utils/List"
 import ButtonElement from "../utils/Button"
 import { useNavigation } from "@react-navigation/native"
+import useGrades from "../../hooks/useGrades"
 
 const Assignments = ({ route }) => {
 
@@ -13,6 +14,7 @@ const Assignments = ({ route }) => {
     const assignature = route.params.assignature
     const {user} = useAuth()
     const navigator = useNavigation()
+    const {grades}= useGrades
 
     const {data: activities, isLoading, isError, error} = useQuery({
         queryKey: ['assignments'],
