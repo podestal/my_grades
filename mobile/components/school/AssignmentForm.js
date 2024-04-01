@@ -105,7 +105,7 @@ const AssignmentForm = ({ route }) => {
             setter={setTitle}
         />
         {dueDateError && <ErrorMsg>{dueDateError}</ErrorMsg>}
-        {console.log('Due Date', dueDate)}
+        {console.log('Due date', dueDate)}
         {dueDate 
         ?
         <TextSummary 

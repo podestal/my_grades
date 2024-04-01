@@ -86,3 +86,11 @@ export const getStudentsBySchool = data => axios.get(`${URL}api/students/?clase=
 export const getClases = data => axios.get(`${URL}api/clases/?school=${data.schoolId}` , {
     headers: { Authorization: `JWT ${data.token}` }
 })
+
+// ATTENDANCE
+
+export const createAttendance = data => axios.post(`${URL}api/atendances/`, data.attendance, {
+    headers: { Authorization: `JWT ${data.token}` }
+})
+.then( res => console.log(res.data))
+.catch( err => console.log(err.response))
