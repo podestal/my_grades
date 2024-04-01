@@ -75,8 +75,8 @@ const AttendanceForm = ({ student, late }) => {
             <Text style={styles.text}>{today}</Text>
             <Text style={styles.subTitle}>Alumno:</Text>
             <Text style={styles.text}>{student.first_name} {student.last_name}</Text>
-            <Text style={styles.subTitle}>Hora:</Text>
-            <Text style={styles.text}>{hour}</Text>
+            {late && <Text style={styles.subTitle}>Hora:</Text>}
+            {late && <Text style={styles.text}>{hour}</Text>}
             {late && <Button style={{marginVertical: 20}} onPress={() => setVisible(true)} title={hour ? 'Cambiar hora' : 'Seleccionar Hora'}/>}
             <DateTimePickerModal 
                 isVisible={visible}
@@ -92,7 +92,7 @@ const AttendanceForm = ({ student, late }) => {
         </View>
         {created
         ?
-        <View style={{marginTop: 48}}>
+        <View style={{marginTop: 48, marginBottom: 20}}>
             <Button onPress={() => navigator.goBack()} title="Regresar"/>
         </View>
         :

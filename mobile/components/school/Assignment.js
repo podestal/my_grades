@@ -16,7 +16,7 @@ const Assignment = ({ data: activity }) => {
     <Pressable style={styles.pressable} onPress={handlePress}>
         <Text style={styles.subTitle}>{activity.title}</Text>
         <Text style={styles.text}>{activity.competence.title}</Text>
-        <Text style={styles.text}>{activity.created_at}</Text>
+        <Text style={{fontSize: 16, fontWeight:'bold'}}>Fecha de Entrega:</Text>
         <Text style={styles.text}>{activity.due_date}</Text>
     </Pressable>
   )

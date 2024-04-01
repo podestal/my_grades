@@ -1,5 +1,4 @@
 import { StyleSheet, FlatList, View } from "react-native"
-import Input from "./Input"
 
 const List = ({ data, DetailComponent, style, extraData }) => {
   return (

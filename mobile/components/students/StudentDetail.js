@@ -19,11 +19,13 @@ const StudentDetail = ({ route }) => {
         : 
         <>
             <Title text={assignatures[0].title}/>
-            <List 
-              data={competences}
-              DetailComponent={Competence}
-              extraData={{ student, assignature: assignatures[0]}}
-            />
+            <NonScrollableContainer>
+              <List 
+                data={competences}
+                DetailComponent={Competence}
+                extraData={{ student, assignature: assignatures[0]}}
+              />
+            </NonScrollableContainer>
         </>}
     </NonScrollableContainer>
   )

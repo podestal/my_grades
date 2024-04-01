@@ -5,6 +5,7 @@ import { Text, StyleSheet, View } from "react-native"
 import Assignature from "./Assignature"
 import List from "../utils/List"
 import useAssignatures from "../../hooks/useAssignatures"
+import NonScrollableContainer from "../utils/NonScrollableContainer"
 
 const Assignatures = () => {
 
@@ -25,25 +26,13 @@ const Assignatures = () => {
     }
 
   return (
-    <View style={styles.container}>
+    <NonScrollableContainer>
         <List 
             data={assignatures.data}
             DetailComponent={Assignature}
         />
-    </View>
+    </NonScrollableContainer>
   )
 }
 
 export default Assignatures
-
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#fff',
-        paddingBottom: 60,
-    },
-    contentContainer: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    }
-})

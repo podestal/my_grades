@@ -184,7 +184,6 @@ const styles = StyleSheet.create({
     },
     textTitle: {
         fontSize: 22,
-        // marginVertical: 12,
         textAlign: 'center'
     },
     text: {

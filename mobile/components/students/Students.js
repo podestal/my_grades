@@ -30,13 +30,15 @@ const Students = ({ route }) => {
             setter={setName}
             placeholder={'Nombre o Apellido'}
         />
-        <List 
-            data={students.data.filter( student => (
-              student?.first_name.toLowerCase().includes(name.toLocaleLowerCase()) ||  
-              student?.last_name.toLowerCase().includes(name.toLocaleLowerCase()))
-          )}
-            DetailComponent={Student}
-        />
+        <NonScrollableContainer>
+          <List 
+              data={students.data.filter( student => (
+                student?.first_name.toLowerCase().includes(name.toLocaleLowerCase()) ||  
+                student?.last_name.toLowerCase().includes(name.toLocaleLowerCase()))
+            )}
+              DetailComponent={Student}
+          />
+        </NonScrollableContainer>
     </NonScrollableContainer>
   )
 }

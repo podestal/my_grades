@@ -8,6 +8,7 @@ import ButtonElement from "../utils/Button"
 import { useNavigation } from "@react-navigation/native"
 import useGrades from "../../hooks/useGrades"
 import { useEffect } from "react"
+import NonScrollableContainer from "../utils/NonScrollableContainer"
 
 const Assignments = ({ route }) => {
 
@@ -45,7 +46,7 @@ const Assignments = ({ route }) => {
     if (isError) return <Text>{error.message}</Text>
 
   return (
-    <>
+    <NonScrollableContainer>
         <ButtonElement 
             title={'Crear'}
             onPress={() => navigator.navigate('Create-Assignment', {
@@ -54,32 +55,18 @@ const Assignments = ({ route }) => {
             })}
         />
         {activities && 
-            <View style={{ backgroundColor: '#fff' }}> 
+            <NonScrollableContainer> 
                 <List 
                     data={activities.data}
                     DetailComponent={Assignment}
                     style={{marginBottom: 50}}
                 />
-            </View>
+            </NonScrollableContainer>
         }
-    </>
+    </NonScrollableContainer>
   )
 }
 
 export default Assignments
 
 
-
-const styles = StyleSheet.create({
-    contentContainer: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-})
