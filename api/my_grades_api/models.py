@@ -119,6 +119,7 @@ class Atendance(models.Model):
     status = models.CharField(max_length=1, choices=STATUS_CHOICES)
     student = models.ForeignKey(Student, on_delete=models.PROTECT, related_name='atendances')
     hour = models.TimeField(null=True, blank=True)
+    created_by = models.CharField(max_length=255)
 
 
 class Grade(models.Model):
