@@ -149,6 +149,7 @@ class AtendanceViewSet(ModelViewSet):
     queryset = models.Atendance.objects.select_related('student')
     serializer_class = serializers.GetAtendanceSerializer
     filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['created_at']
     http_method_names = ['get', 'post', 'patch', 'delete']
 
     def get_permissions(self):
@@ -161,7 +162,7 @@ class StudentViewSet(ModelViewSet):
     queryset = models.Student.objects.select_related('school', 'clase').prefetch_related('atendances')
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['clase', 'school']
-    http_method_names = ['get', 'post', 'patch', 'delete']
+    http_method_names = ['get', 'patch', 'delete']
     serializer_class = serializers.GetStudentSerializer
 
     def get_permissions(self):

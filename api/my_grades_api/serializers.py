@@ -90,12 +90,26 @@ class CreateActivitySerializer(serializers.ModelSerializer):
 
         models.Grade.objects.bulk_create(grades)
         return activity
+    
+class GetAtendanceSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Atendance
+        fields = '__all__'
+
+class GetSimpleAttendanceSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Atendance
+        fields = ['id', 'created_at', 'status', 'hour']
 
 class GetStudentSerializer(serializers.ModelSerializer):
 
+    atendances = GetSimpleAttendanceSerializer(many=True)
+
     class Meta:
         model = models.Student
-        fields = '__all__'
+        fields = ['id', 'first_name', 'last_name', 'clase', 'school', 'atendances']
 
 class GetSimpleActivitySerializer(serializers.ModelSerializer):
 
@@ -117,12 +131,6 @@ class UpdateGradeSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Grade
         fields = ['calification']
-
-class GetAtendanceSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = models.Atendance
-        fields = '__all__'
 
 class GetTutorSerializer(serializers.ModelSerializer):
 
