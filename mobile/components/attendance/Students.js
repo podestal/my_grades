@@ -1,4 +1,4 @@
-import { Text } from "react-native"
+import { Text, View } from "react-native"
 import Select from "../utils/Select"
 import { useState } from "react"
 import { useQuery } from "@tanstack/react-query"
@@ -25,35 +25,33 @@ const Students = ({ clases, schoolId }) => {
 
   return (
     <NonScrollableContainer>
-        {console.log('Clase selected',clase)}
-        <Select 
-            title={'Clase'}
-            setter={setClase}
-            data={clases}
-        />
-        <Input
-            label={'Buscar...'}
-            value={name}
-            setter={setName}
-            placeholder={'Nombre o Apellido'}
-        />
-        <List 
-            data={students.data
-                    .filter(student => student.clase == clase)
-                    .filter(student => (
-                        student?.first_name.toLowerCase().includes(name.toLocaleLowerCase()) || 
-                        student?.last_name.toLowerCase().includes(name.toLocaleLowerCase())
-                    ))
-                }
-            DetailComponent={Student}
-        />
+        <View>
+            <Select 
+                title={'Clase'}
+                setter={setClase}
+                data={clases}
+            />
+            <Input
+                label={'Buscar estudiante ...'}
+                value={name}
+                setter={setName}
+                placeholder={'Nombre o Apellido'}
+            />
+        </View>
+        <View style={{flex: 1}}>
+            <List 
+                data={students.data
+                        .filter(student => student.clase == clase)
+                        .filter(student => (
+                            student?.first_name.toLowerCase().includes(name.toLocaleLowerCase()) || 
+                            student?.last_name.toLowerCase().includes(name.toLocaleLowerCase())
+                        ))
+                    }
+                DetailComponent={Student}
+            />
+        </View>
     </NonScrollableContainer>
   )
 }
-
-// .filter( grade => (
-//     grade?.student?.first_name.toLowerCase().includes(name.toLocaleLowerCase()) ||  
-//     grade?.student?.last_name.toLowerCase().includes(name.toLocaleLowerCase()))
-// )
 
 export default Students
