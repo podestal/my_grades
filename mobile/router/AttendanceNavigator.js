@@ -1,5 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Attendance from '../components/attendance/Attendance'
+import Absence from '../components/attendance/Absence'
 
 const AttendanceNavigator = () => {
 
@@ -18,6 +19,10 @@ const AttendanceNavigator = () => {
         <Stack.Screen 
             name='Attendance'
             component={Attendance}
+        />
+        <Stack.Screen
+            name='Absence'
+            component={Absence}
         />
     </Stack.Navigator>
   )
