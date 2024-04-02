@@ -1,5 +1,5 @@
 import AttendanceForm from "./AttendanceForm"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { removeAttendance } from "../../api/api"
 import useAuth from "../../hooks/useAuth"
 
@@ -11,10 +11,11 @@ const RemoveAbsence = ({ route }) => {
     const isLate = status == 'L'
     const hour = route?.params?.todayAttendence[0]?.hour
     const { user } = useAuth()
+    const queryClient = useQueryClient()
 
     const {mutate: removeAttendanceMutation} = useMutation({
         mutationFn: data => removeAttendance(data),
-        onSuccess: res => console.log(res),
+        onSuccess: res => queryClient.invalidateQueries(['studentsBySchool']),
         onError: err => console.log(err)
     })
 

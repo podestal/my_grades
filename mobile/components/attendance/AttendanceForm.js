@@ -16,7 +16,7 @@ const AttendanceForm = ({ student, late, title, lateHour, handler, remove }) => 
     const { user } = useAuth()
     const today = moment().locale('es').format('dddd do MMMM YYYY')
     const navigator = useNavigation()
-    const [created, setCreated] = useState(false)
+    const [success, setSuccess] = useState(false)
     const [errorMsg, setErrorMsg] = useState('')
     const [successMsg, setSuccessMsg] = useState('')
     const [hour, setHour] = useState(lateHour)
@@ -28,7 +28,7 @@ const AttendanceForm = ({ student, late, title, lateHour, handler, remove }) => 
         mutationFn: data => createAttendance(data),
         onSuccess: res => {
             setSuccessMsg('Ausencia creada')
-            setCreated(true)
+            setSuccess(true)
             queryClient.invalidateQueries(['studentsBySchool'])
         },
         onError: err => setErrorMsg('Ocurrió un error, vuelva a intentarlo más tarde')
@@ -51,7 +51,7 @@ const AttendanceForm = ({ student, late, title, lateHour, handler, remove }) => 
         try {
             handler()
             setSuccessMsg('Se ha eliminado de manera exitosa')
-            setCreated(true)
+            setSuccess(true)
         }
         catch {
             setErrorMsg('No se pudo eliminar, inténtelo nuevament en unos momentos')
@@ -110,7 +110,7 @@ const AttendanceForm = ({ student, late, title, lateHour, handler, remove }) => 
                 timeZoneName={'America/Lima'}
             />
         </View>
-        {created
+        {success
         ?
         <View style={{marginTop: 48, marginBottom: 20}}>
             <Button onPress={() => navigator.goBack()} title="Regresar"/>

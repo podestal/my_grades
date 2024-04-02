@@ -10,7 +10,6 @@ const Student = ({ data: student }) => {
     const attendanceId = todayAttendence[0]?.id
     const attendanceStatus = todayAttendence[0]?.status
 
-
   return (
     <View style={styles.studentContainer}>
         <ScrollView style={{marginHorizontal: 10}}>
@@ -31,8 +30,8 @@ const Student = ({ data: student }) => {
             <Button onPress={() => navigator.navigate('Absence', { student })} color={'#c0392b'} title="Ausencia"/>
         </View>
         :
-        <View style={styles.buttonContainer}>
-            <Button onPress={() => navigator.navigate('Absence', { student })} title="Modificar"/>
+        <View style={styles.singleButtonContainer}>
+            {/* <Button onPress={() => navigator.navigate('Absence', { student })} title="Modificar"/> */}
             <Button onPress={() => navigator.navigate('RemoveAbsence', { student, todayAttendence })} color={'#c0392b'} title="Eliminar"/>
         </View>
         }
@@ -56,6 +55,10 @@ const styles = StyleSheet.create({
     buttonContainer: {
         height: 100,
         justifyContent: 'space-between',
+    },
+    singleButtonContainer: {
+        height: 100,
+        justifyContent: 'center',
     },
     absentText: {
         backgroundColor: '#c0392b',
