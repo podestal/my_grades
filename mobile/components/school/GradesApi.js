@@ -5,14 +5,19 @@ import { Text } from "react-native"
 import Input from "../utils/Input"
 import List from "../utils/List"
 import Grade from "./Grade"
+import { useEffect } from "react"
 
 
 const GradesApi = ({ activityId, name, setName }) => {
 
     const { user } = useAuth()
 
+    useEffect(() => {
+        console.log('from api');
+    })
+
     const {data: grades, isLoading, isError, error} = useQuery({
-        queryKey: ['grades'],
+        queryKey: [`grades`],
         queryFn: () =>  getGrades({ token: user.access, activityId })
     })
 

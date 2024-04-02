@@ -20,11 +20,11 @@ const Assignments = ({ route }) => {
 
     const { mutate: getGradesMutation } = useMutation({
         mutationFn: data => getGradesByAssignature(data),
-        onSuccess: res => setGrades( prev => ([ ...prev, ...res.data ]))
+        onSuccess: res => setGrades( prev => ([ ...res.data ]))
     })
 
     useEffect(() => {
-
+        console.log('getting grades');
         if (grades.length == 0) {
             console.log('Getting grades ')
             getGradesMutation({ token: user.access, assignatureId })
@@ -35,6 +35,12 @@ const Assignments = ({ route }) => {
         
         }
     }, [])
+
+    useEffect(() => {
+        console.log('grades just changed');
+        // setGrades(grades)
+        // getGradesMutation({ token: user.access, assignatureId })
+    }, [grades])
 
     const {data: activities, isLoading, isError, error} = useQuery({
         queryKey: ['assignments'],

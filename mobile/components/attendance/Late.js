@@ -9,6 +9,7 @@ const Late = ({ route }) => {
     <AttendanceForm 
         student={student}
         late={true}
+        title={'Crear Tardanza'}
     />
   )
 }

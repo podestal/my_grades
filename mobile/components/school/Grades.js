@@ -11,11 +11,11 @@ const Grades = ({ route }) => {
     const { grades } = useGrades()
     const [filteredGrades, setFilteredGrades] = useState(grades.length > 0 ?  grades.filter( grade => grade?.activity?.id == activityId) : [])
 
-    useEffect(() => {
-        console.log('Change detected')
-        const updatedGrades = grades.filter( grade => grade?.activity?.id == activityId)
-        setFilteredGrades(updatedGrades)
-    }, [grades])
+    // useEffect(() => {
+    //     console.log('Change detected')
+    //     const updatedGrades = grades.filter( grade => grade?.activity?.id == activityId)
+    //     setFilteredGrades(updatedGrades)
+    // }, [grades])
 
   return (
     <View style={{backgroundColor:'#fff', padding: 10}}> 
@@ -32,7 +32,12 @@ const Grades = ({ route }) => {
             name={name}
             setName={setName}
         />
-    }
+        }
+        {/* <GradesApi 
+            activityId={activityId}
+            name={name}
+            setName={setName}
+        /> */}
     </View>    
 
   )

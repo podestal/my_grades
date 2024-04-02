@@ -8,6 +8,7 @@ const Absence = ({ route }) => {
         <AttendanceForm 
             student={student}
             late={false}
+            title={'Crear Ausencia'}
         />
     </>
   )

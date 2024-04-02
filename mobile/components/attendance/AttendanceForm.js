@@ -2,7 +2,7 @@ import { Text, Button, View, StyleSheet, ScrollView } from "react-native"
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import useAuth from "../../hooks/useAuth"
 import { createAttendance } from "../../api/api"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import Title from "../utils/Title"
 import { useNavigation } from "@react-navigation/native"
 import { useState } from "react"
@@ -11,7 +11,7 @@ import ErrorMsg from "../utils/ErrorMsg"
 import moment from 'moment'
 import 'moment/locale/es';
 
-const AttendanceForm = ({ student, late }) => {
+const AttendanceForm = ({ student, late, title, lateHour }) => {
 
     const { user } = useAuth()
     const today = moment().locale('es').format('dddd do MMMM YYYY')
@@ -19,15 +19,18 @@ const AttendanceForm = ({ student, late }) => {
     const [created, setCreated] = useState(false)
     const [errorMsg, setErrorMsg] = useState('')
     const [successMsg, setSuccessMsg] = useState('')
-    const [hour, setHour] = useState('')
+    const [hour, setHour] = useState(lateHour)
     const [visible, setVisible] = useState(false)
+    const queryClient = useQueryClient()
     // const 
 
     const { mutate: createAttendanceMutation } = useMutation({
         mutationFn: data => createAttendance(data),
         onSuccess: res => {
             setSuccessMsg('Ausencia creada')
-            setCreated(true)},
+            setCreated(true)
+            queryClient.invalidateQueries(['studentsBySchool'])
+        },
         onError: err => setErrorMsg('Ocurrió un error, vuelva a intentarlo más tarde')
     })
 
@@ -67,7 +70,8 @@ const AttendanceForm = ({ student, late }) => {
 
   return (
     <ScrollView style={{flex: 1}}>
-        <Title text={'Crear Ausencia'}/>
+        {console.log('student', student?.atendances[0])}
+        <Title text={title}/>
         {successMsg && <SuccessMsg>{successMsg}</SuccessMsg>}
         {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
         <View style={styles.textContainer}>
@@ -75,9 +79,12 @@ const AttendanceForm = ({ student, late }) => {
             <Text style={styles.text}>{today}</Text>
             <Text style={styles.subTitle}>Alumno:</Text>
             <Text style={styles.text}>{student.first_name} {student.last_name}</Text>
-            {late && <Text style={styles.subTitle}>Hora:</Text>}
-            {late && <Text style={styles.text}>{hour}</Text>}
-            {late && <Button style={{marginVertical: 20}} onPress={() => setVisible(true)} title={hour ? 'Cambiar hora' : 'Seleccionar Hora'}/>}
+            {late && 
+            <>
+                <Text style={styles.subTitle}>Hora:</Text>
+                <Text style={styles.text}>{hour}</Text>
+                {!lateHour && <Button style={{marginVertical: 20}} onPress={() => setVisible(true)} title={hour ? 'Cambiar hora' : 'Seleccionar Hora'}/>}
+            </>}
             <DateTimePickerModal 
                 isVisible={visible}
                 mode="time"

@@ -92,5 +92,7 @@ export const getClases = data => axios.get(`${URL}api/clases/?school=${data.scho
 export const createAttendance = data => axios.post(`${URL}api/atendances/`, data.attendance, {
     headers: { Authorization: `JWT ${data.token}` }
 })
-.then( res => console.log(res.data))
-.catch( err => console.log(err.response))
+
+export const removeAttendance = data => axios.delete(`${URL}api/atendances/${data.attendanceId}/`, {
+    headers: { Authorization: `JWT ${data.token}` }
+})
