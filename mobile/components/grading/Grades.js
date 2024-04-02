@@ -16,7 +16,9 @@ const Grades = ({ route }) => {
         queryFn: () => getGrades({ token: user.access, activityId: activity.id })
     })
 
-    // getGrades({ token: user.access, activityId })
+    if (isLoading) return <Text>Loading ...</Text>
+
+    if (isError) return <Text>{error.message}</Text>
 
   return (
     <NonScrollableContainer>
