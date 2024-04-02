@@ -13,8 +13,6 @@ const Student = ({ data: student }) => {
 
   return (
     <View style={styles.studentContainer}>
-        {console.log('Attendance status:', attendanceStatus)}
-        
         <ScrollView style={{marginHorizontal: 10}}>
             <Text style={styles.studentName}>{student.first_name} {student.last_name}</Text>
             {todayAttendence.length == 0 

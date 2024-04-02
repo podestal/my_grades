@@ -11,7 +11,7 @@ import ErrorMsg from "../utils/ErrorMsg"
 import moment from 'moment'
 import 'moment/locale/es';
 
-const AttendanceForm = ({ student, late, title, lateHour }) => {
+const AttendanceForm = ({ student, late, title, lateHour, handler, remove }) => {
 
     const { user } = useAuth()
     const today = moment().locale('es').format('dddd do MMMM YYYY')
@@ -45,6 +45,20 @@ const AttendanceForm = ({ student, late, title, lateHour }) => {
         setVisible(false)
     }
 
+    const handleDelete = () => {
+        setErrorMsg('')
+        setSuccessMsg('')
+        try {
+            handler()
+            setSuccessMsg('Se ha eliminado de manera exitosa')
+            setCreated(true)
+        }
+        catch {
+            setErrorMsg('No se pudo eliminar, inténtelo nuevament en unos momentos')
+        }
+
+    }
+
     const handleSubmit = () => {
         if (late) {
             createAttendanceMutation({
@@ -70,7 +84,6 @@ const AttendanceForm = ({ student, late, title, lateHour }) => {
 
   return (
     <ScrollView style={{flex: 1}}>
-        {console.log('student', student?.atendances[0])}
         <Title text={title}/>
         {successMsg && <SuccessMsg>{successMsg}</SuccessMsg>}
         {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
@@ -104,7 +117,7 @@ const AttendanceForm = ({ student, late, title, lateHour }) => {
         </View>
         :
         <View style={styles.buttonContainer}>
-            <Button onPress={handleSubmit} color={'#c0392b'} title="Confirmar"/>
+            {remove ? <Button onPress={handleDelete} color={'#c0392b'} title="Eliminar"/> :<Button onPress={handleSubmit} color={'#c0392b'} title="Confirmar"/>}
             <Button onPress={() => navigator.goBack()} title="Cancelar"/>
         </View>
         }
