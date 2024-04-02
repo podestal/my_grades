@@ -20,17 +20,14 @@ const Assignatures = () => {
 
     if (isError) return <Text>{error.message}</Text>
 
-    if (isSuccess) {
-        setAssignatures(data.data)
-        return (
-            <NonScrollableContainer>
-                <List 
-                    data={assignatures}
-                    DetailComponent={Assignature}
-                />
-            </NonScrollableContainer>
-        )
-    }
+    return (
+        <NonScrollableContainer>
+            <List 
+                data={data.data}
+                DetailComponent={Assignature}
+            />
+        </NonScrollableContainer>
+    )
 }
 
 // data={activities.data}
