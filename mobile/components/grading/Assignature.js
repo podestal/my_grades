@@ -5,9 +5,10 @@ import { useNavigation } from "@react-navigation/native"
 const Assignature = ({ data: assignature }) => {
 
     const level = assignature?.clase?.level == 'P' ? 'Primaria' : 'Secundaria'
+    const navigator = useNavigation()
 
     const handlePress = () => {
-        console.log('Pressed');
+        navigator.navigate('Activities', {assignature})
     }
 
   return (
