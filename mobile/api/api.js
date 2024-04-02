@@ -19,8 +19,8 @@ export const getProfile = (data) => axios.get(`${URL}api/instructors/`, {
 
 // ASSIGNATURES
 
-export const getAssignatures = token => axios.get(`${URL}api/assignatures/` ,{
-    headers: { Authorization: `JWT ${token}` }
+export const getAssignatures = data => axios.get(`${URL}api/assignatures/` ,{
+    headers: { Authorization: `JWT ${data.token}` }
 })
 
 // ASIGNMENTS
