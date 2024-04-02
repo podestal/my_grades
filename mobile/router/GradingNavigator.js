@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Assignatures from '../components/grading/Assignatures'
 import Activities from '../components/grading/Activities'
 import Grades from '../components/grading/Grades'
+import ActivityForm from '../components/grading/ActivityForm'
 
 const GradingNavigator = () => {
 
@@ -36,6 +37,13 @@ const GradingNavigator = () => {
             component={Grades}
             options={{
                 headerTitle: 'Notas'
+            }}
+        />
+        <Stack.Screen 
+            name='ActivityCreate'
+            component={ActivityForm}
+            options={{
+                headerTitle: 'Crear'
             }}
         />
     </Stack.Navigator>

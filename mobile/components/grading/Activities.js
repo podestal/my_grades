@@ -7,17 +7,23 @@ import List from "../utils/List"
 import Activity from "./Activity"
 import NonScrollableContainer from "../utils/NonScrollableContainer"
 import Loading from "../utils/Loading"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import ButtonElement from "../utils/Button"
+import { useNavigation } from "@react-navigation/native"
 
 const Activities = ({ route }) => {
 
     const { user } = useAuth()
     const assignature = route?.params?.assignature
     const { activities, setActivities } = useActivities()
+    const navigator = useNavigation()
+    const [filteredActivities, setFilteredActivities] = useState(activities.filter(activity => activity.assignature == assignature.id) || [])
 
     const {mutate: getActivitiesMutation, isPending, isError} = useMutation({
         mutationFn: (data) => getActivities(data),
-        onSuccess: res => setActivities(res.data)
+        onSuccess: res => {
+            setActivities(( prev => ([ ...prev, ...res.data ]) ))
+        }
     })
 
     const getter = () => {
@@ -25,7 +31,7 @@ const Activities = ({ route }) => {
     }
 
     useEffect(() => {
-        if (activities.length == 0) {
+        if (filteredActivities.length == 0) {
             getter()
         }
     }, [])
@@ -36,9 +42,15 @@ const Activities = ({ route }) => {
 
     return (
         <NonScrollableContainer>  
+            <ButtonElement 
+                title={'Crear'}
+                onPress={() => navigator.navigate('ActivityCreate', {
+                    assignature,
+                })}
+            />
             <NonScrollableContainer>
                 <List 
-                    data={activities}
+                    data={activities?.filter(activity => activity.assignature == assignature.id)}
                     DetailComponent={Activity}
                 />
             </NonScrollableContainer>
