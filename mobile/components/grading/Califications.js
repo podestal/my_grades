@@ -4,7 +4,7 @@ import List from "../utils/List"
 import califications from "../../data/califications"
 import NonScrollableContainer from "../utils/NonScrollableContainer"
 
-const Califications = ({ grade, currentCalification, setCurrentCalification }) => {
+const Califications = ({ grade, currentCalification, setCurrentCalification, setErrorMsg, setSuccessMsg }) => {
 
   return (
     <>
@@ -13,7 +13,7 @@ const Califications = ({ grade, currentCalification, setCurrentCalification }) =
             keyExtractor={ item => item.id}
             renderItem={ itemData => (
                 <Calification 
-                    data={{calification: itemData.item, grade: grade, currentCalification, setCurrentCalification }} 
+                    data={{calification: itemData.item, grade: grade, currentCalification, setCurrentCalification, setErrorMsg, setSuccessMsg }} 
                 />)}
             style={styles.listStyle}
         />

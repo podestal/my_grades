@@ -1,12 +1,13 @@
 import { Text } from "react-native"
 import useAuth from "../../hooks/useAuth"
 import { getActivities } from "../../api/api"
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useMutation } from "@tanstack/react-query"
 import useActivities from "../../hooks/useActivities"
 import List from "../utils/List"
 import Activity from "./Activity"
 import NonScrollableContainer from "../utils/NonScrollableContainer"
 import Loading from "../utils/Loading"
+import { useEffect } from "react"
 
 const Activities = ({ route }) => {
 
@@ -14,20 +15,30 @@ const Activities = ({ route }) => {
     const assignature = route?.params?.assignature
     const { activities, setActivities } = useActivities()
 
-    const {data, isLoading, isError, isSuccess, error} = useQuery({
-        queryKey: ['grades'],
-        queryFn: () => getActivities({token: user.access, assignature:assignature?.id})
+    const {mutate: getActivitiesMutation, isPending, isError} = useMutation({
+        mutationFn: (data) => getActivities(data),
+        onSuccess: res => setActivities(res.data)
     })
 
-    if (isLoading) return <Loading />
+    const getter = () => {
+        getActivitiesMutation({token: user.access, assignature:assignature?.id})
+    }
 
-    if (isError) return <Text>{error.message}</Text>
+    useEffect(() => {
+        if (activities.length == 0) {
+            getter()
+        }
+    }, [])
+
+    if (isPending) return <Loading />
+
+    if (isError) return <Error retry={getter}/>
 
     return (
         <NonScrollableContainer>  
             <NonScrollableContainer>
                 <List 
-                    data={data.data}
+                    data={activities}
                     DetailComponent={Activity}
                 />
             </NonScrollableContainer>

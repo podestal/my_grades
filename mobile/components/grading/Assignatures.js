@@ -1,6 +1,6 @@
 import { Text } from "react-native"
 import useAssignatures from "../../hooks/useAssignatures"
-import { useQuery, useMutation } from "@tanstack/react-query"
+import { useMutation } from "@tanstack/react-query"
 import { getAssignatures } from "../../api/api"
 import useAuth from "../../hooks/useAuth"
 import Assignature from "./Assignature"
@@ -14,14 +14,6 @@ const Assignatures = () => {
 
     const {assignatures, setAssignatures} = useAssignatures()
     const { user } = useAuth()
-    // const { data, isLoading, isError, error, isSuccess } = useQuery({
-    //     queryKey: ['assignatures'],
-    //     queryFn: () => getAssignatures({ token: user.access })
-    // })
-
-    // if (isLoading) return <Loading />
-
-    // if (isError) return <Text>{error.message}</Text>
 
     const {mutate: getAssignaturesMutation, isPending, isError} = useMutation({
         mutationFn: (data) => getAssignatures(data),
@@ -33,7 +25,10 @@ const Assignatures = () => {
     }
 
     useEffect(() => {
-        getter()
+        if (assignatures.length == 0) {
+            getter()
+        }
+
     }, [])
 
     if (isPending) return <Loading />
@@ -49,8 +44,5 @@ const Assignatures = () => {
         </NonScrollableContainer>
     )
 }
-
-// data={activities.data}
-// DetailComponent={Assignment}
 
 export default Assignatures

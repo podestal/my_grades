@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateGrades } from "../../api/api";
 import useAuth from "../../hooks/useAuth";
 
-const Calification = ({ data: {calification, grade, currentCalification, setCurrentCalification} }) => {
+const Calification = ({ data: {calification, grade, currentCalification, setCurrentCalification, setSuccessMsg, setErrorMsg } }) => {
 
     // const [currentCalification, setCurrentCalification] = useState(grade?.calification)
     const { user } = useAuth()
@@ -15,11 +15,16 @@ const Calification = ({ data: {calification, grade, currentCalification, setCurr
         onSuccess: res => {
             queryClient.invalidateQueries(['assignatures'])
             setCurrentCalification(calification.calification)
+            setSuccessMsg('Nota Cambiada')
         },
-        onError: err => console.log(err)
+        onError: err => {
+            setErrorMsg('Ocurrió un error, vuélvalo a intentar')
+        }
     })
 
     const handlePress = () => {
+        setSuccessMsg('')
+        setErrorMsg('')
         updateGradesMutation({ 
             token: user.access, 
             gradeId: grade.id, 
