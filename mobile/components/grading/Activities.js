@@ -10,6 +10,7 @@ import Loading from "../utils/Loading"
 import { useEffect, useState } from "react"
 import ButtonElement from "../utils/Button"
 import { useNavigation } from "@react-navigation/native"
+import useGrades from "../../hooks/useGrades"
 
 const Activities = ({ route }) => {
 
@@ -18,6 +19,7 @@ const Activities = ({ route }) => {
     const { activities, setActivities } = useActivities()
     const navigator = useNavigation()
     const [filteredActivities, setFilteredActivities] = useState(activities.filter(activity => activity.assignature == assignature.id) || [])
+    const { grades } = useGrades()
 
     const {mutate: getActivitiesMutation, isPending, isError} = useMutation({
         mutationFn: (data) => getActivities(data),

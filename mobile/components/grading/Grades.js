@@ -9,27 +9,41 @@ import List from "../utils/List"
 import NonScrollableContainer from "../utils/NonScrollableContainer"
 import Loading from "../utils/Loading"
 import Error from "../utils/Error"
+import { useEffect } from "react"
 
 const Grades = ({ route }) => {
 
     const activity = route?.params?.activity
     const { user } = useAuth()
-
-    const { data, isLoading, isError, error, refetch } = useQuery({
-        queryKey: ['grades'],
-        queryFn: () => getGrades({ token: user.access, activityId: activity.id })
+    const {grades, setGrades} = useGrades()
+    const gradesByActivity = grades.length > 0 && grades?.filter( grade => grade?.activity?.id == activity?.id) || []
+    const {mutate: getGradesMutation, isPending, isError} = useMutation({
+        mutationFn: data => getGrades(data),
+        onSuccess: res => {
+            setGrades( prev => ([ ...prev, ...res.data ]))
+        },
     })
 
-    if (isLoading) return <Loading />
+    const getter = () => {
+        getGradesMutation({ token: user.access, activityId: activity.id })
+    }
 
-    if (isError) return <Error retry={refetch}/>
+    useEffect(() => {
+        if (gradesByActivity.length == 0) {
+            getter()
+        }
+    }, [])
+
+    if (isPending) return <Loading />
+
+    if (isError) return <Error retry={getter}/>
 
   return (
     <NonScrollableContainer>
         <Title text={activity.title}/>
         <NonScrollableContainer>
             <List 
-                data={data.data}
+                data={grades?.filter( grade => grade?.activity?.id == activity?.id)}
                 DetailComponent={Grade}
             />
         </NonScrollableContainer>

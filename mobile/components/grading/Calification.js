@@ -1,20 +1,26 @@
-import { Text, StyleSheet, View, Pressable } from "react-native"
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Text, StyleSheet, Pressable } from "react-native"
+import { useMutation } from "@tanstack/react-query";
 import { updateGrades } from "../../api/api";
 import useAuth from "../../hooks/useAuth";
+import useGrades from "../../hooks/useGrades";
 
 const Calification = ({ data: {calification, grade, currentCalification, setCurrentCalification, setSuccessMsg, setErrorMsg } }) => {
 
     const { user } = useAuth()
-    const queryClient = useQueryClient()
+    const { setGrades } = useGrades()
 
     const {mutate: updateGradesMutation } = useMutation({
         mutationFn: data => updateGrades(data),
         onSuccess: res => {
-            queryClient.invalidateQueries(['grades'])
             setCurrentCalification(calification.calification)
             setSuccessMsg('Nota Cambiada')
-            console.log('changed grade:', res.data)
+            setGrades( prev => prev.map( prevGrade => {
+                if (prevGrade.id == grade.id) {
+                    prevGrade.calification = calification.calification
+                }
+
+                return prevGrade
+            }))
         },
         onError: err => {
             setErrorMsg('Ocurrió un error, vuélvalo a intentar')
