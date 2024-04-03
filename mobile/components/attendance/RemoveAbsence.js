@@ -15,7 +15,7 @@ const RemoveAbsence = ({ route }) => {
 
     const {mutate: removeAttendanceMutation} = useMutation({
         mutationFn: data => removeAttendance(data),
-        onSuccess: res => queryClient.invalidateQueries(['studentsBySchool']),
+        onSuccess: res => queryClient.invalidateQueries(['studentsAttendance']),
         onError: err => console.log(err)
     })
 

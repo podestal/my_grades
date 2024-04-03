@@ -2,7 +2,7 @@ import { Text, Button, View, StyleSheet, ScrollView } from "react-native"
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import useAuth from "../../hooks/useAuth"
 import { createAttendance } from "../../api/api"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import Title from "../utils/Title"
 import { useNavigation } from "@react-navigation/native"
 import { useState } from "react"
@@ -23,12 +23,14 @@ const AttendanceForm = ({ student, late, title, lateHour, handler, remove }) => 
     const [hour, setHour] = useState(lateHour)
     const [visible, setVisible] = useState(false)
     const { students, setStudents } = useStudents()
+    const queryClient = useQueryClient()
 
     const { mutate: createAttendanceMutation } = useMutation({
         mutationFn: data => createAttendance(data),
         onSuccess: res => {
             setSuccessMsg('Ausencia creada')
             setSuccess(true)
+            queryClient.invalidateQueries(['studentsAttendance'])
             // const attendanceResponse = res.data
             // student.atendances.map(atendance =>  {
             //     if (attendanceResponse.id == atendance?.id) {

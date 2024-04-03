@@ -42,9 +42,14 @@ const Students = ({ clases, schoolId }) => {
 
     // if (isError) return <Error retry={getter}/>
 
-    const {} = useQuery({
-        queryKey: ['studentsAttendance']
+    const {data, isLoading, isError, error ,refetch} = useQuery({
+        queryKey: ['studentsAttendance'],
+        queryFn: () => getStudentsBySchool({ token: user.access, schoolId })
     })
+
+    if (isLoading) return <Loading />
+
+    if (isError) return <Error retry={refetch}/>
 
   return (
     <NonScrollableContainer>
@@ -63,7 +68,7 @@ const Students = ({ clases, schoolId }) => {
         </View>
         <View style={{flex: 1}}>
             <List 
-                data={students
+                data={data.data
                         .filter(student => student.clase == clase)
                         .filter(student => (
                             student?.first_name.toLowerCase().includes(name.toLocaleLowerCase()) || 
@@ -73,7 +78,7 @@ const Students = ({ clases, schoolId }) => {
                 DetailComponent={Student}
                 refresh={refresh}
                 setRefresh={setRefresh}
-                onRefresh={getter}
+                onRefresh={refetch}
             />
         </View>
     </NonScrollableContainer>

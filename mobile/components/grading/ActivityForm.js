@@ -41,7 +41,6 @@ const ActivityForm = ({ route }) => {
         },
         onError: err => {
             setErrorMsg('Ocurrió un error, vuélvalo a intentar')
-            console.log('Error',err);
         }
     })
 

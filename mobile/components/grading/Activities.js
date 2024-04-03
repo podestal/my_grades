@@ -42,7 +42,6 @@ const Activities = ({ route }) => {
 
     return (
         <NonScrollableContainer>  
-            {console.log('user:', user)}
             <ButtonElement 
                 title={'Crear'}
                 onPress={() => navigator.navigate('ActivityCreate', {

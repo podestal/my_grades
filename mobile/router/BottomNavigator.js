@@ -23,6 +23,7 @@ const BottonNavigator = () => {
         <Tab.Screen name='grading' component={GradingNavigator} options={{ title: 'Cursos'}}/>
         <Tab.Screen name='Student' component={StudentNavigator} options={{ title: 'Estudiantes' }}/>
         {user.profile == 'A' && <Tab.Screen name='attendance' component={AttendanceNavigator} options={{ title: 'Asistencia' }}/>}   
+        {/* <Tab.Screen name='attendance' component={AttendanceNavigator} options={{ title: 'Asistencia' }}/> */}
     </Tab.Navigator>
   )
 }

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Text, StyleSheet, View, Pressable } from "react-native"
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateGrades } from "../../api/api";
@@ -6,7 +5,6 @@ import useAuth from "../../hooks/useAuth";
 
 const Calification = ({ data: {calification, grade, currentCalification, setCurrentCalification, setSuccessMsg, setErrorMsg } }) => {
 
-    // const [currentCalification, setCurrentCalification] = useState(grade?.calification)
     const { user } = useAuth()
     const queryClient = useQueryClient()
 
@@ -16,6 +14,7 @@ const Calification = ({ data: {calification, grade, currentCalification, setCurr
             queryClient.invalidateQueries(['grades'])
             setCurrentCalification(calification.calification)
             setSuccessMsg('Nota Cambiada')
+            console.log('changed grade:', res.data)
         },
         onError: err => {
             setErrorMsg('Ocurrió un error, vuélvalo a intentar')

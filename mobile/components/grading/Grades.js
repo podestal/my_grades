@@ -14,7 +14,6 @@ const Grades = ({ route }) => {
 
     const activity = route?.params?.activity
     const { user } = useAuth()
-    // const { grades, setGrades } = useGrades()
 
     const { data, isLoading, isError, error, refetch } = useQuery({
         queryKey: ['grades'],
@@ -28,8 +27,6 @@ const Grades = ({ route }) => {
   return (
     <NonScrollableContainer>
         <Title text={activity.title}/>
-        {console.log('Activity from grades:', activity)}
-        {data && console.log('grades:', data.data)}
         <NonScrollableContainer>
             <List 
                 data={data.data}

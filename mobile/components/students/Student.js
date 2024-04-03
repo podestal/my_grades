@@ -10,10 +10,10 @@ const Student = ({ data: student, extraData: showDetails }) => {
     const [showAssignatures, setShowAssignatures] = useState(false)
     const claseId = student?.clase
     const navigator = useNavigation()
-    assignatures.assignatures.map(assignature => {
-        console.log('From mapping', assignature?.clase.id)
-        console.log('claseId', claseId);
-    })
+    // assignatures.assignatures.map(assignature => {
+    //     console.log('From mapping', assignature?.clase.id)
+    //     console.log('claseId', claseId);
+    // })
 
     const filteredAssignatures = assignatures.assignatures.filter( assignature => assignature?.clase.id == claseId)
 
