@@ -1,26 +1,63 @@
 import { Text } from "react-native"
 import useAuth from "../../hooks/useAuth"
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useMutation } from "@tanstack/react-query"
 import { getClases } from "../../api/api"
 import Students from "./Students"
+import useClases from "../../hooks/useClases"
+import { useEffect } from "react"
+import Loading from "../utils/Loading"
+import Error from "../utils/Error"
+import useAssignatures from "../../hooks/useAssignatures"
 
 const Attendance = () => {
 
     const { user } = useAuth()
-    const {data: clases, isLoading, isError, error} = useQuery({
-        queryKey: ['clases'],
-        queryFn: () => getClases({ token: user.access, schoolId: user.school })
+    const { clases, setClases } = useClases()
+
+    const {assignatures} = useAssignatures()
+    const filteredClases = assignatures.map( assignature => assignature.clase)
+    // const filteredAssignatures = []
+    // assignatures.map( assignature => {
+    //     console.log('====================================');
+    //     console.log('Assignature', assignature);
+    //     console.log('====================================');
+    //     if (!filteredClases.includes(assignature.clase.title)) {
+    //         filteredClases.push(assignature.clase.title)
+    //         filteredAssignatures.push(assignature)
+    //     }
+    // })
+
+    const {mutate: getClasesMutation, isPending, isError} = useMutation({
+        mutationFn: data => getClases(data),
+        onSuccess: res => {
+            console.log(res.data)
+            setClases(res.data)
+        },
+        onError: err => console.log(err)
     })
 
-    if (isLoading) return <Text>Loading ...</Text>
+    const getter = () => {
+        getClasesMutation({ token: user.access, schoolId: user.school })
+    }
 
-    if (isError) return <Text>{error.message}</Text>
+    useEffect(() => {
+        if (user.profile == 'I' && clases.length == 0) {
+            setClases(filteredClases)
+        }
+        else if (user.profile == 'A' && clases.length == 0) {
+            getter()
+        }
+    }, [])
+
+    if (isPending) return <Loading />
+
+    if (isError) return <Error retry={getter}/>
 
   return (
     <>
-        {console.log('clases', clases.data)}
+        {console.log('clases', clases)}
         <Students 
-            clases={clases.data}
+            clases={clases}
             schoolId={user.school}
         />
     </>

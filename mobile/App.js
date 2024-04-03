@@ -5,6 +5,7 @@ import AssignatureContextProvider from './context/assignatures';
 import MainNavigator from './router/MainNavigator';
 import GradesContextProvider from './context/grades';
 import ActivityContextProvider from './context/activities';
+import ClaseContextProvider from './context/clases';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const client = new QueryClient()
@@ -16,10 +17,12 @@ export default function App() {
         <AssignatureContextProvider>
           <ActivityContextProvider>
             <GradesContextProvider>
-              <QueryClientProvider client={client}>
-                <MainNavigator />
-                <StatusBar style="light" />
-              </QueryClientProvider>
+              <ClaseContextProvider>
+                <QueryClientProvider client={client}>
+                  <MainNavigator />
+                  <StatusBar style="light" />
+                </QueryClientProvider>
+              </ClaseContextProvider>
             </GradesContextProvider>
           </ActivityContextProvider>
         </AssignatureContextProvider>

@@ -11,6 +11,9 @@ const Clases = () => {
     const filteredClases = []
     const filteredAssignatures = []
     assignatures.map( assignature => {
+        console.log('====================================');
+        console.log('Assignature');
+        console.log('====================================');
         if (!filteredClases.includes(assignature.clase.title)) {
             filteredClases.push(assignature.clase.title)
             filteredAssignatures.push(assignature)
