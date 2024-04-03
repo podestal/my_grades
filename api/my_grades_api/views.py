@@ -109,6 +109,15 @@ class AssignatureViewSet(ModelViewSet):
 #             return serializers.GetAssignatureAsInstructorSeralizer
 #         return serializers.GetAssignatureAsTutorSerializer
     
+class SimpleAssignatureViewSet(ModelViewSet):
+
+    queryset = models.Assignature.objects.select_related('clase', 'area')
+    serializer_class = serializers.GetSimpleAssignatureSerializer
+    http_method_names = ['get']
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['clase']
+
+    
 class ActivityViewSet(ModelViewSet):
 
     queryset = models.Activity.objects.select_related('competence', 'capacity')
@@ -171,14 +180,20 @@ class StudentViewSet(ModelViewSet):
     
 class TutorViewSet(ModelViewSet):
 
-    queryset = models.Tutor.objects.all()
+    queryset = models.Tutor.objects.select_related('user')
     serializer_class = serializers.GetTutorSerializer
     http_method_names = ['get', 'post', 'patch', 'delete']
 
     def get_permissions(self):
-        if self.request.method in ['PATCH', 'DELETE', 'GET', 'HEAD', 'OPTIONS']:
+        if self.request.method in ['PATCH', 'GET', 'HEAD', 'OPTIONS']:
             return [IsAuthenticated()]
         return [IsAdminUser()]
+    
+    @action(detail=False, methods=['GET'], permission_classes=[IsAuthenticated])
+    def me(self, request):
+        tutor = models.Tutor.objects.get(user_id=self.request.user.id)
+        serializer = serializers.GetTutorSerializer(tutor)
+        return Response(serializer.data)
 
 # class AssignmentViewSet(ModelViewSet):
 

@@ -63,6 +63,13 @@ class GetAssignatureSerializer(serializers.ModelSerializer):
         model = models.Assignature
         fields = ['id', 'title', 'Instructor', 'area', 'clase']
 
+class GetSimpleAssignatureSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Assignature
+        fields = ['id', 'title', 'area']
+
+
 class GetActivitySerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -117,6 +124,15 @@ class GetSimpleStudentSerializer(serializers.ModelSerializer):
         model = models.Student
         fields = ['id', 'first_name', 'last_name']
 
+class GetFullDetailStudentSerializer(serializers.ModelSerializer):
+
+    atendances = GetSimpleAttendanceSerializer(many=True)
+    clase = GetSimpleClaseSerializer()
+
+    class Meta:
+        model = models.Student
+        fields = ['id', 'first_name', 'last_name', 'atendances', 'clase']
+
 class GetSimpleActivitySerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -140,9 +156,11 @@ class UpdateGradeSerializer(serializers.ModelSerializer):
 
 class GetTutorSerializer(serializers.ModelSerializer):
 
+    students = GetFullDetailStudentSerializer(many=True)
+
     class Meta:
         model = models.Tutor
-        fields = '__all__'
+        fields = ['id', 'students']
 
 # class CreateAssignmentSerializer(serializers.ModelSerializer):
 

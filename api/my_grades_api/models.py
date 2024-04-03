@@ -46,7 +46,7 @@ class Clase(models.Model):
     section = models.CharField(max_length=1, default='A')
 
     def __str__(self):
-        return f'{self.grade}-{self.section}-{self.level}-{self.school.name}'
+        return f'{self.grade}-{self.section}-{self.level}'
 
 class Instructor(models.Model):
 
@@ -80,13 +80,13 @@ class Student(models.Model):
 class Tutor(models.Model):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    student = models.ForeignKey(Student, on_delete=models.PROTECT, related_name='tutors')
+    students = models.ManyToManyField(Student, related_name='tutors')
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='tutors')
     first_name = models.CharField(max_length=255, null=True, blank=True)
     last_name = models.CharField(max_length=255, null=True, blank=True)
 
-    def __str__(self):
-        return f'{self.first_name} {self.last_name}'
+    # def __str__(self):
+    #     return f'{self.first_name} {self.last_name}'
 
 class Competence(models.Model):
 
