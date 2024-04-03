@@ -13,7 +13,7 @@ const Calification = ({ data: {calification, grade, currentCalification, setCurr
     const {mutate: updateGradesMutation } = useMutation({
         mutationFn: data => updateGrades(data),
         onSuccess: res => {
-            queryClient.invalidateQueries(['assignatures'])
+            queryClient.invalidateQueries(['grades'])
             setCurrentCalification(calification.calification)
             setSuccessMsg('Nota Cambiada')
         },

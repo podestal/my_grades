@@ -20,14 +20,23 @@ const StudentNavigator = () => {
         <Stack.Screen 
             name='Clases'
             component={Clases}
+            options={{
+                headerTitle: 'Clases'
+            }}
         />
         <Stack.Screen 
             name='Students'
             component={Students}
+            options={{
+                headerTitle: 'Alumnos'
+            }}
         />
         <Stack.Screen 
             name='Student-Detail'
             component={StudentDetail}
+            options={{
+                headerTitle: 'Calificaciones'
+            }}
         />
         {/* <Stack.Screen 
             name='Create-Competencie'

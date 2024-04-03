@@ -14,6 +14,7 @@ const Competence = ({ data, extraData }) => {
     <View>
         <Pressable onPress={() => setShow(!show)}>
             <Text style={styles.text}>{data.title}</Text>
+            <Text>Promedio: A</Text>
         </Pressable>
         {show &&         
         <List 

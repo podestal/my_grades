@@ -21,18 +21,30 @@ const AttendanceNavigator = () => {
         <Stack.Screen 
             name='Attendance'
             component={Attendance}
+            options={{
+                headerTitle: 'Asistencia'
+            }}
         />
         <Stack.Screen
             name='Absence'
             component={Absence}
+            options={{
+                headerTitle: 'Ausencia'
+            }}
         />
         <Stack.Screen 
             name='Late'
             component={Late}
+            options={{
+                headerTitle: 'Tardanza'
+            }}
         />
         <Stack.Screen
             name='RemoveAbsence'
             component={RemoveAbsence}
+            options={{
+                headerTitle: 'Eliminar'
+            }}
         />
     </Stack.Navigator>
   )

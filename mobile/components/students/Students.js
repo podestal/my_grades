@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet } from "react-native"
+import { Text, View, StyleSheet, Pressable } from "react-native"
 import { getStudents } from "../../api/api"
 import useAuth from "../../hooks/useAuth"
 import { useQuery } from "@tanstack/react-query"
@@ -13,6 +13,7 @@ const Students = ({ route }) => {
     const { user } = useAuth()
     const claseId = route?.params?.claseId
     const [name, setName] = useState('')
+    const [showDetails, setShowDetails] = useState(false)
     const {data: students, isLoading, isError, error} = useQuery({
         queryKey: ['students'],
         queryFn: () => getStudents({ token: user.access, claseId })
@@ -30,6 +31,9 @@ const Students = ({ route }) => {
             setter={setName}
             placeholder={'Nombre o Apellido'}
         />
+        <Pressable onPress={() => setShowDetails(!showDetails)}>
+          <Text>{showDetails ? 'Ocultar Detalles' : 'Mostrar Detalles'}</Text>
+        </Pressable>
         <NonScrollableContainer>
           <List 
               data={students.data.filter( student => (
@@ -37,6 +41,7 @@ const Students = ({ route }) => {
                 student?.last_name.toLowerCase().includes(name.toLocaleLowerCase()))
             )}
               DetailComponent={Student}
+              extraData={showDetails}
           />
         </NonScrollableContainer>
     </NonScrollableContainer>

@@ -1,4 +1,4 @@
-import { Text } from "react-native"
+import { Text , View} from "react-native"
 import useAssignatures from "../../hooks/useAssignatures"
 import { useMutation } from "@tanstack/react-query"
 import { getAssignatures } from "../../api/api"
@@ -36,13 +36,23 @@ const Assignatures = () => {
     if (isError) return <Error retry={getter}/>
 
     return (
-        <NonScrollableContainer>
-            <List 
-                data={assignatures}
-                DetailComponent={Assignature}
-            />
-        </NonScrollableContainer>
+        <>
+            {assignatures.length > 0 
+            ?
+            <NonScrollableContainer>
+                <List 
+                    data={assignatures}
+                    DetailComponent={Assignature}
+                />
+            </NonScrollableContainer>
+            :
+            <View style={{ flex:1, justifyContent: 'center', alignItems:'center' }}>
+                <Text style={{ textAlign: 'center', fontSize: 30, padding: 18 }}>Aun no cuentas con ningún curso</Text>
+            </View>
+            }
+        </>
     )
 }
 
 export default Assignatures
+

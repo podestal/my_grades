@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query"
 import useAuth from "../../hooks/useAuth"
 import List from "../utils/List"
 import GradeAssignments from "./GradeAssignments"
+import NonScrollableContainer from "../utils/NonScrollableContainer"
 
 const GradeDetail = ({ studentId, assignatureId, capcityId }) => {
 
@@ -18,10 +19,13 @@ const GradeDetail = ({ studentId, assignatureId, capcityId }) => {
     if (isError) return <Text>{error.message}</Text>
 
   return (
-    <List 
-        data={grades.data.filter(grade => grade?.activity?.capacity == capcityId)}
-        DetailComponent={GradeAssignments}
-    />
+    <NonScrollableContainer>
+      <List 
+          data={grades.data.filter(grade => grade?.activity?.capacity == capcityId)}
+          DetailComponent={GradeAssignments}
+      />
+    </NonScrollableContainer>
+
   )
 }
 
