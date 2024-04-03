@@ -10,7 +10,7 @@ class GetGroupSerializer(UserSerializer):
 class GetUserSerializer(UserSerializer):
 
     class Meta(UserSerializer.Meta):
-        fields = ['id', 'username', 'profile']
+        fields = ['id', 'username', 'profile', 'first_name', 'last_name', 'school']
 
     def get_is_staff(self, user=models.User):
         return user.is_staff
@@ -18,5 +18,5 @@ class GetUserSerializer(UserSerializer):
     
 class CreateUserSerializer(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
-        fields = ['id', 'username', 'password', 'email', 'profile']
+        fields = ['id', 'username', 'password', 'email', 'profile', 'first_name', 'last_name', 'school']
 

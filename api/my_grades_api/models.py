@@ -46,14 +46,14 @@ class Clase(models.Model):
     section = models.CharField(max_length=1, default='A')
 
     def __str__(self):
-        return f'{self.grade}-{self.section}-{self.level}'
+        return f'{self.grade}-{self.section}-{self.level}-{self.school.name}'
 
 class Instructor(models.Model):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='instructor')
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='instructors')
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
+    first_name = models.CharField(max_length=255, null=True, blank=True)
+    last_name = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
@@ -82,6 +82,11 @@ class Tutor(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     student = models.ForeignKey(Student, on_delete=models.PROTECT, related_name='tutors')
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='tutors')
+    first_name = models.CharField(max_length=255, null=True, blank=True)
+    last_name = models.CharField(max_length=255, null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
 
 class Competence(models.Model):
 
@@ -105,6 +110,7 @@ class Activity(models.Model):
     assignature = models.ForeignKey(Assignature, on_delete=models.CASCADE)
     competence = models.ForeignKey(Competence, on_delete=models.CASCADE)
     capacity = models.ForeignKey(Capacity, on_delete=models.CASCADE)
+    description = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     due_date = models.DateField()
     

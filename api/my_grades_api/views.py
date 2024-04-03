@@ -82,7 +82,6 @@ class ClaseViewSet(ModelViewSet):
 
 class AssignatureViewSet(ModelViewSet):
 
-    queryset = models.Assignature.objects.select_related('clase', 'Instructor', 'area')
     serializer_class = serializers.GetAssignatureSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['clase', 'Instructor']
@@ -92,16 +91,16 @@ class AssignatureViewSet(ModelViewSet):
             return [IsAuthenticated()]
         return [permissions.IsSuperUserOrReadOnly()]
 
-#     def get_queryset(self):
-#         if self.request.user.is_superuser:
-#             return models.Assignature.objects.select_related('clase', 'Instructor')
-#         try:
-#             instructor = models.Instructor.objects.get(user_id = self.request.user.id)
-#             return models.Assignature.objects.select_related('clase', 'Instructor').filter(Instructor_id=instructor.id)
-#         except:
-#             print('no instructor')
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return models.Assignature.objects.select_related('clase', 'Instructor', 'area')
+        try:
+            instructor = models.Instructor.objects.get(user_id = self.request.user.id)
+            return models.Assignature.objects.select_related('clase', 'Instructor', 'area').filter(Instructor_id=instructor.id)
+        except:
+            print('no instructor')
             
-#         return models.Assignature.objects.select_related('clase', 'Instructor').filter(Instructor_id=0)
+        return models.Assignature.objects.select_related('clase', 'Instructor', 'area').filter(Instructor_id=0)
 
 #     def get_serializer_class(self):
 #         if self.request.method == 'POST':
