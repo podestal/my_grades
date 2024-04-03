@@ -16,16 +16,6 @@ const Attendance = () => {
 
     const {assignatures} = useAssignatures()
     const filteredClases = assignatures.map( assignature => assignature.clase)
-    // const filteredAssignatures = []
-    // assignatures.map( assignature => {
-    //     console.log('====================================');
-    //     console.log('Assignature', assignature);
-    //     console.log('====================================');
-    //     if (!filteredClases.includes(assignature.clase.title)) {
-    //         filteredClases.push(assignature.clase.title)
-    //         filteredAssignatures.push(assignature)
-    //     }
-    // })
 
     const {mutate: getClasesMutation, isPending, isError} = useMutation({
         mutationFn: data => getClases(data),
