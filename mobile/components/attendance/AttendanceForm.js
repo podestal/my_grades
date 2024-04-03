@@ -2,7 +2,7 @@ import { Text, Button, View, StyleSheet, ScrollView } from "react-native"
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import useAuth from "../../hooks/useAuth"
 import { createAttendance } from "../../api/api"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useMutation } from "@tanstack/react-query"
 import Title from "../utils/Title"
 import { useNavigation } from "@react-navigation/native"
 import { useState } from "react"
@@ -10,6 +10,7 @@ import SuccessMsg from "../utils/SuccessMsg"
 import ErrorMsg from "../utils/ErrorMsg"
 import moment from 'moment'
 import 'moment/locale/es';
+import useStudents from "../../hooks/useStudents";
 
 const AttendanceForm = ({ student, late, title, lateHour, handler, remove }) => {
 
@@ -21,15 +22,21 @@ const AttendanceForm = ({ student, late, title, lateHour, handler, remove }) => 
     const [successMsg, setSuccessMsg] = useState('')
     const [hour, setHour] = useState(lateHour)
     const [visible, setVisible] = useState(false)
-    const queryClient = useQueryClient()
-    // const 
+    const { students, setStudents } = useStudents()
 
     const { mutate: createAttendanceMutation } = useMutation({
         mutationFn: data => createAttendance(data),
         onSuccess: res => {
             setSuccessMsg('Ausencia creada')
             setSuccess(true)
-            queryClient.invalidateQueries(['studentsBySchool'])
+            // const attendanceResponse = res.data
+            // student.atendances.map(atendance =>  {
+            //     if (attendanceResponse.id == atendance?.id) {
+
+            //     }
+
+            // })
+
         },
         onError: err => setErrorMsg('Ocurrió un error, vuelva a intentarlo más tarde')
     })
@@ -84,6 +91,7 @@ const AttendanceForm = ({ student, late, title, lateHour, handler, remove }) => 
 
   return (
     <ScrollView style={{flex: 1}}>
+        {console.log('Students',students)}
         <Title text={title}/>
         {successMsg && <SuccessMsg>{successMsg}</SuccessMsg>}
         {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}

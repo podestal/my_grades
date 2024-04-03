@@ -45,7 +45,6 @@ const Attendance = () => {
 
   return (
     <>
-        {console.log('clases', clases)}
         <Students 
             clases={clases}
             schoolId={user.school}
