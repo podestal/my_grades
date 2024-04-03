@@ -8,7 +8,7 @@ const Select = ({ setter, title, data }) => {
 
   return (
     <>
-        <Text style={{fontSize: 16, textAlign: 'center'}}>{title}</Text>
+        <Text style={{fontSize: 20, textAlign: 'center', marginTop: 12}}>{title}</Text>
         <ScrollView 
             // style={styles.dropdownContainer}
         >
@@ -36,7 +36,7 @@ export default Select
 
 const styles = StyleSheet.create({
     dropdownContainer: {
-        height: -200,
+        height: 10,
     },
     dropdownContentContainer: {
         alignItems: 'center',

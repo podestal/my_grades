@@ -10,6 +10,7 @@ const MainNavigator = () => {
 
   return (
     <NavigationContainer>
+        {console.log('user from navigator', user)}
         {user.isAuthenticated 
         ?
         <BottonNavigator />

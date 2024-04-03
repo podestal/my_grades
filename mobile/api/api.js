@@ -23,6 +23,10 @@ export const getAssignatures = data => axios.get(`${URL}api/assignatures/` ,{
     headers: { Authorization: `JWT ${data.token}` }
 })
 
+export const getAssignaturesByClase = data => axios.get(`${URL}api/tutorAssignatures/?clase=${data.claseId}`, {
+    headers: { Authorization: `JWY ${data.access}` }
+})
+
 // ASIGNMENTS
 
 export const getActivities = data => axios.get(`${URL}api/activities/?assignature=${data.assignature}` ,{
@@ -94,5 +98,11 @@ export const createAttendance = data => axios.post(`${URL}api/atendances/`, data
 })
 
 export const removeAttendance = data => axios.delete(`${URL}api/atendances/${data.attendanceId}/`, {
+    headers: { Authorization: `JWT ${data.token}` }
+})
+
+// TUTOR
+
+export const getTutor = data => axios.get(`${URL}api/tutors/me/`, {
     headers: { Authorization: `JWT ${data.token}` }
 })

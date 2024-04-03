@@ -28,7 +28,7 @@ const AttendanceForm = ({ student, late, title, lateHour, handler, remove }) => 
     const { mutate: createAttendanceMutation } = useMutation({
         mutationFn: data => createAttendance(data),
         onSuccess: res => {
-            setSuccessMsg('Ausencia creada')
+            late ? setSuccessMsg('Tardanza creada') : setSuccessMsg('Ausencia creada')
             setSuccess(true)
             queryClient.invalidateQueries(['studentsAttendance'])
             // const attendanceResponse = res.data
