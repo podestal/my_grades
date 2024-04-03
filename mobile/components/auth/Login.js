@@ -7,7 +7,7 @@ import { useState } from "react"
 import { useNavigation } from "@react-navigation/native"
 import useAuth from "../../hooks/useAuth"
 import { useMutation } from "@tanstack/react-query"
-import { login, getUser, getProfile } from "../../api/api"
+import { login, getUser } from "../../api/api"
 
 const Login = () => {
 
@@ -17,12 +17,6 @@ const Login = () => {
 
     const navigator = useNavigation()
     const { setUser } = useAuth()
-
-    const {mutate: getProfileMutation} = useMutation({
-        mutationFn: data => getProfile(data),
-        onSuccess: res =>  setUser(( prev => ({ ...prev, ...res.data[0] }))),
-        onError: err => console.log(err)
-    })
 
     const {mutate: getUserMutation} = useMutation({
         mutationFn: data => getUser(data),
@@ -35,12 +29,8 @@ const Login = () => {
     const {mutate: loginMutation} = useMutation({
         mutationFn: data => login(data),
         onSuccess: res => {
-            console.log('Login ...')
             setUser({ isAuthenticated: true, ...res.data })
-            console.log('Getting User')
             getUserMutation({ token: res.data.access })
-            console.log('Getting Profile')
-            getProfileMutation({ token: res.data.access })
             setErrorMsg('')
             setUsername('')
             setPassword('')
