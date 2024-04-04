@@ -112,7 +112,8 @@ class Activity(models.Model):
     capacity = models.ForeignKey(Capacity, on_delete=models.CASCADE)
     description = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    due_date = models.DateField()
+    due_date = models.DateField(null=True, blank=True)
+    is_participation = models.BooleanField(default=False)
     
 class Atendance(models.Model):
 
@@ -143,3 +144,8 @@ class Grade(models.Model):
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='grades')
     assignature = models.ForeignKey(Assignature, on_delete=models.CASCADE, related_name='grades')
     created_at = models.DateField(auto_now_add=True)
+    observations = models.TextField(null=True, blank=True)
+
+
+
+    
