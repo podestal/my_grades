@@ -16,8 +16,8 @@ const StudentSummary = ({ data: student }) => {
     <Pressable onPress={handlePress} style={styles.pressable}>
         <Text style={styles.subTitle}>{student.first_name} {student.last_name}</Text>
         <Text style={styles.text}>{student?.clase.title} {level}</Text>
-        <Text style={styles.text}>Faltas: {late.length}</Text>
-        <Text style={styles.text}>Tardanzas: {unattendances.length}</Text>
+        <Text style={styles.text}>Faltas: {unattendances.length}</Text>
+        <Text style={styles.text}>Tardanzas: {late.length}</Text>
     </Pressable>
   )
 }

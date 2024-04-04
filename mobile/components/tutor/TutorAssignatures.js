@@ -1,4 +1,4 @@
-import { Text, StyleSheet, Pressable } from "react-native"
+import { Text, StyleSheet, Pressable, View } from "react-native"
 import NonScrollableContainer from "../utils/NonScrollableContainer"
 import Title from "../utils/Title"
 import useAssignatures from "../../hooks/useAssignatures"
@@ -10,11 +10,14 @@ import useAuth from "../../hooks/useAuth"
 import { useEffect, useState } from "react"
 import List from "../utils/List"
 import TutorAssignature from "./TutorAssignature"
+import { useNavigation } from "@react-navigation/native"
+import { Button } from "react-native"
 
 const TutorAssignatures = ({ route }) => {
 
     const student = route?.params?.student
     const claseId = route?.params?.student?.clase?.id
+    const navigator = useNavigation()
     const { assignatures, setAssignatures } = useAssignatures()
     const {user} = useAuth()
 
@@ -23,6 +26,10 @@ const TutorAssignatures = ({ route }) => {
         onSuccess: res => setAssignatures(res.data),
         onError: err => console.log(err)
     })
+
+    const handlePress = () => {
+        navigator.navigate('TutorAttendances', {student})
+    }
 
     const getter = () => {
         getAssignaturesByClaseMutation({ token: user.access, claseId })
@@ -40,14 +47,16 @@ const TutorAssignatures = ({ route }) => {
 
   return (
     <NonScrollableContainer>
-        <Pressable style={styles.pressable}>
-            <Title text={'Asistencias'}/>
-        </Pressable>
-        <List 
-            data={assignatures}
-            DetailComponent={TutorAssignature}
-            extraData={student}
-        />
+        <View style={styles.buttonContainer}>
+            <Button onPress={handlePress} title="Asistencias"/>
+        </View>
+        <NonScrollableContainer>
+            <List 
+                data={assignatures}
+                DetailComponent={TutorAssignature}
+                extraData={student}
+            />
+        </NonScrollableContainer>
     </NonScrollableContainer>
   )
 }
@@ -55,8 +64,10 @@ const TutorAssignatures = ({ route }) => {
 export default TutorAssignatures
 
 const styles = StyleSheet.create({
+    buttonContainer: {
+        margin: 24,
+    },
     pressable: {
-        // marginVertical: 15,
         marginHorizontal: 25,
         marginTop: 14,
         alignItems: 'center',
