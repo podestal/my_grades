@@ -10,7 +10,7 @@ import SuccessMsg from "../utils/SuccessMsg"
 const ObservationForm = ({ route }) => {
 
     const grade = route?.params?.grade
-    const [observations, setObservations] = useState('')
+    const [observations, setObservations] = useState(route?.params?.grade?.observations ||'')
     const { grades, setGrades } = useGrades()
     const [successMsg, setSuccessMsg] = useState('')
     const [errMsg, setErrMsg] = useState('')
@@ -62,9 +62,12 @@ const ObservationForm = ({ route }) => {
             multiline={true}
             style={styles.inputField}
             onChangeText={ inputValue => setObservations(inputValue)}
+            value={observations}
         />
         <View style={styles.buttonContainer}>
-            <Button onPress={handleSubmit} title="Agregar Observaciones"/>
+            <Button 
+                onPress={handleSubmit} 
+                title={route?.params?.grade?.observations ? 'Modificar Observaciones' : 'Agregar Observaciones'}/>
         </View>
     </ScrollView>
   )

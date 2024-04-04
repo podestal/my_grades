@@ -1,4 +1,4 @@
-import { Text, StyleSheet, Pressable, View } from "react-native"
+import { Text, StyleSheet, Pressable, View, Button } from "react-native"
 import Title from "../utils/Title"
 import Califications from "./Califications"
 import { useState } from "react"
@@ -34,6 +34,7 @@ const Grade = ({ data: grade }) => {
         </Pressable>
         <View>
             <Text>{grade?.observations}</Text>
+            <Button title="Modificar" onPress={handlePress}/>
         </View>
         <Califications 
             grade={grade}
