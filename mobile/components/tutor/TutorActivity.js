@@ -1,10 +1,11 @@
 import { Text, View } from "react-native"
 
-const TutorActivity = ({ data: activity }) => {
+const TutorActivity = ({ data: grade }) => {
   return (
     <View>
-        <Text>{activity.title}</Text>
-        <Text>Calificación: A</Text>
+        {console.log(grade)}
+        <Text>{grade?.activity?.title}</Text>
+        <Text>Calificación: {grade?.calification}</Text>
     </View>
   )
 }

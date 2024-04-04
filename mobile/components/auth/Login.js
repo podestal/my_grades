@@ -8,6 +8,8 @@ import { useNavigation } from "@react-navigation/native"
 import useAuth from "../../hooks/useAuth"
 import { useMutation } from "@tanstack/react-query"
 import { login, getUser } from "../../api/api"
+import Loading from "../utils/Loading"
+import Error from "../utils/Error"
 
 const Login = () => {
 
@@ -26,7 +28,7 @@ const Login = () => {
         onError: err => console.log(err)
     })
 
-    const {mutate: loginMutation} = useMutation({
+    const {mutate: loginMutation, isPending} = useMutation({
         mutationFn: data => login(data),
         onSuccess: res => {
             setUser({ isAuthenticated: true, ...res.data })
@@ -49,6 +51,8 @@ const Login = () => {
         setErrorMsg('')
         loginMutation({ username, password })
     }
+
+    if (isPending) return <Loading />
 
   return (
     <>

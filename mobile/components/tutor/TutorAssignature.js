@@ -2,11 +2,11 @@ import Title from "../utils/Title"
 import { Pressable, StyleSheet, Text } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 
-const TutorAssignature = ({ data: assignature }) => {
+const TutorAssignature = ({ data: assignature, extraData: student }) => {
 
     const navigator = useNavigation()
     const handlePress = () => {
-        navigator.navigate('TutorActivities', {assignature})
+        navigator.navigate('TutorActivities', {assignature, student})
     }
 
   return (

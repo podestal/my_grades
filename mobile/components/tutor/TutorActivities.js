@@ -1,7 +1,8 @@
 import { Pressable, Text } from "react-native"
 import { getActivities } from "../../api/api"
+import { getGradesByStudentAndAssignature } from "../../api/api"
 import { useMutation } from "@tanstack/react-query"
-import useActivities from "../../hooks/useActivities"
+import useGrades from "../../hooks/useGrades"
 import Loading from "../utils/Loading"
 import Error from "../utils/Error"
 import { useEffect } from "react"
@@ -13,22 +14,23 @@ import TutorActivity from "./TutorActivity"
 const TutorActivities = ({ route }) => {
 
     const { user } = useAuth()
-    const { activities, setActivities } = useActivities()
+    const { grades, setGrades } = useGrades()
     const assignatureId = route?.params?.assignature?.id
-    const filteredActivities = activities.filter(activity => activity.assignature == assignatureId) || []
+    const studentId = route?.params?.student?.id
+    const filteredGrades = grades.filter(grade => grade.assignature == assignatureId) || []
 
-    const { mutate: getActivitiesMutation, isPending, isError } = useMutation({
-        mutationFn: data => getActivities(data),
-        onSuccess: res => setActivities(( prev => ([ ...prev, ...res.data]))),
+    const { mutate: getGradesByStudentAndAssignatureMutation, isPending, isError } = useMutation({
+        mutationFn: data => getGradesByStudentAndAssignature(data),
+        onSuccess: res => setGrades(( prev => ([ ...prev, ...res.data]))),
         onError: err => console.log(err)
     })
 
     const getter = () => {
-        getActivitiesMutation({ token: user.access, assignature: assignatureId })
+        getGradesByStudentAndAssignatureMutation({ token: user.access, assignatureId, studentId })
     }
 
     useEffect(() => {
-        if (filteredActivities.length == 0) {
+        if (filteredGrades.length == 0) {
             getter()
         }
     }, [])
@@ -39,9 +41,9 @@ const TutorActivities = ({ route }) => {
 
   return (
     <NonScrollableContainer>
-        {console.log(assignatureId)}
+        {console.log('Grades',grades)}
         <List 
-            data={activities.filter(activity => activity.assignature == assignatureId)}
+            data={grades.filter(grade => grade.assignature == assignatureId)}
             DetailComponent={TutorActivity}
         />
     </NonScrollableContainer>

@@ -38,16 +38,11 @@ const TutorMain = () => {
 
   return (
     <NonScrollableContainer>  
-        <Title 
-            text={'Alumnos'}
+        <List 
+            data={tutor?.students}
+            DetailComponent={StudentSummary}
+            extraData={tutor?.clase}
         />
-        <NonScrollableContainer>
-            <List 
-                data={tutor?.students}
-                DetailComponent={StudentSummary}
-                extraData={tutor?.clase}
-            />
-        </NonScrollableContainer>
     </NonScrollableContainer>
   )
 }
