@@ -1,4 +1,3 @@
-import { Text } from "react-native"
 import { useMutation } from "@tanstack/react-query"
 import { getTutor } from "../../api/api"
 import useTutor from "../../hooks/useTutor"
@@ -9,7 +8,6 @@ import { useEffect } from "react"
 import List from "../utils/List"
 import NonScrollableContainer from "../utils/NonScrollableContainer"
 import StudentSummary from "./StudentSummary"
-import Title from "../utils/Title"
 
 const TutorMain = () => {
 
@@ -41,7 +39,6 @@ const TutorMain = () => {
         <List 
             data={tutor?.students}
             DetailComponent={StudentSummary}
-            extraData={tutor?.clase}
         />
     </NonScrollableContainer>
   )

@@ -17,7 +17,7 @@ const TutorActivities = ({ route }) => {
     const { grades, setGrades } = useGrades()
     const assignatureId = route?.params?.assignature?.id
     const studentId = route?.params?.student?.id
-    const filteredGrades = grades.filter(grade => grade.assignature == assignatureId) || []
+    const filteredGrades = grades.filter(grade => grade.assignature == assignatureId && grade.student.id == studentId) || []
 
     const { mutate: getGradesByStudentAndAssignatureMutation, isPending, isError } = useMutation({
         mutationFn: data => getGradesByStudentAndAssignature(data),
@@ -41,9 +41,9 @@ const TutorActivities = ({ route }) => {
 
   return (
     <NonScrollableContainer>
-        {console.log('Grades',grades)}
+        {console.log('Student from activities',route?.params?.student.id)}
         <List 
-            data={grades.filter(grade => grade.assignature == assignatureId)}
+            data={grades.filter(grade => grade.assignature == assignatureId && grade.student.id == studentId)}
             DetailComponent={TutorActivity}
         />
     </NonScrollableContainer>
