@@ -13,11 +13,11 @@ const Grade = ({ data: grade }) => {
     const [show, setShow] = useState()
 
     const handlePress = () => {
-        navigator.navigate('CreateObservation', {grade})
-    }
-
-    const handleShow = () => {
-        setShow(true)
+        if (grade?.observations) {
+            setShow(!show)
+        } else {
+            navigator.navigate('CreateObservation', {grade})
+        }
     }
 
 
@@ -30,12 +30,18 @@ const Grade = ({ data: grade }) => {
         : <Text style={{ ...styles.text, ...styles.textError}}>{errorMsg}</Text>
         }
         <Pressable onPress={handlePress} style={styles.observationsContainer}>
-            <Text style={styles.observations}>{grade?.observations ? 'Mostar Observaciones' : 'Agregar Observaciones'}</Text>
+            {grade?.observations
+            ?
+            <Text style={styles.observations}>{show ? 'Ocultar Observaciones' : 'Mostar Observaciones'}</Text>
+            :
+            <Text style={styles.observations}>Agregar Observaciones</Text>
+            }
         </Pressable>
-        <View>
-            <Text>{grade?.observations}</Text>
-            <Button title="Modificar" onPress={handlePress}/>
-        </View>
+        {show && 
+        <View style={{alignItems: 'center', justifyContent: 'center', marginHorizontal: 15, marginBottom: 20, marginTop: -45}}>
+            <Text style={{fontSize: 16, marginVertical: 18}}>{grade?.observations}</Text>
+            <Button title="Modificar Observaciones" onPress={() => navigator.navigate('CreateObservation', {grade})}/>
+        </View>}
         <Califications 
             grade={grade}
             currentCalification={currentCalification}
