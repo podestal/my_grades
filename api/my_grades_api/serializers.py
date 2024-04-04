@@ -74,7 +74,7 @@ class GetActivitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Activity
-        fields = ['id', 'title', 'created_at', 'due_date', 'assignature', 'competence', 'capacity']
+        fields = ['id', 'title', 'created_at', 'due_date', 'assignature', 'competence', 'capacity', 'is_participation']
 
 class CreateActivitySerializer(serializers.ModelSerializer):
 
@@ -140,7 +140,7 @@ class GetSimpleActivitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Activity
-        fields = ['id', 'title', 'competence', 'capacity']
+        fields = ['id', 'title', 'competence', 'capacity', 'is_participation']
 
 class GetGradeSerializer(serializers.ModelSerializer):
 
@@ -149,13 +149,13 @@ class GetGradeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Grade
-        fields = ['id', 'calification', 'activity', 'student', 'assignature']
+        fields = ['id', 'calification', 'activity', 'student', 'assignature', 'observations']
 
 class UpdateGradeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Grade
-        fields = ['id', 'calification']
+        fields = ['id', 'calification', 'observations']
 
 class GetTutorSerializer(serializers.ModelSerializer):
 

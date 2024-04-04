@@ -73,10 +73,10 @@ const Login = () => {
                 title={'Enviar'}
                 onPress={handleLogin}
             />
-            <View style={{ marginVertical: 35 }}>
+            {/* <View style={{ marginVertical: 35 }}>
                 <Text style={{ fontSize: 17 }}>No tienes cuenta?</Text>
                 <Button title="Regístrate"onPress={() => navigator.navigate('Signup')}/>
-            </View>
+            </View> */}
         </Container>
     </>
   )
