@@ -1,14 +1,48 @@
-import { Text, View, ScrollView } from "react-native"
+import { Text, View, ScrollView, StyleSheet, Button } from "react-native"
 
 const Student = ({ data: student }) => {
   return (
-    <View>
-        <ScrollView>
-            <Text>{student.first_name} {student.last_name}</Text>
+    <View style={styles.participationContainer}>
+        <ScrollView contentContainerStyle={styles.studentContainer}>
+            <Text style={styles.studentName}>{student.first_name} {student.last_name}</Text>
+            <Text style={styles.participationText}>Participaciones: {student?.participations?.length}</Text>
         </ScrollView>
-        <Text>Participaciones: {student?.participations?.length}</Text>
+        <View>
+            <Button title="Agregar"/>
+        </View>
     </View>
   )
 }
 
+// style={styles.studentContainer}
+
 export default Student
+
+const styles = StyleSheet.create({
+    participationContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginVertical: 20,
+    },
+    studentContainer: {
+        justifyContent: 'center',
+        margin: 20,
+
+    },
+    studentName: {
+        fontSize: 22,
+        marginVertical: 10
+    },
+    participationText: {
+        fontSize: 16,
+    }
+    // buttonContainer: {
+    //     height: 100,
+    //     justifyContent: 'space-between',
+    // },
+    // singleButtonContainer: {
+    //     height: 100,
+    //     justifyContent: 'center',
+    // },
+})

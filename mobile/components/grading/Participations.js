@@ -1,14 +1,15 @@
-import { Text } from "react-native"
+import { View } from "react-native"
 import useStudents from "../../hooks/useStudents"
 import { getStudents } from "../../api/api"
 import { useMutation } from "@tanstack/react-query"
 import useAuth from "../../hooks/useAuth"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import Loading from "../utils/Loading"
 import Error from "../utils/Error"
 import List from "../utils/List"
 import Student from "./Student"
 import NonScrollableContainer from "../utils/NonScrollableContainer"
+import Input from "../utils/Input"
 
 // getStudents({ token: user.access, claseId })
 
@@ -17,6 +18,7 @@ const Participations = ({ route }) => {
     const claseId = route?.params?.assignature?.clase?.id
     const { user } = useAuth()
     const { students, setStudents } = useStudents()
+    const [ name, setName] = useState('')
     const filteredStudents = students?.filter( student => student.clase = claseId) || []
     const { mutate: getStudentsMutation, isPending, isError } = useMutation({
         mutationFn: data => getStudents(data),
@@ -40,10 +42,24 @@ const Participations = ({ route }) => {
 
   return (
     <NonScrollableContainer>
-        <List 
-            data={students?.filter( student => student.clase = claseId)}
-            DetailComponent={Student}
+        <Input 
+            label={'Buscar...'}
+            value={name}
+            setter={setName}
+            placeholder={'Nombre o Apellido'}
         />
+        <NonScrollableContainer>
+            <List 
+                data={students
+                    ?.filter( student => student.clase = claseId)
+                    ?.filter( student => (
+                        student?.first_name.toLowerCase().includes(name.toLocaleLowerCase()) || 
+                        student?.last_name.toLowerCase().includes(name.toLocaleLowerCase())
+                    ))
+                }
+                DetailComponent={Student}
+            />
+        </NonScrollableContainer>
     </NonScrollableContainer>
   )
 }
