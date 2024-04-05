@@ -9,7 +9,7 @@ const Assignature = ({ data: assignature }) => {
 
     const handlePress = () => {
         // navigator.navigate('Activities', {assignature})
-        navigator.navigate('Assignments')
+        navigator.navigate('Assignments', {assignature})
     }
 
   return (
