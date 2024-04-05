@@ -4,6 +4,7 @@ import Activities from '../components/grading/Activities'
 import Grades from '../components/grading/Grades'
 import ActivityForm from '../components/grading/ActivityForm'
 import ObservationForm from '../components/grading/ObservationForm'
+import Assignments from '../components/grading/Assignments'
 
 const GradingNavigator = () => {
 
@@ -52,6 +53,13 @@ const GradingNavigator = () => {
             component={ObservationForm}
             options={{
                 headerTitle: 'Observación'
+            }}
+        />
+        <Stack.Screen 
+            name='Assignments'
+            component={Assignments}
+            options={{
+                headerTitle: 'Tipos de Actividad'
             }}
         />
     </Stack.Navigator>
