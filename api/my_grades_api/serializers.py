@@ -74,31 +74,28 @@ class GetActivitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Activity
-        fields = ['id', 'title', 'created_at', 'due_date', 'assignature', 'competence', 'capacity', 'is_participation']
+        fields = ['id', 'title', 'created_at', 'due_date', 'assignature', 'competence', 'capacity']
 
 class CreateActivitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Activity
-        fields = ['id','title', 'due_date', 'assignature', 'competence', 'capacity', 'is_participation']
+        fields = ['id','title', 'due_date', 'assignature', 'competence', 'capacity']
 
     def create(self, validated_data):
 
         activity = models.Activity.objects.create(**validated_data)
-        if validated_data['is_participation'] == False:
-            print('Creating grades')
-            assignature = validated_data['assignature']
-            clase_id = validated_data['assignature'].clase.id
-            students = models.Student.objects.filter(clase=clase_id)
+        assignature = validated_data['assignature']
+        clase_id = validated_data['assignature'].clase.id
+        students = models.Student.objects.filter(clase=clase_id)
 
-            grades = [models.Grade(
-                activity=activity,
-                student = student,
-                assignature = assignature
-            ) for student in students]
+        grades = [models.Grade(
+            activity=activity,
+            student = student,
+            assignature = assignature
+        ) for student in students]
 
-            models.Grade.objects.bulk_create(grades)
-        print('Grades were not created')
+        models.Grade.objects.bulk_create(grades)
         return activity
     
 class GetAtendanceSerializer(serializers.ModelSerializer):
@@ -147,7 +144,7 @@ class GetSimpleActivitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Activity
-        fields = ['id', 'title', 'competence', 'capacity', 'is_participation']
+        fields = ['id', 'title', 'competence', 'capacity']
 
 class GetGradeSerializer(serializers.ModelSerializer):
 

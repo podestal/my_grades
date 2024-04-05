@@ -18,13 +18,14 @@ const Activities = ({ route }) => {
     const assignature = route?.params?.assignature
     const { activities, setActivities } = useActivities()
     const navigator = useNavigation()
-    const [filteredActivities, setFilteredActivities] = useState(activities.filter(activity => activity.assignature == assignature.id) || [])
-
+    const filteredActivities = activities.filter(activity => activity.assignature == assignature.id) || []
     const {mutate: getActivitiesMutation, isPending, isError} = useMutation({
         mutationFn: (data) => getActivities(data),
         onSuccess: res => {
+            console.log(res.data)
             setActivities(( prev => ([ ...prev, ...res.data ]) ))
-        }
+        },
+        onError: err => console.log(err)
     })
 
     const getter = () => {
@@ -39,20 +40,19 @@ const Activities = ({ route }) => {
 
     if (isPending) return <Loading />
 
-    if (isError) return <Error retry={getter}/>
+    // if (isError) return <Error retry={getter}/>
 
     return (
-        <NonScrollableContainer>  
+        <NonScrollableContainer> 
             <ButtonElement 
                 title={'Crear'}
                 onPress={() => navigator.navigate('ActivityCreate', {
                     assignature,
                 })}
-            />
+            /> 
             <NonScrollableContainer>
                 <List 
-                    data={activities?.
-                        filter(activity => activity.assignature == assignature.id)}
+                    data={activities?.filter(activity => activity.assignature == assignature.id)}
                     DetailComponent={Activity}
                 />
             </NonScrollableContainer>
