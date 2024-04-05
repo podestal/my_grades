@@ -113,13 +113,20 @@ class GetSimpleAttendanceSerializer(serializers.ModelSerializer):
         model = models.Atendance
         fields = ['id', 'created_at', 'status', 'hour']
 
+class GetParticipationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Participation
+        fields = '__all__'
+
 class GetStudentSerializer(serializers.ModelSerializer):
 
     atendances = GetSimpleAttendanceSerializer(many=True)
+    participations = GetParticipationSerializer(many=True)
 
     class Meta:
         model = models.Student
-        fields = ['id', 'first_name', 'last_name', 'clase', 'school', 'atendances']
+        fields = ['id', 'first_name', 'last_name', 'clase', 'school', 'atendances', 'participations']
 
 class GetSimpleStudentSerializer(serializers.ModelSerializer):
 
@@ -164,12 +171,6 @@ class GetTutorSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Tutor
         fields = ['id', 'students']
-
-class GetParticipationSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = models.Participation
-        fields = '__all__'
 
 # class CreateAssignmentSerializer(serializers.ModelSerializer):
 
