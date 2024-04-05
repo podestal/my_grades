@@ -123,7 +123,7 @@ class ActivityViewSet(ModelViewSet):
     queryset = models.Activity.objects.select_related('competence', 'capacity')
     serializer_class = serializers.GetActivitySerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['assignature']
+    filterset_fields = ['assignature', 'created_at', 'is_participation']
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
@@ -141,7 +141,7 @@ class GradesViewSet(ModelViewSet):
     serializer_class = serializers.GetGradeSerializer
     http_method_names = ['get', 'patch', 'delete']
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['student', 'assignature', 'activity']
+    filterset_fields = ['student']
 
     def get_serializer_class(self):
         if self.request.method == 'PATCH':
@@ -194,6 +194,11 @@ class TutorViewSet(ModelViewSet):
         tutor = models.Tutor.objects.get(user_id=self.request.user.id)
         serializer = serializers.GetTutorSerializer(tutor)
         return Response(serializer.data)
+    
+class ParticipationViewSet(ModelViewSet):
+
+    queryset = models.Participation.objects.select_related('student', 'competence', 'capacity', 'assignature')
+    serializer_class = serializers.GetParticipationSerializer
 
 # class AssignmentViewSet(ModelViewSet):
 

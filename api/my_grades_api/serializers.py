@@ -165,6 +165,12 @@ class GetTutorSerializer(serializers.ModelSerializer):
         model = models.Tutor
         fields = ['id', 'students']
 
+class GetParticipationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Participation
+        fields = '__all__'
+
 # class CreateAssignmentSerializer(serializers.ModelSerializer):
 
 #     class Meta:

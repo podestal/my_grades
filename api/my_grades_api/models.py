@@ -113,7 +113,6 @@ class Activity(models.Model):
     description = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     due_date = models.DateField(null=True, blank=True)
-    is_participation = models.BooleanField(default=False)
     
 class Atendance(models.Model):
 
@@ -146,6 +145,21 @@ class Grade(models.Model):
     created_at = models.DateField(auto_now_add=True)
     observations = models.TextField(null=True, blank=True)
 
+class Participation(models.Model):
+
+    CALIFICATION_CHOICES = [
+        ('AD', 'AD'),
+        ('A', 'A'),
+        ('B', 'B'),
+        ('C', 'C')
+    ]
+
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='participations')
+    competence = models.ForeignKey(Competence, on_delete=models.PROTECT)
+    capacity = models.ForeignKey(Capacity, on_delete=models.PROTECT)
+    assignature = models.ForeignKey(Assignature, on_delete=models.CASCADE)
+    calification = models.CharField(max_length=2, choices=CALIFICATION_CHOICES, default='NA')
+    observations = models.TextField(null=True, blank=True)
 
 
     
