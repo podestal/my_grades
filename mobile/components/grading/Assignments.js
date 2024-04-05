@@ -12,7 +12,7 @@ const Assignments = ({ route }) => {
     }
 
     const handleParticipations = () => {
-        navigator.navigate('Participations')
+        navigator.navigate('Participations', {assignature})
     }
 
   return (

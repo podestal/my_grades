@@ -8,7 +8,6 @@ const Assignature = ({ data: assignature }) => {
     const navigator = useNavigation()
 
     const handlePress = () => {
-        // navigator.navigate('Activities', {assignature})
         navigator.navigate('Assignments', {assignature})
     }
 

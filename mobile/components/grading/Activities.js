@@ -19,7 +19,6 @@ const Activities = ({ route }) => {
     const { activities, setActivities } = useActivities()
     const navigator = useNavigation()
     const [filteredActivities, setFilteredActivities] = useState(activities.filter(activity => activity.assignature == assignature.id) || [])
-    const { grades } = useGrades()
 
     const {mutate: getActivitiesMutation, isPending, isError} = useMutation({
         mutationFn: (data) => getActivities(data),
@@ -52,7 +51,8 @@ const Activities = ({ route }) => {
             />
             <NonScrollableContainer>
                 <List 
-                    data={activities?.filter(activity => activity.assignature == assignature.id)}
+                    data={activities?.
+                        filter(activity => activity.assignature == assignature.id)}
                     DetailComponent={Activity}
                 />
             </NonScrollableContainer>
