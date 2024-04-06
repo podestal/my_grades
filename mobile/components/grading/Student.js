@@ -8,7 +8,7 @@ const Student = ({ data: student }) => {
             <Text style={styles.participationText}>Participaciones: {student?.participations?.length}</Text>
         </ScrollView>
         <View>
-            <Button title="Agregar"/>
+            <Button title="Detalle"/>
         </View>
     </View>
   )
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginVertical: 20,
+        marginBottom: 8,
     },
     studentContainer: {
         justifyContent: 'center',

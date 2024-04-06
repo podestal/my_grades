@@ -43,18 +43,19 @@ const Participations = ({ route }) => {
   return (
     <NonScrollableContainer>
         <Input 
-            label={'Buscar...'}
+            // label={'Buscar'}
             value={name}
             setter={setName}
-            placeholder={'Nombre o Apellido'}
+            placeholder={'Buscar...'}
         />
         <NonScrollableContainer>
             <List 
                 data={students
                     ?.filter( student => student.clase = claseId)
                     ?.filter( student => (
-                        student?.first_name.toLowerCase().includes(name.toLocaleLowerCase()) || 
-                        student?.last_name.toLowerCase().includes(name.toLocaleLowerCase())
+                        `${student?.first_name} ${student?.last_name}`
+                        .toLocaleLowerCase()
+                        .includes(name.toLocaleLowerCase())
                     ))
                 }
                 DetailComponent={Student}
