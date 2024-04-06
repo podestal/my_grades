@@ -15,11 +15,11 @@ import Input from "../utils/Input"
 
 const Participations = ({ route }) => {
 
-    const claseId = route?.params?.assignature?.clase?.id
     const assignature = route?.params?.assignature
+    const claseId = route?.params?.assignature?.clase?.id
+    const [ name, setName] = useState('')
     const { user } = useAuth()
     const { students, setStudents } = useStudents()
-    const [ name, setName] = useState('')
     const filteredStudents = students?.filter( student => student.clase = claseId) || []
     const { mutate: getStudentsMutation, isPending, isError } = useMutation({
         mutationFn: data => getStudents(data),

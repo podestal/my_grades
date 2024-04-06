@@ -1,12 +1,15 @@
-import { Text, View, StyleSheet, Pressable } from "react-native"
+import { Text, Pressable } from "react-native"
 import { getStudents } from "../../api/api"
 import useAuth from "../../hooks/useAuth"
-import { useQuery } from "@tanstack/react-query"
+import { useMutation } from "@tanstack/react-query"
 import List from "../utils/List"
 import Student from "./Student"
 import Input from "../utils/Input"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import NonScrollableContainer from "../utils/NonScrollableContainer"
+import useStudents from "../../hooks/useStudents"
+import Loading from "../utils/Loading"
+import Error from "../utils/Error"
 
 const Students = ({ route }) => {
 
@@ -14,14 +17,27 @@ const Students = ({ route }) => {
     const claseId = route?.params?.claseId
     const [name, setName] = useState('')
     const [showDetails, setShowDetails] = useState(false)
-    const {data: students, isLoading, isError, error} = useQuery({
-        queryKey: ['students'],
-        queryFn: () => getStudents({ token: user.access, claseId })
+    const { students, setStudents } = useStudents()
+    const filteredStudents = students?.filter( student => student.clase = claseId) || []
+    const { mutate: getStudentsMutation, isPending, isError } = useMutation({
+        mutationFn: data => getStudents(data),
+        onSuccess: res => setStudents( prev => ([ ...prev, ...res.data ])),
+        onError: err => console.log(err)
     })
 
-    if (isLoading) return <Text>Loading ...</Text>
+    const getter = () => {
+        getStudentsMutation({ token: user.access, claseId })
+    }
 
-    if (isError) return <Text>{error.message}</Text>
+    useEffect(() => {
+        if (filteredStudents.length == 0) {
+            getter()
+        }
+    }, [])
+
+    if (isPending) return <Loading />
+
+    if (isError) return <Error retry={getter}/>
 
   return (
     <NonScrollableContainer>  
@@ -36,7 +52,7 @@ const Students = ({ route }) => {
         </Pressable>
         <NonScrollableContainer>
           <List 
-              data={students.data
+              data={students
                 ?.filter( student => (
                   `${student?.first_name} ${student?.last_name}`
                   .toLocaleLowerCase()
