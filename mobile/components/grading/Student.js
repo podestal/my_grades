@@ -6,10 +6,14 @@ import { useMutation } from "@tanstack/react-query"
 import { createParticipation } from "../../api/api"
 import useAuth from "../../hooks/useAuth"
 import useStudents from "../../hooks/useStudents"
+import SuccessMsg from "../utils/SuccessMsg"
+import ErrorMsg from "../utils/ErrorMsg"
 
 const Student = ({ data: student, extraData: assignature }) => {
 
     const [calification, setCalification] = useState('')
+    const [successMsg, setSuccessMsg] = useState('')
+    const [errMsg, setErrMsg] = useState('')
     const { user } = useAuth()
     const { setStudents } = useStudents()
     const date = new Date()
@@ -27,12 +31,17 @@ const Student = ({ data: student, extraData: assignature }) => {
                 return prevStudent
             })))
             setCalification('')
+            setSuccessMsg('Participación Agregada')
         },
-        onError: err => console.log(err)
+        onError: err => {
+            setErrMsg('Ocurrió un Error, vuélvalo a intentar')
+            console.log(err)
+        }
     })
 
     const handleAddParticipation = () => {
-        console.log('Assignature from part:', assignature)
+        setSuccessMsg('')
+        setErrMsg('')
         if (califications[calification - 1]?.calification || califications[calification - 1]?.calification == 'NA' ) {
             createParticipationMutation({
                 token: user.access,
@@ -43,10 +52,16 @@ const Student = ({ data: student, extraData: assignature }) => {
                 }
             })
         }
+        setTimeout(() => {
+            setSuccessMsg('')
+            setErrMsg('')
+        }, 3000)
     }
 
   return (
     <>
+        {successMsg && <SuccessMsg>{successMsg}</SuccessMsg>}
+        {errMsg && <ErrorMsg>{errMsg}</ErrorMsg>}
         <View style={styles.participationContainer}>
             <ScrollView contentContainerStyle={styles.studentContainer}>
                 <Text style={styles.studentName}>{student.first_name} {student.last_name}</Text>
