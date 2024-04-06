@@ -5,7 +5,8 @@ import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
 
-
+// localStorage.setItem('refresh', JSON.stringify(refreshToken))
+// localStorage.setItem('access', JSON.stringify(accessToken))
 const Login = () => {
 
   const [username, setUsername] = useState('')
@@ -27,6 +28,7 @@ const Login = () => {
     onSuccess: res => {
       setUser( prev => ({ ...prev, ...res.data }))
       getUserMutation({ token: res.data.access })
+      localStorage.setItem('access', JSON.stringify(res.data.access))
     },
     onError: err => console.log(err)
   })
@@ -38,7 +40,6 @@ const Login = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      {console.log('user', user)}
         <input 
           placeholder='Usuario'
           value={username}
