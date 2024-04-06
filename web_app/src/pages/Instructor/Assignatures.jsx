@@ -1,8 +1,11 @@
 import React from 'react'
+import GetAssignatures from '../../components/GetAssignatures'
 
 const Assignatures = () => {
   return (
-    <div>Assignatures</div>
+    <div>
+        <GetAssignatures />
+    </div>
   )
 }
 

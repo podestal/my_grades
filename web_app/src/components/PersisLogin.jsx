@@ -30,7 +30,6 @@ const PersisLogin = ({ children }) => {
             const exp = jwtDecode(access).exp
             const isExpired = dayjs.unix(exp).diff(dayjs()) < 1
             if (!isExpired) {
-                console.log('Token has expired')
                 navigate('/login')
             }
             getUserMutation({ token: access })
