@@ -36,9 +36,12 @@ const Students = ({ route }) => {
         </Pressable>
         <NonScrollableContainer>
           <List 
-              data={students.data.filter( student => (
-                student?.first_name.toLowerCase().includes(name.toLocaleLowerCase()) ||  
-                student?.last_name.toLowerCase().includes(name.toLocaleLowerCase()))
+              data={students.data
+                ?.filter( student => (
+                  `${student?.first_name} ${student?.last_name}`
+                  .toLocaleLowerCase()
+                  .includes(name.toLocaleLowerCase())
+              )
             )}
               DetailComponent={Student}
               extraData={showDetails}

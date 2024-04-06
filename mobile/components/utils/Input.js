@@ -3,7 +3,7 @@ import { View, Text, TextInput, StyleSheet } from "react-native"
 const Input = ({ label, type, secure, value, setter, placeholder }) => {
   return (
     <View style={styles.container}>
-        {/* <Text style={styles.label}>{label}</Text> */}
+        <Text style={styles.label}>{label}</Text>
         <TextInput  
             style={styles.input}
             keyboardType={type ? type : 'default'}
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 12,
+        marginVertical: 15,
     },
     label: {
         fontSize: 16,
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         width: 240,
         padding: 8,
-        marginTop: 12,
+        marginVertical: 12,
         textAlign: 'center'
     }
 })

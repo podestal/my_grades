@@ -69,10 +69,11 @@ const Students = ({ clases, schoolId }) => {
         <View style={{flex: 1}}>
             <List 
                 data={data.data
-                        .filter(student => student.clase == clase)
-                        .filter(student => (
-                            student?.first_name.toLowerCase().includes(name.toLocaleLowerCase()) || 
-                            student?.last_name.toLowerCase().includes(name.toLocaleLowerCase())
+                        ?.filter(student => student.clase == clase)
+                        ?.filter( student => (
+                            `${student?.first_name} ${student?.last_name}`
+                            .toLocaleLowerCase()
+                            .includes(name.toLocaleLowerCase())
                         ))
                     }
                 DetailComponent={Student}

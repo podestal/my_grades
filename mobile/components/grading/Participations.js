@@ -1,4 +1,4 @@
-import { View } from "react-native"
+import { Button } from "react-native"
 import useStudents from "../../hooks/useStudents"
 import { getStudents } from "../../api/api"
 import { useMutation } from "@tanstack/react-query"
@@ -48,6 +48,9 @@ const Participations = ({ route }) => {
             setter={setName}
             placeholder={'Buscar...'}
         />
+        {/* <Button 
+            title="Agregar Participación"
+        /> */}
         <NonScrollableContainer>
             <List 
                 data={students

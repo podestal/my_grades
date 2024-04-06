@@ -2,7 +2,7 @@ import { ScrollView, StyleSheet, Text } from "react-native"
 import { Dropdown } from 'react-native-element-dropdown';
 import { useState } from "react";
 
-const Select = ({ setter, title, data }) => {
+const Select = ({ setter, title, data, label }) => {
 
     const [focus, setFocus] = useState(false)
 
@@ -15,14 +15,14 @@ const Select = ({ setter, title, data }) => {
             <Dropdown 
                 data={data}
                 search
-                labelField='title'
-                valueField="id"
+                labelField={label ? label : 'title'}
+                valueField='id'
                 onFocus={() => setFocus(true)}
                 onBlur={() => setFocus(false)}
-                searchPlaceholder={`Busca ${title}`}
-                placeholder={`Selecciona ${title}`}
+                searchPlaceholder={title ? `Busca ${title}` : 'Buscar'}
+                placeholder={title ? `Selecciona ${title}` : 'Seleccionar'}
                 onChange={item => setter(item.id)}
-                selectedTextStyle={{fontSize:20}}
+                selectedTextStyle={{fontSize:40, display: 'none'}}
                 placeholderStyle={{fontSize:20}}
                 // containerStyle={{padding: 40}}
                 style={{padding: 40}}
