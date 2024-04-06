@@ -5,21 +5,31 @@ import { useState } from "react"
 import { useMutation } from "@tanstack/react-query"
 import { createParticipation } from "../../api/api"
 import useAuth from "../../hooks/useAuth"
+import useStudents from "../../hooks/useStudents"
 
 const Student = ({ data: student, extraData: assignature }) => {
 
     const [calification, setCalification] = useState('')
     const { user } = useAuth()
+    const { students, setStudents } = useStudents()
 
     const { mutate:createParticipationMutation } = useMutation({
         mutationFn: data => createParticipation(data),
-        onSuccess: res => console.log(res.data),
+        onSuccess: res => {
+            setStudents(prev => ( prev.map( prevStudent => {
+                if (prevStudent.id == student.id) {
+                    prevStudent.participations.push(res.data)
+                }
+                return prevStudent
+            })))
+            setCalification('')
+        },
         onError: err => console.log(err)
     })
 
     const handleAddParticipation = () => {
         console.log('Assignature from part:', assignature)
-        if (califications[calification - 1]?.calification ) {
+        if (califications[calification - 1]?.calification || califications[calification - 1]?.calification == 'NA' ) {
             createParticipationMutation({
                 token: user.access,
                 participation: {
