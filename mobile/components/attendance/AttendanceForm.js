@@ -30,15 +30,13 @@ const AttendanceForm = ({ student, late, title, lateHour, handler, remove }) => 
         onSuccess: res => {
             late ? setSuccessMsg('Tardanza creada') : setSuccessMsg('Ausencia creada')
             setSuccess(true)
-            queryClient.invalidateQueries(['studentsAttendance'])
-            // const attendanceResponse = res.data
-            // student.atendances.map(atendance =>  {
-            //     if (attendanceResponse.id == atendance?.id) {
-
-            //     }
-
-            // })
-
+            console.log('data from api', res.data)
+            setStudents( prev => prev.map( prevStudent => {
+                if (prevStudent.id == student.id) {
+                    prevStudent.atendances.push(res.data)
+                }
+                return prevStudent
+            }))
         },
         onError: err => setErrorMsg('Ocurrió un error, vuelva a intentarlo más tarde')
     })

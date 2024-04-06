@@ -7,8 +7,6 @@ const Student = ({ data: student }) => {
     const date = new Date()
     const today = String(date.toJSON()).split('T')[0]
     const todayAttendence = student?.atendances.filter( attendence => attendence.created_at == today)
-    const attendanceId = todayAttendence[0]?.id
-    const attendanceStatus = todayAttendence[0]?.status
 
   return (
     <View style={styles.studentContainer}>

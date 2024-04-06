@@ -26,7 +26,6 @@ const Student = ({ data: student, extraData: assignature }) => {
             setStudents(prev => ( prev.map( prevStudent => {
                 if (prevStudent.id == student.id) {
                     prevStudent.participations.push(res.data)
-                    console.log(res.data?.created_at)
                 }
                 return prevStudent
             })))
@@ -73,6 +72,7 @@ const Student = ({ data: student, extraData: assignature }) => {
                     setter={setCalification}
                     data={califications}
                     label={'calification'}
+                    hideSelected={'none'}
                 />
             </View>
             <View style={styles.buttonContainer}>

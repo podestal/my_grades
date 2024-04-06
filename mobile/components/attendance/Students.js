@@ -20,36 +20,36 @@ const Students = ({ clases, schoolId }) => {
     const { user } = useAuth()
     const [refresh, setRefresh] = useState(false)
 
-    // const {mutate: getStudentsBySchoolMutation, isPending, isError} = useMutation({
-    //     mutationFn: data => getStudentsBySchool(data),
-    //     onSuccess: res => {
-    //         setStudents(res.data)
-    //     },
-    //     onError: err => console.log(err)
-    // })
-
-    // const getter = () => {
-    //     getStudentsBySchoolMutation({ token: user.access, schoolId })
-    // }
-
-    // useEffect(() => {
-    //     if (students.length == 0) {
-    //         getter()
-    //     }
-    // }, [])
-
-    // if (isPending) return <Loading />
-
-    // if (isError) return <Error retry={getter}/>
-
-    const {data, isLoading, isError, error ,refetch} = useQuery({
-        queryKey: ['studentsAttendance'],
-        queryFn: () => getStudentsBySchool({ token: user.access, schoolId })
+    const {mutate: getStudentsBySchoolMutation, isPending, isError} = useMutation({
+        mutationFn: data => getStudentsBySchool(data),
+        onSuccess: res => {
+            setStudents(res.data)
+        },
+        onError: err => console.log(err)
     })
 
-    if (isLoading) return <Loading />
+    const getter = () => {
+        getStudentsBySchoolMutation({ token: user.access, schoolId })
+    }
 
-    if (isError) return <Error retry={refetch}/>
+    useEffect(() => {
+        if (students.length == 0) {
+            getter()
+        }
+    }, [])
+
+    if (isPending) return <Loading />
+
+    if (isError) return <Error retry={getter}/>
+
+    // const {data, isLoading, isError, error ,refetch} = useQuery({
+    //     queryKey: ['studentsAttendance'],
+    //     queryFn: () => getStudentsBySchool({ token: user.access, schoolId })
+    // })
+
+    // if (isLoading) return <Loading />
+
+    // if (isError) return <Error retry={refetch}/>
 
   return (
     <NonScrollableContainer>
@@ -66,9 +66,10 @@ const Students = ({ clases, schoolId }) => {
                 placeholder={'Nombre o Apellido'}
             />
         </View>
+        {console.log(students)}
         <View style={{flex: 1}}>
             <List 
-                data={data.data
+                data={students
                         ?.filter(student => student.clase == clase)
                         ?.filter( student => (
                             `${student?.first_name} ${student?.last_name}`
@@ -79,7 +80,7 @@ const Students = ({ clases, schoolId }) => {
                 DetailComponent={Student}
                 refresh={refresh}
                 setRefresh={setRefresh}
-                onRefresh={refetch}
+                onRefresh={getter}
             />
         </View>
     </NonScrollableContainer>
