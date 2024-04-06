@@ -160,4 +160,5 @@ class Participation(models.Model):
     assignature = models.ForeignKey(Assignature, on_delete=models.CASCADE)
     calification = models.CharField(max_length=2, choices=CALIFICATION_CHOICES, default='NA')
     observations = models.TextField(null=True, blank=True)
+    created_at = models.DateField(auto_now_add=True)
 

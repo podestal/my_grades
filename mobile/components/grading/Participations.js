@@ -44,14 +44,10 @@ const Participations = ({ route }) => {
   return (
     <NonScrollableContainer>
         <Input 
-            // label={'Buscar'}
             value={name}
             setter={setName}
             placeholder={'Buscar...'}
         />
-        {/* <Button 
-            title="Agregar Participación"
-        /> */}
         <NonScrollableContainer>
             <List 
                 data={students

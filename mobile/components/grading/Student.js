@@ -11,7 +11,10 @@ const Student = ({ data: student, extraData: assignature }) => {
 
     const [calification, setCalification] = useState('')
     const { user } = useAuth()
-    const { students, setStudents } = useStudents()
+    const { setStudents } = useStudents()
+    const date = new Date()
+    const today = String(date.toJSON()).split('T')[0]
+    const todaysParticipations = student.participations.length > 0 && student.participations.filter( participation => participation.created_at == today)
 
     const { mutate:createParticipationMutation } = useMutation({
         mutationFn: data => createParticipation(data),
@@ -19,6 +22,7 @@ const Student = ({ data: student, extraData: assignature }) => {
             setStudents(prev => ( prev.map( prevStudent => {
                 if (prevStudent.id == student.id) {
                     prevStudent.participations.push(res.data)
+                    console.log(res.data?.created_at)
                 }
                 return prevStudent
             })))
@@ -47,7 +51,7 @@ const Student = ({ data: student, extraData: assignature }) => {
             <ScrollView contentContainerStyle={styles.studentContainer}>
                 <Text style={styles.studentName}>{student.first_name} {student.last_name}</Text>
                 <Text style={styles.participationText}>Hoy: {student?.participations?.length}</Text>
-                <Text style={styles.participationText}>Total: {student?.participations?.length}</Text>
+                <Text style={styles.participationText}>Total: {todaysParticipations?.length}</Text>
             </ScrollView>
             <View>
                 <Select 
