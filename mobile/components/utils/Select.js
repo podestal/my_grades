@@ -40,6 +40,5 @@ const styles = StyleSheet.create({
     },
     dropdownContentContainer: {
         alignItems: 'center',
-        // width: 300,
     }
 })

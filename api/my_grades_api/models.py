@@ -155,11 +155,9 @@ class Participation(models.Model):
     ]
 
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='participations')
-    competence = models.ForeignKey(Competence, on_delete=models.PROTECT)
-    capacity = models.ForeignKey(Capacity, on_delete=models.PROTECT)
+    competence = models.ForeignKey(Competence, on_delete=models.PROTECT, null=True, blank=True)
+    capacity = models.ForeignKey(Capacity, on_delete=models.PROTECT, null=True, blank=True)
     assignature = models.ForeignKey(Assignature, on_delete=models.CASCADE)
     calification = models.CharField(max_length=2, choices=CALIFICATION_CHOICES, default='NA')
     observations = models.TextField(null=True, blank=True)
 
-
-    

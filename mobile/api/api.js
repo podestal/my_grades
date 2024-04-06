@@ -110,3 +110,11 @@ export const removeAttendance = data => axios.delete(`${URL}api/atendances/${dat
 export const getTutor = data => axios.get(`${URL}api/tutors/me/`, {
     headers: { Authorization: `JWT ${data.token}` }
 })
+
+// PARTICIPATIONS
+
+export const createParticipation = data => axios.post(`${URL}api/participations/`, data.participation, {
+    headers: { Authorization: `JWT ${data.token}` }
+})
+
+

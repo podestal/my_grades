@@ -16,6 +16,7 @@ import Input from "../utils/Input"
 const Participations = ({ route }) => {
 
     const claseId = route?.params?.assignature?.clase?.id
+    const assignature = route?.params?.assignature
     const { user } = useAuth()
     const { students, setStudents } = useStudents()
     const [ name, setName] = useState('')
@@ -62,6 +63,7 @@ const Participations = ({ route }) => {
                     ))
                 }
                 DetailComponent={Student}
+                extraData={assignature}
             />
         </NonScrollableContainer>
     </NonScrollableContainer>
