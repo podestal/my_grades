@@ -7,6 +7,8 @@ import Loading from '../utils/Loading'
 import Error from '../utils/Error'
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import useStudent from '../hooks/useStudents'
+import useActivities from '../hooks/useActivities'
 import Student from './Student'
 import { competenciesData } from '../data/competencies'
 import Select from 'react-select'
@@ -37,6 +39,8 @@ const GradesDashboard = () => {
     const assignature = location?.state?.assignature
     const { user } = useAuth()
     const { grades, setGrades } = useGrades()
+    const { students, setStudents} = useStudent()
+    const {activities, setActivities} = useActivities()
     const [ filteredGrades, setFilteredGrades ] = useState( grades && grades.filter( grade => grade.assignature == assignature.id) || [])
     const [columns, setColumns] = useState([
         {
@@ -49,11 +53,7 @@ const GradesDashboard = () => {
 
     const { mutate: getStudentsMutation } = useMutation({
         mutationFn: data => getStudents(data),
-        onSuccess: res => {
-            res.data.map(student => {
-                setData( prev => ([ ...prev, {name: `${student.first_name} ${student.last_name}`}]))
-            })
-        },
+        onSuccess: res => setStudents(res.data),
         onError: err => console.log(err)
     })
 
@@ -69,9 +69,7 @@ const GradesDashboard = () => {
 
     const { mutate: getActivitiesMutation } = useMutation({
         mutationFn: data => getActivities(data),
-        onSuccess: res => {
-            res.data.map(activity => setColumns(prev => ([ ...prev, {name: activity.title} ])))
-        },
+        onSuccess: res => setActivities(res.data),
         onError: err => console.log(err)
     })
 
@@ -83,7 +81,7 @@ const GradesDashboard = () => {
         // if (filteredGrades.length == 0) {
         //     getter()
         // }
-        // getter()
+        getter()
         getStudentsMutation({ token: user.access, claseId: assignature.clase.id})
         getActivitiesMutation({ token: user.access, assignature:assignature.id })
     }, [])
@@ -93,14 +91,32 @@ const GradesDashboard = () => {
     if (isError) return <Error refetch={getter}/>
 
   return (
-    <>
-        <DataTable 
+    <div className='table-container'>
+        {/* <DataTable 
             columns={columns}
             data={data}
             onRowClicked={item => console.log('clicked', item)}
             
-        />
-    </>
+        /> */}
+        <div>
+            <h1>Estudiantes</h1>
+            {students && students.map(student => <p key={student.id}>{student.first_name} {student.last_name}</p>)}
+        </div>
+        <div className='activities-container'>
+            {console.log('filteredGrades', filteredGrades)}
+            {activities && activities.map( activity => (
+                <div className='activities-item'>
+                    <h2>{activity?.title}</h2>
+                    <div>
+                        {filteredGrades && filteredGrades
+                            .filter( grade => grade?.activity?.id == activity.id)
+                            .map( grade => <p key={grade.id}>{grade.calification}</p>)
+                        }
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
   )
 }
 
