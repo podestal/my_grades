@@ -11,6 +11,7 @@ import Student from './Student'
 import { competenciesData } from '../data/competencies'
 import Select from 'react-select'
 import Activities from './Activities'
+import Students from './Students'
 
 const student = {
     "id": 6,
@@ -67,8 +68,13 @@ const GradesDashboard = () => {
             student={student}
             grades={grades}
             competence={selectedCompetence}
+            assignature={assignature}
         />
-        {/* <Activities /> */}
+        <Students 
+            grades={grades}
+            competence={selectedCompetence}
+            assignature={assignature}
+        />
     </div>
   )
 }
