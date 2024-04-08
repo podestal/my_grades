@@ -116,20 +116,28 @@ class GetParticipationSerializer(serializers.ModelSerializer):
         model = models.Participation
         fields = '__all__'
 
+class GetSimpleGradesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Grade
+        fields = ['id', 'activity', 'calification']
+
 class GetStudentSerializer(serializers.ModelSerializer):
 
     atendances = GetSimpleAttendanceSerializer(many=True)
     participations = GetParticipationSerializer(many=True)
+    grades= GetSimpleGradesSerializer(many=True)
 
     class Meta:
         model = models.Student
-        fields = ['id', 'first_name', 'last_name', 'clase', 'school', 'atendances', 'participations']
+        fields = ['id', 'first_name', 'last_name', 'clase', 'school', 'atendances', 'participations', 'grades']
 
 class GetSimpleStudentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Student
         fields = ['id', 'first_name', 'last_name']
+
 
 class GetFullDetailStudentSerializer(serializers.ModelSerializer):
 

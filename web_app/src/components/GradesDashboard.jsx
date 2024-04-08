@@ -92,25 +92,18 @@ const GradesDashboard = () => {
 
   return (
     <div className='table-container'>
-        {/* <DataTable 
-            columns={columns}
-            data={data}
-            onRowClicked={item => console.log('clicked', item)}
-            
-        /> */}
-        <div>
-            <h1>Estudiantes</h1>
-            {students && students.map(student => <p key={student.id}>{student.first_name} {student.last_name}</p>)}
+        <div className='students-container'>
+            <h2>Estudiantes</h2>
+            {students && students.map(student => <p className='student-item' key={student.id}>{student.first_name} {student.last_name}</p>)}
         </div>
         <div className='activities-container'>
-            {console.log('filteredGrades', filteredGrades)}
             {activities && activities.map( activity => (
                 <div className='activities-item'>
                     <h2>{activity?.title}</h2>
                     <div>
                         {filteredGrades && filteredGrades
                             .filter( grade => grade?.activity?.id == activity.id)
-                            .map( grade => <p key={grade.id}>{grade.calification}</p>)
+                            .map( grade => <p className='grade-item' key={grade.id}>{grade.calification}</p>)
                         }
                     </div>
                 </div>

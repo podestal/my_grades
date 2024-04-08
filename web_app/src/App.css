@@ -12,12 +12,30 @@ body {
   display: flex;
 }
 
+.students-container {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.student-item {
+  margin-top: 25px;
+  width: 400px;
+  height: 60px;
+  font-size: 1.2rem;
+}
+
 .activities-container {
   display: flex;
   text-align: center;
+  justify-content: space-between;
 }
 
 .activities-item {
   width: 220px;
   margin-top: 10px;
+}
+
+.grade-item {
+  margin-top: 25px;
+  height: 60px;
 }
