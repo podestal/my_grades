@@ -39,6 +39,8 @@ export const createActivity = data => axios.post(`${URL}api/activities/`, data.a
 
 // GRADES
 
+//// /api/grades/?student=&activity=7&assignature=
+
 export const getGrades = data => axios.get(`${URL}api/grades/?student=&activity=${data.activityId}&assignature=` ,{
     headers: { Authorization: `JWT ${data.token}` }
 })

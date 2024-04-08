@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Assignature = ({ assignature }) => {
   return (
-    <Link state={{assignature}} to={'/activities'}>{assignature.title}</Link>
+    <Link state={{assignature}} to={'/dashboard'}>{assignature.title}</Link>
   )
 }
 
