@@ -7,6 +7,7 @@ import { useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import Loading from '../utils/Loading'
 import Error from '../utils/Error'
+import Activity from './Activity'
 
 const Activities = (props) => {
 
@@ -14,7 +15,8 @@ const Activities = (props) => {
     const location = useLocation()
     const assignature = location?.state?.assignature
     const { activities, setActivities } = useActivities()
-    const { mutate: getActivitiesMutation } = useMutation({
+    // const filteredActi
+    const { mutate: getActivitiesMutation, isPending, isError } = useMutation({
         mutationFn: data => getActivities(data),
         onSuccess: res => setActivities(res.data),
         onError: err => console.log(err)
@@ -28,10 +30,19 @@ const Activities = (props) => {
         getter()
     }, [])
 
+    if (isPending) return <Loading />
+
+    if (isError) return <Error />
+
   return (
     <>
-        {console.log('Activities', activities)}
-        <div>Activities</div>
+        {activities.map( activity => (
+            <Activity 
+                key={activity.id}
+                activity={activity}
+            />
+        
+        ))}
     </>
   )
 }
