@@ -3,7 +3,7 @@ import React from 'react'
 const Grades = ({ grade }) => {
 
   return (
-    <div className='grade-container'>
+    <div className='grade'>
         <p>{grade.calification}</p>
     </div>
   )

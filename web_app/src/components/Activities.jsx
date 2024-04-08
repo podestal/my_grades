@@ -6,6 +6,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import Loading from '../utils/Loading'
 import Error from '../utils/Error'
+import Activity from './Activity'
 
 const Activities = ({ competence, assignature, grades }) => {
 
@@ -36,7 +37,11 @@ const Activities = ({ competence, assignature, grades }) => {
         {console.log('grades from activities', grades)}
         {activities
             .filter( activity => activity.competence == competence.id)
-            .map( activity => <p key={activity.id}>{activity.title}</p>)
+            .map( activity => (
+                <Activity 
+                    key={activity.id}
+                    activity={activity}
+                />))
         }
     </div>
   )

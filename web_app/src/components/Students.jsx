@@ -36,7 +36,6 @@ const Students = ({ grades, competence, assignature }) => {
 
   return (
     <div className='students-container'>
-        <h1>Estudiantes</h1>
         {filteredStudents.map( student => (
             <Student 
                 student={student}
