@@ -9,7 +9,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import Student from './Student'
 
-const Students = ({ grades, competence, assignature }) => {
+const Students = ({ assignature }) => {
 
     const { user } = useAuth()
     const { students, setStudents } = useStudent()
@@ -33,13 +33,16 @@ const Students = ({ grades, competence, assignature }) => {
         }
     })
 
+    if (isPending) return <Loading />
+
+    if (isError) return <Error refetch={getter}/>
+
   return (
     <div className='students-container'>
+        <h2>Estudiantes</h2>
         {filteredStudents.map( student => (
             <Student 
                 student={student}
-                grades={grades}
-                competence={competence}
             />
         ))}
     </div>

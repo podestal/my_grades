@@ -39,23 +39,8 @@ const GradesDashboard = () => {
     const assignature = location?.state?.assignature
     const { user } = useAuth()
     const { grades, setGrades } = useGrades()
-    const { students, setStudents} = useStudent()
     const {activities, setActivities} = useActivities()
     const [ filteredGrades, setFilteredGrades ] = useState( grades && grades.filter( grade => grade.assignature == assignature.id) || [])
-    const [columns, setColumns] = useState([
-        {
-            name: 'Nombre',
-            selector: row => row.name
-        },
-
-    ])
-    const [data, setData] = useState([])
-
-    const { mutate: getStudentsMutation } = useMutation({
-        mutationFn: data => getStudents(data),
-        onSuccess: res => setStudents(res.data),
-        onError: err => console.log(err)
-    })
 
     const { mutate: getGradesByAssignatureMutation, isPending, isError } = useMutation({
         mutationFn: data => getGradesByAssignature(data),
@@ -82,7 +67,6 @@ const GradesDashboard = () => {
         //     getter()
         // }
         getter()
-        getStudentsMutation({ token: user.access, claseId: assignature.clase.id})
         getActivitiesMutation({ token: user.access, assignature:assignature.id })
     }, [])
 
@@ -92,10 +76,9 @@ const GradesDashboard = () => {
 
   return (
     <div className='table-container'>
-        <div className='students-container'>
-            <h2>Estudiantes</h2>
-            {students && students.map(student => <p className='student-item' key={student.id}>{student.first_name} {student.last_name}</p>)}
-        </div>
+        <Students
+            assignature={assignature}
+        />
         <div className='activities-container'>
             {activities && activities.map( activity => (
                 <div className='activities-item'>
