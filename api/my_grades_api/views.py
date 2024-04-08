@@ -141,7 +141,7 @@ class GradesViewSet(ModelViewSet):
     serializer_class = serializers.GetGradeSerializer
     http_method_names = ['get', 'patch', 'delete']
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['student']
+    filterset_fields = ['student', 'activity', 'assignature']
 
     def get_serializer_class(self):
         if self.request.method == 'PATCH':
