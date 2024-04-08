@@ -27,7 +27,7 @@ export const getAssignaturesByClase = data => axios.get(`${URL}api/tutorAssignat
     headers: { Authorization: `JWY ${data.access}` }
 })
 
-// ASIGNMENTS
+// ACTIVITIES
 
 export const getActivities = data => axios.get(`${URL}api/activities/?assignature=${data.assignature}` ,{
     headers: { Authorization: `JWT ${data.token}` }

@@ -8,6 +8,15 @@ import Error from '../utils/Error'
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import Student from './Student'
+import { competenciesData } from '../data/competencies'
+import Select from 'react-select'
+import Activities from './Activities'
+
+const student = {
+    "id": 6,
+    "first_name": "Manuel",
+    "last_name": "Paz"
+}
 
 const GradesDashboard = () => {
 
@@ -16,7 +25,9 @@ const GradesDashboard = () => {
     const { user } = useAuth()
     const { grades, setGrades } = useGrades()
     const [ filteredGrades, setFilteredGrades ] = useState( grades && grades.filter( grade => grade.assignature == assignature.id) || [])
-
+    const filteredCompetencies = competenciesData.filter( competence => competence.area == assignature.area)
+    const [ selectedCompetence, setSelectedCompetence ] = useState('')
+    
     const { mutate: getGradesByAssignatureMutation, isPending, isError } = useMutation({
         mutationFn: data => getGradesByAssignature(data),
         onSuccess: res => {
@@ -42,7 +53,22 @@ const GradesDashboard = () => {
 
   return (
     <div>
-        {filteredGrades.map( grade => <Student key={grade.id} grade={grade}/>)}
+        <Select 
+            options={filteredCompetencies}
+            getOptionLabel={ option => option.title}
+            getOptionValue={ option => option.id}
+            onChange={option => setSelectedCompetence(option)}
+        />
+        <Activities 
+            competence={selectedCompetence}
+            assignature={assignature}
+        />
+        <Student 
+            student={student}
+            grades={grades}
+            competence={selectedCompetence}
+        />
+        {/* <Activities /> */}
     </div>
   )
 }

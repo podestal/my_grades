@@ -1,8 +1,15 @@
 import React from 'react'
 
-const Student = ({ grade }) => {
+const Student = ({ student, grades, competence }) => {
   return (
-    <div>{grade?.student?.first_name} {grade?.student?.last_name}</div>
+    <div>
+        <p>{student?.first_name}{student?.last_name}</p>
+        {grades
+            .filter(grade => grade.student.id == student.id)
+            .filter(grade => grade.activity.competence == competence.id)
+            .map( grade => <p key={grade.id}>{grade.calification}</p>)
+        }
+    </div>
   )
 }
 
