@@ -4,3 +4,6 @@
   box-sizing: border-box;
 }
 
+.dashboard-info-container {
+  display: flex;
+}

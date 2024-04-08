@@ -31,7 +31,6 @@ const Activities = ({ competence, assignature }) => {
 
   return (
     <div>
-        <h1>Activities</h1>
         {console.log('activities',activities)}
         {console.log('competence', competence)}
         {activities

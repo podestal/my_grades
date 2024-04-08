@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Student = ({ student, grades, competence, assiganure }) => {
+const Student = ({ student, grades, competence }) => {
   return (
     <div>
         <p>{student?.first_name}{student?.last_name}</p>

@@ -60,21 +60,17 @@ const GradesDashboard = () => {
             getOptionValue={ option => option.id}
             onChange={option => setSelectedCompetence(option)}
         />
-        <Activities 
-            competence={selectedCompetence}
-            assignature={assignature}
-        />
-        <Student 
-            student={student}
-            grades={grades}
-            competence={selectedCompetence}
-            assignature={assignature}
-        />
-        <Students 
-            grades={grades}
-            competence={selectedCompetence}
-            assignature={assignature}
-        />
+        <div className='dashboard-info-container'>
+            <Students 
+                grades={grades}
+                competence={selectedCompetence}
+                assignature={assignature}
+            />
+            <Activities 
+                competence={selectedCompetence}
+                assignature={assignature}
+            />
+        </div>
     </div>
   )
 }
