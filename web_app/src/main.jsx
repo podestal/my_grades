@@ -10,7 +10,7 @@ import { BrowserRouter } from 'react-router-dom'
 const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <AuthContextProvider>
       <AssignatureContextProvider>
         <ActivitiesContextprovider>
@@ -22,5 +22,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         </ActivitiesContextprovider>
       </AssignatureContextProvider>
     </AuthContextProvider>
-  </React.StrictMode>,
+  // </React.StrictMode>,
 )
