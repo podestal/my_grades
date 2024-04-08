@@ -69,6 +69,7 @@ const GradesDashboard = () => {
             <Activities 
                 competence={selectedCompetence}
                 assignature={assignature}
+                grades={grades}
             />
         </div>
     </div>

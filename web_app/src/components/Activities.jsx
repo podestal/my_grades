@@ -7,7 +7,9 @@ import { useEffect } from 'react'
 import Loading from '../utils/Loading'
 import Error from '../utils/Error'
 
-const Activities = ({ competence, assignature }) => {
+const Activities = ({ competence, assignature, grades }) => {
+
+    
 
     const { user } = useAuth()
     const { activities, setActivities } = useActivities()
@@ -30,9 +32,8 @@ const Activities = ({ competence, assignature }) => {
     if (isError) return <Error refetch={getter}/>
 
   return (
-    <div>
-        {console.log('activities',activities)}
-        {console.log('competence', competence)}
+    <div className='activities-container'>
+        {console.log('grades from activities', grades)}
         {activities
             .filter( activity => activity.competence == competence.id)
             .map( activity => <p key={activity.id}>{activity.title}</p>)

@@ -4,6 +4,46 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: sans-serif;
+}
+
 .dashboard-info-container {
   display: flex;
+}
+
+.activities-container {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(5, 1fr);
+  height: 50px;
+  text-align: center;
+  margin-top: 10px;
+} 
+
+.student-grades-container {
+  display: flex;
+  margin: 36px 0;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.students-container {
+  width: 650px;
+}
+
+.grades-container {
+  position: absolute;
+  margin-left: 450px;
+  display: grid;
+  width: calc(100% - 450px);
+  grid-template-columns: repeat(5, 1fr);
+  text-align: center;
+}
+
+.grade-container {  
+  /* margin: auto; */
+  /* text-align: center; */
+  /* background-color: red; */
+  
 }
