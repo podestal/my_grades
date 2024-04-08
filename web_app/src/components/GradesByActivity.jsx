@@ -8,6 +8,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import Loading from '../utils/Loading'
 import Error from '../utils/Error'
+import Grade from './Grade'
 
 const GradesByActivity = () => {
     const location = useLocation()
@@ -40,9 +41,14 @@ const GradesByActivity = () => {
     if (isError) return <Error refetch={getter}/>
 
   return (
-    <div>
-        {console.log('filteredGrades',grades)}
-    </div>
+    <>
+        {filteredGrades.map( grade =>(
+             <Grade 
+                key={grade.id}
+                grade={grade}
+             />
+        ))}
+    </>
   )
 }
 
