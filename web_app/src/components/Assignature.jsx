@@ -1,8 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Assignature = ({ assignature }) => {
   return (
-    <p>{assignature.title}</p>
+    <Link state={{assignature}} to={'/activities'}>{assignature.title}</Link>
   )
 }
 
