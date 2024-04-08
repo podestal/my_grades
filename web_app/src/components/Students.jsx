@@ -24,7 +24,6 @@ const Students = ({ grades, competence, assignature }) => {
     })
 
     const getter = () => {
-        console.log('Assignature', assignature);
         getStudentsMutation({ token: user.access, claseId: assignature.clase.id})
     }
 
