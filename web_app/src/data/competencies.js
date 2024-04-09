@@ -153,7 +153,12 @@ export const competenciesData = [
         "id": 31,
         "title": "Se desenvuelve en entornos virtuales generados por las TIC.",
         "area": 12
-    }
+    },
+    {
+        "id": 32,
+        "title": "Mostar todas las actividades.",
+        "area": 99
+    },
 ]
 
 export const getFilteredCompetences = (area) => {

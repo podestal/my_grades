@@ -10,6 +10,8 @@ import { useLocation } from 'react-router-dom'
 import useActivities from '../hooks/useActivities'
 import Students from './Students'
 import Activities from './Activities'
+import Select from 'react-select'
+import { competenciesData } from '../data/competencies'
 
 const GradesDashboard = () => {
 
@@ -17,6 +19,7 @@ const GradesDashboard = () => {
     const assignature = location?.state?.assignature
     const { user } = useAuth()
     const { grades, setGrades } = useGrades()
+    const [ competence, setCompetence ] = useState({})
     const {activities, setActivities} = useActivities()
     const [ filteredGrades, setFilteredGrades ] = useState( grades && grades.filter( grade => grade.assignature == assignature.id) || [])
 
@@ -53,14 +56,25 @@ const GradesDashboard = () => {
     if (isError) return <Error refetch={getter}/>
 
   return (
-    <div className='table-container'>
-        <Students
-            assignature={assignature}
+    <div className='dashboard-container'>
+        <Select 
+            options={competenciesData.filter( competence => competence.area == assignature.area || competence.area == 99)}
+            getOptionLabel={option => option.title}
+            getOptionValue={option => option.id}
+            onChange={option => setCompetence(option)}
+            defaultValue={competenciesData[1].id}
+            value={ competence }
         />
-        <Activities 
-            grades={filteredGrades}
-            assignature={assignature}
-        />
+        <div className='table-container'>
+            <Students
+                assignature={assignature}
+            />
+            <Activities 
+                grades={filteredGrades}
+                assignature={assignature}
+                competence={competence}
+            />
+        </div>
     </div>
   )
 }

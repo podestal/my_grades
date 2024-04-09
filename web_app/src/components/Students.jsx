@@ -31,7 +31,7 @@ const Students = ({ assignature }) => {
         if (filteredStudents.length == 0) {
             getter()
         }
-    })
+    }, [])
 
     if (isPending) return <Loading />
 

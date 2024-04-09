@@ -8,7 +8,7 @@ import Loading from '../utils/Loading'
 import Error from '../utils/Error'
 import Activity from './Activity'
 
-const Activities = ({ assignature, grades }) => {
+const Activities = ({ assignature, grades, competence }) => {
 
     
 
@@ -34,17 +34,40 @@ const Activities = ({ assignature, grades }) => {
 
   return (
     <div className='activities-container'>
-        {activities && activities.map( activity => (
-            <div className='activities-item'>
-                <h2>{activity?.title}</h2>
-                <div>
-                    {grades && grades
-                        .filter( grade => grade?.activity?.id == activity.id)
-                        .map( grade => <p className='grade-item' key={grade.id}>{grade.calification}</p>)
-                    }
+        {console.log('Competence in activities',competence)}
+        {competence.area != 99
+        ?
+        <>
+        {activities && activities
+            .filter( activity => activity.competence == competence?.id)
+            .map( activity => (
+                <div className='activities-item'>
+                    <h2>{activity?.title}</h2>
+                    <div>
+                        {grades && grades
+                            .filter( grade => grade?.activity?.id == activity.id)
+                            .map( grade => <p className='grade-item' key={grade.id}>{grade.calification}</p>)
+                        }
+                    </div>
                 </div>
-            </div>
         ))}
+    </> 
+        :
+        <>
+        {activities && activities
+            .map( activity => (
+                <div className='activities-item'>
+                    <h2>{activity?.title}</h2>
+                    <div>
+                        {grades && grades
+                            .filter( grade => grade?.activity?.id == activity.id)
+                            .map( grade => <p className='grade-item' key={grade.id}>{grade.calification}</p>)
+                        }
+                    </div>
+                </div>
+        ))}
+    </>
+        }
     </div>
   )
 }
