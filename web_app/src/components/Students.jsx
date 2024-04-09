@@ -9,7 +9,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import Student from './Student'
 
-const Students = ({ assignature }) => {
+const Students = ({ assignature, name }) => {
 
     const { user } = useAuth()
     const { students, setStudents } = useStudent()
@@ -40,7 +40,14 @@ const Students = ({ assignature }) => {
   return (
     <div className='students-container'>
         <h2>Estudiantes</h2>
-        {filteredStudents.map( student => (
+        {console.log('Filtered', name)}
+        {filteredStudents
+        .filter( student => (
+            `${student?.first_name} ${student?.last_name}`
+            .toLocaleLowerCase()
+            .includes(name)
+        ))
+        .map( student => (
             <Student 
                 student={student}
             />

@@ -20,6 +20,7 @@ const GradesDashboard = () => {
     const { user } = useAuth()
     const { grades, setGrades } = useGrades()
     const [ competence, setCompetence ] = useState({})
+    const [ name, setName ] = useState('')
     const {activities, setActivities} = useActivities()
     const [ filteredGrades, setFilteredGrades ] = useState( grades && grades.filter( grade => grade.assignature == assignature.id) || [])
 
@@ -65,9 +66,14 @@ const GradesDashboard = () => {
             defaultValue={competenciesData[1].id}
             value={ competence }
         />
+        <input 
+            placeholder='Filtrar Estudiante'
+            onChange={e => setName(e.target.value)}
+        />
         <div className='table-container'>
             <Students
                 assignature={assignature}
+                name={name}
             />
             <Activities 
                 grades={filteredGrades}
