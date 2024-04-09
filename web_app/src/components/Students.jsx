@@ -44,7 +44,7 @@ const Students = ({ assignature, name }) => {
         {filteredStudents
         .filter( student => (
             `${student?.first_name} ${student?.last_name}`
-            .toLocaleLowerCase()
+            .toLowerCase()
             .includes(name)
         ))
         .map( student => (

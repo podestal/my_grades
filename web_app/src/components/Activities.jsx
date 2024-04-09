@@ -8,7 +8,7 @@ import Loading from '../utils/Loading'
 import Error from '../utils/Error'
 import Activity from './Activity'
 
-const Activities = ({ assignature, grades, competence }) => {
+const Activities = ({ assignature, grades, competence, name }) => {
 
     
 
@@ -44,9 +44,22 @@ const Activities = ({ assignature, grades, competence }) => {
                 <div className='activities-item'>
                     <h2>{activity?.title}</h2>
                     <div>
+                        {!name.lenth > 0 
+                        ? 
+                        <>
+                            {grades && grades
+                                .filter( grade => grade?.activity?.id == activity.id)
+                                .filter( grade => `${grade?.student?.first_name} ${grade?.student?.last_name}`.toLowerCase().includes(name.toLowerCase()))
+                                .map( grade => <p className='grade-item' key={grade.id}>{grade.calification}</p>)
+                            }
+                        </>
+                        :
+                        <>
                         {grades && grades
                             .filter( grade => grade?.activity?.id == activity.id)
                             .map( grade => <p className='grade-item' key={grade.id}>{grade.calification}</p>)
+                        }
+                        </>
                         }
                     </div>
                 </div>

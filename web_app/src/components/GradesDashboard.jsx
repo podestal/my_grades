@@ -63,7 +63,6 @@ const GradesDashboard = () => {
             getOptionLabel={option => option.title}
             getOptionValue={option => option.id}
             onChange={option => setCompetence(option)}
-            defaultValue={competenciesData[1].id}
             value={ competence }
         />
         <input 
@@ -79,6 +78,7 @@ const GradesDashboard = () => {
                 grades={filteredGrades}
                 assignature={assignature}
                 competence={competence}
+                name={name}
             />
         </div>
     </div>
