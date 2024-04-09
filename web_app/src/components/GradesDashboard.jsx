@@ -1,37 +1,15 @@
 import React from 'react'
 import useGrades from '../hooks/useGrades'
-import { getGradesByAssignature, getStudents, getActivities } from '../api/api'
+import { getGradesByAssignature, getActivities } from '../api/api'
 import useAuth from '../hooks/useAuth'
 import { useMutation } from '@tanstack/react-query'
 import Loading from '../utils/Loading'
 import Error from '../utils/Error'
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import useStudent from '../hooks/useStudents'
 import useActivities from '../hooks/useActivities'
-import Student from './Student'
-import { competenciesData } from '../data/competencies'
-import Select from 'react-select'
-import Activities from './Activities'
 import Students from './Students'
-import DataTable from 'react-data-table-component'
-
-const student = {
-    "id": 6,
-    "first_name": "Manuel",
-    "last_name": "Paz"
-}
-
-// const data = [
-//     {
-//         name: 'Juan'
-//     },    {
-//         name: 'Manuel'
-//     },
-//     {
-//         name: 'Raul'
-//     }
-// ]
+import Activities from './Activities'
 
 const GradesDashboard = () => {
 
@@ -79,19 +57,10 @@ const GradesDashboard = () => {
         <Students
             assignature={assignature}
         />
-        <div className='activities-container'>
-            {activities && activities.map( activity => (
-                <div className='activities-item'>
-                    <h2>{activity?.title}</h2>
-                    <div>
-                        {filteredGrades && filteredGrades
-                            .filter( grade => grade?.activity?.id == activity.id)
-                            .map( grade => <p className='grade-item' key={grade.id}>{grade.calification}</p>)
-                        }
-                    </div>
-                </div>
-            ))}
-        </div>
+        <Activities 
+            grades={filteredGrades}
+            assignature={assignature}
+        />
     </div>
   )
 }

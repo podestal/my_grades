@@ -8,7 +8,7 @@ import Loading from '../utils/Loading'
 import Error from '../utils/Error'
 import Activity from './Activity'
 
-const Activities = ({ competence, assignature, grades }) => {
+const Activities = ({ assignature, grades }) => {
 
     
 
@@ -34,15 +34,17 @@ const Activities = ({ competence, assignature, grades }) => {
 
   return (
     <div className='activities-container'>
-        {console.log('grades from activities', grades)}
-        {activities
-            .filter( activity => activity.competence == competence.id)
-            .map( activity => (
-                <Activity 
-                    key={activity.id}
-                    activity={activity}
-                />))
-        }
+        {activities && activities.map( activity => (
+            <div className='activities-item'>
+                <h2>{activity?.title}</h2>
+                <div>
+                    {grades && grades
+                        .filter( grade => grade?.activity?.id == activity.id)
+                        .map( grade => <p className='grade-item' key={grade.id}>{grade.calification}</p>)
+                    }
+                </div>
+            </div>
+        ))}
     </div>
   )
 }
