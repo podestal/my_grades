@@ -34,7 +34,6 @@ const Activities = ({ assignature, grades, competence, name }) => {
 
   return (
     <div className='activities-container'>
-        {console.log('Competence in activities',competence)}
         {competence.area != 99
         ?
         <>

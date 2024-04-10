@@ -40,7 +40,6 @@ const Students = ({ assignature, name }) => {
   return (
     <div className='students-container'>
         <h2>Estudiantes</h2>
-        {console.log('Filtered', name)}
         {filteredStudents
         .filter( student => (
             `${student?.first_name} ${student?.last_name}`

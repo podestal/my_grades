@@ -27,6 +27,7 @@ const App = () => {
           {/* <Route path='activities' element={<Activities />}/>
           <Route path='grades' element={<GradesByActivity />}/> */}
           <Route path='dashboard' element={<GradesDashboard />}/>
+          
         </Route>
       </Routes>
     </>

@@ -1,13 +1,12 @@
 import React from 'react'
 import useGrades from '../hooks/useGrades'
-import { getGradesByAssignature, getActivities } from '../api/api'
+import { getGradesByAssignature } from '../api/api'
 import useAuth from '../hooks/useAuth'
 import { useMutation } from '@tanstack/react-query'
 import Loading from '../utils/Loading'
 import Error from '../utils/Error'
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import useActivities from '../hooks/useActivities'
 import Students from './Students'
 import Activities from './Activities'
 import Select from 'react-select'
@@ -21,7 +20,6 @@ const GradesDashboard = () => {
     const { grades, setGrades } = useGrades()
     const [ competence, setCompetence ] = useState({})
     const [ name, setName ] = useState('')
-    const {activities, setActivities} = useActivities()
     const [ filteredGrades, setFilteredGrades ] = useState( grades && grades.filter( grade => grade.assignature == assignature.id) || [])
 
     const { mutate: getGradesByAssignatureMutation, isPending, isError } = useMutation({
@@ -34,22 +32,12 @@ const GradesDashboard = () => {
         onError: err => console.log(err)
     })
 
-    const { mutate: getActivitiesMutation } = useMutation({
-        mutationFn: data => getActivities(data),
-        onSuccess: res => setActivities(res.data),
-        onError: err => console.log(err)
-    })
-
     const getter = () => {
         getGradesByAssignatureMutation({ token: user.access, assignatureId: assignature.id })
     }
 
     useEffect(() => {
-        // if (filteredGrades.length == 0) {
-        //     getter()
-        // }
         getter()
-        getActivitiesMutation({ token: user.access, assignature:assignature.id })
     }, [])
 
     if (isPending) return <Loading />
@@ -59,6 +47,7 @@ const GradesDashboard = () => {
   return (
     <div className='dashboard-container'>
         <Select 
+            placeholder={'Selecciona una competencia'}
             options={competenciesData.filter( competence => competence.area == assignature.area || competence.area == 99)}
             getOptionLabel={option => option.title}
             getOptionValue={option => option.id}
@@ -74,6 +63,9 @@ const GradesDashboard = () => {
                 assignature={assignature}
                 name={name}
             />
+            {/* <div className='average-container'>
+                <h2>Promedio</h2>
+            </div> */}
             <Activities 
                 grades={filteredGrades}
                 assignature={assignature}
