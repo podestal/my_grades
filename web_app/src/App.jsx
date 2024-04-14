@@ -7,6 +7,7 @@ import Home from './pages/Home'
 import Header from './components/header'
 import PersisLogin from './components/PersisLogin'
 import GradesDashboard from './components/GradesDashboard'
+import Dashboard from './components/dashboard/Dashboard'
 import { Routes, Route } from "react-router-dom"
 import useAuth from './hooks/useAuth'
 
@@ -26,7 +27,7 @@ const App = () => {
           <Route path='profile' element={<Profile />}/>
           {/* <Route path='activities' element={<Activities />}/>
           <Route path='grades' element={<GradesByActivity />}/> */}
-          <Route path='dashboard' element={<GradesDashboard />}/>
+          <Route path='dashboard' element={<Dashboard />}/>
           
         </Route>
       </Routes>
