@@ -32,7 +32,7 @@ const StudentsTable = ({ activities, assignature }) => {
             })
             setStudents(studentsData)
         },
-        onError: err => console.log(err),
+        // onError: err => console.log(err),
     })
     
     const getter = () => {

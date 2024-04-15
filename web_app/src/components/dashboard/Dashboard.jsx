@@ -15,7 +15,7 @@ const Dashboard = () => {
     const {mutate: getActivitiesMutation} = useMutation({
         mutationFn: data => getActivities(data),
         onSuccess: res => setActivities(res.data),
-        onError: err => console.log(err),
+        // onError: err => console.log(err),
     })
 
     const getter = () => {

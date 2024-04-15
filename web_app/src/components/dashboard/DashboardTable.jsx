@@ -1,27 +1,39 @@
-import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table"
+import { useReactTable, getCoreRowModel, flexRender, getFilteredRowModel } from "@tanstack/react-table"
+import { useState } from "react"
 
 const DashboardTable = ({ students, columns }) => {
 
+    const data = students || []
+
+    const columnsDynamic = [
+        {
+            header: 'First Name',
+            accessorKey: 'firstName'
+        },
+        {
+            header: 'Last Name',
+            accessorKey: 'lastName'
+        },
+        ...columns
+    ]
+
+    const [sorting, setSorting] = useState([])
+
     const table = useReactTable({
-        data: students,
-        columns: [
-            {
-                header: 'First Name',
-                accessorKey: 'firstName'
-            },
-            {
-                header: 'Last Name',
-                accessorKey: 'lastName'
-            },
-            ...columns
-        ],
-        getCoreRowModel:getCoreRowModel()
+        data,
+        columns: columnsDynamic,
+        getCoreRowModel:getCoreRowModel(),
+        getFilteredRowModel: getFilteredRowModel(),
+        state: {
+            sorting
+        },
+        onSortingChange: setSorting
     })
 
   return (
     <div>
         <table>
-            <thead>
+           {columnsDynamic && <thead>
                 {
                     table.getHeaderGroups().map( headerGroup => (
                         <tr 
@@ -31,7 +43,7 @@ const DashboardTable = ({ students, columns }) => {
                                 headerGroup.headers.map( header => (
                                     <th 
                                         key={header.id}
-                                        // onClick={header.column.getToggleSortingHandler()}
+                                        onClick={header.column.getToggleSortingHandler()}
                                     >
                                         {header.placeholderId ? null : header.column.columnDef.header}
                                     </th>
@@ -40,8 +52,8 @@ const DashboardTable = ({ students, columns }) => {
                         </tr>
                     ))
                 }
-            </thead>
-            <tbody>
+            </thead>}
+           {students &&  <tbody>
                 {
                     table.getRowModel().rows.map( row => (
                         <tr key={row.id}>
@@ -55,7 +67,7 @@ const DashboardTable = ({ students, columns }) => {
                         </tr>
                     ))
                 }
-            </tbody>
+            </tbody>}
         </table>
     </div>
   )
