@@ -116,7 +116,15 @@ class GetParticipationSerializer(serializers.ModelSerializer):
         model = models.Participation
         fields = '__all__'
 
+class GetSimpleActivityHeaderSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Activity
+        fields = ['id', 'title']
+
 class GetSimpleGradesSerializer(serializers.ModelSerializer):
+
+    activity = GetSimpleActivityHeaderSerializer()
 
     class Meta:
         model = models.Grade
