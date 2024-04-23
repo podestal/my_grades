@@ -1,10 +1,12 @@
-import React from 'react'
+import Hero from "./Hero"
 
 const Home = () => {
   return (
-    <h1 className="text-3xl font-bold underline">
-    Hello world!
-  </h1>
+    <div className="flex justify-center items-start">
+      <div className="xl:max-w-[1280px] min-w-full">
+        <Hero />
+      </div>
+    </div>
   )
 }
 
