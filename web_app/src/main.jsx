@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
+import './index.css'
 import AuthContextProvider from './context/auth.jsx'
 import AssignatureContextProvider from './context/assignatures.jsx'
 import ActivitiesContextprovider from './context/activities.jsx'
