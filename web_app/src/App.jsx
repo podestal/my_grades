@@ -16,7 +16,7 @@ const App = () => {
   const { user } = useAuth()
 
   return (
-    <main>
+    <main className='bg-[#00040f] h-[100vh]'>
       <Header />
       <Routes>
         <Route path='/' element={<Home />}/>

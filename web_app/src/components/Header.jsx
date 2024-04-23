@@ -1,14 +1,18 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
+import hamburger from '../assets/icons/menu.svg'
+import close from '../assets/icons/close.svg'
+import { useState } from 'react'
 
 const Header = () => {
 
     const { user } = useAuth()
+    const [toggle, setToggle] = useState(false)
 
   return (
     <>
-      <header className='sm:px-16 px-8 py-8 z-10  w-full absolute bg-[#00040f]'>
+      <header className='sm:px-16 px-8 py-8 z-10  w-full absolute bg-transparent'>
         {user.access 
           ? 
           <nav>
@@ -23,6 +27,16 @@ const Header = () => {
                 <Link className='font-montserrat text-white-400 text-lg hover:text-white' to={'/'}>Main</Link>
                 <Link className='font-montserrat text-white-400 text-lg hover:text-white' to={'/features'}>Carácterísticas</Link>
                 <Link className='font-montserrat text-white-400 text-lg hover:text-white' to={'/login'}>Ingresar</Link>
+              </div>
+              <div className='hidden max-lg:block'>
+                <img src={toggle ? close : hamburger} onClick={() => setToggle( prev => !prev)} alt="Hamburger" width={25} height={25}/>
+                <div className={`${toggle ? 'flex' : 'hidden'} p-6 absolute top-20 right-0 mx-4 my-2 min-w-[140px]`}>
+                  <div className='flex flex-col justify-end items-center gap-10'>
+                    <Link className='font-montserrat text-white text-lg' to={'/'}>Main</Link>
+                    <Link className='font-montserrat text-white text-lg' to={'/features'}>Carácterísticas</Link>
+                    <Link className='font-montserrat text-white text-lg' to={'/login'}>Ingresar</Link>
+                  </div>
+                </div>
               </div>
           </nav>
           }
