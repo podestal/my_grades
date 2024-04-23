@@ -3,7 +3,7 @@ import Login from './pages/Login'
 import Profile from './pages/Instructor/Profile'
 import Grades from './pages/Instructor/Grades'
 import Assignatures from './pages/Instructor/Assignatures'
-import Home from './pages/Home'
+import Home from './pages/landing/Home'
 import Header from './components/header'
 import PersisLogin from './components/PersisLogin'
 import GradesDashboard from './components/GradesDashboard'
@@ -16,7 +16,7 @@ const App = () => {
   const { user } = useAuth()
 
   return (
-    <>
+    <main>
       <Header />
       <Routes>
         <Route path='/' element={<Home />}/>
@@ -31,7 +31,7 @@ const App = () => {
           
         </Route>
       </Routes>
-    </>
+    </main>
   )
 }
 
