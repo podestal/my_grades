@@ -6,7 +6,7 @@ const Hero = () => {
     <section id='main' className='flex lg:flex-row justify-between items-center flex-col sm:px-16 px-6 w-full mx-auto'>
         <div className='flex-1 flex justify-center lg:items-start items-center px-6 sm:px-16 xl:px-0 flex-col lg:mt-0 mt-10'>
             <h1 className='font-poppins text-white font-bold lg:text-[70px] lg:text-start text-center text-[50px] lg:leading-[7rem] leading-[5rem] max-w-[620px]'>
-                Lorem ipsum <span className='text-gradient'>consectetur</span> adipisicing elit.
+                Tecnología flexible e innovadora que <span className='text-gradient'>potencia</span> el aula.
                 {/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro nobis harum, dolore excepturi facere laboriosam quisquam officia ips */}
             </h1>
         <div className='lg:block hidden '>
