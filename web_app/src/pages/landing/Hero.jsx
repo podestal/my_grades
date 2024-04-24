@@ -9,7 +9,7 @@ const Hero = () => {
                 Lorem ipsum <span className='text-gradient'>consectetur</span> adipisicing elit officia ips.
                 {/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro nobis harum, dolore excepturi facere laboriosam quisquam officia ips */}
             </h1>
-            <p className='px-10 text-white py-4 bg-violet-950 rounded-full text-xl mt-8 font-bold hover:bg-slate-500'>Empezar</p>
+            <p className='cursor-pointer px-10 text-white py-4 bg-violet-950 rounded-full text-xl mt-8 font-bold hover:bg-slate-500'>Empezar</p>
         </div>
         <div className='text-white flex justify-center items-center mx-auto'>
             <img src={heroImg} alt="" className="w-[850px] h-[850px] relative z-[5]"  />
