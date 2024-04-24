@@ -10,8 +10,20 @@ const Home = () => {
         </div>
       </div>
       <div className="flex justify-center items-start bg-primary">
-        <div className="xl:max-w-[1280px] w-full"> 
+        <div className="xl:max-w-[1480px] w-full"> 
           <Hero />
+        </div>
+      </div>
+      <div className="bg-primary sm:px-16 px-6 flex justify-center items-start">
+        <div className="xl:max-w-[1280px] w-full text-white">
+          <h2>Secciones</h2>
+          <ul>
+            <li>- Accesso 24/7 al progreso académico</li>
+            <li>- Crea actividades y anuncios</li>
+            <li>- Faltas y tardanzas</li>
+            <li>- Visualiza la información</li>
+            <li>- Maténgase informado</li>
+          </ul>
         </div>
       </div>
     </div>
