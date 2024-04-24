@@ -16,22 +16,23 @@ const App = () => {
   const { user } = useAuth()
 
   return (
-    <main className='bg-[#00040f] h-[100vh]'>
-      <Header />
-      <Routes>
-        <Route path='/' element={<Home />}/>
-        <Route path='login' element={<Login />}/>
-        <Route element={<PersisLogin />}>
-          <Route path='main' element={<Assignatures />}/>
-          <Route path='califications' element={<Grades />}/>
-          <Route path='profile' element={<Profile />}/>
-          {/* <Route path='activities' element={<Activities />}/>
-          <Route path='grades' element={<GradesByActivity />}/> */}
-          <Route path='dashboard' element={<Dashboard />}/>
+    // <main>
+    //   <Header />
+    //   <Routes>
+    //     <Route path='/' element={<Home />}/>
+    //     <Route path='login' element={<Login />}/>
+    //     <Route element={<PersisLogin />}>
+    //       <Route path='main' element={<Assignatures />}/>
+    //       <Route path='califications' element={<Grades />}/>
+    //       <Route path='profile' element={<Profile />}/>
+    //       {/* <Route path='activities' element={<Activities />}/>
+    //       <Route path='grades' element={<GradesByActivity />}/> */}
+    //       <Route path='dashboard' element={<Dashboard />}/>
           
-        </Route>
-      </Routes>
-    </main>
+    //     </Route>
+    //   </Routes>
+    // </main>
+    <Home />
   )
 }
 
