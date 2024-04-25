@@ -2,7 +2,7 @@ import { useState } from "react"
 
 const FAQCard = ({ faq }) => {
 
-    const [show, setShow] = useState(true)
+    const [show, setShow] = useState(false)
 
   return (
     <div className='bg-slate-900 p-6 my-12 rounded-[35px] shadow-violet-950 shadow-[0_10px_20px_rgba(240,_46,_170,_0.7)]'>

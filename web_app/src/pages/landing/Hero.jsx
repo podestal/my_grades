@@ -1,5 +1,5 @@
 import React from 'react'
-import heroImg from '../../assets/hero-iso.png'
+import heroImg from '../../assets/hero-iso2.png'
 
 const Hero = () => {
   return (
@@ -14,7 +14,7 @@ const Hero = () => {
         </div>
         </div>
         <div className='flex lg:justify-end justify-center items-center w-full flex-wrap'>
-            <img src={heroImg} alt="" className="lg:w-[750px] lg:h-[800px] w-[550px] h-[600px] relative z-[5] flex-shrink-0"  />
+            <img src={heroImg} alt="" className="lg:w-[750px] lg:h-[700px] w-[550px] h-[600px] relative z-[5] flex-shrink-0"  />
             <div className="absolute z-[0] w-[60%] h-[35%] top-0 pink__gradient" />
             <div className="absolute z-[0] w-[30%] h-[35%] bottom-0 left-0 white__gradient" />
             {/* <div className="absolute z-[1] w-[80%] h-[80%] rounded-full bottom-40 white__gradient" />

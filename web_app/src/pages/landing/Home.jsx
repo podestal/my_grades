@@ -1,6 +1,7 @@
 import Hero from "./Hero"
 import Header from "./Header"
 import AcademicAccess from "./AcademicAccess"
+import Attandance from "./Attandance"
 import FAQ from "./FAQ"
 
 const Home = () => {
@@ -19,6 +20,7 @@ const Home = () => {
       <div className="bg-primary sm:px-16 px-6 flex justify-center items-start">
         <div className="xl:max-w-[1280px] w-full text-white">
           <AcademicAccess />
+          <Attandance />
           <FAQ />
           <ul>
             <li>- Crea actividades y anuncios</li>
@@ -26,7 +28,6 @@ const Home = () => {
             <li>- Visualiza la información</li>
             <li>- Maténgase informado</li>
             <li>- Porqué usar la app</li>
-            <li>- Preguntas frequentes</li>
             <li>- Footer</li>
           </ul>
         </div>
