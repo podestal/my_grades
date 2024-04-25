@@ -1,4 +1,6 @@
 export const name = 'MyGrades'
+import { RiLockFill, RiTimeFill, RiDragDropFill, RiCustomerService2Fill } from "@remixicon/react"
+
 
 export const faqs = [
     {
@@ -19,3 +21,27 @@ export const faqs = [
     },
     
 ] 
+
+export const reasons = [
+    {
+        title: 'Seguridad',
+        description: 'Keep your data safe with a dedicated security team, ISO 27001:2013 certification, annual SOC 2 compliance audits, and optional Microsoft Azure cloud hosting.',
+        icon: RiLockFill,
+    },
+    {
+        title: 'Seguimiento en tiempo real',
+        description: 'Offer convenient access to grades, progress, and responsibilities through the PowerSchool Mobile App or online parent and student portals.',
+        icon: RiTimeFill
+    },
+    {
+        title: 'Simple de utilizar',
+        description: 'Add fields and pages, and extend tables to collect any data you need. Utilize flexible scheduling, attendance, grading, calendaring, and more.',
+        icon: RiDragDropFill
+    },
+    {
+        title: 'Soporte 24/7',
+        description: 'Use pre-built reports or easily build your own. Confidently submit state or provincial reporting knowing PowerSchool keeps up with regulation changes.',
+        icon: RiCustomerService2Fill
+    },
+
+]

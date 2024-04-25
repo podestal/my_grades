@@ -47,16 +47,18 @@ const Login = () => {
           <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center gap-12'>
             <TextInput 
               placeholder='Usuario'
-              value={username}
-              onChange={e => setUsername(e.target.value)}
-              error={error}
+              // value={username}
+              // onChange={e => setUsername(e.target.value)}
+              // error={error}
+              // autoComplete={false}
             />
             <TextInput 
               placeholder='Contraseña'
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              error={error}
-              type='password'
+              // value={password}
+              // onChange={e => setPassword(e.target.value)}
+              // error={error}
+              // type='password'
+              // autoComplete={false}
             />
             <button className='bg-gradient-to-r from-violet-600 to-indigo-950  border-none py-4 px-8 rounded-3xl text-white font-bold text-xl' type='submit'>Ingresar</button>
           </form>

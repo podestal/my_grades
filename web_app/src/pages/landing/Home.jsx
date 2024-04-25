@@ -5,6 +5,7 @@ import TeacherDashboard from "./TeacherDashboard"
 import TeachersCreate from "./TeachersCreate"
 import KeepInfo from "./KeepInfo"
 import ContactSection from "./ContactSection"
+import Why from "./Why"
 import Footer from "./Footer"
 import FAQ from "./FAQ"
 
@@ -30,9 +31,7 @@ const Home = () => {
           <KeepInfo />
           <FAQ />
           <ContactSection />
-          <ul>
-            <li>- Porqué usar la app</li>
-          </ul>
+          <Why />
           <Footer />
         </div>
       </div>
