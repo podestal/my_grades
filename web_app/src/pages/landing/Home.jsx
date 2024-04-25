@@ -1,7 +1,8 @@
 import Hero from "./Hero"
-import Header from "./Header"
 import AcademicAccess from "./AcademicAccess"
 import Attandance from "./Attandance"
+import TeacherDashboard from "./TeacherDashboard"
+import KeepInfo from "./KeepInfo"
 import FAQ from "./FAQ"
 
 const Home = () => {
@@ -21,12 +22,11 @@ const Home = () => {
         <div className="xl:max-w-[1280px] w-full text-white">
           <AcademicAccess />
           <Attandance />
+          <TeacherDashboard />
+          <KeepInfo />
           <FAQ />
           <ul>
-            <li>- Crea actividades y anuncios</li>
-            <li>- Registro de faltas y tardanzas</li>
             <li>- Visualiza la información</li>
-            <li>- Maténgase informado</li>
             <li>- Porqué usar la app</li>
             <li>- Footer</li>
           </ul>
