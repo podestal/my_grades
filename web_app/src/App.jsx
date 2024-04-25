@@ -10,6 +10,7 @@ import Dashboard from './components/dashboard/Dashboard'
 import { Routes, Route } from "react-router-dom"
 import useAuth from './hooks/useAuth'
 import LangingHeader from './pages/landing/LangingHeader'
+import Contact from './pages/Contact'
 
 const App = () => {
 
@@ -21,6 +22,7 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Home />}/>
         <Route path='login' element={<Login />}/>
+        <Route path='contact' element={<Contact />}/>
         <Route element={<PersisLogin />}>
           <Route path='main' element={<Assignatures />}/>
           <Route path='califications' element={<Grades />}/>

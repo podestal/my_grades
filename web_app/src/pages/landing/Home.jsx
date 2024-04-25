@@ -2,6 +2,7 @@ import Hero from "./Hero"
 import AcademicAccess from "./AcademicAccess"
 import Attandance from "./Attandance"
 import TeacherDashboard from "./TeacherDashboard"
+import TeachersCreate from "./TeachersCreate"
 import KeepInfo from "./KeepInfo"
 import FAQ from "./FAQ"
 
@@ -23,10 +24,10 @@ const Home = () => {
           <AcademicAccess />
           <Attandance />
           <TeacherDashboard />
+          <TeachersCreate />
           <KeepInfo />
           <FAQ />
           <ul>
-            <li>- Visualiza la información</li>
             <li>- Porqué usar la app</li>
             <li>- Footer</li>
           </ul>

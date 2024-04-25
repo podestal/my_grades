@@ -15,6 +15,7 @@ const LangingHeader = () => {
                     {/* <Link className='font-montserrat text-white-400 text-xl hover:text-white' to={'/'}>Principal</Link> */}
                     <a className='font-montserrat text-white-400 text-xl hover:text-white' href='/#features'>Carácterísticas</a>
                     <a className='font-montserrat text-white-400 text-xl hover:text-white' href='/#faq'>Preguntas Frecuentes</a>
+                    <Link className='font-montserrat text-white-400 text-xl hover:text-white' to={'/contact'}>Contáctenos</Link>
                     <Link className='font-montserrat text-white-400 text-xl hover:text-white' to={'/login'}>Ingresar</Link>
                 </div>
                 <div className='hidden max-lg:block'>
@@ -23,6 +24,7 @@ const LangingHeader = () => {
                         <div className='flex flex-col justify-end items-center gap-10'>
                             <Link className='font-montserrat text-white text-lg' to={'/'}>Principal</Link>
                             <Link className='font-montserrat text-white text-lg' to={'/features'}>Carácterísticas</Link>
+                            <Link className='font-montserrat text-white-400 text-xl hover:text-white' to={'/contact'}>Contáctenos</Link>
                         </div>
                     </div>
                 </div>
