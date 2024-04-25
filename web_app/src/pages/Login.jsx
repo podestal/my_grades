@@ -56,6 +56,7 @@ const Login = () => {
               value={password}
               onChange={e => setPassword(e.target.value)}
               error={error}
+              type='password'
             />
             <button className='bg-gradient-to-r from-violet-600 to-indigo-950  border-none py-4 px-8 rounded-3xl text-white font-bold text-xl' type='submit'>Ingresar</button>
           </form>
