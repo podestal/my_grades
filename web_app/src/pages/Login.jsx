@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { login, getUser } from '../api/api'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
+import { TextInput } from '@tremor/react'
 import useAuth from '../hooks/useAuth'
 
 // localStorage.setItem('refresh', JSON.stringify(refreshToken))
@@ -13,6 +14,7 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
   const { user, setUser } = useAuth()
+  const [error ,setError] = useState(false)
 
   const { mutate: getUserMutation } = useMutation({
     mutationFn: data => getUser(data),
@@ -39,21 +41,26 @@ const Login = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-        <input 
-          placeholder='Usuario'
-          value={username}
-          onChange={e => setUsername(e.target.value)}
-          type='text'
-        />
-        <input 
-          placeholder='Contraseña'
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          type='password'
-        />
-        <button type='submit'>Ingresar</button>
-    </form>
+    <div className='bg-primary w-full overflow-hidden h-[100vh] flex items-center justify-center'>
+        <div className='sm:px-16 px-6 mx-auto flex flex-col justify-center items-center shadow-violet-950 shadow-[0_10px_20px_rgba(240,_46,_170,_0.7)] md:w-[650px] w-[350px] md:h-[500px] h-[550px]'>
+          <h2 className='text-white text-6xl mb-12'>Accede</h2>
+          <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center gap-12'>
+            <TextInput 
+              placeholder='Usuario'
+              value={username}
+              onChange={e => setUsername(e.target.value)}
+              error={error}
+            />
+            <TextInput 
+              placeholder='Contraseña'
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              error={error}
+            />
+            <button className='bg-gradient-to-r from-violet-600 to-indigo-950  border-none py-4 px-8 rounded-3xl text-white font-bold text-xl' type='submit'>Ingresar</button>
+          </form>
+        </div>
+    </div>
   )
 }
 

@@ -9,29 +9,29 @@ import GradesDashboard from './components/GradesDashboard'
 import Dashboard from './components/dashboard/Dashboard'
 import { Routes, Route } from "react-router-dom"
 import useAuth from './hooks/useAuth'
+import LangingHeader from './pages/landing/LangingHeader'
 
 const App = () => {
 
   const { user } = useAuth()
 
   return (
-    // <main>
-    //   <Header />
-    //   <Routes>
-    //     <Route path='/' element={<Home />}/>
-    //     <Route path='login' element={<Login />}/>
-    //     <Route element={<PersisLogin />}>
-    //       <Route path='main' element={<Assignatures />}/>
-    //       <Route path='califications' element={<Grades />}/>
-    //       <Route path='profile' element={<Profile />}/>
-    //       {/* <Route path='activities' element={<Activities />}/>
-    //       <Route path='grades' element={<GradesByActivity />}/> */}
-    //       <Route path='dashboard' element={<Dashboard />}/>
-          
-    //     </Route>
-    //   </Routes>
-    // </main>
-    <Home />
+    <main>
+      <LangingHeader />
+      <Routes>
+        <Route path='/' element={<Home />}/>
+        <Route path='login' element={<Login />}/>
+        <Route element={<PersisLogin />}>
+          <Route path='main' element={<Assignatures />}/>
+          <Route path='califications' element={<Grades />}/>
+          <Route path='profile' element={<Profile />}/>
+          {/* <Route path='activities' element={<Activities />}/>
+          <Route path='grades' element={<GradesByActivity />}/> */}
+          <Route path='dashboard' element={<Dashboard />}/>
+        </Route>
+      </Routes>
+    </main>
+    // <Home />
   )
 }
 
