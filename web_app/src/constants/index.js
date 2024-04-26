@@ -45,3 +45,48 @@ export const reasons = [
     },
 
 ]
+
+export const footerLinks = [
+    {
+        title: 'Recursos',
+        links: [
+            {
+                name: 'Características',
+                link: '/#faq'
+            },
+            {
+                name: 'Por qué',
+                link: '/#contact'
+            },
+
+        ]
+    },
+    {
+        title: 'Empresa',
+        links: [
+            {
+                name: 'Carreras',
+                link: '/#faq'
+            },
+            {
+                name: 'Privacidad',
+                link: '/#contact'
+            },
+
+        ]
+    },
+    {
+        title: 'Soporte',
+        links: [
+            {
+                name: 'Preguntas Frequentes',
+                link: '/#faq'
+            },
+            {
+                name: 'Contáctenos',
+                link: '/#contact'
+            },
+
+        ]
+    },
+]

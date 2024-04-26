@@ -17,7 +17,7 @@ const App = () => {
   const { user } = useAuth()
 
   return (
-    <main>
+    <main className="bg-primary w-full overflow-hidden">
       <LangingHeader />
       <Routes>
         <Route path='/' element={<Home />}/>
