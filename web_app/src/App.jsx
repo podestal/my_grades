@@ -6,6 +6,7 @@ import Assignatures from './pages/Instructor/Assignatures'
 import Home from './pages/landing/Home'
 import PersisLogin from './components/PersisLogin'
 import GradesDashboard from './components/GradesDashboard'
+import Header from './components/Header'
 import Dashboard from './components/dashboard/Dashboard'
 import { Routes, Route } from "react-router-dom"
 import useAuth from './hooks/useAuth'
@@ -18,7 +19,7 @@ const App = () => {
 
   return (
     <main className="bg-primary w-full overflow-hidden">
-      <LangingHeader />
+      {user.access ? <Header /> : <LangingHeader />}
       <Routes>
         <Route path='/' element={<Home />}/>
         <Route path='login' element={<Login />}/>
