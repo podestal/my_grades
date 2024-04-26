@@ -1,10 +1,45 @@
-import React from 'react'
+import { name, footerLinks } from "../../constants"
+import google from '../../assets/icons/google.svg'
+import apple from '../../assets/icons/apple.svg'
 
 const Footer = () => {
   return (
-    <footer className='flex justify-center items-center flex-col sm:py-16 py-6 relative z-40 mt-12'>
+    <footer className='flex justify-center items-center flex-col sm:py-16 py-6 relative z-40 mt-16'>
         <div className='flex justify-center items-start md:flex-row flex-col mb-8 w-full'>
-            Footer
+            <div className="flex-1 flex flex-col justify-start mr-10">
+                <a href="/#main">LOGO</a>
+                <p className='mt-4  max-w-[310px] font-poppins font-normal text-slate-400 text-[18px] leading-[30.8px]'>
+                    Información académica al alcance de todos.
+                </p>
+                <div className="flex flex-row gap-4 items-center justify-start my-4">
+                    <img src={google} alt="google" className="w-[128px] h-[42px] object-contain mr-5 cursor-pointer" />
+                    <img src={apple} alt="apple" className="w-[128px] h-[42px] object-contain cursor-pointer" />
+                </div>
+            </div>
+            <div className="flex-[1.5] w-full flex flex-row justify-between flex-wrap md:mt-0 mt-10">
+                {footerLinks.map( footerLink => (
+                    <div
+                        key={footerLink.title}
+                        className="flex flex-col ss:my-0 my-4 min-w-[150px]"
+                    >
+                        <h4 className="font-poppins font-medium text-[22px] leading-[27px] text-white">{footerLink.title}</h4>
+                        <ul className="list-none mt-4">
+                            {footerLink.links.map( (link, idx) => (
+                                <li
+                                    key={link.name}
+                                    className={`font-normal font-poppins text-[16px] text-slate-400 hover:text-white leading-[24px] text-dimWhite hover:text-secondary cursor-pointer
+                                    ${idx !== footerLink.links.length - 1 ? 'mb-4' : 'mb-0'}`}
+                                >
+                                    {link.name}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                ))}
+            </div>
+        </div>
+        <div className='mt-6'>
+            <p className="font-poppins font-normal text-center text-[18px] leading[27px] text-white mb-6">2024 {name}. Todos los derechos reservados.</p>
         </div>
     </footer>
   )
