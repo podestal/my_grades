@@ -50,7 +50,7 @@ const StudentsTable = ({ activities, assignature }) => {
         }})
 
   return (
-    <div>
+    <div className='mx-12'>
         <DashboardTable 
             columns={columns}
             students={students}
