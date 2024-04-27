@@ -1,9 +1,11 @@
 import { useReactTable, getCoreRowModel, flexRender, getFilteredRowModel } from "@tanstack/react-table"
 import { useState } from "react"
+import { Dialog, DialogPanel } from "@tremor/react"
 
 const DashboardTable = ({ students, columns }) => {
 
     const data = students || []
+    const [open, setOpen] = useState(false)
 
     const columnsDynamic = [
         {
@@ -71,7 +73,9 @@ const DashboardTable = ({ students, columns }) => {
                                         ${cell.getValue() == 'C' && 'bg-red-500'}
                                         ${cell.getValue() == 'NA' && 'bg-blue-600'}
                                         border border-slate-800
+                                        cursor-pointer
                                     `}
+                                    onClick={() => setOpen(true)}
                                     >
                                         {console.log(cell.getValue())}
                                         {/* {flexRender(cell.column.columnDef.cell, cell.getContext())} */}
@@ -87,6 +91,18 @@ const DashboardTable = ({ students, columns }) => {
                 }
             </tbody>}
         </table>
+        <Dialog
+            open={open}
+            onClose={() => setOpen(false)}
+            static={true}
+        >
+            <DialogPanel>
+                <h2>Modificar Nota</h2>
+                <button onClick={() => setOpen(false)}> 
+                    Close
+                </button>
+            </DialogPanel>
+        </Dialog>
     </div>
   )
 }
