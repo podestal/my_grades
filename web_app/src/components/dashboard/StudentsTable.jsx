@@ -18,7 +18,7 @@ const StudentsTable = ({ activities, assignature }) => {
                 const gradesActivity = student.grades.map( grade => {
                     const activity = String(grade.activity.title)
                     const obj = {}
-                    obj[activity] = grade.calification
+                    obj[activity] = {calification: grade.calification, gradeId: grade.id}
                     return {
                         ...obj
                     }

@@ -1,19 +1,23 @@
 import { useReactTable, getCoreRowModel, flexRender, getFilteredRowModel } from "@tanstack/react-table"
 import { useState } from "react"
 import { Dialog, DialogPanel } from "@tremor/react"
+import UpdateGradeModal from "./dashboardComponents/UpdateGradeModal"
 
 const DashboardTable = ({ students, columns }) => {
 
     const data = students || []
     const [open, setOpen] = useState(false)
+    const [activity, setActivity] = useState('')
+    const [student, setStudent] = useState('')
+    const [calification, setCalification] = useState('')
 
     const columnsDynamic = [
         {
-            header: 'First Name',
+            header: 'Nombres',
             accessorKey: 'firstName'
         },
         {
-            header: 'Last Name',
+            header: 'Apellidos',
             accessorKey: 'lastName'
         },
         ...columns
@@ -40,7 +44,6 @@ const DashboardTable = ({ students, columns }) => {
                     table.getHeaderGroups().map( headerGroup => (
                         <tr 
                             key={headerGroup.id}
-                            className="bg-gray-950"
                             
                         >
                             {
@@ -48,7 +51,7 @@ const DashboardTable = ({ students, columns }) => {
                                     <th 
                                         key={header.id}
                                         onClick={header.column.getToggleSortingHandler()}
-                                        className="py-6 w-[260px] text-xl font-poppins"
+                                        className="py-6 min-w-[160px] text-xl font-poppins"
                                     >
                                         {header.placeholderId ? null : header.column.columnDef.header}
                                     </th>
@@ -62,25 +65,33 @@ const DashboardTable = ({ students, columns }) => {
                 {
                     table.getRowModel().rows.map( row => (
                         <tr key={row.id}
+                            className="w-[120px]"
                         >
                             {
                                 row.getVisibleCells().map( cell => (
                                     <td key={cell.id}
                                     className={`px-8 py-4 font-palanquin text-lg 
-                                        ${cell.getValue() == 'AD' && 'bg-green-500'}
-                                        ${cell.getValue() == 'A' && 'bg-yellow-300'}
-                                        ${cell.getValue() == 'B' && 'bg-amber-500'}
-                                        ${cell.getValue() == 'C' && 'bg-red-500'}
-                                        ${cell.getValue() == 'NA' && 'bg-blue-600'}
+                                        ${cell.getValue() && cell.getValue().calification == 'AD' && 'bg-green-500'}
+                                        ${cell.getValue() && cell.getValue().calification == 'A' && 'bg-yellow-300'}
+                                        ${cell.getValue() && cell.getValue().calification == 'B' && 'bg-amber-500'}
+                                        ${cell.getValue() && cell.getValue().calification == 'C' && 'bg-red-500'}
+                                        ${cell.getValue() && cell.getValue().calification == 'NA' && 'bg-blue-600'}
                                         border border-slate-800
                                         cursor-pointer
+                                        
                                     `}
-                                    onClick={() => setOpen(true)}
+                                    onClick={() => {
+                                        setActivity(cell.column.id)
+                                        setOpen(true)
+                                        setCalification(cell.getValue().calification)
+                                        setStudent(`${cell.row.original.firstName} ${cell.row.original.lastName}`)
+                                    }}
                                     >
-                                        {console.log(cell.getValue())}
+                                        {/* {console.log(cell.row.original.firstName)} */}
+                                        {console.log('Cell value', cell.getValue())}
                                         {/* {flexRender(cell.column.columnDef.cell, cell.getContext())} */}
-                                        <p className="text-center">
-                                            {cell.getValue()}
+                                        <p className="text-center hover:ml-3">
+                                            {cell.getValue() && cell.getValue().calification ? cell.getValue().calification : cell.getValue()}
                                         </p>
                                         
                                     </td>
@@ -97,10 +108,12 @@ const DashboardTable = ({ students, columns }) => {
             static={true}
         >
             <DialogPanel>
-                <h2>Modificar Nota</h2>
-                <button onClick={() => setOpen(false)}> 
-                    Close
-                </button>
+                <UpdateGradeModal 
+                    activity={activity}
+                    student={student}
+                    setOpen={setOpen}
+                    calification={calification}
+                />
             </DialogPanel>
         </Dialog>
     </div>
