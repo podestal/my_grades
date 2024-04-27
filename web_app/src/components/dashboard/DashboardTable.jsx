@@ -31,14 +31,14 @@ const DashboardTable = ({ students, columns }) => {
     })
 
   return (
-    <div className=" flex items-center justify-start w-full overflow-x-scroll">
-        <table className="bg-gray-800 w- full overflow-x-scroll ">
+    <div className=" flex items-center justify-start w-full overflow-x-scroll shadow-violet-950 shadow-[0_10px_20px_rgba(240,_46,_170,_0.7)]">
+        <table className="bg-gray-900 w- full overflow-x-scroll ">
            {columnsDynamic && <thead>
                 {
                     table.getHeaderGroups().map( headerGroup => (
                         <tr 
                             key={headerGroup.id}
-                            className="bg-gray-900"
+                            className="bg-gray-950"
                             
                         >
                             {
@@ -46,7 +46,7 @@ const DashboardTable = ({ students, columns }) => {
                                     <th 
                                         key={header.id}
                                         onClick={header.column.getToggleSortingHandler()}
-                                        className="py-6 text-xl font-poppins"
+                                        className="py-6 w-[260px] text-xl font-poppins"
                                     >
                                         {header.placeholderId ? null : header.column.columnDef.header}
                                     </th>
@@ -64,9 +64,20 @@ const DashboardTable = ({ students, columns }) => {
                             {
                                 row.getVisibleCells().map( cell => (
                                     <td key={cell.id}
-                                    className="px-20 py-4"
+                                    className={`px-8 py-4 font-palanquin text-lg 
+                                        ${cell.getValue() == 'AD' && 'bg-green-500'}
+                                        ${cell.getValue() == 'A' && 'bg-yellow-300'}
+                                        ${cell.getValue() == 'B' && 'bg-amber-500'}
+                                        ${cell.getValue() == 'C' && 'bg-red-500'}
+                                        ${cell.getValue() == 'NA' && 'bg-blue-600'}
+                                        border border-slate-800
+                                    `}
                                     >
-                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                        {console.log(cell.getValue())}
+                                        {/* {flexRender(cell.column.columnDef.cell, cell.getContext())} */}
+                                        <p className="text-center">
+                                            {cell.getValue()}
+                                        </p>
                                         
                                     </td>
                                 ))
