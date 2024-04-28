@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import useAuth from '../../hooks/useAuth'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import useStudent from '../../hooks/useStudents'
 import { getStudents } from '../../api/api'
 import { useEffect } from 'react'
 import DashboardTable from './DashboardTable'
+import { TextInput } from '@tremor/react'
 
 const StudentsTable = ({ activities, assignature }) => {
 
     const { user } = useAuth()
+    const [filter, setFilter] = useState('')
     const {data: students, isLoading, isError, error} = useQuery({
         queryKey: ['students'],
         queryFn: () => getStudents({ token: user.access, claseId: assignature.clase.id})
@@ -40,10 +42,18 @@ const StudentsTable = ({ activities, assignature }) => {
     if (isError) return <p>{error.message}</p>
 
   return (
-    <div className='mx-12'>
+    <div className='mx-12 w-full'>
+        {console.log(filter)}
+        <TextInput placeholder='Buscar Alumno' className='my-12 w-[240px]' value={filter} onValueChange={value => setFilter(value)}/>
         <DashboardTable 
             columns={columns}
-            studentsData={students && students.data.map( student => {
+            studentsData={students && 
+                students.data.filter( student => (
+                    `${student?.first_name} ${student?.last_name}`
+                    .toLocaleLowerCase()
+                    .includes(filter.toLocaleLowerCase())
+                ))
+                .map( student => {
 
                 const gradesActivity = student.grades.map( grade => {
                     const activity = String(grade.activity.title)
