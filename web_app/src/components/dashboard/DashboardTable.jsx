@@ -72,9 +72,9 @@ const DashboardTable = ({ studentsData, columns }) => {
                             {
                                 row.getVisibleCells().map( cell => (
                                     <td key={cell.id}
-                                    className={`px-8 py-4 font-palanquin text-lg 
+                                    className={`px-18 py-4 font-palanquin text-lg 
                                         ${cell.getValue() && cell.getValue().calification == 'AD' && 'bg-green-500'}
-                                        ${cell.getValue() && cell.getValue().calification == 'A' && 'bg-yellow-300'}
+                                        ${cell.getValue() && cell.getValue().calification == 'A' && 'bg-yellow-300 text-gray-600'}
                                         ${cell.getValue() && cell.getValue().calification == 'B' && 'bg-amber-500'}
                                         ${cell.getValue() && cell.getValue().calification == 'C' && 'bg-red-500'}
                                         ${cell.getValue() && cell.getValue().calification == 'NA' && 'bg-blue-600'}
@@ -93,7 +93,7 @@ const DashboardTable = ({ studentsData, columns }) => {
                                         {/* {console.log(cell.row.original.firstName)} */}
                                         {/* {console.log('Cell value', cell.getValue())} */}
                                         {/* {flexRender(cell.column.columnDef.cell, cell.getContext())} */}
-                                        <p className="text-center hover:ml-3">
+                                        <p className="text-center hover:ml-3 font-bold">
                                             {cell.getValue() && cell.getValue().calification ? cell.getValue().calification : cell.getValue()}
                                         </p>
                                         
