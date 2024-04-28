@@ -3,9 +3,9 @@ import { useState } from "react"
 import { Dialog, DialogPanel } from "@tremor/react"
 import UpdateGradeModal from "./dashboardComponents/UpdateGradeModal"
 
-const DashboardTable = ({ students, columns }) => {
+const DashboardTable = ({ studentsData, columns }) => {
 
-    const data = students || []
+    const data = studentsData || []
     const [open, setOpen] = useState(false)
     const [activity, setActivity] = useState('')
     const [student, setStudent] = useState('')
@@ -38,6 +38,7 @@ const DashboardTable = ({ students, columns }) => {
 
   return (
     <div className=" flex items-center justify-start w-full overflow-x-scroll shadow-violet-950 shadow-[0_10px_20px_rgba(240,_46,_170,_0.7)]">
+        {/* {console.log('Students', students[0].grades[0].calification)} */}
         <table className="bg-gray-900 w- full overflow-x-scroll ">
            {columnsDynamic && <thead>
                 {
@@ -61,7 +62,7 @@ const DashboardTable = ({ students, columns }) => {
                     ))
                 }
             </thead>}
-           {students &&  <tbody>
+           {studentsData &&  <tbody>
                 {
                     table.getRowModel().rows.map( row => (
                         <tr key={row.id}
@@ -88,7 +89,7 @@ const DashboardTable = ({ students, columns }) => {
                                     }}
                                     >
                                         {/* {console.log(cell.row.original.firstName)} */}
-                                        {console.log('Cell value', cell.getValue())}
+                                        {/* {console.log('Cell value', cell.getValue())} */}
                                         {/* {flexRender(cell.column.columnDef.cell, cell.getContext())} */}
                                         <p className="text-center hover:ml-3">
                                             {cell.getValue() && cell.getValue().calification ? cell.getValue().calification : cell.getValue()}
