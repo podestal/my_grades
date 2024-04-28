@@ -40,7 +40,7 @@ class CapacityViewSet(ModelViewSet):
 
     # def get_queryset(self):
     #     return models.Capacity.objects.select_related('competence').filter(competence_id=self.kwargs['competence_pk'])
-    
+
 class InstructorViewSet(ModelViewSet):
 
     permission_classes = [permissions.IsSuperUserOrReadOnly]
@@ -61,6 +61,12 @@ class InstructorViewSet(ModelViewSet):
     #     instructor = models.Instructor.objects.get(user_id=self.request.user.id)
     #     serializer = serializers.GetInstructorSerializer(instructor)
     #     return Response(serializer.data)
+
+
+class CategoryViewSet(ModelViewSet):
+
+    queryset = models.Category.objects.select_related('instructors')
+    serializer_class = serializers.GetCategorySerializer
 
 class ClaseViewSet(ModelViewSet):
 

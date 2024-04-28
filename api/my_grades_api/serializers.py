@@ -55,6 +55,12 @@ class GetInstructorSerializer(serializers.ModelSerializer):
         model = models.Instructor
         fields = ['id', 'first_name', 'last_name', 'user', 'school']
 
+class GetCategorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Category
+        fields = '__all__'
+
 class GetAssignatureSerializer(serializers.ModelSerializer):
 
     clase = GetSimpleClaseSerializer()

@@ -57,6 +57,13 @@ class Instructor(models.Model):
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
+    
+class Category(models.Model):
+
+    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    weight = models.FloatField(null=True, blank=True)
 
 class Assignature(models.Model):
     title = models.CharField(max_length=255)
@@ -113,6 +120,7 @@ class Activity(models.Model):
     description = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     due_date = models.DateField(null=True, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     
 class Atendance(models.Model):
 
@@ -161,4 +169,5 @@ class Participation(models.Model):
     calification = models.CharField(max_length=2, choices=CALIFICATION_CHOICES, default='NA')
     observations = models.TextField(null=True, blank=True)
     created_at = models.DateField(auto_now_add=True)
+
 
