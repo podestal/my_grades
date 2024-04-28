@@ -10,6 +10,7 @@ const DashboardTable = ({ studentsData, columns }) => {
     const [activity, setActivity] = useState('')
     const [student, setStudent] = useState('')
     const [calification, setCalification] = useState('')
+    const [gradeId, setGradeId] = useState('')
 
     const columnsDynamic = [
         {
@@ -84,6 +85,7 @@ const DashboardTable = ({ studentsData, columns }) => {
                                     onClick={() => {
                                         setActivity(cell.column.id)
                                         setOpen(true)
+                                        setGradeId(cell.getValue().gradeId)
                                         setCalification(cell.getValue().calification)
                                         setStudent(`${cell.row.original.firstName} ${cell.row.original.lastName}`)
                                     }}
@@ -114,6 +116,7 @@ const DashboardTable = ({ studentsData, columns }) => {
                     student={student}
                     setOpen={setOpen}
                     calification={calification}
+                    gradeId={gradeId}
                 />
             </DialogPanel>
         </Dialog>
