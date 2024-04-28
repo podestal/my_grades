@@ -65,7 +65,7 @@ class InstructorViewSet(ModelViewSet):
 
 class CategoryViewSet(ModelViewSet):
 
-    queryset = models.Category.objects.select_related('instructors')
+    queryset = models.Category.objects.select_related('instructor')
     serializer_class = serializers.GetCategorySerializer
 
 class ClaseViewSet(ModelViewSet):
