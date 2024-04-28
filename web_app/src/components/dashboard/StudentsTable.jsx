@@ -43,7 +43,6 @@ const StudentsTable = ({ activities, assignature }) => {
 
   return (
     <div className='mx-12 w-full'>
-        {console.log(filter)}
         <TextInput placeholder='Buscar Alumno' className='my-12 w-[240px]' value={filter} onValueChange={value => setFilter(value)}/>
         <DashboardTable 
             columns={columns}

@@ -13,7 +13,7 @@ const UpdateGradeModal = ({ activity, student, setOpen, calification, gradeId })
         mutationFn: data => updateGrades(data),
         onSuccess: res => {
             queryClient.invalidateQueries(['students'])
-            console.log('Response',res.data)},
+            setOpen(false)},
         onError: err => console.log('Error',err)
     })
 
