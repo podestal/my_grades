@@ -65,8 +65,20 @@ class InstructorViewSet(ModelViewSet):
 
 class CategoryViewSet(ModelViewSet):
 
-    queryset = models.Category.objects.select_related('instructor')
     serializer_class = serializers.GetCategorySerializer
+    http_method_names = ['get', 'post', 'patch', 'delete']
+    permission_classes=[permissions.IsAdminOrReadOnly]
+
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return models.Category.objects.select_related('instructor')
+        try:
+            instructor = models.Instructor.objects.get(user_id = self.request.user.id)
+            return models.Category.objects.select_related('instructor').filter(instructor_id=instructor.id)
+        except:
+            print('no instructor')
+            
+        return models.Category.objects.select_related('instructor').filter(instructor_id=0)
 
 class ClaseViewSet(ModelViewSet):
 
