@@ -7,6 +7,7 @@ import Home from './pages/landing/Home'
 import PersisLogin from './components/PersisLogin'
 import GradesDashboard from './components/GradesDashboard'
 import Header from './components/Header'
+import Categories from './pages/Instructor/Categories'
 import Dashboard from './components/dashboard/Dashboard'
 import { Routes, Route } from "react-router-dom"
 import useAuth from './hooks/useAuth'
@@ -26,7 +27,7 @@ const App = () => {
         <Route path='contact' element={<Contact />}/>
         <Route element={<PersisLogin />}>
           <Route path='main' element={<Assignatures />}/>
-          <Route path='califications' element={<Grades />}/>
+          <Route path='categories' element={<Categories />}/>
           <Route path='profile' element={<Profile />}/>
           {/* <Route path='activities' element={<Activities />}/>
           <Route path='grades' element={<GradesByActivity />}/> */}

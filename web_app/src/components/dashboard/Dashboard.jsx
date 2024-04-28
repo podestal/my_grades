@@ -29,7 +29,7 @@ const Dashboard = () => {
 // getActivitiesMutation({ token: user.access, assignature:assignature.id })
 
   return (
-    <div className="text-white min-h-[100vh] mt-[8rem] w-full relative">
+    <div className="text-white min-h-[100vh] mt-[8rem] max-w-[1450px] mx-auto relative">
         <StudentsTable 
             activities={activities}
             assignature={assignature}
