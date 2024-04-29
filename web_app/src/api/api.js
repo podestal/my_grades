@@ -43,7 +43,7 @@ export const getCategories = data => axios.get(`${URL}api/categories/`, {
     headers: { Authorization: `JWT ${data.token}`}
 })
 
-export const createCategory = data => axios.post(`${URL}api/categories`, data.category, {
+export const createCategory = data => axios.post(`${URL}api/categories/`, data.category, {
     headers: { Authorization: `JWT ${data.token}` }
 })
 
