@@ -5,10 +5,15 @@ import useStudent from '../../hooks/useStudents'
 import { getStudents } from '../../api/api'
 import { useEffect } from 'react'
 import DashboardTable from './DashboardTable'
-import { TextInput } from '@tremor/react'
+import { TextInput, Select, SelectItem } from '@tremor/react'
+import { capacitiesData } from '../../data/capacities'
+import { competenciesData } from '../../data/competencies'
 
 const StudentsTable = ({ activities, assignature }) => {
 
+    const competencies = competenciesData.filter( competency => competency.area == assignature.area)
+    // const capacities = capacitiesData
+    const [selectedCompetency, setSelectedCompetency] = useState('')
     const { user } = useAuth()
     const [filter, setFilter] = useState('')
     const {data: students, isLoading, isError, error} = useQuery({
@@ -31,7 +36,20 @@ const StudentsTable = ({ activities, assignature }) => {
     //     getter()
     // }, [])
 
-    const columns = activities &&  activities.map( activity => {
+    const columns = activities &&  
+        activities
+            .filter( activity =>  {
+                if (selectedCompetency == 'all') {
+                    return activity
+                }
+                else {
+                    if (activity.competence == selectedCompetency) {
+                        return activity
+                    }
+                } 
+                
+            })
+            .map( activity => {
         return {
             header: activity.title,
             accessorKey: activity.title
@@ -43,7 +61,31 @@ const StudentsTable = ({ activities, assignature }) => {
 
   return (
     <div className='mx-12 w-full'>
-        <TextInput placeholder='Buscar Alumno' className='my-12 w-[240px]' value={filter} onValueChange={value => setFilter(value)}/>
+        {console.log('Competence',selectedCompetency)}
+        <div className='flex w-full justify-start gap-16'>
+            <div>
+                <p className='text-xl mb-4'>Buscar Alumno</p>
+                <TextInput placeholder='Buscar Alumno' className='mb-12 w-[240px]' value={filter} onValueChange={value => setFilter(value)}/>
+            </div>
+            <div className='flex-1'>
+                <p className='text-xl mb-4'>Competencias</p>
+                <Select value={selectedCompetency} onValueChange={ value => setSelectedCompetency(value)}>
+                    <SelectItem value='all'>Todas las actividades</SelectItem>
+                    {competencies.map( competency => (
+                        <SelectItem value={competency.id}  key={competency.id}>{competency.title}</SelectItem>
+                    ))}
+                </Select>
+            </div>
+            {/* <div>
+                <p className='text-xl mb-4'>Capacidades</p>
+                <MultiSelect>
+                    {capacities.map(capacity => (
+                        <MultiSelectItem key={capacity.id}>{capacity.title}</MultiSelectItem>
+                    ))}
+                </MultiSelect>
+            </div> */}
+        </div>
+
         <DashboardTable 
             columns={columns}
             studentsData={students && 
