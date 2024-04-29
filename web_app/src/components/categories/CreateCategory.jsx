@@ -1,6 +1,6 @@
 import { DialogPanel, TextInput, Button, Callout } from "@tremor/react"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { createCategory } from "../../api/api"
+import { createCategory, updateCategory } from "../../api/api"
 import useAuth from "../../hooks/useAuth"
 import { useState } from "react"
 
@@ -14,10 +14,23 @@ const CreateCategory = ({ setOpen, category }) => {
     const [titleError, setTitleError] = useState(false)
     const [weightError, setWeightError] = useState(false)
     const { user } = useAuth()
+
+
+    const { mutate: updateCategoryMutation } = useMutation({
+        mutationFn: data => updateCategory(data),
+        onSuccess: res => {
+            console.log(res.data)
+            setError('')
+            setTitleError(false)
+            setWeightError(false)
+            setSuccess('Su categoría ha sido actualizada con éxito')
+            queryClient.invalidateQueries(['categories'])
+        }
+    })
+
     const { mutate: createCategoryMutation } = useMutation({
         mutationFn: data => createCategory(data),
         onSuccess: res => {
-            console.log('Response',res.data)
             setError('')
             setTitleError(false)
             setWeightError(false)
@@ -45,7 +58,10 @@ const CreateCategory = ({ setOpen, category }) => {
         }
 
         if (category) {
-            return
+            updateCategoryMutation({ token: user.access, categoryId: category.id, updates: {
+                title,
+                weight: weight/100,
+            }})
         } else {
             createCategoryMutation({ token: user.access, category: {
                 title,
