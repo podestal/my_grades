@@ -24,7 +24,7 @@ const Categories = () => {
                 category={category}
             />
         ) )}
-        <Button onClick={() => setOpen(true)}>Crear Categoría</Button>
+        <Button color='blue' onClick={() => setOpen(true)} className='mt-8'>Crear Categoría</Button>
         {open && 
             <Dialog open={open} onClose={() => setOpen(false)}>
                 <CreateCategory 

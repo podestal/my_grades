@@ -4,11 +4,11 @@ import { createCategory } from "../../api/api"
 import useAuth from "../../hooks/useAuth"
 import { useState } from "react"
 
-const CreateCategory = ({ setOpen }) => {
+const CreateCategory = ({ setOpen, category }) => {
 
     const queryClient = useQueryClient()
-    const [title, setTitle] = useState('')
-    const [weight, setWeight] = useState('')
+    const [title, setTitle] = useState(category && category.title || '')
+    const [weight, setWeight] = useState(category && category.weight * 100 || '')
     const [success, setSuccess] = useState('')
     const [error, setError] = useState('')
     const [titleError, setTitleError] = useState(false)
@@ -30,7 +30,7 @@ const CreateCategory = ({ setOpen }) => {
         }
     })
 
-    const handleCreate = () => {
+    const handleCreateUpdate = () => {
         
         setTitleError(false)
         setWeightError(false)
@@ -44,10 +44,14 @@ const CreateCategory = ({ setOpen }) => {
             return
         }
 
-        createCategoryMutation({ token: user.access, category: {
-            title,
-            weight: weight/100,
-        }})
+        if (category) {
+            return
+        } else {
+            createCategoryMutation({ token: user.access, category: {
+                title,
+                weight: weight/100,
+            }})
+        }
     }
 
   return (
@@ -80,7 +84,7 @@ const CreateCategory = ({ setOpen }) => {
             error={weightError}
             errorMessage="Se necesita el porcentaje para crear la categoría"
         />
-        <Button onClick={handleCreate}>Crear</Button>
+        <Button color="blue" onClick={handleCreateUpdate}>{category ? 'Guardar' : 'Crear'}</Button>
     </DialogPanel>
   )
 }
