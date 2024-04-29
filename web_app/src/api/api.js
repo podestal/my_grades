@@ -47,6 +47,10 @@ export const createCategory = data => axios.post(`${URL}api/categories/`, data.c
     headers: { Authorization: `JWT ${data.token}` }
 })
 
+export const deleteCategory = data => axios.delete(`${URL}api/categories/${data.categoryId}/`, {
+    headers: { Authorization: `JWT ${data.token}`}
+})
+
 // GRADES
 
 //// /api/grades/?student=&activity=7&assignature=
