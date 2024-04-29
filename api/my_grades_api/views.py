@@ -67,18 +67,27 @@ class CategoryViewSet(ModelViewSet):
 
     serializer_class = serializers.GetCategorySerializer
     http_method_names = ['get', 'post', 'patch', 'delete']
-    permission_classes=[permissions.IsAdminOrReadOnly]
+    # permission_classes=[permissions.IsAdminOrReadOnly]
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return serializers.CreateCategorySerializer
+        return serializers.GetCategorySerializer
+
+    def get_serializer_context(self):
+        return { 'user': self.request.user.id }
 
     def get_queryset(self):
-        if self.request.user.is_superuser:
-            return models.Category.objects.select_related('instructor')
-        try:
-            instructor = models.Instructor.objects.get(user_id = self.request.user.id)
-            return models.Category.objects.select_related('instructor').filter(instructor_id=instructor.id)
-        except:
-            print('no instructor')
+        return models.Category.objects.select_related('user').filter(user_id = self.request.user.id)
+        # if self.request.user.is_superuser:
+        #     return models.Category.objects.select_related('instructor')
+        # try:
+        #     instructor = models.Instructor.objects.get(user_id = self.request.user.id)
+        #     return models.Category.objects.filter(user_id = self.request.user.id)
+        # except:
+        #     print('no instructor')
             
-        return models.Category.objects.select_related('instructor').filter(instructor_id=0)
+        # return models.Category.objects.select_related('instructor').filter(instructor_id=0)
 
 class ClaseViewSet(ModelViewSet):
 

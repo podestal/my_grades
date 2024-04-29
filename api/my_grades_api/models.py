@@ -60,12 +60,16 @@ class Instructor(models.Model):
     
 class Category(models.Model):
 
-    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='categories')
     title = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     weight = models.FloatField(null=True, blank=True)
 
+    def __str__(self):
+        return f'{self.title} '
+
 class Assignature(models.Model):
+
     title = models.CharField(max_length=255)
     clase =  models.ForeignKey(Clase, on_delete=models.CASCADE, related_name='assignatures')
     Instructor = models.ForeignKey(Instructor, on_delete=models.PROTECT, blank=True, null=True, related_name='assignatures')

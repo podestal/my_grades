@@ -61,6 +61,16 @@ class GetCategorySerializer(serializers.ModelSerializer):
         model = models.Category
         fields = '__all__'
 
+class CreateCategorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Category
+        fields = ['id', 'title', 'weight']
+
+    def create(self, validated_data):
+        user_id = self.context['user']
+        return models.Category.objects.create(user_id = user_id, **validated_data)
+
 class GetAssignatureSerializer(serializers.ModelSerializer):
 
     clase = GetSimpleClaseSerializer()

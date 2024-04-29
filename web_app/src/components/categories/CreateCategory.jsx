@@ -1,9 +1,22 @@
 import { DialogPanel, TextInput, Button } from "@tremor/react"
+import { useMutation } from "@tanstack/react-query"
+import { createCategory } from "../../api/api"
+import useAuth from "../../hooks/useAuth"
+import { useState } from "react"
 
 const CreateCategory = ({ setOpen }) => {
 
-    const handleCreate = () => {
+    const [title, setTitle] = useState('')
+    const [weight, setWeight] = useState(0)
+    const { user } = useAuth()
+    const { mutate: createCategoryMutation } = useMutation({
+        mutationFn: data => createCategory(data),
+        onSuccess: res => console.log('Response',res.data),
+        onError: err => console.log('error', err)
+    })
 
+    const handleCreate = () => {
+        createCategoryMutation({ token: user.access, category: {} })
     }
 
   return (
