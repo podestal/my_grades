@@ -5,15 +5,16 @@ import useStudent from '../../hooks/useStudents'
 import { getStudents } from '../../api/api'
 import { useEffect } from 'react'
 import DashboardTable from './DashboardTable'
-import { TextInput, Select, SelectItem } from '@tremor/react'
+import { TextInput, Select, SelectItem, Button } from '@tremor/react'
 import { capacitiesData } from '../../data/capacities'
 import { competenciesData } from '../../data/competencies'
+import CreateActivity from './dashboardComponents/CreateActivity'
 
 const StudentsTable = ({ activities, assignature }) => {
 
     const competencies = competenciesData.filter( competency => competency.area == assignature.area)
     // const capacities = capacitiesData
-    const [selectedCompetency, setSelectedCompetency] = useState('')
+    const [selectedCompetency, setSelectedCompetency] = useState('all')
     const { user } = useAuth()
     const [filter, setFilter] = useState('')
     const {data: students, isLoading, isError, error} = useQuery({
@@ -76,6 +77,7 @@ const StudentsTable = ({ activities, assignature }) => {
                     ))}
                 </Select>
             </div>
+            <CreateActivity />
             {/* <div>
                 <p className='text-xl mb-4'>Capacidades</p>
                 <MultiSelect>

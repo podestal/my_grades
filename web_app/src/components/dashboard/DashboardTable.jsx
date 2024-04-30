@@ -53,7 +53,7 @@ const DashboardTable = ({ studentsData, columns }) => {
                                     <th 
                                         key={header.id}
                                         onClick={header.column.getToggleSortingHandler()}
-                                        className="py-6 min-w-[160px] text-xl font-poppins"
+                                        className="py-6 min-w-[160px] text-md font-poppins"
                                     >
                                         {header.placeholderId ? null : header.column.columnDef.header}
                                     </th>
@@ -72,7 +72,7 @@ const DashboardTable = ({ studentsData, columns }) => {
                             {
                                 row.getVisibleCells().map( cell => (
                                     <td key={cell.id}
-                                    className={`px-18 py-4 font-palanquin text-lg 
+                                    className={`px-18 py-4 font-palanquin text-md 
                                         ${cell.getValue() && cell.getValue().calification == 'AD' && 'bg-green-500'}
                                         ${cell.getValue() && cell.getValue().calification == 'A' && 'bg-yellow-300 text-gray-600'}
                                         ${cell.getValue() && cell.getValue().calification == 'B' && 'bg-amber-500'}
