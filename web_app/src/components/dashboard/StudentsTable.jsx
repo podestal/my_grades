@@ -77,7 +77,9 @@ const StudentsTable = ({ activities, assignature }) => {
                     ))}
                 </Select>
             </div>
-            <CreateActivity />
+            <CreateActivity 
+                assignature={assignature}
+            />
             {/* <div>
                 <p className='text-xl mb-4'>Capacidades</p>
                 <MultiSelect>
