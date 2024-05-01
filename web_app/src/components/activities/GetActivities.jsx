@@ -3,12 +3,13 @@ import useActivities from "../../hooks/useActivities"
 import { getAllActivities } from "../../api/api"
 import { useEffect } from "react"
 import useAuth from "../../hooks/useAuth"
+import ActivityCard from "./ActivityCard"
 
 const GetActivities = ({ assignature }) => {
 
     // const { actiivities, setActivities } = useActivities()
     const { user } = useAuth()
-    const { data: actiivities } = useQuery({
+    const { data: activities } = useQuery({
         queryKey: ['activities'],
         queryFn: () => getAllActivities({ token: user.access })
     })
@@ -33,7 +34,15 @@ const GetActivities = ({ assignature }) => {
 
   return (
     <div>
-        {assignature && console.log('actiivities',actiivities.data)}
+        {assignature && console.log('actiivities',activities.data)}
+        {assignature && activities && 
+            activities.data
+            .filter( activity => activity.assignature == assignature)
+            .map(activity => (
+                <ActivityCard 
+                    activity={activity}
+                />
+        ))}
     </div>
   )
 }
