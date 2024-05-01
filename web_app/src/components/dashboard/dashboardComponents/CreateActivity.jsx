@@ -3,16 +3,48 @@ import { useState } from "react"
 import { es } from 'date-fns/locale'
 import { competenciesData } from "../../../data/competencies"
 import { capacitiesData } from "../../../data/capacities"
+import { createActivity } from "../../../api/api"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import useAuth from "../../../hooks/useAuth"
+import moment from 'moment'
 
 const CreateActivity = ({ assignature }) => {
 
     const [open, setOpen] = useState(false)
+    const { user } = useAuth()
+
+    // Input data
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
     const [date, setDate] = useState(new Date())
-    
     const competencies = competenciesData.filter( competency => competency.area == assignature.area)
     const [selectedCompetency, setSelectedCompetency] = useState('')
     const capacities = selectedCompetency && capacitiesData.filter( capacity => capacity.competence == selectedCompetency)
     const [selectedCapacity, setSelectedCapacity] = useState('')
+
+    // Mutation
+    const { mutate: createActivityMutation } = useMutation({
+        mutationFn: data => createActivity(data),
+        onSuccess: res => console.log(res.data),
+        onError: err => console.log(err)
+    })
+
+    const handleCreate = () => {
+        console.log('date',moment(date).format('YYYY-MM-DD'))
+        const formattedDate = moment(date).format('YYYY-MM-DD')
+        // moment(date)
+        createActivityMutation({
+            token: user.access,
+            activity: {
+                title,
+                description,
+                assignature: assignature.id,
+                due_date: formattedDate,
+                competence: selectedCompetency,
+                capacity: selectedCapacity,
+            }
+        })
+    }
 
   return (
     <div>
@@ -29,9 +61,9 @@ const CreateActivity = ({ assignature }) => {
                 <button onClick={() => setOpen(false)} className="absolute top-0 right-2 text-4xl text-red-500 hover:text-red-400">x</button>
                 <h2 className="text-white text-3xl text-center">Nueva Actividad</h2>
                 <p className="text-white font-poppins">Título</p>
-                <TextInput placeholder="Título"/>
+                <TextInput placeholder="Título" value={title} onValueChange={value => setTitle(value)}/>
                 <p className="text-white font-poppins">Descripción</p>
-                <Textarea placeholder="Descripción"/>
+                <Textarea placeholder="Descripción" value={description} onValueChange={value => setDescription(value)}/>
                 <p className="text-white font-poppins">Adjuntar</p>
                 <p className="text-white font-poppins">Fecha de entrega</p>
                 <DatePicker 
@@ -55,7 +87,7 @@ const CreateActivity = ({ assignature }) => {
                         ))}
                     </Select>
                 </>}
-                <Button className="w-[200px] mx-auto" color="blue">Crear</Button>
+                <Button onClick={handleCreate} className="w-[200px] mx-auto" color="blue">Crear</Button>
             </DialogPanel>
         </Dialog>
     </div>
