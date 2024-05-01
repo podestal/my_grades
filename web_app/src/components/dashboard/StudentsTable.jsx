@@ -95,8 +95,8 @@ const StudentsTable = ({ activities, assignature }) => {
             studentsData={students && 
                 students.data.filter( student => (
                     `${student?.first_name} ${student?.last_name}`
-                    .toLocaleLowerCase()
-                    .includes(filter.toLocaleLowerCase())
+                    .toLowerCase()
+                    .includes(filter.toLowerCase())
                 ))
                 .map( student => {
 

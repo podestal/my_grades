@@ -52,7 +52,7 @@ const DashboardTable = ({ studentsData, columns }) => {
                                 headerGroup.headers.map( header => (
                                     <th 
                                         key={header.id}
-                                        onClick={header.column.getToggleSortingHandler()}
+                                        onClick={() => console.log(header)}
                                         className="py-6 min-w-[160px] text-md font-poppins"
                                     >
                                         {header.placeholderId ? null : header.column.columnDef.header}

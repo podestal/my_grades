@@ -45,7 +45,7 @@ const CreateActivity = ({ assignature }) => {
         const formattedDate = moment(date).format('YYYY-MM-DD')
 
 
-        
+
         createActivityMutation({
             token: user.access,
             activity: {
@@ -62,7 +62,7 @@ const CreateActivity = ({ assignature }) => {
   return (
     <div>
         <div className='flex items-start justify-center'>
-            <Button onClick={() => setOpen(true)} color='blue'>Nueva Actividad</Button>
+            <Button onClick={() => setOpen(true)} color='violet'>Nueva Actividad</Button>
         </div>
         <Dialog 
             open={open}
