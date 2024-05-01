@@ -33,7 +33,7 @@ const GetActivities = ({ assignature }) => {
     // }, [])
 
   return (
-    <div>
+    <div className="grid grid-cols-4 my-8">
         {assignature && console.log('actiivities',activities.data)}
         {assignature && activities && 
             activities.data
