@@ -17,12 +17,7 @@ const UpdateGradeModal = ({ activity, student, setOpen, calification, gradeId })
         onError: err => console.log('Error',err)
     })
 
-    // export const updateGrades = data => axios.patch(`${URL}api/grades/${data.gradeId}/`,  data.calification,{
-    //     headers: { Authorization: `JWT ${data.token}` }
-    // })
-
     const handleUpdate = () => {
-        console.log('new calification', newCalification)
         updateGradesMutation({ token: user.access, gradeId, calification: { calification: newCalification} })
     }
 

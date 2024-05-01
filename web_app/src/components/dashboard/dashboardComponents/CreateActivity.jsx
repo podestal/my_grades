@@ -12,6 +12,7 @@ const CreateActivity = ({ assignature }) => {
 
     const [open, setOpen] = useState(false)
     const { user } = useAuth()
+    const queryClient = useQueryClient()
 
     // Input data
     const [title, setTitle] = useState('')
@@ -25,14 +26,15 @@ const CreateActivity = ({ assignature }) => {
     // Mutation
     const { mutate: createActivityMutation } = useMutation({
         mutationFn: data => createActivity(data),
-        onSuccess: res => console.log(res.data),
+        onSuccess: res => {
+            queryClient.invalidateQueries(['activities'])
+            setOpen(false)
+        },
         onError: err => console.log(err)
     })
 
     const handleCreate = () => {
-        console.log('date',moment(date).format('YYYY-MM-DD'))
         const formattedDate = moment(date).format('YYYY-MM-DD')
-        // moment(date)
         createActivityMutation({
             token: user.access,
             activity: {
@@ -48,7 +50,6 @@ const CreateActivity = ({ assignature }) => {
 
   return (
     <div>
-        {console.log('capacities',capacities)}
         <div className='flex items-start justify-center'>
             <Button onClick={() => setOpen(true)} color='blue'>Nueva Actividad</Button>
         </div>
