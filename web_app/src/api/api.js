@@ -33,6 +33,10 @@ export const getActivities = data => axios.get(`${URL}api/activities/?assignatur
     headers: { Authorization: `JWT ${data.token}` }
 })
 
+export const getAllActivities = data => axios.get(`${URL}api/activities/` ,{
+    headers: { Authorization: `JWT ${data.token}` }
+})
+
 export const createActivity = data => axios.post(`${URL}api/activities/`, data.activity ,{
     headers: { Authorization: `JWT ${data.token}` }
 })
