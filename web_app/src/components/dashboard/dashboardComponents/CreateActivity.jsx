@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogPanel, TextInput, DatePicker, Select, SelectItem, Textarea } from "@tremor/react"
+import { Button, Dialog, DialogPanel, TextInput, DatePicker, Select, SelectItem, Textarea, Callout } from "@tremor/react"
 import { useState } from "react"
 import { es } from 'date-fns/locale'
 import { competenciesData } from "../../../data/competencies"
@@ -23,18 +23,29 @@ const CreateActivity = ({ assignature }) => {
     const capacities = selectedCompetency && capacitiesData.filter( capacity => capacity.competence == selectedCompetency)
     const [selectedCapacity, setSelectedCapacity] = useState('')
 
+    // Error handling
+    const [success, setSuccess] = useState('')
+    const [error, setError] = useState('')
+
     // Mutation
     const { mutate: createActivityMutation } = useMutation({
         mutationFn: data => createActivity(data),
         onSuccess: res => {
             queryClient.invalidateQueries(['activities'])
-            setOpen(false)
+            setSuccess('Actividad Creada')
+            setError('')
         },
-        onError: err => console.log(err)
+        onError: err => {
+            setError('No se pudo crear actividad, inténtelo otra vez')
+            setSuccess('')
+        }
     })
 
     const handleCreate = () => {
         const formattedDate = moment(date).format('YYYY-MM-DD')
+
+
+        
         createActivityMutation({
             token: user.access,
             activity: {
@@ -59,6 +70,16 @@ const CreateActivity = ({ assignature }) => {
             static={true}
         >
             <DialogPanel className="relative flex flex-col gap-4">
+                {error &&         
+                    <Callout title="Error" color='red'>
+                        {error}
+                    </Callout>
+                }
+                {success &&         
+                    <Callout title="Categoría Creada" color='teal'>
+                        {success}
+                    </Callout>
+                }
                 <button onClick={() => setOpen(false)} className="absolute top-0 right-2 text-4xl text-red-500 hover:text-red-400">x</button>
                 <h2 className="text-white text-3xl text-center">Nueva Actividad</h2>
                 <p className="text-white font-poppins">Título</p>
