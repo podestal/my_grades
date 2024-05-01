@@ -9,6 +9,7 @@ import GradesDashboard from './components/GradesDashboard'
 import Header from './components/Header'
 import Categories from './pages/Instructor/Categories'
 import Dashboard from './components/dashboard/Dashboard'
+import ActivityPage from './pages/Instructor/ActivityPage'
 import { Routes, Route } from "react-router-dom"
 import useAuth from './hooks/useAuth'
 import LangingHeader from './pages/landing/LangingHeader'
@@ -32,6 +33,7 @@ const App = () => {
           {/* <Route path='activities' element={<Activities />}/>
           <Route path='grades' element={<GradesByActivity />}/> */}
           <Route path='dashboard' element={<Dashboard />}/>
+          <Route path='activities' element={<ActivityPage />}/>
         </Route>
       </Routes>
     </main>

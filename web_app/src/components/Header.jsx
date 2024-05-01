@@ -15,8 +15,9 @@ const Header = () => {
     <header className='sm:px-16 px-8 z-10  w-full relative bg-transparent '>
       <nav className='bg-slate-600 absolute left-0 flex flex-col w-[220px]'>
         <Link to={'/main'}>Cursos</Link>
+        <Link to={'/activities'}>Actividades</Link>
         <Link to={'/categories'}>Categories</Link>
-        <Link to={'/profile'}>Perfil</Link>
+        {/* <Link to={'/profile'}>Perfil</Link> */}
       </nav>
     </header>
 
