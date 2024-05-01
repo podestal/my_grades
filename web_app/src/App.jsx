@@ -7,6 +7,7 @@ import Home from './pages/landing/Home'
 import PersisLogin from './components/PersisLogin'
 import GradesDashboard from './components/GradesDashboard'
 import Header from './components/Header'
+import SingleActivity from './components/activities/SingleActivity'
 import Categories from './pages/Instructor/Categories'
 import Dashboard from './components/dashboard/Dashboard'
 import ActivityPage from './pages/Instructor/ActivityPage'
@@ -34,6 +35,7 @@ const App = () => {
           <Route path='grades' element={<GradesByActivity />}/> */}
           <Route path='dashboard' element={<Dashboard />}/>
           <Route path='activities' element={<ActivityPage />}/>
+          <Route path='activity' element={<SingleActivity />}/>
         </Route>
       </Routes>
     </main>
