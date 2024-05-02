@@ -11,6 +11,7 @@ const Grade = ({ grade }) => {
         <CalificationSelector 
             calification={calification}
             setCalification={setCalification}
+            gradeId={grade.id}
         />
         <p className='text-sm grid col-span-3'>{grade.observations ? grade.observations : '-'}</p>
     </div>
