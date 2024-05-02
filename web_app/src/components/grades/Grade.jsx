@@ -1,5 +1,6 @@
 import { useState } from "react"
 import CalificationSelector from "./CalificationSelector"
+import ObservationsForm from "./ObservationsForm"
 
 const Grade = ({ grade }) => {
 
@@ -13,7 +14,9 @@ const Grade = ({ grade }) => {
             setCalification={setCalification}
             gradeId={grade.id}
         />
-        <p className='text-sm grid col-span-3'>{grade.observations ? grade.observations : '-'}</p>
+        <ObservationsForm 
+            observations={grade.observations}
+        />
     </div>
   )
 }
