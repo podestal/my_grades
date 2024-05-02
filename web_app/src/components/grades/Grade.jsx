@@ -16,6 +16,7 @@ const Grade = ({ grade }) => {
         />
         <ObservationsForm 
             observations={grade.observations}
+            gradeId={grade.id}
         />
     </div>
   )

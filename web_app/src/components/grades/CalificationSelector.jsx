@@ -20,9 +20,7 @@ const CalificationSelector = ({ calification, setCalification, gradeId }) => {
   })
 
   const handleUpdate = () => {
-    console.log('Updating');
     updateGradesMutation({ token: user.access, gradeId, calification: { calification }  })
-    // setCalification(value)
   }
 
   return (
