@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import useAuth from "../../hooks/useAuth"
 import { getGrades } from "../../api/api"
+import Grade from "./Grade"
 
 
 const GetGrades = ({ activity }) => {
@@ -16,9 +17,15 @@ const GetGrades = ({ activity }) => {
     if (isError) return <p>{error.message}</p>
 
   return (
-    <div>
-        <h2>{activity.title}</h2>
-        {console.log('grades', grades.data)}
+    <div className="max-w-[1450px] mx-auto">
+        <h2 className="text-5xl font-poppins ">{activity.title}</h2>
+        {console.log('grades', grades.data[0].student)}
+        {grades.data.map( grade => (
+            <Grade 
+                key={grade.id}
+                grade={grade}
+            />
+        ))}
     </div>
   )
 }
