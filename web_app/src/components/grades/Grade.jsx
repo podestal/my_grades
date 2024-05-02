@@ -6,7 +6,6 @@ import { Badge } from "@tremor/react"
 
 const Grade = ({ grade }) => {
 
-    const [calification, setCalification] = useState(grade && grade.calification || "")
     const [success, setSuccess] = useState(false)
     const [successMsg, setSuccessMsg] = useState('')
     const [error, setError] = useState(false)
@@ -22,8 +21,7 @@ const Grade = ({ grade }) => {
                 <p className='text-xl'>{grade.student.first_name} {grade.student.last_name}</p>
             </div>
             <CalificationSelector 
-                calification={calification}
-                setCalification={setCalification}
+                calification={grade.calification}
                 gradeId={grade.id}
                 setError={setError}
                 setSuccess={setSuccess}

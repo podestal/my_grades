@@ -32,7 +32,6 @@ const ObservationsForm = ({ observations, gradeId, setSuccess, setError, setSucc
 
   return (
     <div className="text-sm grid col-span-3">
-        {console.log('observations', observations)}
         <div className="flex justify-center items-center">
             <Textarea className="h-[100px]" placeholder="Agregar Observaciones" value={obs} onValueChange={value => setObs(value)} onDoubleClick={() => alert('clicked')}/>
             <Button onClick={handleUpdate} color="violet-950" className="ml-6 hover:bg-violet-900">{observations ? 'Guardar Observación' : 'Agregar Observación'}</Button>

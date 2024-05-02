@@ -6,9 +6,9 @@ import { useState } from "react"
 import { RiCheckLine, RiBugLine } from "@remixicon/react"
 import { Badge } from "@tremor/react"
 
-const CalificationSelector = ({ calification, setCalification, gradeId, setSuccess, setError, setSuccessMsg }) => {
+const CalificationSelector = ({ calification, gradeId, setSuccess, setError, setSuccessMsg }) => {
 
-  const [prevCalification, setPrevCalification] = useState(calification && calification || '')
+  const [newCalification, setNewCalification] = useState(calification && calification || '')
   // const [success, setSuccess] = useState(false)
   // const [error, setError] = useState(false)
   const {user} = useAuth()
@@ -16,20 +16,20 @@ const CalificationSelector = ({ calification, setCalification, gradeId, setSucce
   const { mutate: updateGradesMutation } = useMutation({
     mutationFn: data => updateGrades(data),
     onSuccess: res => {
+      console.log('Response:',res.data);
       queryClient.invalidateQueries(['grades'])  
-      setPrevCalification(calification)
       setSuccess(true)
       setSuccessMsg('Nota cambiada')
+      setNewCalification(res.data.calification)
     },
     onError: err => {
-      setCalification(prevCalification)
       setError(true)
     }
 
   })
 
-  const handleUpdate = () => {
-    updateGradesMutation({ token: user.access, gradeId, calification: { calification }  })
+  const handleUpdate = ( value ) => {
+    updateGradesMutation({ token: user.access, gradeId, calification: { calification: value }  })
     setTimeout(() => {
       setSuccess(false)
       setError(false)
@@ -38,10 +38,9 @@ const CalificationSelector = ({ calification, setCalification, gradeId, setSucce
 
   return (
     <div className="flex flex-col justify-center items-start">
-      <SearchSelect className="w-[70px] mx-4" value={calification} 
+      <SearchSelect className="w-[70px] mx-4" value={newCalification} 
         onValueChange={ value => {
-          setCalification(value)
-          handleUpdate()
+          handleUpdate(value)
         }}>
           <SearchSelectItem value="AD">AD</SearchSelectItem>
           <SearchSelectItem value="A">A</SearchSelectItem>
