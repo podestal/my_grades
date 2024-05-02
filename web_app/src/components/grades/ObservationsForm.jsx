@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import useAuth from "../../hooks/useAuth"
 import { updateGrades } from "../../api/api"
 
-const ObservationsForm = ({ observations, gradeId }) => {
+const ObservationsForm = ({ observations, gradeId, setSuccess, setError, setSuccessMsg  }) => {
 
     const [obs, setObs] = useState(observations && observations || '')
     const { user } = useAuth()
@@ -12,14 +12,22 @@ const ObservationsForm = ({ observations, gradeId }) => {
     const { mutate: updateGradesMutation } = useMutation({
         mutationFn: data => updateGrades(data),
         onSuccess: res => {
-            console.log(res.data)
             queryClient.invalidateQueries(['grades'])
+            setError(false)
+            setSuccess(true)
+            setSuccessMsg('Observación agregada')
         },
-        onError: err => console.log(err)
+        onError: err => {
+            setSuccess(false)
+            setError(true)}
     })
 
     const handleUpdate = () => {
         updateGradesMutation({ token: user.access, gradeId, calification: { observations: obs }})
+        setTimeout(() => {
+            setSuccess(false)
+            setError(false)
+        }, 2000)
     }
 
   return (

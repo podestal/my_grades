@@ -6,11 +6,11 @@ import { useState } from "react"
 import { RiCheckLine, RiBugLine } from "@remixicon/react"
 import { Badge } from "@tremor/react"
 
-const CalificationSelector = ({ calification, setCalification, gradeId }) => {
+const CalificationSelector = ({ calification, setCalification, gradeId, setSuccess, setError, setSuccessMsg }) => {
 
   const [prevCalification, setPrevCalification] = useState(calification && calification || '')
-  const [success, setSuccess] = useState(false)
-  const [error, setError] = useState(false)
+  // const [success, setSuccess] = useState(false)
+  // const [error, setError] = useState(false)
   const {user} = useAuth()
   const queryClient = useQueryClient()
   const { mutate: updateGradesMutation } = useMutation({
@@ -19,6 +19,7 @@ const CalificationSelector = ({ calification, setCalification, gradeId }) => {
       queryClient.invalidateQueries(['grades'])  
       setPrevCalification(calification)
       setSuccess(true)
+      setSuccessMsg('Nota cambiada')
     },
     onError: err => {
       setCalification(prevCalification)
@@ -36,9 +37,7 @@ const CalificationSelector = ({ calification, setCalification, gradeId }) => {
   }
 
   return (
-    <div className="flex flex-col justify-end items-start">
-      {success && <Badge className="mx-8 mb-6 w-[140px]" color='green' icon={RiCheckLine}>Nota Cambiada</Badge>} 
-      {error && <Badge className="mx-8 mb-6 w-[140px]" color='red' icon={RiBugLine}>Ocurrió un error</Badge>}  
+    <div className="flex flex-col justify-center items-start">
       <SearchSelect className="w-[70px] mx-4" value={calification} 
         onValueChange={ value => {
           setCalification(value)
