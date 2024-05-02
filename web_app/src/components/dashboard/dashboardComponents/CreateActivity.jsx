@@ -62,7 +62,7 @@ const CreateActivity = ({ assignature }) => {
   return (
     <div>
         <div className='flex items-start justify-center'>
-            <Button onClick={() => setOpen(true)} color='violet'>Nueva Actividad</Button>
+            <Button onClick={() => setOpen(true)} color='violet-950' className="hover:bg-violet-900">Nueva Actividad</Button>
         </div>
         <Dialog 
             open={open}

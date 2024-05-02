@@ -24,7 +24,7 @@ const Categories = () => {
                 category={category}
             />
         ) )}
-        <Button color='blue' onClick={() => setOpen(true)} className='mt-8'>Crear Categoría</Button>
+        <Button color='violet-950' onClick={() => setOpen(true)} className='mt-8 hover:bg-violet-900'>Crear Categoría</Button>
         {open && 
             <Dialog open={open} onClose={() => setOpen(false)}>
                 <CreateCategory 
