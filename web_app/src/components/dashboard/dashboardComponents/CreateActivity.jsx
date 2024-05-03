@@ -8,20 +8,20 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import useAuth from "../../../hooks/useAuth"
 import moment from 'moment'
 
-const CreateActivity = ({ assignature }) => {
+const CreateActivity = ({ assignature, activity }) => {
 
     const [open, setOpen] = useState(false)
     const { user } = useAuth()
     const queryClient = useQueryClient()
 
     // Input data
-    const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
-    const [date, setDate] = useState(new Date())
+    const [title, setTitle] = useState(activity && activity.title || '')
+    const [description, setDescription] = useState(activity && activity.description || '')
+    const [date, setDate] = useState(activity && new Date(activity.due_date) || new Date())
     const competencies = competenciesData.filter( competency => competency.area == assignature.area)
-    const [selectedCompetency, setSelectedCompetency] = useState('')
+    const [selectedCompetency, setSelectedCompetency] = useState(activity && activity.competence || '')
     const capacities = selectedCompetency && capacitiesData.filter( capacity => capacity.competence == selectedCompetency)
-    const [selectedCapacity, setSelectedCapacity] = useState('')
+    const [selectedCapacity, setSelectedCapacity] = useState(activity && activity.capacity || '')
 
     // Error handling
     const [success, setSuccess] = useState('')
@@ -64,6 +64,8 @@ const CreateActivity = ({ assignature }) => {
         <div className='flex items-start justify-center'>
             <Button onClick={() => setOpen(true)} color='violet-950' className="hover:bg-violet-900">Nueva Actividad</Button>
         </div>
+        {console.log(competencies)}
+        {console.log(selectedCompetency)}
         <Dialog 
             open={open}
             onClose={() => setOpen(false)}
