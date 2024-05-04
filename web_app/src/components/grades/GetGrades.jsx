@@ -6,11 +6,13 @@ import { TextInput, Button } from "@tremor/react"
 import ActivityCard from "../activities/ActivityCard"
 import { useState } from "react"
 import CreateActivity from "../dashboard/dashboardComponents/CreateActivity"
+import useAssignatures from "../../hooks/useAssignatures"
 
 const GetGrades = ({ activity }) => {
 
     const { user } = useAuth()
-    const assignature = activity.assignature
+    const { assignatures } = useAssignatures()    
+    const assignature = assignatures.find( assignature => assignature.id == activity.assignature)
     const [filter, setFilter] = useState('')
     const [open, setOpen] = useState(false)
     const { data: grades, isLoading, isError, error } = useQuery({
@@ -28,7 +30,10 @@ const GetGrades = ({ activity }) => {
             <div className="flex w-full justify-between items-center">
                 <h2 className="text-5xl font-poppins ">{activity.title}</h2>
                 <p>{activity.description}</p>
-                <Button onClick={() => setOpen(true)} color="violet-950" >Editar Actividad</Button>
+                <CreateActivity 
+                    assignature={assignature}
+                    activity={activity}
+                />
             </div>
             <div className="my-10 flex gap-8 justify-start items-center">
                 {/* Filter by name */}
@@ -48,10 +53,6 @@ const GetGrades = ({ activity }) => {
                 />
             ))}
         </div>
-        <CreateActivity 
-            assignature={assignature}
-            activity={activity}
-        />
     </>
   )
 }

@@ -66,6 +66,7 @@ const CreateActivity = ({ assignature, activity }) => {
         </div>
         {console.log(competencies)}
         {console.log(selectedCompetency)}
+        {console.log('assignature',assignature)}
         <Dialog 
             open={open}
             onClose={() => setOpen(false)}
