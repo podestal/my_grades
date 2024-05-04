@@ -11,6 +11,7 @@ const GetGrades = ({ activity }) => {
 
     const { user } = useAuth()
     const assignature = activity.assignature
+    const [filter, setFilter] = useState('')
     const [open, setOpen] = useState(false)
     const { data: grades, isLoading, isError, error } = useQuery({
         queryKey: ['grades'],
@@ -23,7 +24,6 @@ const GetGrades = ({ activity }) => {
 
   return (
     <>
-        {console.log('activity',activity)}
         <div className="max-w-[1450px] mx-auto">
             <div className="flex w-full justify-between items-center">
                 <h2 className="text-5xl font-poppins ">{activity.title}</h2>
@@ -33,9 +33,15 @@ const GetGrades = ({ activity }) => {
             <div className="my-10 flex gap-8 justify-start items-center">
                 {/* Filter by name */}
                 <p className="text-lg font-poppins">Buscar Estudiante</p>
-                <TextInput className="w-[220px]" placeholder="Buscar ..."/>
+                <TextInput value={filter} onValueChange={value => setFilter(value)} className="w-[220px]" placeholder="Buscar ..."/>
             </div>
-            {grades.data.map( grade => (
+            {grades.data
+                .filter( grade => (
+                    `${grade?.student?.first_name} ${grade?.student?.last_name}`
+                    .toLowerCase()
+                    .includes(filter.toLowerCase())
+                ))
+                .map( grade => (
                 <Grade 
                     key={grade.id}
                     grade={grade}
