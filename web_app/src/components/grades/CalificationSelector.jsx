@@ -46,6 +46,7 @@ const CalificationSelector = ({ calification, gradeId, setSuccess, setError, set
           <SearchSelectItem value="A">A</SearchSelectItem>
           <SearchSelectItem value="B">B</SearchSelectItem>
           <SearchSelectItem value="C">C</SearchSelectItem>
+          <SearchSelectItem value="NA">NA</SearchSelectItem>
       </SearchSelect>
     </div>
   )

@@ -77,8 +77,8 @@ const DashboardTable = ({ studentsData, columns }) => {
                                         ${cell.getValue() && cell.getValue().calification == 'A' && 'bg-yellow-300 text-gray-600'}
                                         ${cell.getValue() && cell.getValue().calification == 'B' && 'bg-amber-500'}
                                         ${cell.getValue() && cell.getValue().calification == 'C' && 'bg-red-500'}
-                                        ${cell.getValue() && cell.getValue().calification == 'NA' && 'bg-violet-950'}
-                                        border border-violet-900
+                                        ${cell.getValue() && cell.getValue().calification == 'NA' && 'bg-blue-700'}
+                                        border border-violet-950
                                         cursor-pointer
                                         
                                     `}

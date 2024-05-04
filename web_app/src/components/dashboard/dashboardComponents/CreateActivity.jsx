@@ -62,11 +62,8 @@ const CreateActivity = ({ assignature, activity }) => {
   return (
     <div>
         <div className='flex items-start justify-center'>
-            <Button onClick={() => setOpen(true)} color='violet-950' className="hover:bg-violet-900">Nueva Actividad</Button>
+            <Button onClick={() => setOpen(true)} color='violet-950' className="hover:bg-violet-900">{activity ? 'Editar Actividad' : 'Nueva Actividad'}</Button>
         </div>
-        {console.log(competencies)}
-        {console.log(selectedCompetency)}
-        {console.log('assignature',assignature)}
         <Dialog 
             open={open}
             onClose={() => setOpen(false)}
@@ -84,7 +81,7 @@ const CreateActivity = ({ assignature, activity }) => {
                     </Callout>
                 }
                 <button onClick={() => setOpen(false)} className="absolute top-0 right-2 text-4xl text-red-500 hover:text-red-400">x</button>
-                <h2 className="text-white text-3xl text-center">Nueva Actividad</h2>
+                <h2 className="text-white text-3xl text-center">{activity ? 'Editar Actividad' : 'Nueva Actividad'}</h2>
                 <p className="text-white font-poppins">Título</p>
                 <TextInput placeholder="Título" value={title} onValueChange={value => setTitle(value)}/>
                 <p className="text-white font-poppins">Descripción</p>
@@ -112,7 +109,7 @@ const CreateActivity = ({ assignature, activity }) => {
                         ))}
                     </Select>
                 </>}
-                <Button onClick={handleCreate} className="w-[200px] mx-auto" color="blue">Crear</Button>
+                <Button onClick={handleCreate} className="w-[200px] mx-auto" color="blue">{activity ? 'Guardar' : 'Crear'}</Button>
             </DialogPanel>
         </Dialog>
     </div>
