@@ -7,6 +7,8 @@ import ActivityCard from "../activities/ActivityCard"
 import { useState } from "react"
 import CreateActivity from "../dashboard/dashboardComponents/CreateActivity"
 import useAssignatures from "../../hooks/useAssignatures"
+import { RiSearchLine } from '@remixicon/react';
+
 
 const GetGrades = ({ activity }) => {
 
@@ -38,7 +40,7 @@ const GetGrades = ({ activity }) => {
             <div className="mt-14 flex gap-8 justify-start items-center">
                 {/* Filter by name */}
                 <p className="text-lg font-poppins">Buscar Estudiante</p>
-                <TextInput value={filter} onValueChange={value => setFilter(value)} className="w-[220px]" placeholder="Buscar ..."/>
+                <TextInput icon={RiSearchLine} value={filter} onValueChange={value => setFilter(value)} className="w-[220px]" placeholder="Buscar ..."/>
             </div>
             {grades.data
                 .filter( grade => (

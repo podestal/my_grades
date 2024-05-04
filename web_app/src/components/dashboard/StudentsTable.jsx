@@ -9,6 +9,7 @@ import { TextInput, Select, SelectItem, Button } from '@tremor/react'
 import { capacitiesData } from '../../data/capacities'
 import { competenciesData } from '../../data/competencies'
 import CreateActivity from './dashboardComponents/CreateActivity'
+import { RiSearchLine } from "@remixicon/react"
 
 const StudentsTable = ({ activities, assignature }) => {
 
@@ -66,7 +67,7 @@ const StudentsTable = ({ activities, assignature }) => {
         <div className='flex w-full justify-start gap-16'>
             <div>
                 <p className='text-xl mb-4'>Buscar Alumno</p>
-                <TextInput placeholder='Buscar Alumno' className='mb-12 w-[240px]' value={filter} onValueChange={value => setFilter(value)}/>
+                <TextInput icon={RiSearchLine} placeholder='Buscar Alumno' className='mb-12 w-[240px]' value={filter} onValueChange={value => setFilter(value)}/>
             </div>
             <div className='flex-1'>
                 <p className='text-xl mb-4'>Competencias</p>

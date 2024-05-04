@@ -97,6 +97,7 @@ const CreateActivity = ({ assignature, activity }) => {
                     setOpen(true)}} 
                 color='violet-950' 
                 className="hover:bg-violet-900"
+                size="xl"
                 >{activity ? 'Editar Actividad' : 'Nueva Actividad'}
             </Button>
         </div>
