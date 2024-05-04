@@ -8,6 +8,7 @@ import { useState } from "react"
 import CreateActivity from "../dashboard/dashboardComponents/CreateActivity"
 import useAssignatures from "../../hooks/useAssignatures"
 import { RiSearchLine } from '@remixicon/react';
+import Loading from "../../utils/Loading"
 
 
 const GetGrades = ({ activity }) => {
@@ -22,7 +23,7 @@ const GetGrades = ({ activity }) => {
         queryFn: () => getGrades({ token: user.access, activityId: activity.id })
     })
 
-    if (isLoading) return <p>Loading ...</p>
+    if (isLoading) return <Loading />
 
     if (isError) return <p>{error.message}</p>
 

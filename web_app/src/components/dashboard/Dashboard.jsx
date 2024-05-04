@@ -3,6 +3,7 @@ import useAuth from "../../hooks/useAuth"
 import { useLocation } from "react-router-dom"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { getActivities } from "../../api/api"
+import Loading from "../../utils/Loading"
 import { useEffect } from "react"
 import useActivities from "../../hooks/useActivities"
 
@@ -17,7 +18,7 @@ const Dashboard = () => {
         queryFn: () => getActivities({ token: user.access, assignature:assignature.id })
     })
 
-    if (isLoading) return <p>Loading ...</p>
+    if (isLoading) return <Loading />
 
     if (isError) return <p>{error.message}</p>
     // const { activities, setActivities } = useActivities()

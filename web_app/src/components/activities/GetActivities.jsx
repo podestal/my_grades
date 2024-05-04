@@ -4,12 +4,13 @@ import { getAllActivities } from "../../api/api"
 import { useEffect } from "react"
 import useAuth from "../../hooks/useAuth"
 import ActivityCard from "./ActivityCard"
+import Loading from "../../utils/Loading"
 
 const GetActivities = ({ assignature }) => {
 
     // const { actiivities, setActivities } = useActivities()
     const { user } = useAuth()
-    const { data: activities } = useQuery({
+    const { data: activities, isLoading } = useQuery({
         queryKey: ['activities'],
         queryFn: () => getAllActivities({ token: user.access })
     })
@@ -32,9 +33,10 @@ const GetActivities = ({ assignature }) => {
     //     }
     // }, [])
 
+    if (isLoading) return <Loading />
+
   return (
     <div className="grid grid-cols-4 my-8">
-        Actvitfds
         {assignature && console.log('actiivities',assignature)}
         {assignature && activities && 
             activities.data

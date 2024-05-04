@@ -10,6 +10,7 @@ import { capacitiesData } from '../../data/capacities'
 import { competenciesData } from '../../data/competencies'
 import CreateActivity from './dashboardComponents/CreateActivity'
 import { RiSearchLine } from "@remixicon/react"
+import Loading from '../../utils/Loading'
 
 const StudentsTable = ({ activities, assignature }) => {
 
@@ -57,7 +58,7 @@ const StudentsTable = ({ activities, assignature }) => {
             accessorKey: activity.title
         }})
 
-    if (isLoading) return <p>Loading ...</p>
+    if (isLoading) return <Loading />
 
     if (isError) return <p>{error.message}</p>
 

@@ -8,7 +8,6 @@ const ActivityPage = () => {
 
   return (
     <div className="text-white min-h-[100vh] mt-[5rem] w-full relative">
-        {console.log('assignature',assignature)}
         <h2 className="text-4xl font-poppins text-center my-6">Actividades</h2>
         <AssignatureSelector 
             assignature={assignature}

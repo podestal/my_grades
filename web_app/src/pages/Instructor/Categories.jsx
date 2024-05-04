@@ -5,15 +5,18 @@ import useAuth from '../../hooks/useAuth'
 import Category from '../../components/categories/Category'
 import { TextInput, Button, Dialog, DialogPanel } from '@tremor/react'
 import CreateCategory from '../../components/categories/CreateCategory'
+import Loading from '../../utils/Loading'
 
 const Categories = () => {
 
     const { user } = useAuth()
     const [open, setOpen] = useState(false)
-    const { data: categories } = useQuery({
+    const { data: categories, isLoading } = useQuery({
         queryKey: ['categories'],
         queryFn: () => getCategories({ token: user.access })
     })
+
+    if (isLoading) return <Loading />
 
   return (
     <div className='w-full h-[100vh] flex flex-col gap-6 mx-auto items-center justify-center'>
