@@ -34,6 +34,7 @@ const GetActivities = ({ assignature }) => {
 
   return (
     <div className="grid grid-cols-4 my-8">
+        Actvitfds
         {assignature && console.log('actiivities',assignature)}
         {assignature && activities && 
             activities.data

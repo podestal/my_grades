@@ -27,15 +27,15 @@ const GetGrades = ({ activity }) => {
   return (
     <>
         <div className="max-w-[1450px] mx-auto">
-            <div className="flex w-full justify-between items-center">
-                <h2 className="text-5xl font-poppins ">{activity.title}</h2>
-                <p>{activity.description}</p>
+            <div className="flex w-full justify-between items-start">
+                <h2 className="text-5xl font-poppins ">{grades.data[0] ? grades.data[0].activity.title : activity.title}:</h2>
+                <p className="text-lg flex-1 mx-6">{grades.data[0] ? grades.data[0].activity.description : activity.description}</p>
                 <CreateActivity 
                     assignature={assignature}
                     activity={activity}
                 />
             </div>
-            <div className="my-10 flex gap-8 justify-start items-center">
+            <div className="mt-14 flex gap-8 justify-start items-center">
                 {/* Filter by name */}
                 <p className="text-lg font-poppins">Buscar Estudiante</p>
                 <TextInput value={filter} onValueChange={value => setFilter(value)} className="w-[220px]" placeholder="Buscar ..."/>

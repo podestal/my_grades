@@ -151,6 +151,7 @@ class ActivityViewSet(ModelViewSet):
     serializer_class = serializers.GetActivitySerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['assignature', 'created_at']
+    http_method_names = ['get', 'post', 'patch', 'delete']
 
     def get_serializer_class(self):
         if self.request.method == 'POST':

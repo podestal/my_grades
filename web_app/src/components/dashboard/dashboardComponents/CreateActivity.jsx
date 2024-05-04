@@ -3,7 +3,7 @@ import { useState } from "react"
 import { es } from 'date-fns/locale'
 import { competenciesData } from "../../../data/competencies"
 import { capacitiesData } from "../../../data/capacities"
-import { createActivity } from "../../../api/api"
+import { createActivity, updateActivity } from "../../../api/api"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import useAuth from "../../../hooks/useAuth"
 import moment from 'moment'
@@ -27,7 +27,7 @@ const CreateActivity = ({ assignature, activity }) => {
     const [success, setSuccess] = useState('')
     const [error, setError] = useState('')
 
-    // Mutation
+    // Mutation Create
     const { mutate: createActivityMutation } = useMutation({
         mutationFn: data => createActivity(data),
         onSuccess: res => {
@@ -41,28 +41,64 @@ const CreateActivity = ({ assignature, activity }) => {
         }
     })
 
+    // Mutation Update
+    const { mutate: updateActivityMutation } = useMutation({
+        mutationFn: data => updateActivity(data),
+        onSuccess: res => {
+            console.log('Activity update response',res.data)
+            queryClient.invalidateQueries(['activities'])
+            setSuccess('Actividad editada')
+            setError('')
+        },
+        onError: err => {
+            setError('No se pudo editar actividad, inténtelo otra vez')
+            setSuccess('')
+        }
+    })
+
     const handleCreate = () => {
         const formattedDate = moment(date).format('YYYY-MM-DD')
+        if (activity) {
+            updateActivityMutation({
+                token: user.access,
+                activityId: activity.id,
+                updates: {
+                    title,
+                    description,
+                    assignature: assignature.id,
+                    due_date: formattedDate,
+                    competence: selectedCompetency,
+                    capacity: selectedCapacity,
+                }
+            })
+        } else {
+            createActivityMutation({
+                token: user.access,
+                activity: {
+                    title,
+                    description,
+                    assignature: assignature.id,
+                    due_date: formattedDate,
+                    competence: selectedCompetency,
+                    capacity: selectedCapacity,
+                }
+            })
+        }
 
-
-
-        createActivityMutation({
-            token: user.access,
-            activity: {
-                title,
-                description,
-                assignature: assignature.id,
-                due_date: formattedDate,
-                competence: selectedCompetency,
-                capacity: selectedCapacity,
-            }
-        })
     }
 
   return (
     <div>
         <div className='flex items-start justify-center'>
-            <Button onClick={() => setOpen(true)} color='violet-950' className="hover:bg-violet-900">{activity ? 'Editar Actividad' : 'Nueva Actividad'}</Button>
+            <Button 
+                onClick={() => {
+                    setSuccess('')
+                    setError('')
+                    setOpen(true)}} 
+                color='violet-950' 
+                className="hover:bg-violet-900"
+                >{activity ? 'Editar Actividad' : 'Nueva Actividad'}
+            </Button>
         </div>
         <Dialog 
             open={open}
