@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query"
 
-export const useGetCategories = (key, fxn) => {
+export const useGetCategories = (fxn) => {
     return useQuery({
-        queryKey: [key],
+        queryKey: ['categories'],
         queryFn: () => fxn,
     })
 }

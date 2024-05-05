@@ -3,8 +3,8 @@ import { useState } from "react"
 import { es } from 'date-fns/locale'
 import { competenciesData } from "../../../data/competencies"
 import { capacitiesData } from "../../../data/capacities"
-import { createActivity, updateActivity } from "../../../api/api"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { createActivity, updateActivity, getCategories } from "../../../api/api"
+import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query"
 import useAuth from "../../../hooks/useAuth"
 import moment from 'moment'
 
@@ -18,15 +18,23 @@ const CreateActivity = ({ assignature, activity }) => {
     const [title, setTitle] = useState(activity && activity.title || '')
     const [description, setDescription] = useState(activity && activity.description || '')
     const [date, setDate] = useState(activity && new Date(activity.due_date) || new Date())
+    const [selectedCategory, setSelectedCategory] = useState('')
     const competencies = competenciesData.filter( competency => competency.area == assignature.area)
     const [selectedCompetency, setSelectedCompetency] = useState(activity && activity.competence || '')
     const capacities = selectedCompetency && capacitiesData.filter( capacity => capacity.competence == selectedCompetency)
     const [selectedCapacity, setSelectedCapacity] = useState(activity && activity.capacity || '')
     const cache = queryClient.getQueryData(['activities'])
+    
 
     // Error handling
     const [success, setSuccess] = useState('')
     const [error, setError] = useState('')
+
+    // Query Categories
+    const { data: categories } = useQuery({
+        queryKey: ['categories'],
+        queryFn: () => getCategories({ token: user.access })
+    })
 
     // Mutation Create
     const { mutate: createActivityMutation } = useMutation({
@@ -132,7 +140,12 @@ const CreateActivity = ({ assignature, activity }) => {
                     onValueChange={value => setDate(value)}
                     locale={es}
                 />
-                <p>Assignature (automatic)</p>
+                <p className="text-white font-poppins">Categoría</p>
+                <Select value={selectedCategory} onValueChange={ value => setSelectedCategory(value)}>
+                    {categories && categories.data.map( category => (
+                        <SelectItem value={category.id}  key={category.id}>{category.title}</SelectItem>
+                    ))}
+                </Select>
                 <p className="text-white font-poppins">Competencia</p>
                 <Select value={selectedCompetency} onValueChange={ value => setSelectedCompetency(value)}>
                     {competencies.map( competency => (

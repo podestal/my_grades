@@ -12,14 +12,18 @@ const Categories = () => {
 
     const { user } = useAuth()
     const [open, setOpen] = useState(false)
-    const { data: categories, isLoading } = useGetCategories('categories', getCategories({ token: user.access }))
+    const { data: categories, isLoading } = useQuery({
+        queryKey: ['categories'],
+        queryFn: () => getCategories({ token: user.access })
+    })
+    // const { data: categories, isLoading } = useGetCategories(getCategories({ token:user.access }))
 
     if (isLoading) return <Loading />
 
   return (
     <div className='w-full h-[100vh] flex flex-col gap-6 mx-auto items-center justify-center'>
         <h2 className='text-white font-poppins text-4xl my-8'>Categorías</h2>
-        {categories && categories.data.map( category => (
+        {categories && categories.data?.map( category => (
             <Category 
                 key={category.id}
                 category={category}
