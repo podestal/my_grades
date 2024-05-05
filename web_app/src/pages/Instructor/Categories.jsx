@@ -6,15 +6,13 @@ import Category from '../../components/categories/Category'
 import { TextInput, Button, Dialog, DialogPanel } from '@tremor/react'
 import CreateCategory from '../../components/categories/CreateCategory'
 import Loading from '../../utils/Loading'
+import { useGetCategories } from '../../tanstack/Categories'
 
 const Categories = () => {
 
     const { user } = useAuth()
     const [open, setOpen] = useState(false)
-    const { data: categories, isLoading } = useQuery({
-        queryKey: ['categories'],
-        queryFn: () => getCategories({ token: user.access })
-    })
+    const { data: categories, isLoading } = useGetCategories('categories', getCategories({ token: user.access }))
 
     if (isLoading) return <Loading />
 

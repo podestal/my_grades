@@ -22,6 +22,7 @@ const CreateActivity = ({ assignature, activity }) => {
     const [selectedCompetency, setSelectedCompetency] = useState(activity && activity.competence || '')
     const capacities = selectedCompetency && capacitiesData.filter( capacity => capacity.competence == selectedCompetency)
     const [selectedCapacity, setSelectedCapacity] = useState(activity && activity.capacity || '')
+    const cache = queryClient.getQueryData(['activities'])
 
     // Error handling
     const [success, setSuccess] = useState('')
@@ -89,6 +90,7 @@ const CreateActivity = ({ assignature, activity }) => {
 
   return (
     <div>
+        {console.log('Cache',cache.data)}
         <div className='flex items-start justify-center'>
             <Button 
                 onClick={() => {

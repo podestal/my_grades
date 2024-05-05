@@ -21,6 +21,10 @@ const DashboardTable = ({ studentsData, columns }) => {
             header: 'Apellidos',
             accessorKey: 'lastName'
         },
+        {
+            header: 'Promedio',
+            accessorKey: 'average'
+        },
         ...columns
     ]
 
