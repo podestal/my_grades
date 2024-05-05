@@ -64,7 +64,7 @@ const StudentsTable = ({ activities, assignature }) => {
 
   return (
     <div className='mx-12 w-full'>
-        {console.log('Competence',selectedCompetency)}
+        {console.log('activities',activities)}
         <div className='flex w-full justify-start gap-16'>
             <div>
                 <p className='text-xl mb-4'>Buscar Alumno</p>

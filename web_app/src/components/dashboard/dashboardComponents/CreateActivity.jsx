@@ -19,11 +19,12 @@ const CreateActivity = ({ assignature, activity }) => {
     const [description, setDescription] = useState(activity && activity.description || '')
     const [date, setDate] = useState(activity && new Date(activity.due_date) || new Date())
     const [selectedCategory, setSelectedCategory] = useState('')
+    const [selectedQuarter, setSelectedQuarter] = useState('Q2')
     const competencies = competenciesData.filter( competency => competency.area == assignature.area)
     const [selectedCompetency, setSelectedCompetency] = useState(activity && activity.competence || '')
     const capacities = selectedCompetency && capacitiesData.filter( capacity => capacity.competence == selectedCompetency)
     const [selectedCapacity, setSelectedCapacity] = useState(activity && activity.capacity || '')
-    const cache = queryClient.getQueryData(['activities'])
+    
     
 
     // Error handling
@@ -75,6 +76,7 @@ const CreateActivity = ({ assignature, activity }) => {
                     title,
                     description,
                     assignature: assignature.id,
+                    quarter: selectedQuarter,
                     due_date: formattedDate,
                     competence: selectedCompetency,
                     capacity: selectedCapacity,
@@ -87,6 +89,7 @@ const CreateActivity = ({ assignature, activity }) => {
                     title,
                     description,
                     assignature: assignature.id,
+                    quarter: selectedQuarter,
                     due_date: formattedDate,
                     competence: selectedCompetency,
                     capacity: selectedCapacity,
@@ -98,7 +101,6 @@ const CreateActivity = ({ assignature, activity }) => {
 
   return (
     <div>
-        {console.log('Cache',cache.data)}
         <div className='flex items-start justify-center'>
             <Button 
                 onClick={() => {
@@ -140,6 +142,13 @@ const CreateActivity = ({ assignature, activity }) => {
                     onValueChange={value => setDate(value)}
                     locale={es}
                 />
+                <p className="text-white font-poppins">Bimestre</p>
+                <Select value={selectedQuarter} onValueChange={ value => setSelectedQuarter(value)}>
+                    <SelectItem value="Q1">B1</SelectItem>
+                    <SelectItem value="Q2">B2</SelectItem>
+                    <SelectItem value="Q3">B3</SelectItem>
+                    <SelectItem value="Q4">B4</SelectItem>
+                </Select>
                 <p className="text-white font-poppins">Categoría</p>
                 <Select value={selectedCategory} onValueChange={ value => setSelectedCategory(value)}>
                     {categories && categories.data.map( category => (
