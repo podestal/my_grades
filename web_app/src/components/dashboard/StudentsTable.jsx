@@ -5,7 +5,7 @@ import useStudent from '../../hooks/useStudents'
 import { getStudents } from '../../api/api'
 import { useEffect } from 'react'
 import DashboardTable from './DashboardTable'
-import { TextInput, Select, SelectItem, Button } from '@tremor/react'
+import { TextInput, Select, SelectItem, Button, TabGroup, TabList, Tab } from '@tremor/react'
 import { capacitiesData } from '../../data/capacities'
 import { competenciesData } from '../../data/competencies'
 import CreateActivity from './dashboardComponents/CreateActivity'
@@ -19,6 +19,7 @@ const StudentsTable = ({ activities, assignature }) => {
     const [selectedCompetency, setSelectedCompetency] = useState('all')
     const { user } = useAuth()
     const [filter, setFilter] = useState('')
+    const [quarter, setQuarter] = useState('Q2')
     const {data: students, isLoading, isError, error} = useQuery({
         queryKey: ['students'],
         queryFn: () => getStudents({ token: user.access, claseId: assignature.clase.id})
@@ -52,6 +53,7 @@ const StudentsTable = ({ activities, assignature }) => {
                 } 
                 
             })
+            .filter( activity => activity.quarter == quarter)
             .map( activity => {
         return {
             header: activity.title,
@@ -64,19 +66,29 @@ const StudentsTable = ({ activities, assignature }) => {
 
   return (
     <div className='mx-12 w-full'>
-        {console.log('activities',activities)}
         <div className='flex w-full justify-start gap-16'>
             <div>
                 <p className='text-xl mb-4'>Buscar Alumno</p>
                 <TextInput icon={RiSearchLine} placeholder='Buscar Alumno' className='mb-12 w-[240px]' value={filter} onValueChange={value => setFilter(value)}/>
             </div>
-            <div className='flex-1'>
+            <div className='w-full'>
                 <p className='text-xl mb-4'>Competencias</p>
                 <Select value={selectedCompetency} onValueChange={ value => setSelectedCompetency(value)}>
                     <SelectItem value='all'>Todas las actividades</SelectItem>
                     {competencies.map( competency => (
                         <SelectItem value={competency.id}  key={competency.id}>{competency.title}</SelectItem>
                     ))}
+                </Select>
+            </div>
+            {console.log('quarter:', quarter)}
+            {console.log('activities:', activities)}
+            <div className='flex flex-col'>
+                <p className="text-xl font-poppins mb-4">Bimestre</p>
+                <Select value={quarter} onValueChange={ value => setQuarter(value)}>
+                    <SelectItem value="Q1">B1</SelectItem>
+                    <SelectItem value="Q2">B2</SelectItem>
+                    <SelectItem value="Q3">B3</SelectItem>
+                    <SelectItem value="Q4">B4</SelectItem>
                 </Select>
             </div>
             <CreateActivity 
