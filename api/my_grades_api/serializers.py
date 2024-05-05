@@ -90,13 +90,13 @@ class GetActivitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Activity
-        fields = ['id', 'title', 'created_at', 'due_date', 'assignature', 'competence', 'capacity', 'description']
+        fields = ['id', 'title', 'created_at', 'due_date', 'assignature', 'competence', 'capacity', 'description', 'quarter']
 
 class CreateActivitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Activity
-        fields = ['id','title', 'due_date', 'assignature', 'competence', 'capacity', 'description']
+        fields = ['id','title', 'due_date', 'assignature', 'competence', 'capacity', 'description', 'quarter']
 
     def create(self, validated_data):
 
@@ -176,7 +176,7 @@ class GetSimpleActivitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Activity
-        fields = ['id', 'title', 'competence', 'capacity', 'description']
+        fields = ['id', 'title', 'competence', 'capacity', 'description', 'quarter']
 
 class GetGradeSerializer(serializers.ModelSerializer):
 
