@@ -96,7 +96,7 @@ class CreateActivitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Activity
-        fields = ['id','title', 'due_date', 'assignature', 'competence', 'capacity', 'description', 'quarter']
+        fields = ['id','title', 'due_date', 'assignature', 'competence', 'capacity', 'description', 'quarter', 'category']
 
     def create(self, validated_data):
 

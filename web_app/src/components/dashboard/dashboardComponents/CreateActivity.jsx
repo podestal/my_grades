@@ -86,6 +86,7 @@ const CreateActivity = ({ assignature, activity }) => {
                     due_date: formattedDate,
                     competence: selectedCompetency,
                     capacity: selectedCapacity,
+                    category: selectedCategory,
                 }
             })
         } else {
@@ -99,6 +100,7 @@ const CreateActivity = ({ assignature, activity }) => {
                     due_date: formattedDate,
                     competence: selectedCompetency,
                     capacity: selectedCapacity,
+                    category: selectedCategory,
                 }
             })
         }
@@ -107,8 +109,6 @@ const CreateActivity = ({ assignature, activity }) => {
 
   return (
     <div>
-        {console.log('Selected category Id',selectedCategory)}
-        {console.log('Selected category Id',activity)}
         {categories.length == 0 
         ?
         <GetCategories 
