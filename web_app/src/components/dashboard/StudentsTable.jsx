@@ -80,8 +80,6 @@ const StudentsTable = ({ activities, assignature }) => {
                     ))}
                 </Select>
             </div>
-            {console.log('quarter:', quarter)}
-            {console.log('activities:', activities)}
             <div className='flex flex-col'>
                 <p className="text-xl font-poppins mb-4">Bimestre</p>
                 <Select value={quarter} onValueChange={ value => setQuarter(value)}>
