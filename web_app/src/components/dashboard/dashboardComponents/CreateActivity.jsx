@@ -5,14 +5,19 @@ import { competenciesData } from "../../../data/competencies"
 import { capacitiesData } from "../../../data/capacities"
 import { createActivity, updateActivity, getCategories } from "../../../api/api"
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query"
+import useCategories from "../../../hooks/useCategories"
 import useAuth from "../../../hooks/useAuth"
 import moment from 'moment'
+import GetCategories from "../../getters/GetCategories"
 
 const CreateActivity = ({ assignature, activity }) => {
 
     const [open, setOpen] = useState(false)
     const { user } = useAuth()
     const queryClient = useQueryClient()
+
+    // Cats
+    const { categories, setCategories } = useCategories()
 
     // Input data
     const [title, setTitle] = useState(activity && activity.title || '')
@@ -32,10 +37,10 @@ const CreateActivity = ({ assignature, activity }) => {
     const [error, setError] = useState('')
 
     // Query Categories
-    const { data: categories } = useQuery({
-        queryKey: ['categories'],
-        queryFn: () => getCategories({ token: user.access })
-    })
+    // const { data: categories } = useQuery({
+    //     queryKey: ['categories'],
+    //     queryFn: () => getCategories({ token: user.access })
+    // })
 
     // Mutation Create
     const { mutate: createActivityMutation } = useMutation({
@@ -101,6 +106,14 @@ const CreateActivity = ({ assignature, activity }) => {
 
   return (
     <div>
+        {console.log('Create activity cats number',categories.length)}
+        {categories.length == 0 
+        ?
+        <GetCategories 
+            setCategories={setCategories}
+        />
+        :
+        <>
         <div className='flex items-start justify-center'>
             <Button 
                 onClick={() => {
@@ -151,7 +164,7 @@ const CreateActivity = ({ assignature, activity }) => {
                 </Select>
                 <p className="text-white font-poppins">Categoría</p>
                 <Select value={selectedCategory} onValueChange={ value => setSelectedCategory(value)}>
-                    {categories && categories.data.map( category => (
+                    {categories && categories.map( category => (
                         <SelectItem value={category.id}  key={category.id}>{category.title}</SelectItem>
                     ))}
                 </Select>
@@ -173,6 +186,8 @@ const CreateActivity = ({ assignature, activity }) => {
                 <Button onClick={handleCreate} className="w-[200px] mx-auto" color="blue">{activity ? 'Guardar' : 'Crear'}</Button>
             </DialogPanel>
         </Dialog>
+        </>
+        }
     </div>
   )
 }

@@ -20,7 +20,7 @@ const Categories = () => {
   return (
     <>
         {
-            categories == 0 
+            categories.length == 0 
             ? 
             <GetCategories 
                 setCategories={setCategories}

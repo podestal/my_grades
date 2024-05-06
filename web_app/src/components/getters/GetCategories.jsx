@@ -1,14 +1,14 @@
 import { useQuery } from "@tanstack/react-query"
 import { getCategories } from "../../api/api"
 import useAuth from "../../hooks/useAuth"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
+import Loading from "../../utils/Loading"
 
 const GetCategories = ({ setCategories }) => {
 
     const { user } = useAuth()
-    const [save, setSave] = useState(false)
 
-    const { data: categories, isLoading, isError, isSuccess } = useQuery({
+    const { data: categories, isLoading, isError } = useQuery({
         queryKey: ['categories'],
         queryFn: () => getCategories({ token: user.access })
     })
@@ -18,6 +18,8 @@ const GetCategories = ({ setCategories }) => {
             setCategories(categories.data)
         }
     }, [categories])
+
+    if (isLoading) return <Loading />
 
 }
 
