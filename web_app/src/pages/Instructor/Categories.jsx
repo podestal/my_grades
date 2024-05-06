@@ -10,6 +10,7 @@ import { useGetCategories } from '../../tanstack/Categories'
 import CategoryChart from '../../components/categories/CategoryChart'
 import useCategories from '../../hooks/useCategories'
 import GetCategories from '../../components/getters/GetCategories'
+import { styles } from '../../utils/styles'
 
 const Categories = () => {
 
@@ -26,10 +27,10 @@ const Categories = () => {
                 setCategories={setCategories}
             />
             : 
-            <div className='w-full h-[100vh] flex flex-col gap-6 mx-auto items-center justify-center'>
-                <div className='flex items-center justify-center gap-12 mb-12'>
-                <h2 className='text-white font-poppins text-4xl'>Categorías</h2>
-                <Button color='violet-950' onClick={() => setOpen(true)} className=' hover:bg-violet-900'>Crear Categoría</Button>
+            <div className='w-full min-h-[100vh] flex flex-col gap-6 mx-auto items-center justify-center'>
+                <div className='flex items-center justify-center gap-12 mb-12 h-full'>
+                    <h2 className={` flex-1 my-12 ${styles.gradientTitle}`}>Categorías</h2>
+                    <Button color='violet-950' onClick={() => setOpen(true)} className=' hover:bg-violet-900'>Crear Categoría</Button>
                 </div>
                 {categories && categories.map( category => (
                     <Category 

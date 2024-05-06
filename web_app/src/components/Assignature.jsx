@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Assignature = ({ assignature }) => {
   return (
-    <Link className='bg-gradient-to-r from-violet-600 to-indigo-950 w-[250px] h-[150px] rounded-[35px] flex items-center justify-center hover:ml-2 hover:mt-2'  state={{assignature}} to={'/dashboard'}>
+    <Link className='text-center min-h-40 font-bold mx-auto my-12 py-8 w-[300px] flex items-center justify-center border border-purple-950  rounded-[35px] cursor-pointer hover:bg-slate-900 shadow-violet-900 shadow-[0_10px_20px_rgba(240,_46,_170,_0.7)]'  state={{assignature}} to={'/dashboard'}>
       <h2 className='text-2xl font-poppins font-bold'>
         {assignature.title}
       </h2>

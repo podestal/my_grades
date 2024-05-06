@@ -1,10 +1,11 @@
 import React from 'react'
 import GetAssignatures from '../../components/GetAssignatures'
+import { styles } from '../../utils/styles'
 
 const Assignatures = () => {
   return (
     <div className='text-white min-h-[100vh] mt-[5rem] w-full relative'>
-      <h2 className='text-5xl text-center my-[6rem] font-bold '>Cursos</h2>
+      <h2 className={`my-12 ${styles.gradientTitle}`}>Cursos</h2>
       <div className='grid grid-cols-4 mx-auto w-[1475px]'>
         <GetAssignatures />
       </div>
