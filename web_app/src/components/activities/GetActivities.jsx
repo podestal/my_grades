@@ -5,8 +5,9 @@ import { useEffect } from "react"
 import useAuth from "../../hooks/useAuth"
 import ActivityCard from "./ActivityCard"
 import Loading from "../../utils/Loading"
+import { filterGradesByActivity } from "../../utils/filters"
 
-const GetActivities = ({ assignature }) => {
+const GetActivities = ({ assignature, gradesByAssignature }) => {
 
     // const { actiivities, setActivities } = useActivities()
     const { user } = useAuth()
@@ -37,7 +38,6 @@ const GetActivities = ({ assignature }) => {
 
   return (
     <div className="grid grid-cols-4 my-8">
-        {assignature && console.log('actiivities',assignature)}
         {assignature && activities && 
             activities.data
             .filter( activity => activity.assignature == assignature)

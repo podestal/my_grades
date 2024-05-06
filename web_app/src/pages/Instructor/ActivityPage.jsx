@@ -1,5 +1,5 @@
 import AssignatureSelector from "../../components/activities/AssignatureSelector"
-import GetActivities from "../../components/activities/GetActivities"
+import GetGradesByAssignature from "../../components/activities/GetGradesByAssignature"
 import { useState } from "react"
 
 const ActivityPage = () => {
@@ -13,9 +13,11 @@ const ActivityPage = () => {
             assignature={assignature}
             setAssignature={setAssignature}
         />
-        <GetActivities 
-            assignature={assignature}
-        />
+        {assignature && 
+            <GetGradesByAssignature 
+                assignature={assignature}
+            />
+        }
     </div>
   )
 }
