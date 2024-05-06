@@ -34,10 +34,7 @@ const CreateCategory = ({ setOpen, category }) => {
             setTitleError(false)
             setWeightError(false)
             setSuccess('Su categoría ha sido creada con éxito')
-            queryClient.setQueryData({
-                keys: ['categories'],
-                
-            })
+            queryClient.invalidateQueries(['categories'])
         },
         onError: err => {
             setSuccess('')

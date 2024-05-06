@@ -39,7 +39,6 @@ const GetGrades = ({ activity }) => {
                 />
             </div>
             <div className="mt-14 flex gap-8 justify-start items-center">
-                {/* Filter by name */}
                 <p className="text-lg font-poppins">Buscar Estudiante</p>
                 <TextInput icon={RiSearchLine} value={filter} onValueChange={value => setFilter(value)} className="w-[220px]" placeholder="Buscar ..."/>
             </div>

@@ -17,7 +17,7 @@ const ActivityCard = ({ activity }) => {
   return (
     <div 
         onClick={() => navigate('/activity', { replace: true, state: activity})}
-        className='text-center h-60 font-bold mx-auto my-12 py-8 w-[300px] flex flex-col border border-purple-950  rounded-[35px] cursor-pointer hover:bg-purple-950 shadow-violet-900 shadow-[0_10px_20px_rgba(240,_46,_170,_0.7)]'
+        className='text-center h-60 font-bold mx-auto my-12 py-8 w-[300px] flex flex-col border border-purple-950  rounded-[35px] cursor-pointer hover:bg-slate-900 shadow-violet-900 shadow-[0_10px_20px_rgba(240,_46,_170,_0.7)]'
     >
         <div className='flex items-start justify-between mx-6 gap-4 mb-4'>
             <h3 className="font-poppins text-2xl">{activity.title}</h3>

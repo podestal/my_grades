@@ -23,14 +23,16 @@ const Categories = () => {
 
   return (
     <div className='w-full h-[100vh] flex flex-col gap-6 mx-auto items-center justify-center'>
-        <h2 className='text-white font-poppins text-4xl my-8'>Categorías</h2>
+        <div className='flex items-center justify-center gap-12 mb-12'>
+        <h2 className='text-white font-poppins text-4xl'>Categorías</h2>
+        <Button color='violet-950' onClick={() => setOpen(true)} className=' hover:bg-violet-900'>Crear Categoría</Button>
+        </div>
         {categories && categories.data?.map( category => (
             <Category 
                 key={category.id}
                 category={category}
             />
         ) )}
-        <Button color='violet-950' onClick={() => setOpen(true)} className='mt-8 hover:bg-violet-900'>Crear Categoría</Button>
         {open && 
             <Dialog open={open} onClose={() => setOpen(false)}>
                 <CreateCategory 

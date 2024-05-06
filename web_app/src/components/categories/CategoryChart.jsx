@@ -13,7 +13,7 @@ const CategoryChart = ({ categories }) => {
     })
 
   return (
-    <div className=" text-white flex flex-col items-center justify-center gap-8">
+    <div className=" text-white flex flex-col items-center justify-center gap-8 mt-12">
         <DonutChart 
             data={catChartData}
             variant="pie"
