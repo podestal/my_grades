@@ -7,6 +7,7 @@ import { TextInput, Button, Dialog, DialogPanel } from '@tremor/react'
 import CreateCategory from '../../components/categories/CreateCategory'
 import Loading from '../../utils/Loading'
 import { useGetCategories } from '../../tanstack/Categories'
+import CategoryChart from '../../components/categories/CategoryChart'
 
 const Categories = () => {
 
@@ -37,6 +38,9 @@ const Categories = () => {
                 />
             </Dialog>
         }
+        <CategoryChart 
+            categories={categories.data}
+        />
     </div>
   )
 }
