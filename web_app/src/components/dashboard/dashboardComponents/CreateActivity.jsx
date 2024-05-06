@@ -9,6 +9,7 @@ import useCategories from "../../../hooks/useCategories"
 import useAuth from "../../../hooks/useAuth"
 import moment from 'moment'
 import GetCategories from "../../getters/GetCategories"
+import { getCategoryById } from "../../../utils/filters"
 
 const CreateActivity = ({ assignature, activity }) => {
 
@@ -23,13 +24,13 @@ const CreateActivity = ({ assignature, activity }) => {
     const [title, setTitle] = useState(activity && activity.title || '')
     const [description, setDescription] = useState(activity && activity.description || '')
     const [date, setDate] = useState(activity && new Date(activity.due_date) || new Date())
-    const [selectedCategory, setSelectedCategory] = useState('')
+    const [selectedCategory, setSelectedCategory] = useState(activity && activity.category || '')
+    // const categoryTitle = categories && getCategoryById(categories, selectedCategory)
     const [selectedQuarter, setSelectedQuarter] = useState('Q2')
     const competencies = competenciesData.filter( competency => competency.area == assignature.area)
     const [selectedCompetency, setSelectedCompetency] = useState(activity && activity.competence || '')
     const capacities = selectedCompetency && capacitiesData.filter( capacity => capacity.competence == selectedCompetency)
     const [selectedCapacity, setSelectedCapacity] = useState(activity && activity.capacity || '')
-    
     
 
     // Error handling
@@ -106,7 +107,8 @@ const CreateActivity = ({ assignature, activity }) => {
 
   return (
     <div>
-        {console.log('Create activity cats number',categories.length)}
+        {console.log('Selected category Id',selectedCategory)}
+        {console.log('Selected category Id',activity)}
         {categories.length == 0 
         ?
         <GetCategories 
