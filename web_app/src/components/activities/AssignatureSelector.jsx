@@ -6,7 +6,7 @@ const AssignatureSelector = ({ assignature, setAssignature }) => {
     const { assignatures } = useAssignatures()
 
   return (
-    <div className="w-full flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center">
         <p className="mb-8 font-poppins text-md">Seleccione un curso</p>
         <Select value={assignature} onValueChange={ value => setAssignature(value)} className="w-[400px] mx-auto">
             {assignatures.map( curso => (

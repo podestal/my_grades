@@ -7,7 +7,7 @@ import ActivityCard from "./ActivityCard"
 import Loading from "../../utils/Loading"
 import { filterGradesByActivity } from "../../utils/filters"
 
-const GetActivities = ({ assignature, gradesByAssignature }) => {
+const GetActivities = ({ assignature, quarter }) => {
 
     // const { actiivities, setActivities } = useActivities()
     const { user } = useAuth()
@@ -15,32 +15,16 @@ const GetActivities = ({ assignature, gradesByAssignature }) => {
         queryKey: ['activities'],
         queryFn: () => getAllActivities({ token: user.access })
     })
-    // const { mutate:getActivitiesMutation } = useMutation({
-    //     mutationFn: data => getActivities(data),
-    //     onSuccess: res => {
-    //         console.log(res.data)
-    //         setActivities(res.data)
-    //     },
-    //     onError: err => console.log(err)
-    // })
-
-    // const getter = () => {
-    //     getActivitiesMutation({ token: user.access, assignature:assignature })
-    // }
-
-    // useEffect(() => {
-    //     if (assignature) {
-    //         getter()
-    //     }
-    // }, [])
 
     if (isLoading) return <Loading />
 
   return (
     <div className="grid grid-cols-4 my-8">
+        
         {assignature && activities && 
             activities.data
             .filter( activity => activity.assignature == assignature)
+            .filter ( activity => activity.quarter == quarter)
             .map(activity => (
                 <ActivityCard 
                     activity={activity}

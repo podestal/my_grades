@@ -5,7 +5,7 @@ import Loading from "../../utils/Loading"
 import GetActivities from "./GetActivities"
 import useGrades from "../../hooks/useGrades"
 
-const GetGradesByAssignature = ({ assignature }) => {
+const GetGradesByAssignature = ({ assignature, quarter }) => {
 
     const { user } = useAuth()
     const { setGrades } = useGrades()
@@ -24,6 +24,7 @@ const GetGradesByAssignature = ({ assignature }) => {
     <GetActivities 
         gradesByAssignature={gradesByAssignature.data}
         assignature={assignature}
+        quarter={quarter}
     />
   )
 }
