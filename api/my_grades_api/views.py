@@ -230,9 +230,24 @@ class ParticipationViewSet(ModelViewSet):
 
 class AnnouncementViewSet(ModelViewSet):
 
-    queryset = models.Announcement.objects.all()
-    serializer_class = serializers.GetAnnouncementSerializer
+    http_method_names = ['get', 'post', 'patch', 'delete']
     
+    def get_permissions(self):
+        if self.request.method in ['PATCH', 'POST', 'DELETE']:
+            return [IsAdminUser()]
+        return [IsAuthenticated()]
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return serializers.CreateAnnouncementSerializer
+        return serializers.GetAnnouncementSerializer
+    
+    def get_queryset(self):
+        return models.Announcement.objects.select_related('user').filter(user_id=self.request.user.id)
+    
+    def get_serializer_context(self):
+        return { 'user_id': self.request.user.id }
+
 # class AssignmentViewSet(ModelViewSet):
 
 #     queryset = models.Assignment.objects.select_related('competence', 'assignature')

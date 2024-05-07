@@ -205,7 +205,20 @@ class GetAnnouncementSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Announcement
-        fields = '__all__'
+        fields = ['id', 'title', 'description', 'user']
+
+class CreateAnnouncementSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Announcement
+        fields = ['title', 'description']
+
+    def create(self, validated_data):
+        
+        user_id = self.context['user_id']
+        return models.Announcement.objects.create(user_id = user_id, **validated_data)
+
+
 
 # class CreateAssignmentSerializer(serializers.ModelSerializer):
 
