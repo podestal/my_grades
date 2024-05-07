@@ -6,15 +6,17 @@ import useAuth from "../hooks/useAuth"
 import useAssignatures from "../hooks/useAssignatures"
 import { useEffect } from "react"
 import Assignature from "./Assignature"
+import useClases from "../hooks/useClases"
 
 const GetAssignatures = () => {
     const { user } = useAuth()
+    const { setClases } = useClases()
     const { assignatures, setAssignatures } = useAssignatures()
     const { mutate: getAssignaturesMutation, isPending, isError } = useMutation({
         mutationFn: data => getAssignatures(data),
         onSuccess: res => {
-            
             setAssignatures([ ...res.data ])
+            res.data.map( assgnature => { setClases(prev => [...prev, assgnature.clase]) })
         },
         onError: err => console.log(err),
     })

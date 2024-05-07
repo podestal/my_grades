@@ -1,12 +1,21 @@
-import { Dialog, DialogPanel, Select, SelectItem } from "@tremor/react"
+import { Dialog, DialogPanel, Button } from "@tremor/react"
 import { useState } from "react"
 import CloseButton from "../../utils/CloseButton"
 import InputText from "../../utils/InputText"
+import useClases from "../../hooks/useClases"
+import Selector from "../../utils/Selector"
 
 const AnnouncementsForm = ({ open, setOpen, announcement }) => {
+
+    const { clases } = useClases()
+
     const [title, setTitle] = useState(announcement && announcement.title || '')
     const [description, setDescription] = useState(announcement && announcement.description || '')
     const [selectedClase, setSelectedClase] = useState(announcement && announcement.clase || '')
+
+    const handleCreate = () => {
+
+    }
 
   return (
         <Dialog
@@ -30,9 +39,13 @@ const AnnouncementsForm = ({ open, setOpen, announcement }) => {
                     value={description}
                     setter={setDescription}
                 />
-                <Select>
-                    
-                </Select>
+                <Selector 
+                    label={'Clases'}
+                    value={selectedClase}
+                    setter={setSelectedClase}
+                    items={clases}
+                />
+                <Button onClick={handleCreate} className="w-[160px] mx-auto mt-6" color="blue">{announcement ? 'Guardar' : 'Crear'}</Button>
             </DialogPanel>
         </Dialog>
   )
