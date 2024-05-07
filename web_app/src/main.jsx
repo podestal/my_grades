@@ -8,6 +8,7 @@ import ActivitiesContextprovider from './context/activities.jsx'
 import GradesContextProvider from './context/grades.jsx'
 import StudentContextProvider from './context/students.jsx'
 import CategoriesContextProvider from './context/categories.jsx'
+import AnnouncementsContextProvider from './context/announcemnts.jsx'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { BrowserRouter } from 'react-router-dom'
 
@@ -21,11 +22,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <GradesContextProvider>
             <StudentContextProvider>
               <CategoriesContextProvider>
-                <QueryClientProvider client={queryClient}>
-                  <BrowserRouter>
-                    <App />
-                  </BrowserRouter>
-                </QueryClientProvider>
+                <AnnouncementsContextProvider>
+                  <QueryClientProvider client={queryClient}>
+                    <BrowserRouter>
+                      <App />
+                    </BrowserRouter>
+                  </QueryClientProvider>
+                </AnnouncementsContextProvider>
               </CategoriesContextProvider>
             </StudentContextProvider>
           </GradesContextProvider>
