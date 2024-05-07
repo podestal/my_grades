@@ -243,7 +243,7 @@ class AnnouncementViewSet(ModelViewSet):
         return serializers.GetAnnouncementSerializer
     
     def get_queryset(self):
-        return models.Announcement.objects.select_related('user').filter(user_id=self.request.user.id)
+        return models.Annunciation.objects.select_related('user', 'clase').filter(user_id=self.request.user.id)
     
     def get_serializer_context(self):
         return { 'user_id': self.request.user.id }

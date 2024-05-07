@@ -204,19 +204,19 @@ class GetTutorSerializer(serializers.ModelSerializer):
 class GetAnnouncementSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = models.Announcement
-        fields = ['id', 'title', 'description', 'user']
+        model = models.Annunciation
+        fields = ['id', 'title', 'description', 'created_at', 'user', 'clase']
 
 class CreateAnnouncementSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = models.Announcement
-        fields = ['title', 'description']
+        model = models.Annunciation
+        fields = ['title', 'description', 'clase']
 
     def create(self, validated_data):
         
         user_id = self.context['user_id']
-        return models.Announcement.objects.create(user_id = user_id, **validated_data)
+        return models.Annunciation.objects.create(user_id = user_id, **validated_data)
 
 
 
