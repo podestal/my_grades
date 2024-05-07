@@ -3,8 +3,10 @@ import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query"
 import { createCategory, updateCategory } from "../../api/api"
 import useAuth from "../../hooks/useAuth"
 import { useState } from "react"
+import CategoryForm from "./CategoryForm"
+import useCategories from "../../hooks/useCategories"
 
-const CreateCategory = ({ setOpen, category }) => {
+const CreateCategory = ({ open, setOpen, category }) => {
 
     const queryClient = useQueryClient()
     const [title, setTitle] = useState(category && category.title || '')
@@ -15,6 +17,9 @@ const CreateCategory = ({ setOpen, category }) => {
     const [weightError, setWeightError] = useState(false)
     const { user } = useAuth()
 
+    // LOCAL STATE CATEGORIES
+    const { categories, setCategories } = useCategories()
+
     const { mutate: updateCategoryMutation } = useMutation({
         mutationFn: data => updateCategory(data),
         onSuccess: res => {
@@ -23,7 +28,6 @@ const CreateCategory = ({ setOpen, category }) => {
             setTitleError(false)
             setWeightError(false)
             setSuccess('Su categoría ha sido actualizada con éxito')
-            queryClient.invalidateQueries(['categories'])
         }
     })
 
@@ -34,11 +38,19 @@ const CreateCategory = ({ setOpen, category }) => {
             setTitleError(false)
             setWeightError(false)
             setSuccess('Su categoría ha sido creada con éxito')
-            queryClient.invalidateQueries(['categories'])
+            categories.length > 0 
+            ? setCategories(prev => [...prev, res.data])
+            : setCategories(res.data)
+            setTimeout(() => {
+                setSuccess('')
+            }, 2000)
         },
         onError: err => {
             setSuccess('')
             setError(err.message)
+            setTimeout(() => {
+                setError('')
+            }, 2000)
         }
     })
 
@@ -70,37 +82,18 @@ const CreateCategory = ({ setOpen, category }) => {
     }
 
   return (
-    <DialogPanel className='relative flex flex-col items-center gap-4'>
-        {error &&         
-            <Callout title="Error" color='red'>
-                {error}
-            </Callout>
-        }
-        {success &&         
-            <Callout title="Categoría Creada" color='teal'>
-                {success}
-            </Callout>
-        }
-        <h2 className="text-white text-3xl text-center mb-6">Nueva Categoría</h2>
-        <button onClick={() => setOpen(false)} className="absolute top-0 right-2 text-4xl text-red-500 hover:text-red-400">x</button>
-        <TextInput 
-            placeholder='Título ...' 
-            className='w-[270px]' 
-            value={title} onValueChange={value => setTitle(value)}
-            error={titleError}
-            errorMessage="Se necesita un título para crear la categoría"
-        />
-        <TextInput 
-            type='number' 
-            placeholder='Porcentaje...' 
-            className='w-[270px]' 
-            value={weight} 
-            onValueChange={value => setWeight(value)}
-            error={weightError}
-            errorMessage="Se necesita el porcentaje para crear la categoría"
-        />
-        <Button color="blue" onClick={handleCreateUpdate}>{category ? 'Guardar' : 'Crear'}</Button>
-    </DialogPanel>
+<>
+{console.log('Catagrories', categories)}
+<CategoryForm 
+        open={open}
+        setOpen={setOpen}
+        success={success}
+        error={error}
+        titleError={titleError}
+        weightError={weightError}
+        create={createCategoryMutation}
+    />
+</>
   )
 }
 

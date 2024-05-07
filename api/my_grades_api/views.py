@@ -70,8 +70,6 @@ class CategoryViewSet(ModelViewSet):
     # permission_classes=[permissions.IsAdminOrReadOnly]
 
     def get_serializer_class(self):
-        if self.is_superuser:
-            return serializers.GetAllAnnouncementAllDataSerializer
         if self.request.method == 'POST':
             return serializers.CreateCategorySerializer
         return serializers.GetCategorySerializer
@@ -240,6 +238,8 @@ class AnnouncementViewSet(ModelViewSet):
         return [IsAuthenticated()]
 
     def get_serializer_class(self):
+        if self.user.is_superuser:
+            return serializers.GetAllAnnouncementAllDataSerializer
         if self.request.method == 'POST':
             return serializers.CreateAnnouncementSerializer
         return serializers.GetAnnouncementSerializer

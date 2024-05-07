@@ -11,6 +11,7 @@ import CategoryChart from '../../components/categories/CategoryChart'
 import useCategories from '../../hooks/useCategories'
 import GetCategories from '../../components/getters/GetCategories'
 import { styles } from '../../utils/styles'
+import CategoryForm from '../../components/categories/CategoryForm'
 
 const Categories = () => {
 
@@ -43,13 +44,10 @@ const Categories = () => {
                 <CategoryChart 
                     categories={categories}
                 />
-                {open && 
-                    <Dialog open={open} onClose={() => setOpen(false)}>
-                        <CreateCategory 
-                            setOpen={setOpen}
-                        />
-                    </Dialog>
-                }
+                <CreateCategory 
+                    open={open}
+                    setOpen={setOpen}
+                />
 
             </div>
         }
