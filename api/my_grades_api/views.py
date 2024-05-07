@@ -228,6 +228,11 @@ class ParticipationViewSet(ModelViewSet):
     queryset = models.Participation.objects.select_related('student', 'competence', 'capacity', 'assignature')
     serializer_class = serializers.GetParticipationSerializer
 
+class AnnouncementViewSet(ModelViewSet):
+
+    queryset = models.Announcement.objects.all()
+    serializer_class = serializers.GetAnnouncementSerializer
+    
 # class AssignmentViewSet(ModelViewSet):
 
 #     queryset = models.Assignment.objects.select_related('competence', 'assignature')
