@@ -8,7 +8,7 @@ const CategoryChart = ({ categories }) => {
         legendNames.push(cat.title)
         return {
             name: cat.title,
-            value: cat.weight
+            value: cat.weight * 100
         }
     })
 
@@ -18,6 +18,7 @@ const CategoryChart = ({ categories }) => {
             data={catChartData}
             variant="pie"
             showAnimation={true}
+            className="w-[320px] h-[320px]"
         />
         <Legend 
             categories={legendNames}

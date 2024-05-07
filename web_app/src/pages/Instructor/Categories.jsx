@@ -19,7 +19,11 @@ const Categories = () => {
 
 
   return (
-    <>
+    <div className='min-h-[100vh]'>
+        <div className='flex items-center justify-center gap-12 w-full'>
+            <h2 className={`my-12 ${styles.gradientTitle}`}>Categorías</h2>
+            <Button disabled={categories.length == 0 ? true : false} color='violet-950' onClick={() => setOpen(true)} className=' hover:bg-violet-900'>Crear Categoría</Button>
+        </div>
         {
             categories.length == 0 
             ? 
@@ -27,17 +31,18 @@ const Categories = () => {
                 setCategories={setCategories}
             />
             : 
-            <div className='w-full min-h-[100vh] flex flex-col gap-6 mx-auto items-center justify-center'>
-                <div className='flex items-center justify-center gap-12 mb-12 h-full'>
-                    <h2 className={` flex-1 my-12 ${styles.gradientTitle}`}>Categorías</h2>
-                    <Button color='violet-950' onClick={() => setOpen(true)} className=' hover:bg-violet-900'>Crear Categoría</Button>
+            <div className='w-full flex flex-row mt-12 mx-auto items-center justify-evenly h-full'>
+                <div className='flex flex-col'>
+                    {categories && categories.map( category => (
+                        <Category 
+                            key={category.id}
+                            category={category}
+                        />
+                    ) )}
                 </div>
-                {categories && categories.map( category => (
-                    <Category 
-                        key={category.id}
-                        category={category}
-                    />
-                ) )}
+                <CategoryChart 
+                    categories={categories}
+                />
                 {open && 
                     <Dialog open={open} onClose={() => setOpen(false)}>
                         <CreateCategory 
@@ -45,13 +50,11 @@ const Categories = () => {
                         />
                     </Dialog>
                 }
-                <CategoryChart 
-                    categories={categories}
-                />
+
             </div>
         }
 
-    </>
+    </div>
   )
 }
 

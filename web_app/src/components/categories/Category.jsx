@@ -25,7 +25,7 @@ const Category = ({ category }) => {
 
   return (
     <>
-        <div className="flex w-[520px]">
+        <div className="flex w-[520px] gap-8 my-4 ">
             <Button onClick={handleDelete} color="red" className="mr-4">Borrar</Button>
             <Button onClick={() => setOpen(true)} color='blue' className="mr-4">Editar</Button>
             <div className='w-full flex justify-between items-center'>
