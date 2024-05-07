@@ -9,6 +9,7 @@ import GradesContextProvider from './context/grades.jsx'
 import StudentContextProvider from './context/students.jsx'
 import CategoriesContextProvider from './context/categories.jsx'
 import AnnouncementsContextProvider from './context/announcemnts.jsx'
+import ClasesContextProvider from './context/clases.jsx'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { BrowserRouter } from 'react-router-dom'
 
@@ -18,21 +19,23 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
     <AuthContextProvider>
       <AssignatureContextProvider>
-        <ActivitiesContextprovider>
-          <GradesContextProvider>
-            <StudentContextProvider>
-              <CategoriesContextProvider>
-                <AnnouncementsContextProvider>
-                  <QueryClientProvider client={queryClient}>
-                    <BrowserRouter>
-                      <App />
-                    </BrowserRouter>
-                  </QueryClientProvider>
-                </AnnouncementsContextProvider>
-              </CategoriesContextProvider>
-            </StudentContextProvider>
-          </GradesContextProvider>
-        </ActivitiesContextprovider>
+        <ClasesContextProvider>
+          <ActivitiesContextprovider>
+            <GradesContextProvider>
+              <StudentContextProvider>
+                <CategoriesContextProvider>
+                  <AnnouncementsContextProvider>
+                    <QueryClientProvider client={queryClient}>
+                      <BrowserRouter>
+                        <App />
+                      </BrowserRouter>
+                    </QueryClientProvider>
+                  </AnnouncementsContextProvider>
+                </CategoriesContextProvider>
+              </StudentContextProvider>
+            </GradesContextProvider>
+          </ActivitiesContextprovider>
+        </ClasesContextProvider>
       </AssignatureContextProvider>
     </AuthContextProvider>
   // </React.StrictMode>,
