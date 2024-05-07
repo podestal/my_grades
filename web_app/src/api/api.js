@@ -145,8 +145,14 @@ export const createParticipation = data => axios.post(`${URL}api/participations/
     headers: { Authorization: `JWT ${data.token}` }
 })
 
+// ANNOUNCEMENTS
+
 export const getAnnouncements = data => axios.get(`${URL}api/annunciations/`, {
     headers: { Authorization: `JWT ${data.token}` }
+})
+
+export const createAnnouncement = data => axios.post(`${URL}api/annunciations/`, data.announcement, {
+    headers: { Authorization: `JWT ${data.token}`}
 })
 
 

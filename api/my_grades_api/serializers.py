@@ -201,17 +201,23 @@ class GetTutorSerializer(serializers.ModelSerializer):
         model = models.Tutor
         fields = ['id', 'students']
 
-class GetAnnouncementSerializer(serializers.ModelSerializer):
+class GetAllAnnouncementAllDataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Annunciation
         fields = ['id', 'title', 'description', 'created_at', 'user', 'clase']
 
+class GetAnnouncementSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Annunciation
+        fields = ['id', 'title', 'description', 'created_at', 'clase']
+
 class CreateAnnouncementSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Annunciation
-        fields = ['title', 'description', 'clase']
+        fields = ['id', 'title', 'description', 'created_at', 'clase']
 
     def create(self, validated_data):
         

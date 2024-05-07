@@ -4,17 +4,23 @@ import CloseButton from "../../utils/CloseButton"
 import InputText from "../../utils/InputText"
 import useClases from "../../hooks/useClases"
 import Selector from "../../utils/Selector"
+import useAuth from "../../hooks/useAuth"
 
-const AnnouncementsForm = ({ open, setOpen, announcement }) => {
+const AnnouncementsForm = ({ open, setOpen, announcement, create }) => {
 
     const { clases } = useClases()
+    const { user } = useAuth()
 
     const [title, setTitle] = useState(announcement && announcement.title || '')
     const [description, setDescription] = useState(announcement && announcement.description || '')
     const [selectedClase, setSelectedClase] = useState(announcement && announcement.clase || '')
 
     const handleCreate = () => {
-
+        create({ token: user.access, announcement: {
+            title,
+            description,
+            clase: selectedClase,
+        } })
     }
 
   return (
@@ -50,12 +56,5 @@ const AnnouncementsForm = ({ open, setOpen, announcement }) => {
         </Dialog>
   )
 }
-
-{/* <Select value={selectedQuarter} onValueChange={ value => setSelectedQuarter(value)}>
-<SelectItem value="Q1">B1</SelectItem>
-<SelectItem value="Q2">B2</SelectItem>
-<SelectItem value="Q3">B3</SelectItem>
-<SelectItem value="Q4">B4</SelectItem>
-</Select> */}
 
 export default AnnouncementsForm

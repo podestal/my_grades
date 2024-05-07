@@ -70,6 +70,8 @@ class CategoryViewSet(ModelViewSet):
     # permission_classes=[permissions.IsAdminOrReadOnly]
 
     def get_serializer_class(self):
+        if self.is_superuser:
+            return serializers.GetAllAnnouncementAllDataSerializer
         if self.request.method == 'POST':
             return serializers.CreateCategorySerializer
         return serializers.GetCategorySerializer

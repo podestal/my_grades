@@ -14,7 +14,7 @@ const Announcements = () => {
             <h2 className={`${styles.gradientTitle}`}>Anuncios</h2>
             <CreateAnnouncements />
         </div>
-        {!announcements 
+        {announcements.length == 0 
         ?        
             <GetAnnouncements 
                 setAnnouncements={setAnnouncements}

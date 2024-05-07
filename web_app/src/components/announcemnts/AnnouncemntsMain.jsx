@@ -1,8 +1,15 @@
-import React from 'react'
+import useAnnouncements from "../../hooks/useAnnouncements"
 
 const AnnouncemntsMain = () => {
+
+    const {announcements} = useAnnouncements()
+
   return (
-    <div>AnnouncemntsMain</div>
+    <div>
+        {announcements.map( announcement => (
+            <p key={announcement.id}>{announcement.title}</p>
+        ))}
+    </div>
   )
 }
 
