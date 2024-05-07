@@ -2,6 +2,7 @@ import { styles } from "../../utils/styles"
 import useAnnouncements from "../../hooks/useAnnouncements"
 import GetAnnouncements from "../../components/getters/GetAnnouncements"
 import AnnouncemntsMain from "../../components/announcemnts/AnnouncemntsMain"
+import CreateAnnouncements from "../../components/announcemnts/CreateAnnouncements"
 
 const Announcements = () => {
 
@@ -9,7 +10,10 @@ const Announcements = () => {
 
   return (
     <div className='min-h-[100vh] text-white'>
-        <h2 className={`mt-12 ${styles.gradientTitle}`}>Anuncios</h2>
+        <div className="flex items-center justify-center mt-12 gap-12">
+            <h2 className={`${styles.gradientTitle}`}>Anuncios</h2>
+            <CreateAnnouncements />
+        </div>
         {!announcements 
         ?        
             <GetAnnouncements 

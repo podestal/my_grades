@@ -12,7 +12,10 @@ const GetAssignatures = () => {
     const { assignatures, setAssignatures } = useAssignatures()
     const { mutate: getAssignaturesMutation, isPending, isError } = useMutation({
         mutationFn: data => getAssignatures(data),
-        onSuccess: res => setAssignatures([ ...res.data ]),
+        onSuccess: res => {
+            
+            setAssignatures([ ...res.data ])
+        },
         onError: err => console.log(err),
     })
 
@@ -32,6 +35,7 @@ const GetAssignatures = () => {
 
   return (
     <>
+        {console.log('assignatures',assignatures)}
         {assignatures && assignatures.map( assignature => <Assignature key={assignature.id} assignature={assignature}/>)}
     </>
   )
