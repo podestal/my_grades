@@ -140,21 +140,28 @@ class GetSimpleActivityHeaderSerializer(serializers.ModelSerializer):
 
 class GetSimpleGradesSerializer(serializers.ModelSerializer):
 
-    activity = GetSimpleActivityHeaderSerializer()
+    # activity = GetSimpleActivityHeaderSerializer()
 
     class Meta:
         model = models.Grade
         fields = ['id', 'activity', 'calification']
+
+class GetQuarterGradeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.QuarterGrade
+        fields = '__all__'
 
 class GetStudentSerializer(serializers.ModelSerializer):
 
     atendances = GetSimpleAttendanceSerializer(many=True)
     participations = GetParticipationSerializer(many=True)
     grades= GetSimpleGradesSerializer(many=True)
+    averages= GetQuarterGradeSerializer(many=True)
 
     class Meta:
         model = models.Student
-        fields = ['id', 'first_name', 'last_name', 'clase', 'school', 'atendances', 'participations', 'grades']
+        fields = ['id', 'first_name', 'last_name', 'clase', 'school', 'atendances', 'participations', 'grades', 'averages']
 
 class GetSimpleStudentSerializer(serializers.ModelSerializer):
 
@@ -224,11 +231,6 @@ class CreateAnnouncementSerializer(serializers.ModelSerializer):
         user_id = self.context['user_id']
         return models.Annunciation.objects.create(user_id = user_id, **validated_data)
     
-class GetQuarterGradeSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = models.QuarterGrade
-        fields = '__all__'
 
 
 

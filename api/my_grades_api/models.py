@@ -133,6 +133,9 @@ class Activity(models.Model):
     due_date = models.DateField(null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     quarter = models.CharField(max_length=2, choices=QUARTER_CHOICES)
+
+    def __str__(self):
+        return self.title
     
 class Atendance(models.Model):
 
@@ -186,7 +189,6 @@ class QuarterGrade(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='averages')
     quarter = models.CharField(max_length=2, choices=QUARTER_CHOICES)
     competence = models.ForeignKey(Competence, on_delete=models.PROTECT)
-
 
 
 class Participation(models.Model):

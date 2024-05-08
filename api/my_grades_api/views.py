@@ -194,7 +194,7 @@ class AtendanceViewSet(ModelViewSet):
     
 class StudentViewSet(ModelViewSet):
 
-    queryset = models.Student.objects.select_related('school', 'clase').prefetch_related('atendances', 'participations', 'grades')
+    queryset = models.Student.objects.select_related('school', 'clase').prefetch_related('atendances', 'participations', 'grades', 'averages')
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['clase', 'school']
     http_method_names = ['get', 'patch', 'delete']
@@ -253,6 +253,14 @@ class QuarterGradeViewSet(ModelViewSet):
 
     queryset = models.QuarterGrade.objects.select_related('student', 'assignature', 'competence')
     serializer_class = serializers.GetQuarterGradeSerializer
+    http_method_names = ['get', 'post', 'patch', 'delete']
+
+    def get_permissions(self):
+        if self.request.method in ['PATCH', 'POST', 'DELETE']:
+            return [IsAdminUser()]
+        return [IsAuthenticated()]
+
+    
 
 # class AssignmentViewSet(ModelViewSet):
 
