@@ -23,7 +23,10 @@ const Categories = () => {
     <div className='min-h-[100vh]'>
         <div className='flex items-center justify-center gap-12 w-full'>
             <h2 className={`my-12 ${styles.gradientTitle}`}>Categorías</h2>
-            <Button disabled={categories.length == 0 ? true : false} color='violet-950' onClick={() => setOpen(true)} className=' hover:bg-violet-900'>Crear Categoría</Button>
+            <CreateCategory 
+                open={open}
+                setOpen={setOpen}
+            />
         </div>
         {
             categories.length == 0 

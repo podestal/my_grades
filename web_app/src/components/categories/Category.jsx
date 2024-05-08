@@ -29,18 +29,17 @@ const Category = ({ category }) => {
     <>
         <div className="flex w-[520px] gap-8 my-4 ">
             <Button onClick={handleDelete} color="red" className="mr-4">Borrar</Button>
-            <Button onClick={() => setOpen(true)} color='blue' className="mr-4">Editar</Button>
+            <UpdateCategory    
+                open={open}
+                setOpen={setOpen}
+                category={category}
+            />
             <div className='w-full flex justify-between items-center'>
                 <p className='text-white font-poppins text-xl'>{category.title}</p>
                 <p className='text-white font-poppins'>{category.weight ? `${category.weight * 100}%` : '-'}</p>
             </div>
         </div>
-        <UpdateCategory    
-            open={open}
-            setOpen={setOpen}
-            // create={createCategoryMutation}
-            category={category}
-        />
+
     </>
   )
 }

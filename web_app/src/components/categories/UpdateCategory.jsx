@@ -3,8 +3,12 @@ import useCategories from "../../hooks/useCategories"
 import CategoryForm from "./CategoryForm"
 import { updateCategory } from "../../api/api"
 import { useState } from "react"
+import { Button } from "@tremor/react"
 
-const UpdateCategory = ({ open, setOpen, category }) => {
+const UpdateCategory = ({ category }) => {
+
+    // PANEL CONDITIONALS
+    const [open, setOpen] = useState(false)
 
     // LOCAL CATEGORIES SETTER
     const { setCategories } = useCategories()
@@ -45,16 +49,19 @@ const UpdateCategory = ({ open, setOpen, category }) => {
     })
 
   return (
-    <CategoryForm 
-        open={open}
-        setOpen={setOpen}
-        success={success}
-        error={error}
-        titleError={titleError}
-        weightError={weightError}
-        category={category}
-        update={updateCategoryMutation}
-    />
+    <>
+        <Button onClick={() => setOpen(true)} color='blue' className="mr-4">Editar</Button>
+        <CategoryForm 
+            open={open}
+            setOpen={setOpen}
+            success={success}
+            error={error}
+            titleError={titleError}
+            weightError={weightError}
+            category={category}
+            update={updateCategoryMutation}
+        />
+    </>
   )
 }
 

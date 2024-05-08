@@ -3,8 +3,12 @@ import { createCategory } from "../../api/api"
 import { useState } from "react"
 import CategoryForm from "./CategoryForm"
 import useCategories from "../../hooks/useCategories"
+import { Button } from "@tremor/react"
 
-const CreateCategory = ({ open, setOpen }) => {
+const CreateCategory = () => {
+
+    // PANEL CONDITIONALS
+    const [open, setOpen] = useState(false)
 
     // ERROR HANDLING
     const [success, setSuccess] = useState('')
@@ -40,15 +44,19 @@ const CreateCategory = ({ open, setOpen }) => {
     })
 
   return (
-    <CategoryForm 
-        open={open}
-        setOpen={setOpen}
-        success={success}
-        error={error}
-        titleError={titleError}
-        weightError={weightError}
-        create={createCategoryMutation}
-    />
+    <>
+        <Button disabled={categories.length == 0 ? true : false} color='violet-950' onClick={() => setOpen(true)} className=' hover:bg-violet-900'>Crear Categoría</Button>
+        <CategoryForm 
+            open={open}
+            setOpen={setOpen}
+            success={success}
+            error={error}
+            titleError={titleError}
+            weightError={weightError}
+            create={createCategoryMutation}
+        />
+    </>
+
   )
 }
 
