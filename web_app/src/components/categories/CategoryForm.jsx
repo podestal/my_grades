@@ -81,6 +81,7 @@ const CategoryForm = ({ open, setOpen, category, success, error, create, update 
             <InputText 
                 label={'Porcentaje'}
                 value={weight}
+                type={'number'}
                 setter={setWeight}
                 error={weightError}
                 errorMsg={"Se necesita el porcentaje para crear la categoría"}

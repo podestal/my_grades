@@ -113,9 +113,10 @@ const StudentsTable = ({ activities, assignature }) => {
                 .map( student => {
 
                 const gradesActivity = student.grades.map( grade => {
-                    const activity = String(grade.activity.title)
+                    const activity = activities.find( activity => activity.id == grade.activity)?.title
                     const obj = {}
                     obj[activity] = {calification: grade.calification, gradeId: grade.id}
+                    console.log('obj', obj)
                     return {
                         ...obj
                     }
