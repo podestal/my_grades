@@ -10,6 +10,9 @@ const CreateCategory = () => {
     // PANEL CONDITIONALS
     const [open, setOpen] = useState(false)
 
+    // CLEAR INPUTS
+    const [clear, setClear] = useState(false)
+
     // ERROR HANDLING
     const [success, setSuccess] = useState('')
     const [error, setError] = useState('')

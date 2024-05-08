@@ -19,7 +19,15 @@ const CategoryForm = ({ open, setOpen, category, success, error, create, update 
     const [titleError, setTitleError] = useState(false)
     const [weightError, setWeightError] = useState(false)
 
-    // CREATE HANDLER
+    const handleClosePanel = () => {
+        if (create) {
+            setTitle('')
+            setWeight('')
+        } 
+        setOpen(false)
+    }
+
+    // CREATE/UPDATE HANDLER
     const handleSubmit = () => {
 
         // SET ERRORS TO FALSE
@@ -50,25 +58,26 @@ const CategoryForm = ({ open, setOpen, category, success, error, create, update 
         }})
 
         // EMPTYING INPUT DATA
-        if (success) {
-            setTitle('')
-            setWeight('')
-        }
+        // setTitle('')
+        // setWeight('')
+        // console.log('successs', success);
+        // if (success.length != 0) {
+        //     setTitle('')
+        //     setWeight('')
+        // }
     }
 
   return (
     <Dialog
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={handleClosePanel}
     >
         <DialogPanel
             className="relative flex flex-col gap-4 items-center"
         >
             <GenericCallout conditionalMsg={error} title={'Error'} color={'red'}/>
             <GenericCallout conditionalMsg={success} title={category ? 'Categoría editada' :'Categoría creada'} color={'teal'}/>
-            <CloseButton 
-                setOpen={setOpen}
-            />
+            <CloseButton handleClose={handleClosePanel}/>
             <h2 className="text-white mb-6 text-3xl text-center">{category ? 'Editar Categoría' : 'Nuevo Categoría'}</h2>
             <InputText 
                 label={'Título'}
