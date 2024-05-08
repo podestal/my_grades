@@ -4,12 +4,14 @@ import CreateCategory from "./CreateCategory"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import useAuth from "../../hooks/useAuth"
 import { deleteCategory } from "../../api/api"
+import UpdateCategory from "./UpdateCategory"
 
 const Category = ({ category }) => {
 
     const [open, setOpen] = useState(false)
     const { user } = useAuth()
     const queryClient = useQueryClient()
+
     const { mutate: deleteCategoryMutation } = useMutation({
         mutationFn: data => deleteCategory(data),
         onSuccess: res => {
@@ -33,14 +35,12 @@ const Category = ({ category }) => {
                 <p className='text-white font-poppins'>{category.weight ? `${category.weight * 100}%` : '-'}</p>
             </div>
         </div>
-        {open && 
-            <Dialog open={open} onClose={() => setOpen(false)}>
-                <CreateCategory 
-                    setOpen={setOpen}
-                    category={category}
-                />
-            </Dialog>
-        }
+        <UpdateCategory    
+            open={open}
+            setOpen={setOpen}
+            // create={createCategoryMutation}
+            category={category}
+        />
     </>
   )
 }

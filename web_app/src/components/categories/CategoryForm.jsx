@@ -6,7 +6,7 @@ import InputText from "../../utils/InputText"
 import GenericCallout from "../../utils/GenericCallout"
 import useAuth from "../../hooks/useAuth"
 
-const CategoryForm = ({ open, setOpen, category, success, error, create }) => {
+const CategoryForm = ({ open, setOpen, category, success, error, create, update }) => {
 
     // AUTH CREDENTIALS
     const { user } = useAuth()
@@ -20,12 +20,13 @@ const CategoryForm = ({ open, setOpen, category, success, error, create }) => {
     const [weightError, setWeightError] = useState(false)
 
     // CREATE HANDLER
-    const handleCreate = () => {
+    const handleSubmit = () => {
 
         // SET ERRORS TO FALSE
         setTitleError(false)
         setWeightError(false)
 
+        // INPUTS VALIDATION
         if (title.length == 0) {
             setTitleError(true)
             return
@@ -36,8 +37,14 @@ const CategoryForm = ({ open, setOpen, category, success, error, create }) => {
             return
         }
 
-        // Mutate
-        create({ token: user.access, category: {
+        // CREATE MUTATION
+        create && create({ token: user.access, category: {
+            title,
+            weight: weight/100,
+        }})
+
+        // UPDATE MUTATION
+        update && update({ token: user.access, categoryId: category.id, updates: {
             title,
             weight: weight/100,
         }})
@@ -47,10 +54,6 @@ const CategoryForm = ({ open, setOpen, category, success, error, create }) => {
             setTitle('')
             setWeight('')
         }
-    }
-
-    const handleUpdate = () => {
-
     }
 
   return (
@@ -81,7 +84,7 @@ const CategoryForm = ({ open, setOpen, category, success, error, create }) => {
                 error={weightError}
                 errorMsg={"Se necesita el porcentaje para crear la categoría"}
             />
-            <Button onClick={handleCreate} className="w-[160px] mx-auto mt-6" color="blue">{category ? 'Guardar' : 'Crear'}</Button>
+            <Button onClick={handleSubmit} className="w-[160px] mx-auto mt-6" color="blue">{category ? 'Guardar' : 'Crear'}</Button>
         </DialogPanel>
     </Dialog>
   )
