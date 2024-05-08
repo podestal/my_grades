@@ -15,7 +15,7 @@ import CategoryForm from '../../components/categories/CategoryForm'
 
 const Categories = () => {
 
-    const [open, setOpen] = useState(false)
+    // LOCAL CATEGORIES
     const { categories, setCategories } = useCategories()
 
 
@@ -23,10 +23,7 @@ const Categories = () => {
     <div className='min-h-[100vh]'>
         <div className='flex items-center justify-center gap-12 w-full'>
             <h2 className={`my-12 ${styles.gradientTitle}`}>Categorías</h2>
-            <CreateCategory 
-                open={open}
-                setOpen={setOpen}
-            />
+            <CreateCategory />
         </div>
         {
             categories.length == 0 
@@ -47,11 +44,6 @@ const Categories = () => {
                 <CategoryChart 
                     categories={categories}
                 />
-                <CreateCategory 
-                    open={open}
-                    setOpen={setOpen}
-                />
-
             </div>
         }
 

@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import useAuth from "../../hooks/useAuth"
 import { deleteCategory } from "../../api/api"
 import UpdateCategory from "./UpdateCategory"
+import DeleteCategory from "./DeleteCategory"
 
 const Category = ({ category }) => {
 
@@ -28,10 +29,10 @@ const Category = ({ category }) => {
   return (
     <>
         <div className="flex w-[520px] gap-8 my-4 ">
-            <Button onClick={handleDelete} color="red" className="mr-4">Borrar</Button>
+            <DeleteCategory 
+                category={category}
+            />
             <UpdateCategory    
-                open={open}
-                setOpen={setOpen}
                 category={category}
             />
             <div className='w-full flex justify-between items-center'>
