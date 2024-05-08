@@ -223,6 +223,12 @@ class CreateAnnouncementSerializer(serializers.ModelSerializer):
         
         user_id = self.context['user_id']
         return models.Annunciation.objects.create(user_id = user_id, **validated_data)
+    
+class GetQuarterGradeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.QuarterGrade
+        fields = '__all__'
 
 
 

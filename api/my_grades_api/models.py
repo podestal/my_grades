@@ -165,6 +165,30 @@ class Grade(models.Model):
     created_at = models.DateField(auto_now_add=True)
     observations = models.TextField(null=True, blank=True)
 
+class QuarterGrade(models.Model):
+
+    CALIFICATION_CHOICES = [
+        ('AD', 'AD'),
+        ('A', 'A'),
+        ('B', 'B'),
+        ('C', 'C')
+    ]
+
+    QUARTER_CHOICES = [
+        ('Q1', 'First Quarter'),
+        ('Q2', 'Second Quarter'),
+        ('Q3', 'Third Quarter'),
+        ('Q4', 'Fourth Quarter'),
+    ]
+
+    calification = models.CharField(max_length=2, choices=CALIFICATION_CHOICES)
+    assignature = models.ForeignKey(Assignature, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='averages')
+    quarter = models.CharField(max_length=2, choices=QUARTER_CHOICES)
+    competence = models.ForeignKey(Competence, on_delete=models.PROTECT)
+
+
+
 class Participation(models.Model):
 
     CALIFICATION_CHOICES = [

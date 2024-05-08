@@ -248,6 +248,11 @@ class AnnouncementViewSet(ModelViewSet):
     
     def get_serializer_context(self):
         return { 'user_id': self.request.user.id }
+    
+class QuarterGradeViewSet(ModelViewSet):
+
+    queryset = models.QuarterGrade.objects.select_related('student', 'assignature', 'competence')
+    serializer_class = serializers.GetQuarterGradeSerializer
 
 # class AssignmentViewSet(ModelViewSet):
 
