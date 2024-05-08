@@ -48,23 +48,15 @@ const CategoryForm = ({ open, setOpen, category, success, error, create, update 
         // CREATE MUTATION
         create && create({ token: user.access, category: {
             title,
-            weight: weight/100,
+            weight: (weight/100).toFixed(2),
         }})
 
         // UPDATE MUTATION
         update && update({ token: user.access, categoryId: category.id, updates: {
             title,
-            weight: weight/100,
+            weight: (weight/100).toFixed(2),
         }})
 
-        // EMPTYING INPUT DATA
-        // setTitle('')
-        // setWeight('')
-        // console.log('successs', success);
-        // if (success.length != 0) {
-        //     setTitle('')
-        //     setWeight('')
-        // }
     }
 
   return (

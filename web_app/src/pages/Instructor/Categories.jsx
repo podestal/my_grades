@@ -12,6 +12,7 @@ import useCategories from '../../hooks/useCategories'
 import GetCategories from '../../components/getters/GetCategories'
 import { styles } from '../../utils/styles'
 import CategoryForm from '../../components/categories/CategoryForm'
+import CategoriesBody from '../../components/categories/CategoriesBody'
 
 const Categories = () => {
 
@@ -32,19 +33,9 @@ const Categories = () => {
                 setCategories={setCategories}
             />
             : 
-            <div className='w-full flex flex-row mt-12 mx-auto items-center justify-evenly h-full'>
-                <div className='flex flex-col'>
-                    {categories && categories.map( category => (
-                        <Category 
-                            key={category.id}
-                            category={category}
-                        />
-                    ) )}
-                </div>
-                <CategoryChart 
-                    categories={categories}
-                />
-            </div>
+            <CategoriesBody 
+                categories={categories}
+            />
         }
 
     </div>
