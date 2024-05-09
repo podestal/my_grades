@@ -32,7 +32,7 @@ const CreateCategory = () => {
             setSuccess('Su categoría ha sido creada con éxito')
             categories.length > 0 
             ? setCategories(prev => [...prev, res.data])
-            : setCategories(res.data)
+            : setCategories([res.data])
             setTimeout(() => {
                 setSuccess('')
             }, 2000)
@@ -48,7 +48,7 @@ const CreateCategory = () => {
 
   return (
     <>
-        <Button disabled={categories.length == 0 ? true : false} color='violet-950' onClick={() => setOpen(true)} className=' hover:bg-violet-900'>Crear Categoría</Button>
+        <Button color='violet-950' onClick={() => setOpen(true)} className=' hover:bg-violet-900'>Crear Categoría</Button>
         <CategoryForm 
             open={open}
             setOpen={setOpen}

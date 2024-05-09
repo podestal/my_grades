@@ -3,6 +3,7 @@ import { getCategories } from "../../api/api"
 import useAuth from "../../hooks/useAuth"
 import { useEffect } from "react"
 import Loading from "../../utils/Loading"
+import NoContent from "../../utils/NoContent"
 
 const GetCategories = ({ setCategories }) => {
 
@@ -20,6 +21,12 @@ const GetCategories = ({ setCategories }) => {
     }, [categories])
 
     if (isLoading) return <Loading />
+
+    return (
+        <>
+            {categories.data.length == 0 && <NoContent />}
+        </>
+    )
 
 }
 

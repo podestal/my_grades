@@ -19,7 +19,7 @@ const CategoriesTotal = ({ categories }) => {
                     ${total == 1 && 'text-green-500'}
                     ${total > 1 && 'text-red-500'}
                 `}
-            >{total * 100}%</p>
+            >{(total * 100).toFixed(0)}%</p>
         </div>
     </>
   )

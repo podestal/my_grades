@@ -9,7 +9,6 @@ import useCategories from "../../../hooks/useCategories"
 import useAuth from "../../../hooks/useAuth"
 import moment from 'moment'
 import GetCategories from "../../getters/GetCategories"
-import { getCategoryById } from "../../../utils/filters"
 
 const CreateActivity = ({ assignature, activity }) => {
 
@@ -36,12 +35,6 @@ const CreateActivity = ({ assignature, activity }) => {
     // Error handling
     const [success, setSuccess] = useState('')
     const [error, setError] = useState('')
-
-    // Query Categories
-    // const { data: categories } = useQuery({
-    //     queryKey: ['categories'],
-    //     queryFn: () => getCategories({ token: user.access })
-    // })
 
     // Mutation Create
     const { mutate: createActivityMutation } = useMutation({

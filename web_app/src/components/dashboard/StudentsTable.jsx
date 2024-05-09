@@ -92,14 +92,6 @@ const StudentsTable = ({ activities, assignature }) => {
             <CreateActivity 
                 assignature={assignature}
             />
-            {/* <div>
-                <p className='text-xl mb-4'>Capacidades</p>
-                <MultiSelect>
-                    {capacities.map(capacity => (
-                        <MultiSelectItem key={capacity.id}>{capacity.title}</MultiSelectItem>
-                    ))}
-                </MultiSelect>
-            </div> */}
         </div>
 
         <DashboardTable 
