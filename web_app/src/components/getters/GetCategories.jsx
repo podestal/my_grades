@@ -22,12 +22,6 @@ const GetCategories = ({ setCategories }) => {
 
     if (isLoading) return <Loading />
 
-    return (
-        <>
-            {categories.data.length == 0 && <NoContent />}
-        </>
-    )
-
 }
 
 export default GetCategories

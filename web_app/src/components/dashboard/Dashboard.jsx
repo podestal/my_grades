@@ -2,7 +2,6 @@ import StudentsTable from "./StudentsTable"
 import { useLocation } from "react-router-dom"
 import useActivities from "../../hooks/useActivities"
 import GetActivities from "../getters/GetActivities"
-import DashboardHeader from "./DashboardHeader"
 
 const Dashboard = () => {
 
@@ -12,7 +11,6 @@ const Dashboard = () => {
 
   return (
     <div className="text-white min-h-[100vh] mt-[8rem] max-w-[1450px] mx-auto relative">
-        <DashboardHeader />
         {activities.length == 0 
         ? 
         <GetActivities 

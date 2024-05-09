@@ -1,6 +1,7 @@
 import CategoryChart from "./CategoryChart"
 import Category from "./Category"
 import CategoriesTotal from "./CategoriesTotal"
+import NoContent from "../../utils/NoContent"
 
 const CategoriesBody = ({ categories }) => {
 

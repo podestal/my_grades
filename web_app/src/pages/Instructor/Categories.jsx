@@ -13,6 +13,7 @@ import GetCategories from '../../components/getters/GetCategories'
 import { styles } from '../../utils/styles'
 import CategoryForm from '../../components/categories/CategoryForm'
 import CategoriesBody from '../../components/categories/CategoriesBody'
+import NoContent from '../../utils/NoContent'
 
 const Categories = () => {
 
@@ -29,9 +30,12 @@ const Categories = () => {
         {
             categories.length == 0 
             ? 
-            <GetCategories 
-                setCategories={setCategories}
-            />
+            <>
+                <GetCategories 
+                    setCategories={setCategories}
+                />
+                <NoContent />
+            </>
             : 
             <CategoriesBody 
                 categories={categories}

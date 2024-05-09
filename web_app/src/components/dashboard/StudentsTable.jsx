@@ -108,7 +108,6 @@ const StudentsTable = ({ activities, assignature }) => {
                     const activity = activities.find( activity => activity.id == grade.activity)?.title
                     const obj = {}
                     obj[activity] = {calification: grade.calification, gradeId: grade.id}
-                    console.log('obj', obj)
                     return {
                         ...obj
                     }
