@@ -16,8 +16,8 @@ class User(AbstractUser):
         (AUXILIAR_PROFILE, 'Auxiliar')
     ]
 
-    profile = models.CharField(max_length=1, choices=PROFILE_CHOICES)
-    school = models.ForeignKey(School, on_delete=models.PROTECT)
+    profile = models.CharField(max_length=1, choices=PROFILE_CHOICES, null=True, blank=True)
+    school = models.ForeignKey(School, on_delete=models.PROTECT, null=True, blank=True)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'

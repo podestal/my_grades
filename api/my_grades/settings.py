@@ -92,13 +92,23 @@ WSGI_APPLICATION = 'my_grades.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': os.environ.get('DB_NAME_DEV'),
+#         'HOST':  os.environ.get('DB_HOST_DEV'),
+#         'USER':  os.environ.get('DB_USER_DEV'),
+#         'PASSWORD':  os.environ.get('DB_PASSWORD_DEV'),
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DB_NAME_DEV'),
-        'HOST':  os.environ.get('DB_HOST_DEV'),
-        'USER':  os.environ.get('DB_USER_DEV'),
-        'PASSWORD':  os.environ.get('DB_PASSWORD_DEV'),
+        'NAME': os.environ.get('DB_NAME_TEST'),
+        'HOST':  os.environ.get('DB_HOST_TEST'),
+        'USER':  os.environ.get('DB_USER_TEST'),
+        'PASSWORD':  os.environ.get('DB_PASSWORD_TEST'),
     }
 }
 
