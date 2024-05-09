@@ -17,8 +17,9 @@ class SchoolViewSet(ModelViewSet):
 
     queryset = models.School.objects.all()
     serializer_class = serializers.SchoolSerializer
-    # permission_classes = [permissions.IsSuperUserOrReadOnly]
+    permission_classes = [permissions.IsSuperUserOrReadOnly]
     http_method_names = ['get', 'post', 'patch', 'delete']
+
 
 class CompetenceViewSet(ModelViewSet):
 
@@ -44,17 +45,16 @@ class CapacityViewSet(ModelViewSet):
 class InstructorViewSet(ModelViewSet):
 
     permission_classes = [permissions.IsSuperUserOrReadOnly]
-    serializer_class = serializers.GetInstructorSerializer
 
     def get_queryset(self):
         if self.request.user.is_superuser:
             return models.Instructor.objects.select_related('school', 'user')
         return models.Instructor.objects.select_related('school', 'user').filter(user_id=self.request.user.id)
     
-    # def get_serializer_class(self):
-    #     if self.request.method == 'POST':
-    #         return serializers.CreateInstructorSerializer
-    #     return serializers.GetInstructorSerializer
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return serializers.CreateInstructorSerializer
+        return serializers.GetInstructorSerializer
     
     # @action(detail=False, methods=['GET'], permission_classes=[IsAdminUser])
     # def me(self, request):
@@ -128,6 +128,10 @@ class AssignatureViewSet(ModelViewSet):
             
         return models.Assignature.objects.select_related('clase', 'Instructor', 'area').filter(Instructor_id=0)
 
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return serializers.CreateAssignatureSerializer
+        return serializers.GetAssignatureSerializer
 #     def get_serializer_class(self):
 #         if self.request.method == 'POST':
 #             return serializers.CreateAssignatureSerializer
@@ -197,8 +201,12 @@ class StudentViewSet(ModelViewSet):
     queryset = models.Student.objects.select_related('school', 'clase').prefetch_related('atendances', 'participations', 'grades', 'averages')
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['clase', 'school']
-    http_method_names = ['get', 'patch', 'delete']
-    serializer_class = serializers.GetStudentSerializer
+    http_method_names = ['get', 'patch', 'delete', 'post']
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return serializers.CreateStudentSerializer
+        return serializers.GetStudentSerializer
 
     def get_permissions(self):
         if self.request.method in ['PATCH', 'POST', 'DELETE']:

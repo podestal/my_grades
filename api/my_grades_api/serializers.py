@@ -55,6 +55,13 @@ class GetInstructorSerializer(serializers.ModelSerializer):
         model = models.Instructor
         fields = ['id', 'first_name', 'last_name', 'user', 'school']
 
+class CreateInstructorSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Instructor
+        fields = ['id', 'first_name', 'last_name', 'user', 'school']
+
+
 class GetCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -74,6 +81,12 @@ class CreateCategorySerializer(serializers.ModelSerializer):
 class GetAssignatureSerializer(serializers.ModelSerializer):
 
     clase = GetSimpleClaseSerializer()
+
+    class Meta:
+        model = models.Assignature
+        fields = ['id', 'title', 'Instructor', 'area', 'clase']
+
+class CreateAssignatureSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Assignature
@@ -162,6 +175,11 @@ class GetStudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Student
         fields = ['id', 'first_name', 'last_name', 'clase', 'school', 'atendances', 'participations', 'grades', 'averages']
+
+class CreateStudentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Student
+        fields = ['id', 'first_name', 'last_name', 'clase', 'school']
 
 class GetSimpleStudentSerializer(serializers.ModelSerializer):
 
