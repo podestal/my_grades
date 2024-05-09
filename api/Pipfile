@@ -16,6 +16,7 @@ pytest = "*"
 pytest-django = "*"
 model-bakery = "*"
 django-debug-toolbar = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
