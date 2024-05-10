@@ -1,4 +1,4 @@
-import CreateActivity from "./dashboardComponents/CreateActivity"
+import CreateActivity from "../activities/CreateActivity"
 
 const DashboardHeader = ({ assignature }) => {
   return (

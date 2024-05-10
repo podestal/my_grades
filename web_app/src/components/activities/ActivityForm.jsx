@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Button, Dialog, DialogPanel, DatePicker, Select, SelectItem } from "@tremor/react"
+import { Button, Dialog, DialogPanel, DatePicker, Textarea } from "@tremor/react"
 import { es } from 'date-fns/locale'
 import moment from "moment"
 import useCategories from "../../hooks/useCategories"
@@ -9,8 +9,10 @@ import useAuth from "../../hooks/useAuth"
 import InputText from "../../utils/InputText"
 import GenericCallout from "../../utils/GenericCallout"
 import CloseButton from "../../utils/CloseButton"
+import Selector from "../../utils/Selector"
+import { quartersData } from "../../data/quarters"
 
-const ActivityForm = ({ activity, assignature, open, setOpen, success, error, create, update }) => {
+const ActivityForm = ({ activity, assignature, open, setOpen, success, setSuccess, setError, error, create, update }) => {
 
     // USER
     const { user } = useAuth()
@@ -45,6 +47,8 @@ const ActivityForm = ({ activity, assignature, open, setOpen, success, error, cr
             setSelectedQuarter('')
         } 
         setOpen(false)
+        setSuccess('')
+        setError('')
     }
 
     const handleCreate = () => {
@@ -89,41 +93,27 @@ const ActivityForm = ({ activity, assignature, open, setOpen, success, error, cr
                 setter={setDescription}
                 error={descriptionError}
                 errorMsg={"Se necesita el porcentaje para crear la categoría"}
+                textArea={true}
             />
             <p className="text-white font-poppins">Fecha de entrega</p>
             <DatePicker 
                 value={date}
                 onValueChange={value => setDate(value)}
                 locale={es}
+                className="w-[270px]"
             />
-            <p className="text-white font-poppins">Bimestre</p>
-            <Select value={selectedQuarter} onValueChange={ value => setSelectedQuarter(value)}>
-                <SelectItem value="Q1">B1</SelectItem>
-                <SelectItem value="Q2">B2</SelectItem>
-                <SelectItem value="Q3">B3</SelectItem>
-                <SelectItem value="Q4">B4</SelectItem>
-            </Select>
-            <p className="text-white font-poppins">Categoría</p>
-            <Select value={selectedCategory} onValueChange={ value => setSelectedCategory(value)}>
-                {categories && categories.map( category => (
-                    <SelectItem value={category.id}  key={category.id}>{category.title}</SelectItem>
-                ))}
-            </Select>
-            <p className="text-white font-poppins">Competencia</p>
-            <Select value={selectedCompetency} onValueChange={ value => setSelectedCompetency(value)}>
-                {competencies.map( competency => (
-                    <SelectItem value={competency.id}  key={competency.id}>{competency.title}</SelectItem>
-                ))}
-            </Select>
-            {selectedCompetency && 
-            <>
-                <p className="text-white font-poppins">Capacidad</p>
-                <Select value={selectedCapacity} onValueChange={ value => setSelectedCapacity(value)}>
-                    {capacities.map( capacity => (
-                        <SelectItem value={capacity.id}  key={capacity.id}>{capacity.title}</SelectItem>
-                    ))}
-                </Select>
-            </>}
+            {/* Quarter Selector */}
+            <Selector label={'Bimestre'} value={selectedQuarter} setter={setSelectedQuarter} items={quartersData}/>
+
+            {/* Categories Selector */}
+            <Selector label={'Categoría'} value={selectedCategory} setter={setSelectedCategory} items={categories} />
+            
+            {/* Competences Selector */}
+            <Selector label={'Competencia'} value={selectedCompetency} setter={setSelectedCompetency} items={competencies} />
+            
+            {/* Capacities Selector */}
+            {selectedCompetency && <Selector label={'Capacidad'} value={selectedCapacity} setter={setSelectedCapacity} items={capacities} />}
+
             <Button onClick={handleCreate} className="w-[160px] mx-auto mt-6" color="blue">{activity ? 'Guardar' : 'Crear'}</Button>
         </DialogPanel>
     </Dialog>

@@ -5,7 +5,7 @@ import Grade from "./Grade"
 import { TextInput, Button } from "@tremor/react"
 import ActivityCard from "../activities/ActivityCard"
 import { useState } from "react"
-import CreateActivity from "../dashboard/dashboardComponents/CreateActivity"
+import CreateActivity from "../activities/CreateActivity"
 import useAssignatures from "../../hooks/useAssignatures"
 import { RiSearchLine } from '@remixicon/react';
 import Loading from "../../utils/Loading"

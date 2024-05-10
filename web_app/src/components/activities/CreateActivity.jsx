@@ -1,11 +1,11 @@
 import { Button } from "@tremor/react"
 import { useState } from "react"
-import { createActivity, updateActivity } from "../../../api/api"
+import { createActivity, updateActivity } from "../../api/api"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import useCategories from "../../../hooks/useCategories"
-import GetCategories from "../../getters/GetCategories"
-import useActivities from "../../../hooks/useActivities"
-import ActivityForm from "../../activities/ActivityForm"
+import useCategories from "../../hooks/useCategories"
+import GetCategories from "../getters/GetCategories"
+import useActivities from "../../hooks/useActivities"
+import ActivityForm from "./ActivityForm"
 
 const CreateActivity = ({ assignature, activity }) => {
 
@@ -25,7 +25,7 @@ const CreateActivity = ({ assignature, activity }) => {
     const { mutate: createActivityMutation } = useMutation({
         mutationFn: data => createActivity(data),
         onSuccess: res => {
-            setSuccess('Actividad Creada')
+            setSuccess('Su actividad fué creada con éxito')
             setError('')
             queryClient.invalidateQueries(['activities'])
             activities.length > 0
@@ -71,7 +71,6 @@ const CreateActivity = ({ assignature, activity }) => {
         //         }
         //     })
         // } 
-
     }
 
   return (
@@ -91,7 +90,9 @@ const CreateActivity = ({ assignature, activity }) => {
                 open={open}
                 setOpen={setOpen}
                 success={success}
+                setSuccess={setSuccess}
                 error={error}
+                setError={setError}
                 create={createActivityMutation}
             />
         </div>

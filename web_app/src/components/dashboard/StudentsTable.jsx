@@ -8,7 +8,7 @@ import DashboardTable from './DashboardTable'
 import { TextInput, Select, SelectItem, Button, TabGroup, TabList, Tab } from '@tremor/react'
 import { capacitiesData } from '../../data/capacities'
 import { competenciesData } from '../../data/competencies'
-import CreateActivity from './dashboardComponents/CreateActivity'
+import CreateActivity from '../activities/CreateActivity'
 import { RiSearchLine } from "@remixicon/react"
 import Loading from '../../utils/Loading'
 
