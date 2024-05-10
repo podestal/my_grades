@@ -19,6 +19,7 @@ const CategoryForm = ({ open, setOpen, category, success, error, create, update 
     const [titleError, setTitleError] = useState(false)
     const [weightError, setWeightError] = useState(false)
 
+    // ON CLOSE PANEL
     const handleClosePanel = () => {
         if (create) {
             setTitle('')

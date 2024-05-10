@@ -1,30 +1,10 @@
-import { Button, Dialog } from "@tremor/react"
-import { useState } from "react"
-import CreateCategory from "./CreateCategory"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
-import useAuth from "../../hooks/useAuth"
-import { deleteCategory } from "../../api/api"
 import UpdateCategory from "./UpdateCategory"
 import DeleteCategory from "./DeleteCategory"
 
 const Category = ({ category }) => {
 
-    const [open, setOpen] = useState(false)
-    const { user } = useAuth()
-    const queryClient = useQueryClient()
-
-    const { mutate: deleteCategoryMutation } = useMutation({
-        mutationFn: data => deleteCategory(data),
-        onSuccess: res => {
-            console.log(res.data)
-            queryClient.invalidateQueries(['categories'])
-        },
-        onError: err => console.log(err.message)
-    })
-
-    const handleDelete = () => {
-        deleteCategoryMutation({ token: user.access, categoryId: category.id })
-    }
+    const weight = (category?.weight * 100).toFixed(0) || '-'
+    const title = category?.title || ''
 
   return (
     <>
@@ -36,8 +16,8 @@ const Category = ({ category }) => {
                 category={category}
             />
             <div className='w-full flex justify-between items-center'>
-                <p className='text-white font-poppins text-xl'>{category.title}</p>
-                <p className='text-white font-poppins'>{category.weight ? `${category.weight * 100}%` : '-'}</p>
+                <p className='text-white font-poppins text-xl'>{title}</p>
+                <p className='text-white font-poppins'>{weight}</p>
             </div>
         </div>
 
