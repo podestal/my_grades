@@ -29,7 +29,7 @@ const ActivityForm = ({ activity, assignature, open, setOpen, success, setSucces
     const [selectedCompetency, setSelectedCompetency] = useState(activity && activity.competence || '')
     const capacities = selectedCompetency && capacitiesData.filter( capacity => capacity.competence == selectedCompetency)
     const [selectedCapacity, setSelectedCapacity] = useState(activity && activity.capacity || '')
-    const [selectedQuarter, setSelectedQuarter] = useState('Q2')
+    const [selectedQuarter, setSelectedQuarter] = useState(activity && activity.quarter || 'Q2')
 
     // VALIDATION ERROR HANDLING
     const [titleError, setTitleError] = useState(false)
@@ -51,14 +51,28 @@ const ActivityForm = ({ activity, assignature, open, setOpen, success, setSucces
         setError('')
     }
 
-    const handleCreate = () => {
+    const handleSubmit = () => {
         const formattedDate = moment(date).format('YYYY-MM-DD')
-        create({
+        create &&  create({
             token: user.access,
             activity: {
                 title,
                 description,
                 assignature: assignature.id,
+                quarter: selectedQuarter,
+                due_date: formattedDate,
+                competence: selectedCompetency,
+                capacity: selectedCapacity,
+                category: selectedCategory,
+            }
+        })
+
+        update && update({
+            token: user.access,
+            activityId: activity.id,
+            updates: {
+                title,
+                description,
                 quarter: selectedQuarter,
                 due_date: formattedDate,
                 competence: selectedCompetency,
@@ -114,7 +128,7 @@ const ActivityForm = ({ activity, assignature, open, setOpen, success, setSucces
             {/* Capacities Selector */}
             {selectedCompetency && <Selector label={'Capacidad'} value={selectedCapacity} setter={setSelectedCapacity} items={capacities} />}
 
-            <Button onClick={handleCreate} className="w-[160px] mx-auto mt-6" color="blue">{activity ? 'Guardar' : 'Crear'}</Button>
+            <Button onClick={handleSubmit} className="w-[160px] mx-auto mt-6" color="blue">{activity ? 'Guardar' : 'Crear'}</Button>
         </DialogPanel>
     </Dialog>
   )

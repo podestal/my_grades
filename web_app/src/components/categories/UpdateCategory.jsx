@@ -23,7 +23,6 @@ const UpdateCategory = ({ category }) => {
     const { mutate: updateCategoryMutation } = useMutation({
         mutationFn: data => updateCategory(data),
         onSuccess: res => {
-            console.log(res.data)
             setError('')
             setTitleError(false)
             setWeightError(false)
