@@ -91,14 +91,15 @@ const DashboardTable = ({ studentsData, columns }) => {
                                         ${cell.getValue() && cell.getValue().calification == 'C' && 'bg-red-500'}
                                         ${cell.getValue() && cell.getValue().calification == 'NA' && 'bg-blue-700'}
                                         ${!cell.getValue()?.calification && 'sticky w-[200px] left-0 bg-gray-900'}
-                                        border border-violet-950
+                                        ${!cell.getValue()?.id && 'bg-gray-900'}
+                                        border border-violet-950 border-l-0
                                         cursor-pointer
                                         
                                     `}
                                     onClick={() => {
                                         setActivity(cell.column.id)
                                         setOpen(true)
-                                        setGradeId(cell.getValue().gradeId)
+                                        setGradeId(cell.getValue().id)
                                         setCalification(cell.getValue().calification)
                                         setStudent(`${cell.row.original.firstName} ${cell.row.original.lastName}`)
                                     }}

@@ -107,22 +107,21 @@ const StudentsTable = ({ activities, assignature }) => {
                 const gradesActivity = student.grades.map( grade => {
                     const activity = activities.find( activity => activity.id == grade.activity)?.title
                     const obj = {}
-                    obj[activity] = {calification: grade.calification, gradeId: grade.id}
+                    obj[activity] = {calification: grade.calification, id: grade.id}
                     return {
                         ...obj
                     }
                 })
 
                 const average = student.averages
-                    .filter(average => average?.quarter == quarter)
-                    .filter(average => average?.competence == selectedCompetency)
+                    .find(average => average?.quarter == quarter && average?.competence == selectedCompetency)
                 
                     // {calification: average[0]?.calification, gradeId: average.id}
                 return Object.assign({            
                     // 'firstName': student.first_name,
                     // 'lastName': student.last_name,
                     'fullName': `${student.first_name} ${student.last_name}`,
-                    'average': average.length > 0 ? average[0]?.calification  : 'C',
+                    'average': average ? {calification: average?.calification, id: average.id}  : {calification: 'B'},
                 }, ...gradesActivity)
             
             })}
