@@ -7,13 +7,13 @@ const Activities = ({ assignature, quarter }) => {
 
   return (
     <div className="grid grid-cols-4 my-8">
-        
         {assignature && activities && 
             activities
             .filter( activity => activity.assignature == assignature)
             .filter ( activity => activity.quarter == quarter)
             .map(activity => (
                 <ActivityCard 
+                    key={activity.id}
                     activity={activity}
                 />
         ))}

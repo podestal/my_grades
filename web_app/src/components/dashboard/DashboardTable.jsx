@@ -14,17 +14,21 @@ const DashboardTable = ({ studentsData, columns }) => {
 
     const columnsDynamic = [
         {
-            header: 'Nombres',
-            accessorKey: 'firstName'
+            header: 'Alumno',
+            accessorKey: 'fullName'
         },
-        {
-            header: 'Apellidos',
-            accessorKey: 'lastName'
-        },
-        {
-            header: 'Promedio',
-            accessorKey: 'average'
-        },
+        // {
+        //     header: 'Nombres',
+        //     accessorKey: 'firstName'
+        // },
+        // {
+        //     header: 'Apellidos',
+        //     accessorKey: 'lastName'
+        // },
+        // {
+        //     header: 'Promedio',
+        //     accessorKey: 'average'
+        // },
         ...columns
     ]
 
@@ -50,15 +54,16 @@ const DashboardTable = ({ studentsData, columns }) => {
                     table.getHeaderGroups().map( headerGroup => (
                         <tr 
                             key={headerGroup.id}
-                            
+                    
                         >
                             {
                                 headerGroup.headers.map( header => (
                                     <th 
                                         key={header.id}
                                         onClick={() => console.log(header)}
-                                        className="py-6 min-w-[160px] text-md font-poppins"
+                                        className={`py-6 min-w-[160px] ${header.id == 'fullName' && 'min-w-[300px]'} text-md font-poppins sticky top-0 `}
                                     >
+                                        {console.log('headers',header.id)}
                                         {header.placeholderId ? null : header.column.columnDef.header}
                                     </th>
                                 ))
@@ -71,7 +76,6 @@ const DashboardTable = ({ studentsData, columns }) => {
                 {
                     table.getRowModel().rows.map( row => (
                         <tr key={row.id}
-                            className="w-[120px]"
                         >
                             {
                                 row.getVisibleCells().map( cell => (
@@ -82,6 +86,7 @@ const DashboardTable = ({ studentsData, columns }) => {
                                         ${cell.getValue() && cell.getValue().calification == 'B' && 'bg-amber-500'}
                                         ${cell.getValue() && cell.getValue().calification == 'C' && 'bg-red-500'}
                                         ${cell.getValue() && cell.getValue().calification == 'NA' && 'bg-blue-700'}
+                                        ${!cell.getValue()?.calification && 'sticky w-[200px] left-0 bg-gray-900'}
                                         border border-violet-950
                                         cursor-pointer
                                         
@@ -94,7 +99,7 @@ const DashboardTable = ({ studentsData, columns }) => {
                                         setStudent(`${cell.row.original.firstName} ${cell.row.original.lastName}`)
                                     }}
                                     >
-                                        {/* {console.log(cell.row.original.firstName)} */}
+                                        {/* {console.log(cell.getValue())} */}
                                         {/* {console.log('Cell value', cell.getValue())} */}
                                         {/* {flexRender(cell.column.columnDef.cell, cell.getContext())} */}
                                         <p className="text-center hover:ml-3 font-bold">

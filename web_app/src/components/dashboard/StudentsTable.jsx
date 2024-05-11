@@ -114,9 +114,10 @@ const StudentsTable = ({ activities, assignature }) => {
                 })
             
                 return Object.assign({            
-                    'firstName': student.first_name,
-                    'lastName': student.last_name,
-                    'average': 'AD',
+                    // 'firstName': student.first_name,
+                    // 'lastName': student.last_name,
+                    'fullName': `${student.first_name} ${student.last_name}`
+                    // 'average': 'AD',
                 }, ...gradesActivity)
             
             })}
