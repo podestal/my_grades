@@ -3,8 +3,6 @@ import useAuth from "../../hooks/useAuth"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { updateGrades } from "../../api/api"
 import { useState } from "react"
-import { RiCheckLine, RiBugLine } from "@remixicon/react"
-import { Badge } from "@tremor/react"
 
 const CalificationSelector = ({ calification, gradeId, setSuccess, setError, setSuccessMsg }) => {
 

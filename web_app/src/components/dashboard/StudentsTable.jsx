@@ -11,6 +11,7 @@ import { competenciesData } from '../../data/competencies'
 import CreateActivity from '../activities/CreateActivity'
 import { RiSearchLine } from "@remixicon/react"
 import Loading from '../../utils/Loading'
+import NoContent from '../../utils/NoContent'
 
 const StudentsTable = ({ activities, assignature }) => {
 
@@ -24,21 +25,6 @@ const StudentsTable = ({ activities, assignature }) => {
         queryKey: ['students'],
         queryFn: () => getStudents({ token: user.access, claseId: assignature.clase.id})
     })
-    // const { students, setStudents } = useStudent()
-    // const { mutate: getStudentsMutation } = useMutation({
-    //     mutationFn: data => getStudents(data),
-    //     onSuccess: res => {
-    //         setStudents(res.data)
-    //     },
-    // })
-    
-    // const getter = () => {
-    //     getStudentsMutation({ token: user.access, claseId: assignature.clase.id})
-    // }
-
-    // useEffect(() => {
-    //     getter()
-    // }, [])
 
     const columns = activities &&  
         activities
@@ -89,9 +75,6 @@ const StudentsTable = ({ activities, assignature }) => {
                     <SelectItem value="Q4">B4</SelectItem>
                 </Select>
             </div>
-            <CreateActivity 
-                assignature={assignature}
-            />
         </div>
 
         <DashboardTable 

@@ -67,7 +67,6 @@ const DashboardTable = ({ studentsData, columns }) => {
                                         onClick={() => console.log(header)}
                                         className={`py-6 min-w-[160px] ${header.id == 'fullName' && 'min-w-[300px]'} text-md font-poppins sticky top-0 `}
                                     >
-                                        {console.log('headers',header.id)}
                                         {header.placeholderId ? null : header.column.columnDef.header}
                                     </th>
                                 ))
@@ -104,7 +103,7 @@ const DashboardTable = ({ studentsData, columns }) => {
                                         setStudent(`${cell.row.original.firstName} ${cell.row.original.lastName}`)
                                     }}
                                     >
-                                        {console.log(cell.getValue())}
+                                        {/* {console.log(cell.getValue())} */}
                                         {/* {console.log('Cell value', cell.getValue())} */}
                                         {/* {flexRender(cell.column.columnDef.cell, cell.getContext())} */}
                                         <p className="text-center hover:ml-3 font-bold">
