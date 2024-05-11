@@ -10,7 +10,7 @@ const GetActivities = ({ assignature, setActivities }) => {
 
     const { data: activities, isLoading, isError, error } = useQuery({
         queryKey: ['activities'],
-        queryFn: () => getActivities({ token: user.access, assignature })
+        queryFn: () => getActivities({ token: user.access, assignature: assignature.id })
     })
 
     useEffect(() => {

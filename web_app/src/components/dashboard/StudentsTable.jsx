@@ -112,12 +112,17 @@ const StudentsTable = ({ activities, assignature }) => {
                         ...obj
                     }
                 })
-            
+
+                const average = student.averages
+                    .filter(average => average?.quarter == quarter)
+                    .filter(average => average?.competence == selectedCompetency)
+                
+                    // {calification: average[0]?.calification, gradeId: average.id}
                 return Object.assign({            
                     // 'firstName': student.first_name,
                     // 'lastName': student.last_name,
-                    'fullName': `${student.first_name} ${student.last_name}`
-                    // 'average': 'AD',
+                    'fullName': `${student.first_name} ${student.last_name}`,
+                    'average': average.length > 0 ? average[0]?.calification  : 'C',
                 }, ...gradesActivity)
             
             })}

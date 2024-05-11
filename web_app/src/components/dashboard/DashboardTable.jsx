@@ -17,6 +17,10 @@ const DashboardTable = ({ studentsData, columns }) => {
             header: 'Alumno',
             accessorKey: 'fullName'
         },
+        {
+            header: 'Promedio',
+            accessorKey: 'average'
+        },
         // {
         //     header: 'Nombres',
         //     accessorKey: 'firstName'
@@ -99,7 +103,7 @@ const DashboardTable = ({ studentsData, columns }) => {
                                         setStudent(`${cell.row.original.firstName} ${cell.row.original.lastName}`)
                                     }}
                                     >
-                                        {/* {console.log(cell.getValue())} */}
+                                        {console.log(cell.getValue())}
                                         {/* {console.log('Cell value', cell.getValue())} */}
                                         {/* {flexRender(cell.column.columnDef.cell, cell.getContext())} */}
                                         <p className="text-center hover:ml-3 font-bold">
