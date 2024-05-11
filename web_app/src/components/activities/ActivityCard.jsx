@@ -5,10 +5,9 @@ import { RiCheckboxCircleLine, RiProgress2Line } from "@remixicon/react"
 import { Badge } from "@tremor/react"
 
 
-const ActivityCard = ({ activity }) => {
+const ActivityCard = ({ activity, grades }) => {
 
     const navigate = useNavigate()
-    const {grades} = useGrades()
     const filteredGrades = grades && filterGradesByActivity(grades, activity)
     const remainingToGrade = filteredGrades && filteredGrades.filter(grade => grade.calification == 'NA').length
     const color = remainingToGrade == 0 ? 'green-500' : 'yellow-500'

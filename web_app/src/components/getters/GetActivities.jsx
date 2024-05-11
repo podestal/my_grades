@@ -7,10 +7,11 @@ import useAuth from "../../hooks/useAuth"
 const GetActivities = ({ assignature, setActivities }) => {
 
     const { user } = useAuth()
+    const assignatureId = assignature?.id || assignature
 
     const { data: activities, isLoading, isError, error } = useQuery({
         queryKey: ['activities'],
-        queryFn: () => getActivities({ token: user.access, assignature: assignature.id })
+        queryFn: () => getActivities({ token: user.access, assignature: assignatureId })
     })
 
     useEffect(() => {

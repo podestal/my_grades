@@ -1,13 +1,18 @@
 import AssignatureSelector from "../../components/activities/AssignatureSelector"
-import GetGradesByAssignature from "../../components/activities/GetGradesByAssignature"
 import QuarterSelector from "../../components/activities/QuarterSelector"
 import { useState } from "react"
 import { styles } from "../../utils/styles"
+import useActivities from "../../hooks/useActivities"
+import GetActivities from "../../components/getters/GetActivities"
+import Activities from "../../components/activities/Activities"
 
 const ActivityPage = () => {
 
     const [assignature, setAssignature] = useState('')
     const [quarter, setQuarter] = useState('Q2')
+    const { activities, setActivities } = useActivities()
+
+
 
   return (
     <div className="text-white min-h-[100vh] mt-[5rem] w-full relative">
@@ -23,10 +28,21 @@ const ActivityPage = () => {
             />
         </div>
         {assignature && 
-            <GetGradesByAssignature 
-                assignature={assignature}
-                quarter={quarter}
-            />
+            <>
+                {activities.length == 0 
+                ? 
+                <GetActivities 
+                    assignature={assignature}
+                    setActivities={setActivities}
+                />
+                : 
+                <Activities 
+                    assignature={assignature}
+                    quarter={quarter}
+                    activities={activities}
+                />
+                }
+            </>
         }
     </div>
   )
