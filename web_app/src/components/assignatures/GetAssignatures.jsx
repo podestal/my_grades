@@ -1,12 +1,12 @@
-import { getAssignatures } from "../api/api"
+import { getAssignatures } from "../../api/api"
 import { useMutation } from "@tanstack/react-query"
-import Loading from "../utils/Loading"
-import Error from "../utils/Error"
-import useAuth from "../hooks/useAuth"
-import useAssignatures from "../hooks/useAssignatures"
+import Loading from "../../utils/Loading"
+import Error from "../../utils/Error"
+import useAuth from "../../hooks/useAuth"
+import useAssignatures from "../../hooks/useAssignatures"
 import { useEffect } from "react"
 import Assignature from "./Assignature"
-import useClases from "../hooks/useClases"
+import useClases from "../../hooks/useClases"
 
 const GetAssignatures = () => {
     const { user } = useAuth()

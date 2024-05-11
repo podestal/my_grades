@@ -2,7 +2,7 @@ import './app.css'
 import Login from './pages/Login'
 import Profile from './pages/Instructor/Profile'
 import Grades from './pages/Instructor/Grades'
-import Assignatures from './pages/Instructor/Assignatures'
+import AssignaturesPage from './pages/Instructor/AssignaturesPage'
 import Home from './pages/landing/Home'
 import PersisLogin from './components/PersisLogin'
 import GradesDashboard from './components/GradesDashboard'
@@ -29,7 +29,7 @@ const App = () => {
         <Route path='login' element={<Login />}/>
         <Route path='contact' element={<Contact />}/>
         <Route element={<PersisLogin />}>
-          <Route path='main' element={<Assignatures />}/>
+          <Route path='main' element={<AssignaturesPage />}/>
           <Route path='categories' element={<Categories />}/>
           <Route path='profile' element={<Profile />}/>
           {/* <Route path='activities' element={<Activities />}/>
