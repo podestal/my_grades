@@ -84,13 +84,12 @@ const DashboardTable = ({ studentsData, columns }) => {
                                 row.getVisibleCells().map( cell => (
                                     <td key={cell.id}
                                     className={`px-18 py-4 font-palanquin text-md 
-                                        ${cell.getValue() && cell.getValue().calification == 'AD' && 'bg-green-500'}
-                                        ${cell.getValue() && cell.getValue().calification == 'A' && 'bg-yellow-300 text-gray-600'}
-                                        ${cell.getValue() && cell.getValue().calification == 'B' && 'bg-amber-500'}
-                                        ${cell.getValue() && cell.getValue().calification == 'C' && 'bg-red-500'}
-                                        ${cell.getValue() && cell.getValue().calification == 'NA' && 'bg-blue-700'}
+                                        ${cell.getValue() && cell.getValue().calification == 'AD' && cell.getValue().id != 0 && 'bg-green-500'}
+                                        ${cell.getValue() && cell.getValue().calification == 'A' && cell.getValue().id != 0 && 'bg-yellow-300 text-gray-600'}
+                                        ${cell.getValue() && cell.getValue().calification == 'B' && cell.getValue().id != 0 && 'bg-amber-500'}
+                                        ${cell.getValue() && cell.getValue().calification == 'C' && cell.getValue().id != 0 && 'bg-red-500'}
+                                        ${cell.getValue() && cell.getValue().calification == 'NA' && cell.getValue().id != 0 && 'bg-blue-700'}
                                         ${!cell.getValue()?.calification && 'sticky w-[200px] left-0 bg-gray-900'}
-                                        ${!cell.getValue()?.id && 'bg-gray-900'}
                                         border border-violet-950 border-l-0
                                         cursor-pointer
                                         

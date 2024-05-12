@@ -12,6 +12,7 @@ import CreateActivity from '../activities/CreateActivity'
 import { RiSearchLine } from "@remixicon/react"
 import Loading from '../../utils/Loading'
 import NoContent from '../../utils/NoContent'
+import calculateAverage from '../../data/calculateAverage'
 
 const StudentsTable = ({ activities, assignature }) => {
 
@@ -98,13 +99,15 @@ const StudentsTable = ({ activities, assignature }) => {
 
                 const average = student.averages
                     .find(average => average?.quarter == quarter && average?.competence == selectedCompetency)
+                const averageCalculated = calculateAverage(student.grades)
+                console.log('averageCalculated', averageCalculated)
                 
                     // {calification: average[0]?.calification, gradeId: average.id}
                 return Object.assign({            
                     // 'firstName': student.first_name,
                     // 'lastName': student.last_name,
                     'fullName': `${student.first_name} ${student.last_name}`,
-                    'average': average ? {calification: average?.calification, id: average.id}  : {calification: 'B'},
+                    'average': average ? {calification: average?.calification, id: average.id}  : {calification: averageCalculated, id: 0},
                 }, ...gradesActivity)
             
             })}
