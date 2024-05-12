@@ -150,7 +150,7 @@ class SimpleAssignatureViewSet(ModelViewSet):
     
 class ActivityViewSet(ModelViewSet):
 
-    queryset = models.Activity.objects.select_related('competence', 'capacity')
+    queryset = models.Activity.objects.select_related('competence', 'capacity', 'category')
     serializer_class = serializers.GetActivitySerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['assignature', 'created_at']

@@ -149,7 +149,7 @@ class GetSimpleActivityHeaderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Activity
-        fields = ['id', 'title']
+        fields = ['id', 'category']
 
 class GetSimpleGradesSerializer(serializers.ModelSerializer):
 
@@ -201,7 +201,7 @@ class GetSimpleActivitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Activity
-        fields = ['id', 'title', 'competence', 'capacity', 'description', 'quarter']
+        fields = ['id', 'title', 'competence', 'capacity', 'description', 'quarter', 'category']
 
 class GetGradeSerializer(serializers.ModelSerializer):
 

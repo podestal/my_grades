@@ -21,10 +21,11 @@ const totalGrades = (grades) => {
 const sumOfGrades = (grades, categories) => {
     return grades.reduce((sum, grade) => {
         console.log('grade.activity',grade.activity)
-        const category = categories &&  categories.find(category => category.activity == grade.activity)
+        const category = categories &&  categories.find(category => category.id == grade?.activity?.category)
         console.log('category',category)
-        // console.log('grade times cat:', (numericalRepresentation[grade.calification] * category?.weight).toFixed(0))
-        return category ? sum + (numericalRepresentation[grade.calification] * category?.weight).toFixed(0) : sum + numericalRepresentation[grade.calification]
+        console.log('grade times cat:', Math.round(numericalRepresentation[grade.calification] * category?.weight))
+        return category ? sum + Math.round(numericalRepresentation[grade.calification] * category?.weight) : sum + numericalRepresentation[grade.calification]
+        // return sum + numericalRepresentation[grade.calification]
     }, 0)
 }
 
@@ -41,7 +42,7 @@ const calculateAverage = (grades, selectedCompetency, activities, categories) =>
         return
     }
     const filteredActivities = filterActivitiesByCompetency(selectedCompetency, activities)
-    const filteredGrades = grades.filter( grade => filteredActivities.indexOf(grade.activity) >= 0)
+    const filteredGrades = grades.filter( grade => filteredActivities.indexOf(grade.activity.id) >= 0)
     const total = totalGrades(filteredGrades).length
     const sum = sumOfGrades(filteredGrades, categories)
     const numericalAverage = String((sum / total).toFixed(0))

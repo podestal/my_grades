@@ -16,6 +16,7 @@ import calculateAverage from '../../data/calculateAverage'
 import useCategories from '../../hooks/useCategories'
 import Selector from '../../utils/Selector'
 import DashboardFilters from './DashboardFilters'
+import useGrades from '../../hooks/useGrades'
 
 
 const StudentsTable = ({ activities, assignature }) => {
@@ -25,6 +26,7 @@ const StudentsTable = ({ activities, assignature }) => {
     const [selectedCompetency, setSelectedCompetency] = useState('all')
     const [selectedCategory, setSelectedCategory] = useState('all')
     const { categories } = useCategories()
+    const { grades } = useGrades()
     const { user } = useAuth()
     const [filter, setFilter] = useState('')
     const [quarter, setQuarter] = useState('Q2')
@@ -90,8 +92,10 @@ const StudentsTable = ({ activities, assignature }) => {
                 ))
                 .map( student => {
 
-                const gradesActivity = student.grades.map( grade => {
-                    const activity = activities.find( activity => activity.id == grade.activity)?.title
+                const studentGrades = grades.filter(grade => grade?.student?.id == student.id)
+                const gradesActivity = studentGrades
+                .map( grade => {
+                    const activity = grade?.activity?.title
                     const obj = {}
                     obj[activity] = {calification: grade.calification, id: grade.id}
                     return {
@@ -101,7 +105,7 @@ const StudentsTable = ({ activities, assignature }) => {
 
                 const average = student.averages
                     .find(average => average?.quarter == quarter && average?.competence == selectedCompetency)
-                const averageCalculated = calculateAverage(student.grades, selectedCompetency, activities, categories) || 'NA'
+                const averageCalculated = calculateAverage(studentGrades, selectedCompetency, activities, categories) || 'NA'
 
                 const averageObject = Object.assign({            
                     'fullName': `${student.first_name} ${student.last_name}`,
