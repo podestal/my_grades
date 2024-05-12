@@ -13,12 +13,18 @@ import { RiSearchLine } from "@remixicon/react"
 import Loading from '../../utils/Loading'
 import NoContent from '../../utils/NoContent'
 import calculateAverage from '../../data/calculateAverage'
+import useCategories from '../../hooks/useCategories'
+import Selector from '../../utils/Selector'
+import DashboardFilters from './DashboardFilters'
+
 
 const StudentsTable = ({ activities, assignature }) => {
 
     const competencies = competenciesData.filter( competency => competency.area == assignature.area)
     // const capacities = capacitiesData
     const [selectedCompetency, setSelectedCompetency] = useState('all')
+    const [selectedCategory, setSelectedCategory] = useState('all')
+    const { categories } = useCategories()
     const { user } = useAuth()
     const [filter, setFilter] = useState('')
     const [quarter, setQuarter] = useState('Q2')
@@ -40,6 +46,16 @@ const StudentsTable = ({ activities, assignature }) => {
                 } 
                 
             })
+            .filter( activity => {
+                if (selectedCategory == 'all') {
+                    return activity
+                }
+                else {
+                    if (activity.category == selectedCategory) {
+                        return activity
+                    }
+                } 
+            })
             .filter( activity => activity.quarter == quarter)
             .map( activity => {
         return {
@@ -53,31 +69,17 @@ const StudentsTable = ({ activities, assignature }) => {
 
   return (
     <div className='mx-12 w-full'>
-        <div className='flex w-full justify-start gap-16'>
-            <div>
-                <p className='text-xl mb-4'>Buscar Alumno</p>
-                <TextInput icon={RiSearchLine} placeholder='Buscar Alumno' className='mb-12 w-[240px]' value={filter} onValueChange={value => setFilter(value)}/>
-            </div>
-            <div className='w-full'>
-                <p className='text-xl mb-4'>Competencias</p>
-                <Select value={selectedCompetency} onValueChange={ value => setSelectedCompetency(value)}>
-                    <SelectItem value='all'>Todas las actividades</SelectItem>
-                    {competencies.map( competency => (
-                        <SelectItem value={competency.id}  key={competency.id}>{competency.title}</SelectItem>
-                    ))}
-                </Select>
-            </div>
-            <div className='flex flex-col'>
-                <p className="text-xl font-poppins mb-4">Bimestre</p>
-                <Select value={quarter} onValueChange={ value => setQuarter(value)}>
-                    <SelectItem value="Q1">B1</SelectItem>
-                    <SelectItem value="Q2">B2</SelectItem>
-                    <SelectItem value="Q3">B3</SelectItem>
-                    <SelectItem value="Q4">B4</SelectItem>
-                </Select>
-            </div>
-        </div>
-
+        <DashboardFilters 
+            assignatureArea={assignature.area}
+            filter={filter}
+            setFilter={setFilter}
+            selectedCompetency={selectedCompetency}
+            setSelectedCompetency={setSelectedCompetency}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+            quarter={quarter}
+            setQuarter={setQuarter}
+        />
         <DashboardTable 
             columns={columns}
             studentsData={students && 
@@ -99,7 +101,7 @@ const StudentsTable = ({ activities, assignature }) => {
 
                 const average = student.averages
                     .find(average => average?.quarter == quarter && average?.competence == selectedCompetency)
-                const averageCalculated = calculateAverage(student.grades, selectedCompetency, activities) || 'NA'
+                const averageCalculated = calculateAverage(student.grades, selectedCompetency, activities, categories) || 'NA'
 
                 const averageObject = Object.assign({            
                     'fullName': `${student.first_name} ${student.last_name}`,

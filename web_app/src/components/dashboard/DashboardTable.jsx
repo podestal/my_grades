@@ -21,18 +21,6 @@ const DashboardTable = ({ studentsData, columns }) => {
             header: 'Promedio',
             accessorKey: 'average'
         },
-        // {
-        //     header: 'Nombres',
-        //     accessorKey: 'firstName'
-        // },
-        // {
-        //     header: 'Apellidos',
-        //     accessorKey: 'lastName'
-        // },
-        // {
-        //     header: 'Promedio',
-        //     accessorKey: 'average'
-        // },
         ...columns
     ]
 
@@ -51,7 +39,6 @@ const DashboardTable = ({ studentsData, columns }) => {
 
   return (
     <div className=" flex items-center justify-start overflow-x-scroll shadow-violet-950 shadow-[0_10px_20px_rgba(240,_46,_170,_0.7)] mb-12">
-        {/* {console.log('Students', students[0].grades[0].calification)} */}
         <table className="bg-gray-900">
            {columnsDynamic && <thead>
                 {

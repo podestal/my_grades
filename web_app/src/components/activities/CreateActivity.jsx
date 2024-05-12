@@ -38,41 +38,6 @@ const CreateActivity = ({ assignature, activity }) => {
         }
     })
 
-    // Mutation Update
-    const { mutate: updateActivityMutation } = useMutation({
-        mutationFn: data => updateActivity(data),
-        onSuccess: res => {
-            console.log('Activity update response',res.data)
-            queryClient.invalidateQueries(['activities'])
-            setSuccess('Actividad editada')
-            setError('')
-        },
-        onError: err => {
-            setError('No se pudo editar actividad, inténtelo otra vez')
-            setSuccess('')
-        }
-    })
-
-    const handleCreate = () => {
-        // const formattedDate = moment(date).format('YYYY-MM-DD')
-        // if (activity) {
-        //     updateActivityMutation({
-        //         token: user.access,
-        //         activityId: activity.id,
-        //         updates: {
-        //             title,
-        //             description,
-        //             assignature: assignature.id,
-        //             quarter: selectedQuarter,
-        //             due_date: formattedDate,
-        //             competence: selectedCompetency,
-        //             capacity: selectedCapacity,
-        //             category: selectedCategory,
-        //         }
-        //     })
-        // } 
-    }
-
   return (
     <div>
         {categories.length == 0 
