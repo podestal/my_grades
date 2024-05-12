@@ -99,17 +99,19 @@ const StudentsTable = ({ activities, assignature }) => {
 
                 const average = student.averages
                     .find(average => average?.quarter == quarter && average?.competence == selectedCompetency)
-                const averageCalculated = calculateAverage(student.grades)
-                console.log('averageCalculated', averageCalculated)
-                
-                    // {calification: average[0]?.calification, gradeId: average.id}
-                return Object.assign({            
-                    // 'firstName': student.first_name,
-                    // 'lastName': student.last_name,
+                const averageCalculated = calculateAverage(student.grades) || 'NA'
+
+                const averageObject = Object.assign({            
                     'fullName': `${student.first_name} ${student.last_name}`,
                     'average': average ? {calification: average?.calification, id: average.id}  : {calification: averageCalculated, id: 0},
                 }, ...gradesActivity)
-            
+
+                const noAverageObject = Object.assign({            
+                    'fullName': `${student.first_name} ${student.last_name}`,
+                    'average': '-'
+                }, ...gradesActivity)
+
+                return selectedCompetency == 'all' ? noAverageObject : averageObject
             })}
         />
     </div>
