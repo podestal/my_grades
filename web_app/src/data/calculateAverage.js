@@ -25,9 +25,22 @@ const sumOfGrades = (grades) => {
     }, 0)
 }
 
-const calculateAverage = (grades) => {
-    const total = totalGrades(grades).length
-    const sum = sumOfGrades(grades)
+const filterActivitiesByCompetency = (selectedCompetency, activities) => {
+    return activities.map(activity => {
+        if (activity.competence == selectedCompetency) {
+            return activity.id
+        }
+    })
+}
+
+const calculateAverage = (grades, selectedCompetency, activities) => {
+    if (selectedCompetency == 'all') {
+        return
+    }
+    const filteredActivities = filterActivitiesByCompetency(selectedCompetency, activities)
+    const filteredGrades = grades.filter( grade => filteredActivities.indexOf(grade.activity) >= 0)
+    const total = totalGrades(filteredGrades).length
+    const sum = sumOfGrades(filteredGrades)
     const numericalAverage = String((sum / total).toFixed(0))
     const alphabeticalAverage = alphabeticalRepresentation[numericalAverage]
     return alphabeticalAverage

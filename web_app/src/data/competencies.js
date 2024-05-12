@@ -164,3 +164,7 @@ export const competenciesData = [
 export const getFilteredCompetences = (area) => {
     return competenciesData.filter(competence => competence.area == area)
 }
+
+export const getCompetency = (competencyId) => {
+    return competenciesData.find( competency => competency.id == competencyId)
+}
