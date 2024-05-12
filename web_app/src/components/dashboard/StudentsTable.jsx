@@ -114,7 +114,7 @@ const StudentsTable = ({ activities, assignature }) => {
 
                 const noAverageObject = Object.assign({            
                     'fullName': `${student.first_name} ${student.last_name}`,
-                    'average': '-'
+                    'average': {calification: '-', id: 0}
                 }, ...gradesActivity)
 
                 return selectedCompetency == 'all' ? noAverageObject : averageObject
