@@ -105,7 +105,7 @@ const StudentsTable = ({ activities, assignature }) => {
 
                 const average = student.averages
                     .find(average => average?.quarter == quarter && average?.competence == selectedCompetency)
-                const averageCalculated = calculateAverage(studentGrades, selectedCompetency, activities, categories) || 'NA'
+                const averageCalculated = calculateAverage(studentGrades, selectedCompetency, activities, categories, selectedCategory) || 'NA'
 
                 const averageObject = Object.assign({            
                     'fullName': `${student.first_name} ${student.last_name}`,
