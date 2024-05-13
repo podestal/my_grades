@@ -19,10 +19,6 @@ const totalGrades = (grades) => {
     return grades.filter(grade => grade.calification != 'NA')
 }
 
-const gradesByCategory = (grades, selectedCategory) => {
-    return grades.filter( grade => grade.activity.category == selectedCategory)
-}
-
 const getFilteredGrades = (grades, filteredActivities, selectedCategory) => {
     if (selectedCategory != 'all') {
         return grades
@@ -37,9 +33,7 @@ const getFilteredGrades = (grades, filteredActivities, selectedCategory) => {
 const sumOfGrades = (grades, categories, selectedCategory) => {
 
     if (selectedCategory != 'all') {
-        const filteredGrades = gradesByCategory(grades, selectedCategory)
-        console.log('filteredGrades category',filteredGrades)
-        return filteredGrades.reduce((sum, grade) => {
+        return grades.reduce((sum, grade) => {
             return sum + numericalRepresentation[grade.calification]
         }, 0)
     } else {

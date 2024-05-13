@@ -3,6 +3,7 @@ import { TextInput, Select, SelectItem } from "@tremor/react"
 import Selector from "../../utils/Selector"
 import useCategories from "../../hooks/useCategories"
 import { competenciesData } from "../../data/competencies"
+import { quartersData } from "../../data/quarters"
 
 const DashboardFilters = ({ assignatureArea, filter, setFilter, selectedCompetency, setSelectedCompetency, selectedCategory, setSelectedCategory, quarter, setQuarter }) => {
 
@@ -31,15 +32,12 @@ const DashboardFilters = ({ assignatureArea, filter, setFilter, selectedCompeten
             items={categories}
             everything={'Todas las categorías'}
         />
-        <div className='flex flex-col'>
-            <p className="text-xl font-poppins mb-4">Bimestre</p>
-            <Select value={quarter} onValueChange={ value => setQuarter(value)}>
-                <SelectItem value="Q1">B1</SelectItem>
-                <SelectItem value="Q2">B2</SelectItem>
-                <SelectItem value="Q3">B3</SelectItem>
-                <SelectItem value="Q4">B4</SelectItem>
-            </Select>
-        </div>
+        <Selector 
+            label={'Bimestre'}
+            value={quarter}
+            setter={setQuarter}
+            items={quartersData}
+        />
     </div>
   )
 }
