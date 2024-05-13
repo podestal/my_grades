@@ -1,28 +1,18 @@
 import React, { useState } from 'react'
 import useAuth from '../../hooks/useAuth'
-import { useMutation, useQuery } from '@tanstack/react-query'
-import useStudent from '../../hooks/useStudents'
+import { useQuery } from '@tanstack/react-query'
 import { getStudents } from '../../api/api'
-import { useEffect } from 'react'
 import DashboardTable from './DashboardTable'
-import { TextInput, Select, SelectItem, Button, TabGroup, TabList, Tab } from '@tremor/react'
-import { capacitiesData } from '../../data/capacities'
 import { competenciesData } from '../../data/competencies'
-import CreateActivity from '../activities/CreateActivity'
-import { RiSearchLine } from "@remixicon/react"
 import Loading from '../../utils/Loading'
-import NoContent from '../../utils/NoContent'
 import calculateAverage from '../../data/calculateAverage'
 import useCategories from '../../hooks/useCategories'
-import Selector from '../../utils/Selector'
 import DashboardFilters from './DashboardFilters'
 import useGrades from '../../hooks/useGrades'
 
 
 const StudentsTable = ({ activities, assignature }) => {
 
-    const competencies = competenciesData.filter( competency => competency.area == assignature.area)
-    // const capacities = capacitiesData
     const [selectedCompetency, setSelectedCompetency] = useState('all')
     const [selectedCategory, setSelectedCategory] = useState('all')
     const { categories } = useCategories()
@@ -83,6 +73,8 @@ const StudentsTable = ({ activities, assignature }) => {
             setQuarter={setQuarter}
         />
         <DashboardTable 
+            selectedCategory={selectedCategory}
+            selectedCompetency={selectedCompetency}
             columns={columns}
             studentsData={students && 
                 students.data.filter( student => (

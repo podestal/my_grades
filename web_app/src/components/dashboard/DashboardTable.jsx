@@ -3,7 +3,7 @@ import { useState } from "react"
 import { Dialog, DialogPanel } from "@tremor/react"
 import UpdateGradeModal from "./dashboardComponents/UpdateGradeModal"
 
-const DashboardTable = ({ studentsData, columns }) => {
+const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompetency }) => {
 
     const data = studentsData || []
     const [open, setOpen] = useState(false)
@@ -82,11 +82,16 @@ const DashboardTable = ({ studentsData, columns }) => {
                                         
                                     `}
                                     onClick={() => {
+                                        if (cell.column.id == 'average') {
+                                            if (selectedCategory != 'all' || selectedCompetency == 'all') {
+                                                return
+                                            }
+                                        }
                                         setActivity(cell.column.id)
                                         setOpen(true)
                                         setGradeId(cell.getValue().id)
                                         setCalification(cell.getValue().calification)
-                                        setStudent(`${cell.row.original.firstName} ${cell.row.original.lastName}`)
+                                        setStudent(cell.row.original.fullName)
                                     }}
                                     >
                                         {/* {console.log(cell.getValue())} */}
@@ -104,21 +109,14 @@ const DashboardTable = ({ studentsData, columns }) => {
                 }
             </tbody>}
         </table>
-        <Dialog
+        <UpdateGradeModal 
+            activity={activity}
+            student={student}
+            setOpen={setOpen}
             open={open}
-            onClose={() => setOpen(false)}
-            static={true}
-        >
-            <DialogPanel>
-                <UpdateGradeModal 
-                    activity={activity}
-                    student={student}
-                    setOpen={setOpen}
-                    calification={calification}
-                    gradeId={gradeId}
-                />
-            </DialogPanel>
-        </Dialog>
+            calification={calification}
+            gradeId={gradeId}
+        />
     </div>
   )
 }

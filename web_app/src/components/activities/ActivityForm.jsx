@@ -44,7 +44,6 @@ const ActivityForm = ({ activity, assignature, open, setOpen, success, setSucces
             setSelectedCategory('')
             setSelectedCompetency('')
             setSelectedCapacity('')
-            setSelectedQuarter('')
         } 
         setOpen(false)
         setSuccess('')
