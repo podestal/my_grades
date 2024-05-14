@@ -30,6 +30,8 @@ const getFilteredGrades = (grades, filteredActivities, selectedCategory) => {
     }
 }
 
+
+
 const sumOfGrades = (grades, categories, selectedCategory) => {
 
     if (selectedCategory != 'all') {
@@ -57,8 +59,8 @@ const calculateAverage = (grades, selectedCompetency, activities, categories, se
     const filteredActivities = filterActivitiesByCompetency(selectedCompetency, activities)
     const filteredGrades = getFilteredGrades(grades, filteredActivities, selectedCategory)
     const total = totalGrades(filteredGrades).length
-    console.log('filteredGrades ==',total)
     const sum = sumOfGrades(filteredGrades, categories, selectedCategory)
+    console.log('sum',(sum/8))
     const numericalAverage = String((sum / total).toFixed(0))
     const alphabeticalAverage = alphabeticalRepresentation[numericalAverage]
     return alphabeticalAverage

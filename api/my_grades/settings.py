@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'core',
     'my_grades_api',
     'debug_toolbar',
+    'multiselectfield',
 ]
 
 MIDDLEWARE = [

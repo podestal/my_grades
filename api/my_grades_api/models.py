@@ -1,5 +1,7 @@
 from django.db import models
 from django.conf import settings
+from multiselectfield import MultiSelectField
+from . import data
 
 class Area(models.Model):
     title = models.CharField(max_length=255)
@@ -126,13 +128,13 @@ class Activity(models.Model):
 
     title = models.CharField(max_length=255)
     assignature = models.ForeignKey(Assignature, on_delete=models.CASCADE)
-    competence = models.ForeignKey(Competence, on_delete=models.CASCADE)
-    capacity = models.ForeignKey(Capacity, on_delete=models.CASCADE)
     description = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     due_date = models.DateField(null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     quarter = models.CharField(max_length=2, choices=QUARTER_CHOICES)
+    competences =  MultiSelectField(choices=data.competencies, max_length=20)
+
 
     def __str__(self):
         return self.title
