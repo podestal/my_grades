@@ -111,26 +111,21 @@ class CreateActivitySerializer(serializers.ModelSerializer):
         model = models.Activity
         fields = ['id','title', 'due_date', 'assignature', 'competences', 'capacities', 'description', 'quarter', 'category']
 
-    # def create(self, validated_data):
+    def create(self, validated_data):
 
-    #     print('Validated data', validated_data)
-    #     competence_set = set()
-    #     for competence in validated_data.get('competence'):
-    #         competence_set.add(competence.id)
-    #     print('competence_set', competence_set)
-    #     activity = models.Activity.objects.create(competence=validated_data.get('competence'), **validated_data)
-        # assignature = validated_data['assignature']
-        # clase_id = validated_data['assignature'].clase.id
-        # students = models.Student.objects.filter(clase=clase_id)
+        activity = models.Activity.objects.create(**validated_data)
+        assignature = validated_data['assignature']
+        clase_id = validated_data['assignature'].clase.id
+        students = models.Student.objects.filter(clase=clase_id)
 
-        # grades = [models.Grade(
-        #     activity=activity,
-        #     student = student,
-        #     assignature = assignature
-        # ) for student in students]
+        grades = [models.Grade(
+            activity=activity,
+            student = student,
+            assignature = assignature
+        ) for student in students]
 
-        # models.Grade.objects.bulk_create(grades)
-        # return activity
+        models.Grade.objects.bulk_create(grades)
+        return activity
     
 class GetAtendanceSerializer(serializers.ModelSerializer):
 
@@ -206,7 +201,7 @@ class GetSimpleActivitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Activity
-        fields = ['id', 'title', 'competence', 'capacity', 'description', 'quarter', 'category']
+        fields = ['id', 'title', 'description', 'quarter', 'category', 'competences', 'capacities',]
 
 class GetGradeSerializer(serializers.ModelSerializer):
 
