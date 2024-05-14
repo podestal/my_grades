@@ -9,6 +9,7 @@ import calculateAverage from '../../data/calculateAverage'
 import useCategories from '../../hooks/useCategories'
 import DashboardFilters from './DashboardFilters'
 import useGrades from '../../hooks/useGrades'
+import { getActivitiesColumns } from './utils/columnsData'
 
 
 const StudentsTable = ({ activities, assignature }) => {
@@ -20,40 +21,11 @@ const StudentsTable = ({ activities, assignature }) => {
     const { user } = useAuth()
     const [filter, setFilter] = useState('')
     const [quarter, setQuarter] = useState('Q1')
+    const columns = activities &&  getActivitiesColumns(activities, selectedCompetency, selectedCategory, quarter)
     const {data: students, isLoading, isError, error} = useQuery({
         queryKey: ['students'],
         queryFn: () => getStudents({ token: user.access, claseId: assignature.clase.id})
     })
-
-    const columns = activities &&  
-        activities
-            .filter( activity =>  {
-                if (selectedCompetency == 'all') {
-                    return activity
-                }
-                else {
-                    if (activity.competence == selectedCompetency) {
-                        return activity
-                    }
-                } 
-                
-            })
-            .filter( activity => {
-                if (selectedCategory == 'all') {
-                    return activity
-                }
-                else {
-                    if (activity.category == selectedCategory) {
-                        return activity
-                    }
-                } 
-            })
-            .filter( activity => activity.quarter == quarter)
-            .map( activity => {
-        return {
-            header: activity.title,
-            accessorKey: activity.title
-        }})
 
     if (isLoading) return <Loading />
 
@@ -61,6 +33,7 @@ const StudentsTable = ({ activities, assignature }) => {
 
   return (
     <div className='mx-12 w-full'>
+        {console.log('activities', activities)}
         <DashboardFilters 
             assignatureArea={assignature.area}
             filter={filter}
