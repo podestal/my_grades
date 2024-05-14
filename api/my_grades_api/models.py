@@ -133,7 +133,7 @@ class Activity(models.Model):
     due_date = models.DateField(null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     quarter = models.CharField(max_length=2, choices=QUARTER_CHOICES)
-    competences =  MultiSelectField(choices=data.competencies, max_length=20)
+    competences =  MultiSelectField(choices=data.comptences_data, max_length=20)
 
 
     def __str__(self):

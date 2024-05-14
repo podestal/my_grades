@@ -1,14 +1,14 @@
-competencies = (
-    ('1', '1'),
-    ('2', '2'),
-    ('3', '3'),
-    ('4', '4'),
-    ('5', '5'),
-    ('6', '6'),
-    ('7', '7'),
-    ('8', '8'),
-    ('9', '9'),
-    ('10', '11'),
+# competencies = (
+#     ('1', '1'),
+#     ('2', '2'),
+#     ('3', '3'),
+#     ('4', '4'),
+#     ('5', '5'),
+#     ('6', '6'),
+#     ('7', '7'),
+#     ('8', '8'),
+#     ('9', '9'),
+#     ('10', '11'),)
 
     # {
     #     "id": 5,
@@ -150,4 +150,13 @@ competencies = (
     #     "title": "Mostar todas las actividades.",
     #     "area": 99
     # },
-)
+
+comptences_data = []
+
+for i in range(1, 33):
+    comptences_data.append((str(i), str(i)))
+
+capacities_data = []
+
+for i in range(1, 103):
+    capacities_data.append((str(i), str(i)))
