@@ -134,6 +134,7 @@ class Activity(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     quarter = models.CharField(max_length=2, choices=QUARTER_CHOICES)
     competences =  MultiSelectField(choices=data.comptences_data, max_length=20)
+    capacities = MultiSelectField(choices=data.capacities_data, max_length=20)
 
 
     def __str__(self):
