@@ -12,6 +12,7 @@ import CloseButton from "../../utils/CloseButton"
 import Selector from "../../utils/Selector"
 import MultiSelector from "../../utils/MultiSelector"
 import { quartersData } from "../../data/quarters"
+import { returnMultipleChoice } from "../../data/returnMultipleSelection"
 
 const ActivityForm = ({ activity, assignature, open, setOpen, success, setSuccess, setError, error, create, update }) => {
 
@@ -53,8 +54,10 @@ const ActivityForm = ({ activity, assignature, open, setOpen, success, setSucces
 
     const handleSubmit = () => {
         const formattedDate = moment(date).format('YYYY-MM-DD')
-        console.log('selectedCompetency', selectedCompetency)
+        console.log('selectedCompetency', selectedCompetency.length)
         console.log('selectedCapacity', selectedCapacity)
+        console.log('type if', typeof(('80', '79')))
+        // (selectedCompetency[0], selectedCompetency[1])
         create &&  create({
             token: user.access,
             activity: {
@@ -63,8 +66,8 @@ const ActivityForm = ({ activity, assignature, open, setOpen, success, setSucces
                 assignature: assignature.id,
                 quarter: selectedQuarter,
                 due_date: formattedDate,
-                competences: ('21', '22'),
-                capacities: ('80', '79'),
+                competences: returnMultipleChoice(selectedCompetency),
+                capacities: returnMultipleChoice(selectedCapacity),
                 category: selectedCategory,
             }
         })
