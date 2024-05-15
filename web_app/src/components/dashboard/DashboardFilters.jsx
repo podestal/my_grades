@@ -26,7 +26,7 @@ const DashboardFilters = ({ assignatureArea, filter, setFilter, selectedCompeten
                 ))}
             </Select>
         </div> */}
-        {/* <div className='w-full'>
+        <div className='w-full'>
             <p className='text-xl mb-4'>Competencias</p>
             <Select value={selectedCompetency} onValueChange={ value => setSelectedCompetency(value)}>
                 <SelectItem value='all'>Todas las actividades</SelectItem>
@@ -34,14 +34,7 @@ const DashboardFilters = ({ assignatureArea, filter, setFilter, selectedCompeten
                     <SelectItem value={competency.id}  key={competency.id}>{competency.title}</SelectItem>
                 ))}
             </Select>
-        </div> */}
-        <MultiSelector 
-            label={'Competencias'}
-            value={selectedCompetency}
-            setter={setSelectedCompetency}
-            items={competencies}
-            wide={true}
-        />
+        </div>
         <Selector 
             label={'Categorías'}
             value={selectedCategory}

@@ -9,19 +9,21 @@ import calculateAverage from '../../data/calculateAverage'
 import useCategories from '../../hooks/useCategories'
 import DashboardFilters from './DashboardFilters'
 import useGrades from '../../hooks/useGrades'
-import { getActivitiesColumns } from './utils/columnsData'
+import { getActivitiesColumns, getCapacitiesColumns } from './utils/columnsData'
 
 
 const StudentsTable = ({ activities, assignature }) => {
 
-    const [selectedCompetency, setSelectedCompetency] = useState([])
+    const [selectedCompetency, setSelectedCompetency] = useState('')
+    const [selectedCapacity, setSelectedCapacity] = useState('')
     const [selectedCategory, setSelectedCategory] = useState('all')
     const { categories } = useCategories()
     const { grades } = useGrades()
     const { user } = useAuth()
     const [filter, setFilter] = useState('')
     const [quarter, setQuarter] = useState('Q1')
-    const columns = activities &&  getActivitiesColumns(activities, selectedCompetency, selectedCategory, quarter)
+    // const columns = activities &&  getActivitiesColumns(activities, selectedCompetency, selectedCategory, quarter)
+    const columns = getCapacitiesColumns(selectedCompetency)
     const {data: students, isLoading, isError, error} = useQuery({
         queryKey: ['students'],
         queryFn: () => getStudents({ token: user.access, claseId: assignature.clase.id})
