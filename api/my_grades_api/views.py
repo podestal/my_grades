@@ -157,7 +157,6 @@ class ActivityViewSet(ModelViewSet):
     http_method_names = ['get', 'post', 'patch', 'delete']
 
     def get_serializer_class(self):
-        print(self.request.user.groups.all()[0].name)
         if self.request.method == 'POST':
             return serializers.CreateActivitySerializer 
         return serializers.GetActivitySerializer

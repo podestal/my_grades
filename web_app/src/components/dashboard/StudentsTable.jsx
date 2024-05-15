@@ -23,7 +23,7 @@ const StudentsTable = ({ activities, assignature }) => {
     const [filter, setFilter] = useState('')
     const [quarter, setQuarter] = useState('Q1')
     // const columns = activities &&  getActivitiesColumns(activities, selectedCompetency, selectedCategory, quarter)
-    const columns = selectedCapacity ? getActivitiesColumns(activities) : getCapacitiesColumns(selectedCompetency)
+    const columns = selectedCapacity ? getActivitiesColumns(activities, selectedCapacity, selectedCategory, quarter) : getCapacitiesColumns(selectedCompetency)
     const {data: students, isLoading, isError, error} = useQuery({
         queryKey: ['students'],
         queryFn: () => getStudents({ token: user.access, claseId: assignature.clase.id})
@@ -43,6 +43,8 @@ const StudentsTable = ({ activities, assignature }) => {
             setSelectedCompetency={setSelectedCompetency}
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
+            selectedCapacity={selectedCapacity}
+            setSelectedCapacity={setSelectedCapacity}
             quarter={quarter}
             setQuarter={setQuarter}
         />

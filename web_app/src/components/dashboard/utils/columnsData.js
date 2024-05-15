@@ -12,30 +12,26 @@ export const getCapacitiesColumns = (selectedCompetency) => {
 
 }
 
-export const getActivitiesColumns = (activities, selectedCompetency, selectedCategory, quarter) => {
+export const getActivitiesColumns = (activities, selectedCapacity, selectedCategory, quarter) => {
     return activities
-    // .filter( activity =>  {
-    //     if (selectedCompetency == 'all') {
-    //         return activity
-    //     }
-    //     else {
-    //         if (activity?.competence == selectedCompetency) {
-    //             return activity
-    //         }
-    //     } 
-        
-    // })
-    // .filter( activity => {
-    //     if (selectedCategory == 'all') {
-    //         return activity
-    //     }
-    //     else {
-    //         if (activity.category == selectedCategory) {
-    //             return activity
-    //         }
-    //     } 
-    // })
-    // .filter( activity => activity.quarter == quarter)
+    .filter( activity => {
+        if (selectedCapacity == 'all') {
+            return activity
+        } else if(activity.capacities.split(',').indexOf(selectedCapacity.toString()) >= 0) {
+            return activity
+        }
+    })
+    .filter( activity => {
+        if (selectedCategory == 'all') {
+            return activity
+        }
+        else {
+            if (activity.category == selectedCategory) {
+                return activity
+            }
+        } 
+    })
+    .filter( activity => activity.quarter == quarter)
     .map( activity => {
     return {
         header: activity.title,
