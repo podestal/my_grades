@@ -6,7 +6,7 @@ const AnnouncemntsMain = () => {
 
   return (
     <div>
-        {announcements.map( announcement => (
+        {announcements?.map( announcement => (
             <p key={announcement.id}>{announcement.title}</p>
         ))}
     </div>

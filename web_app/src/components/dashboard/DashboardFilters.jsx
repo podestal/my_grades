@@ -1,6 +1,7 @@
 import { RiSearchLine } from "@remixicon/react"
 import { TextInput, Select, SelectItem } from "@tremor/react"
 import Selector from "../../utils/Selector"
+import MultiSelector from "../../utils/MultiSelector"
 import useCategories from "../../hooks/useCategories"
 import { competenciesData } from "../../data/competencies"
 import { quartersData } from "../../data/quarters"
@@ -16,7 +17,7 @@ const DashboardFilters = ({ assignatureArea, filter, setFilter, selectedCompeten
             <p className='text-xl mb-4'>Buscar Alumno</p>
             <TextInput icon={RiSearchLine} placeholder='Buscar Alumno' className='mb-12 w-[240px]' value={filter} onValueChange={value => setFilter(value)}/>
         </div>
-        <div className='w-full'>
+        {/* <div className='w-[400px]'>
             <p className='text-xl mb-4'>Competencias</p>
             <Select value={selectedCompetency} onValueChange={ value => setSelectedCompetency(value)}>
                 <SelectItem value='all'>Todas las actividades</SelectItem>
@@ -24,7 +25,23 @@ const DashboardFilters = ({ assignatureArea, filter, setFilter, selectedCompeten
                     <SelectItem value={competency.id}  key={competency.id}>{competency.title}</SelectItem>
                 ))}
             </Select>
-        </div>
+        </div> */}
+        {/* <div className='w-full'>
+            <p className='text-xl mb-4'>Competencias</p>
+            <Select value={selectedCompetency} onValueChange={ value => setSelectedCompetency(value)}>
+                <SelectItem value='all'>Todas las actividades</SelectItem>
+                {competencies.map( competency => (
+                    <SelectItem value={competency.id}  key={competency.id}>{competency.title}</SelectItem>
+                ))}
+            </Select>
+        </div> */}
+        <MultiSelector 
+            label={'Competencias'}
+            value={selectedCompetency}
+            setter={setSelectedCompetency}
+            items={competencies}
+            wide={true}
+        />
         <Selector 
             label={'Categorías'}
             value={selectedCategory}

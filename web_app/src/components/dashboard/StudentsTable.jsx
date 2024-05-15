@@ -14,7 +14,7 @@ import { getActivitiesColumns } from './utils/columnsData'
 
 const StudentsTable = ({ activities, assignature }) => {
 
-    const [selectedCompetency, setSelectedCompetency] = useState('all')
+    const [selectedCompetency, setSelectedCompetency] = useState([])
     const [selectedCategory, setSelectedCategory] = useState('all')
     const { categories } = useCategories()
     const { grades } = useGrades()
@@ -33,7 +33,7 @@ const StudentsTable = ({ activities, assignature }) => {
 
   return (
     <div className='mx-12 w-full'>
-        {console.log('activities', activities)}
+        {console.log('selectedCompetency', selectedCompetency)}
         <DashboardFilters 
             assignatureArea={assignature.area}
             filter={filter}
