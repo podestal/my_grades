@@ -9,11 +9,16 @@ class GetGroupSerializer(UserSerializer):
 
 class GetUserSerializer(UserSerializer):
 
-    class Meta(UserSerializer.Meta):
-        fields = ['id', 'username', 'profile', 'first_name', 'last_name', 'school']
+    group_name = serializers.SerializerMethodField('get_group')
 
-    def get_is_staff(self, user=models.User):
-        return user.is_staff
+    class Meta(UserSerializer.Meta):
+        fields = ['id', 'username', 'profile', 'first_name', 'last_name', 'school', 'group_name']
+
+    def get_group(self, user=models.User):
+        if user.groups.all():
+            return user.groups.all()[0].name
+        else:
+            return ''
 
     
 class CreateUserSerializer(UserCreateSerializer):
