@@ -12,7 +12,7 @@ import CloseButton from "../../utils/CloseButton"
 import Selector from "../../utils/Selector"
 import MultiSelector from "../../utils/MultiSelector"
 import { quartersData } from "../../data/quarters"
-import { returnMultipleChoice } from "../../data/returnMultipleSelection"
+import getIntegerArray from "../../data/getIntegerArray"
 
 const ActivityForm = ({ activity, assignature, open, setOpen, success, setSuccess, setError, error, create, update }) => {
 
@@ -28,9 +28,9 @@ const ActivityForm = ({ activity, assignature, open, setOpen, success, setSucces
     const [date, setDate] = useState(activity && new Date(activity.due_date) || new Date())
     const [selectedCategory, setSelectedCategory] = useState(activity && activity.category || '')
     const competencies = competenciesData.filter( competency => competency.area == assignature.area)
-    const [selectedCompetency, setSelectedCompetency] = useState(activity && activity.competence || [])
+    const [selectedCompetency, setSelectedCompetency] = useState(activity && getIntegerArray(activity.competences.split(',')) || [])
     const capacities = selectedCompetency && capacitiesData.filter( capacity => selectedCompetency.indexOf(capacity.competence) >= 0)
-    const [selectedCapacity, setSelectedCapacity] = useState(activity && activity.capacity || [])
+    const [selectedCapacity, setSelectedCapacity] = useState(activity && getIntegerArray(activity.capacities.split(',')) || [])
     const [selectedQuarter, setSelectedQuarter] = useState(activity && activity.quarter || 'Q2')
 
     // VALIDATION ERROR HANDLING
@@ -54,10 +54,6 @@ const ActivityForm = ({ activity, assignature, open, setOpen, success, setSucces
 
     const handleSubmit = () => {
         const formattedDate = moment(date).format('YYYY-MM-DD')
-        console.log('selectedCompetency', selectedCompetency.length)
-        console.log('selectedCapacity', selectedCapacity)
-        console.log('type if', typeof(('80', '79')))
-        // (selectedCompetency[0], selectedCompetency[1])
         create &&  create({
             token: user.access,
             activity: {
@@ -66,8 +62,8 @@ const ActivityForm = ({ activity, assignature, open, setOpen, success, setSucces
                 assignature: assignature.id,
                 quarter: selectedQuarter,
                 due_date: formattedDate,
-                competences: returnMultipleChoice(selectedCompetency),
-                capacities: returnMultipleChoice(selectedCapacity),
+                competences: selectedCompetency.toString(),
+                capacities: selectedCapacity.toString(),
                 category: selectedCategory,
             }
         })
@@ -81,7 +77,8 @@ const ActivityForm = ({ activity, assignature, open, setOpen, success, setSucces
                 quarter: selectedQuarter,
                 due_date: formattedDate,
                 competence: selectedCompetency,
-                capacity: selectedCapacity,
+                competences: selectedCompetency.toString(),
+                capacities: selectedCapacity.toString(),
                 category: selectedCategory,
             }
         })

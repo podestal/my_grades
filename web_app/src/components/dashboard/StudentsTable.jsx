@@ -35,7 +35,6 @@ const StudentsTable = ({ activities, assignature }) => {
 
   return (
     <div className='mx-12 w-full'>
-        {console.log('selectedCompetency', selectedCompetency)}
         <DashboardFilters 
             assignatureArea={assignature.area}
             filter={filter}
