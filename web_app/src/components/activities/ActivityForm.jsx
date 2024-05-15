@@ -10,6 +10,7 @@ import InputText from "../../utils/InputText"
 import GenericCallout from "../../utils/GenericCallout"
 import CloseButton from "../../utils/CloseButton"
 import Selector from "../../utils/Selector"
+import MultiSelector from "../../utils/MultiSelector"
 import { quartersData } from "../../data/quarters"
 
 const ActivityForm = ({ activity, assignature, open, setOpen, success, setSuccess, setError, error, create, update }) => {
@@ -26,9 +27,9 @@ const ActivityForm = ({ activity, assignature, open, setOpen, success, setSucces
     const [date, setDate] = useState(activity && new Date(activity.due_date) || new Date())
     const [selectedCategory, setSelectedCategory] = useState(activity && activity.category || '')
     const competencies = competenciesData.filter( competency => competency.area == assignature.area)
-    const [selectedCompetency, setSelectedCompetency] = useState(activity && activity.competence || '')
-    const capacities = selectedCompetency && capacitiesData.filter( capacity => capacity.competence == selectedCompetency)
-    const [selectedCapacity, setSelectedCapacity] = useState(activity && activity.capacity || '')
+    const [selectedCompetency, setSelectedCompetency] = useState(activity && activity.competence || [])
+    const capacities = selectedCompetency && capacitiesData.filter( capacity => selectedCompetency.indexOf(capacity.competence) >= 0)
+    const [selectedCapacity, setSelectedCapacity] = useState(activity && activity.capacity || [])
     const [selectedQuarter, setSelectedQuarter] = useState(activity && activity.quarter || 'Q2')
 
     // VALIDATION ERROR HANDLING
@@ -42,8 +43,8 @@ const ActivityForm = ({ activity, assignature, open, setOpen, success, setSucces
             setDescription('')
             setDate(new Date)
             setSelectedCategory('')
-            setSelectedCompetency('')
-            setSelectedCapacity('')
+            setSelectedCompetency([])
+            setSelectedCapacity([])
         } 
         setOpen(false)
         setSuccess('')
@@ -52,6 +53,8 @@ const ActivityForm = ({ activity, assignature, open, setOpen, success, setSucces
 
     const handleSubmit = () => {
         const formattedDate = moment(date).format('YYYY-MM-DD')
+        console.log('selectedCompetency', selectedCompetency)
+        console.log('selectedCapacity', selectedCapacity)
         create &&  create({
             token: user.access,
             activity: {
@@ -60,8 +63,8 @@ const ActivityForm = ({ activity, assignature, open, setOpen, success, setSucces
                 assignature: assignature.id,
                 quarter: selectedQuarter,
                 due_date: formattedDate,
-                competence: selectedCompetency,
-                capacity: selectedCapacity,
+                competences: ('21', '22'),
+                capacities: ('80', '79'),
                 category: selectedCategory,
             }
         })
@@ -122,10 +125,12 @@ const ActivityForm = ({ activity, assignature, open, setOpen, success, setSucces
             <Selector label={'Categoría'} value={selectedCategory} setter={setSelectedCategory} items={categories} />
             
             {/* Competences Selector */}
-            <Selector label={'Competencia'} value={selectedCompetency} setter={setSelectedCompetency} items={competencies} />
+            {/* <Selector label={'Competencia'} value={selectedCompetency} setter={setSelectedCompetency} items={competencies} /> */}
+            <MultiSelector label={'Competencia'} value={selectedCompetency} setter={setSelectedCompetency} items={competencies}/>
             
             {/* Capacities Selector */}
-            {selectedCompetency && <Selector label={'Capacidad'} value={selectedCapacity} setter={setSelectedCapacity} items={capacities} />}
+            {/* {selectedCompetency && <Selector label={'Capacidad'} value={selectedCapacity} setter={setSelectedCapacity} items={capacities} />} */}
+            {selectedCompetency && <MultiSelector label={'Capacidad'} value={selectedCapacity} setter={setSelectedCapacity} items={capacities}/>}
 
             <Button onClick={handleSubmit} className="w-[160px] mx-auto mt-6" color="blue">{activity ? 'Guardar' : 'Crear'}</Button>
         </DialogPanel>

@@ -33,6 +33,7 @@ const CreateActivity = ({ assignature, activity }) => {
             :setActivities([res.data])
         },
         onError: err => {
+            console.log(err)
             setError('No se pudo crear actividad, inténtelo otra vez')
             setSuccess('')
         }
