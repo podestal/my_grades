@@ -18,7 +18,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
             accessorKey: 'fullName'
         },
         {
-            header: 'Promedio',
+            header: 'Logro',
             accessorKey: 'average'
         },
         ...columns
