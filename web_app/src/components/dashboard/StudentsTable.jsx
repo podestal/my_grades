@@ -21,22 +21,31 @@ const StudentsTable = ({ activities, assignature }) => {
     // LOCAL STATE DATA
     const { categories } = useCategories()
     const { grades } = useGrades()
+    const { students, setStudents } = useStudent()
 
+    // FILTERS
     const [selectedCompetency, setSelectedCompetency] = useState('')
     const [selectedCapacity, setSelectedCapacity] = useState('')
     const [selectedCategory, setSelectedCategory] = useState('all')
     const [filter, setFilter] = useState('')
-    const { students, setStudents } = useStudent()
+
+    // FILTERED STUDENTS BY ASSIGNATURE
     const studentsByAssignature = students?.filter(student => assignature?.clase?.id == student?.clase) || []
-    const dashboardData = getDashboardData(studentsByAssignature, filter, grades)
 
-
+    // READY TO USE DATA
+    const dashboardData = getDashboardData(studentsByAssignature, filter, grades, selectedCompetency, selectedCapacity, selectedCategory, activities)
     const currentQuarter = getCurrentQuarter()
+
     const [quarter, setQuarter] = useState(currentQuarter.id)
+
+    // COLUMNS DATA
     const columns = selectedCapacity ? getActivitiesColumns(activities, selectedCapacity, selectedCategory, quarter) : getCapacitiesColumns(selectedCompetency)
 
   return (
     <>
+    {/* {console.log('selectedCompetence', selectedCompetency)}
+    {console.log('selectedCapacity', selectedCapacity)}
+    {console.log('selectedCategory', selectedCategory)} */}
     {studentsByAssignature.length == 0 
     ? 
     <GetStudents 

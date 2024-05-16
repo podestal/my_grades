@@ -74,9 +74,17 @@ const calculateAverage = (grades, selectedCompetency, activities, categories, se
     return alphabeticalAverage
 }
 
-export const calculateSimpleAverage = (grades, selectedCompetency, activities, categories, selectedCategory) => {
+export const calculateSimpleAverage = (grades, activities, selectedCategory) => {
     const filteredActivities = filterActivitiesByCategory(selectedCategory, activities)
-    const filteredGrades = getFilteredGrades(grades, filteredActivities)
+    const filteredGrades = grades.filter( grade => filteredActivities.indexOf(grade.activity.id) >= 0)
+    const total = totalGrades(filteredGrades).length
+    const sum = filteredGrades.reduce((sum, grade) => {
+                    return sum + numericalRepresentation[grade.calification]
+                }, 0)
+    const numericalAverage = String((sum / total).toFixed(0))
+    const alphabeticalAverage = alphabeticalRepresentation[numericalAverage]
+    console.log('filteredGrades', filteredGrades)
+    return alphabeticalAverage
 }
 
 export default calculateAverage

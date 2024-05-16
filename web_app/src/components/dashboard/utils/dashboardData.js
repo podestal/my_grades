@@ -1,8 +1,22 @@
-const getAveragesData = (student) = () => {
+import { calculateSimpleAverage } from "../../../data/calculateAverage"
+
+const getAveragesData = (student, selectedCompetence, selectedCapacity, selectedCategory, activities, studentGrades) => {
     // TODO ...
-    
-    //     const average = student.averages
-//         .find(average => average?.quarter == quarter && average?.competence == selectedCompetency)
+    if (selectedCompetence != '' && selectedCategory == 'all') {
+        // TODO...
+        // return complex average calculation (includes cats)
+        return {calification: 'NA', id: 0}
+    } else if (selectedCompetence != '' && selectedCategory != 'all') {
+        // TODO...
+        // grades, activities, selectedCategory needed
+        // return simple average calculation (sum/total)
+        const simpleCategoryAverage = calculateSimpleAverage(studentGrades, activities, selectedCategory)
+        const calification = simpleCategoryAverage ? simpleCategoryAverage : '-'
+        return {calification, id: 0}
+    }
+    return {calification: '-', id: 0}
+    // const average = student.averages
+    //     .find(average => average?.quarter == quarter && average?.competence == selectedCompetency)
     // const averageCalculated = calculateAverage(studentGrades, selectedCompetency, activities, categories, selectedCategory) || 'NA'
 
     // const averageObject = Object.assign({            
@@ -16,8 +30,11 @@ const getAveragesData = (student) = () => {
     // }, ...gradesActivity)
 }
 
-const getGradesData = (grades, student) => {
-    const studentGrades = grades.filter(grade => grade?.student?.id == student.id)
+const getStudentGrades = (grades, student) => {
+    return grades.filter(grade => grade?.student?.id == student.id)
+}
+
+const getGradesData = (studentGrades) => {
     const gradesActivity = studentGrades.map( grade => {
         const activity = grade?.activity?.title
         const obj = {}
@@ -29,20 +46,23 @@ const getGradesData = (grades, student) => {
     return gradesActivity
 }
 
-const getDashboardData = (students, filter, grades) => {
+const getDashboardData = (students, filter, grades, selectedCompetency, selectedCapacity, selectedCategory, activities) => {
+    // getAveragesData(student, selectedCompetency, selectedCapacity, selectedCategory)
     return students
-    .filter( student => (
-        `${student?.first_name} ${student?.last_name}`
-        .toLowerCase()
-        .includes(filter.toLowerCase())
-    ))
-    .map( student => {
-        const gradesData = getGradesData(grades, student)
-        return Object.assign({            
-            'fullName': `${student.first_name} ${student.last_name}`,
-            'average': {calification: '-', id: 0}
-        }, ...gradesData)
-    })
+        .filter( student => (
+            `${student?.first_name} ${student?.last_name}`
+            .toLowerCase()
+            .includes(filter.toLowerCase())
+        ))
+        .map( student => {
+            const studentGrades = getStudentGrades(grades, student)
+            const gradesData = getGradesData(studentGrades, student)
+            const average = getAveragesData(student, selectedCompetency, selectedCapacity, selectedCategory, activities, studentGrades)
+            return Object.assign({            
+                'fullName': `${student.first_name} ${student.last_name}`,
+                'average': average
+            }, ...gradesData)
+        })
 }
 
 export default getDashboardData
