@@ -2,6 +2,7 @@ import { useReactTable, getCoreRowModel, flexRender, getFilteredRowModel } from 
 import { useState } from "react"
 import { Dialog, DialogPanel } from "@tremor/react"
 import UpdateGradeModal from "./dashboardComponents/UpdateGradeModal"
+import useCategories from "../../hooks/useCategories"
 
 const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompetency }) => {
 
@@ -11,6 +12,8 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
     const [student, setStudent] = useState('')
     const [calification, setCalification] = useState('')
     const [gradeId, setGradeId] = useState('')
+    const {categories} = useCategories()
+    const averageTitle = selectedCategory == 'all' ? 'Logro' : `Promedio de ${categories.find(cat => cat.id == selectedCategory).title}`
 
     const columnsDynamic = [
         {
@@ -18,7 +21,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
             accessorKey: 'fullName'
         },
         {
-            header: 'Logro',
+            header: averageTitle,
             accessorKey: 'average'
         },
         ...columns
@@ -40,6 +43,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
   return (
     <div className=" flex items-center justify-start overflow-x-scroll shadow-violet-950 shadow-[0_10px_20px_rgba(240,_46,_170,_0.7)] mb-12">
         <table className="bg-gray-900">
+            {console.log('averageTitle', averageTitle)}
            {columnsDynamic && <thead>
                 {
                     table.getHeaderGroups().map( headerGroup => (

@@ -171,6 +171,9 @@ class Grade(models.Model):
     created_at = models.DateField(auto_now_add=True)
     observations = models.TextField(null=True, blank=True)
 
+# TODO
+# ... Capacity Grade
+
 class QuarterGrade(models.Model):
 
     CALIFICATION_CHOICES = [

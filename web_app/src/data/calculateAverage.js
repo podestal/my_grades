@@ -54,6 +54,14 @@ const filterActivitiesByCompetency = (selectedCompetency, activities) => {
     })
 }
 
+const filterActivitiesByCategory = (selectedCategory, activities) => {
+    return activities.map(activity => {
+        if (activity.category == selectedCategory) {
+            return activity.id
+        }
+    })
+}
+
 const calculateAverage = (grades, selectedCompetency, activities, categories, selectedCategory) => {
 
     const filteredActivities = filterActivitiesByCompetency(selectedCompetency, activities)
@@ -64,6 +72,11 @@ const calculateAverage = (grades, selectedCompetency, activities, categories, se
     const numericalAverage = String((sum / total).toFixed(0))
     const alphabeticalAverage = alphabeticalRepresentation[numericalAverage]
     return alphabeticalAverage
+}
+
+export const calculateSimpleAverage = (grades, selectedCompetency, activities, categories, selectedCategory) => {
+    const filteredActivities = filterActivitiesByCategory(selectedCategory, activities)
+    const filteredGrades = getFilteredGrades(grades, filteredActivities)
 }
 
 export default calculateAverage

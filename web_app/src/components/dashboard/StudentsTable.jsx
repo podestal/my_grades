@@ -73,19 +73,22 @@ const StudentsTable = ({ activities, assignature }) => {
 
                 const average = student.averages
                     .find(average => average?.quarter == quarter && average?.competence == selectedCompetency)
-                const averageCalculated = calculateAverage(studentGrades, selectedCompetency, activities, categories, selectedCategory) || 'NA'
+                // const averageCalculated = calculateAverage(studentGrades, selectedCompetency, activities, categories, selectedCategory) || 'NA'
 
-                const averageObject = Object.assign({            
-                    'fullName': `${student.first_name} ${student.last_name}`,
-                    'average': average ? {calification: average?.calification, id: average.id}  : {calification: averageCalculated, id: 0},
-                }, ...gradesActivity)
+                // const averageObject = Object.assign({            
+                //     'fullName': `${student.first_name} ${student.last_name}`,
+                //     'average': average ? {calification: average?.calification, id: average.id}  : {calification: averageCalculated, id: 0},
+                // }, ...gradesActivity)
 
-                const noAverageObject = Object.assign({            
+                // const noAverageObject = Object.assign({            
+                //     'fullName': `${student.first_name} ${student.last_name}`,
+                //     'average': {calification: '-', id: 0}
+                // }, ...gradesActivity)
+
+                return Object.assign({            
                     'fullName': `${student.first_name} ${student.last_name}`,
                     'average': {calification: '-', id: 0}
                 }, ...gradesActivity)
-
-                return selectedCompetency == 'all' ? noAverageObject : averageObject
             })}
         />
     </div>
