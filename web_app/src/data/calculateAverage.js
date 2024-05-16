@@ -16,7 +16,11 @@ const alphabeticalRepresentation = {
 }
 
 const totalGrades = (grades) => {
-    return grades.filter(grade => grade.calification != 'NA')
+    let total = 0
+    grades
+        .filter(grade => grade.calification != 'NA')
+        .map( grade => total += 4)
+    return total
 }
 
 const getFilteredGrades = (grades, filteredActivities, selectedCategory) => {
@@ -68,23 +72,41 @@ const calculateAverage = (grades, selectedCompetency, activities, categories, se
     const filteredGrades = getFilteredGrades(grades, filteredActivities, selectedCategory)
     const total = totalGrades(filteredGrades).length
     const sum = sumOfGrades(filteredGrades, categories, selectedCategory)
-    console.log('sum',(sum/8))
     const numericalAverage = String((sum / total).toFixed(0))
     const alphabeticalAverage = alphabeticalRepresentation[numericalAverage]
     return alphabeticalAverage
 }
 
 export const calculateSimpleAverage = (grades, activities, selectedCategory) => {
+    
     const filteredActivities = filterActivitiesByCategory(selectedCategory, activities)
+
     const filteredGrades = grades.filter( grade => filteredActivities.indexOf(grade.activity.id) >= 0)
-    const total = totalGrades(filteredGrades).length
+    const total = totalGrades(filteredGrades)
     const sum = filteredGrades.reduce((sum, grade) => {
                     return sum + numericalRepresentation[grade.calification]
                 }, 0)
-    const numericalAverage = String((sum / total).toFixed(0))
+    const numericalAverage = String(Math.round((sum / total) * 4))
     const alphabeticalAverage = alphabeticalRepresentation[numericalAverage]
-    console.log('filteredGrades', filteredGrades)
     return alphabeticalAverage
+}
+
+export const calculateAverageWithCats = (grades, activities, categories) => {
+    const catAverages = categories && categories.map( category => {
+        const catAverage = calculateSimpleAverage(grades, activities, category.id)
+        if (catAverage != undefined) {
+            // numericalRepresentation[catAverage]
+            return ((numericalRepresentation[catAverage]/4) * category.weight) * 4
+        }
+        // console.log('catAverage',catAverage);
+    })
+    // console.log('count',count)
+    const final = catAverages.reduce((sum, average) => {
+        if (average) {
+            return sum += average
+        }
+    }, 0)
+    return alphabeticalRepresentation[Math.round(final)]
 }
 
 export default calculateAverage

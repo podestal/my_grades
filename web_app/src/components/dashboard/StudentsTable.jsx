@@ -33,7 +33,7 @@ const StudentsTable = ({ activities, assignature }) => {
     const studentsByAssignature = students?.filter(student => assignature?.clase?.id == student?.clase) || []
 
     // READY TO USE DATA
-    const dashboardData = getDashboardData(studentsByAssignature, filter, grades, selectedCompetency, selectedCapacity, selectedCategory, activities)
+    const dashboardData = getDashboardData(studentsByAssignature, filter, grades, selectedCompetency, selectedCapacity, selectedCategory, activities, categories)
     const currentQuarter = getCurrentQuarter()
 
     const [quarter, setQuarter] = useState(currentQuarter.id)
@@ -45,7 +45,7 @@ const StudentsTable = ({ activities, assignature }) => {
     <>
     {/* {console.log('selectedCompetence', selectedCompetency)}
     {console.log('selectedCapacity', selectedCapacity)}
-    {console.log('selectedCategory', selectedCategory)} */}
+    {console.log('categories', categories)} */}
     {studentsByAssignature.length == 0 
     ? 
     <GetStudents 
@@ -54,6 +54,7 @@ const StudentsTable = ({ activities, assignature }) => {
     /> 
     : 
     <div className='mx-12 w-full'>
+        {/* {console.log('categories', categories)} */}
         <DashboardFilters 
             assignatureArea={assignature.area}
             filter={filter}

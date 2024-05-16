@@ -1,11 +1,13 @@
-import { calculateSimpleAverage } from "../../../data/calculateAverage"
+import { calculateSimpleAverage, calculateAverageWithCats } from "../../../data/calculateAverage"
 
-const getAveragesData = (student, selectedCompetence, selectedCapacity, selectedCategory, activities, studentGrades) => {
+const getAveragesData = (student, selectedCompetence, selectedCapacity, selectedCategory, activities, studentGrades, categories) => {
     // TODO ...
     if (selectedCompetence != '' && selectedCategory == 'all') {
         // TODO...
         // return complex average calculation (includes cats)
-        return {calification: 'NA', id: 0}
+        const averageWithCats = calculateAverageWithCats(studentGrades, activities, categories)
+        const calification = averageWithCats ? averageWithCats : '-'
+        return {calification, id: 0}
     } else if (selectedCompetence != '' && selectedCategory != 'all') {
         // TODO...
         // grades, activities, selectedCategory needed
@@ -46,7 +48,7 @@ const getGradesData = (studentGrades) => {
     return gradesActivity
 }
 
-const getDashboardData = (students, filter, grades, selectedCompetency, selectedCapacity, selectedCategory, activities) => {
+const getDashboardData = (students, filter, grades, selectedCompetency, selectedCapacity, selectedCategory, activities, categories) => {
     // getAveragesData(student, selectedCompetency, selectedCapacity, selectedCategory)
     return students
         .filter( student => (
@@ -57,7 +59,7 @@ const getDashboardData = (students, filter, grades, selectedCompetency, selected
         .map( student => {
             const studentGrades = getStudentGrades(grades, student)
             const gradesData = getGradesData(studentGrades, student)
-            const average = getAveragesData(student, selectedCompetency, selectedCapacity, selectedCategory, activities, studentGrades)
+            const average = getAveragesData(student, selectedCompetency, selectedCapacity, selectedCategory, activities, studentGrades, categories)
             return Object.assign({            
                 'fullName': `${student.first_name} ${student.last_name}`,
                 'average': average
