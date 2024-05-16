@@ -36,7 +36,7 @@ const DashboardFilters = ({ assignatureArea, filter, setFilter, selectedCapacity
         </div>
         <div className='flex w-full justify-center gap-16 '>
             <div>
-                <p className='text-xl mb-4'>Buscar Alumno</p>
+                <p className='text-xl mb-4 text-center'>Buscar Alumno</p>
                 <TextInput icon={RiSearchLine} placeholder='Buscar Alumno' className='mb-12 w-[240px]' value={filter} onValueChange={value => setFilter(value)}/>
             </div>
             <Selector 

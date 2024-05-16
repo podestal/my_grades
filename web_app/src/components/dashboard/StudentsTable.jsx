@@ -5,6 +5,7 @@ import { getStudents } from '../../api/api'
 import DashboardTable from './DashboardTable'
 import { competenciesData } from '../../data/competencies'
 import Loading from '../../utils/Loading'
+import { getCurrentQuarter } from '../../data/currentQuarter'
 import calculateAverage from '../../data/calculateAverage'
 import useCategories from '../../hooks/useCategories'
 import DashboardFilters from './DashboardFilters'
@@ -21,7 +22,8 @@ const StudentsTable = ({ activities, assignature }) => {
     const { grades } = useGrades()
     const { user } = useAuth()
     const [filter, setFilter] = useState('')
-    const [quarter, setQuarter] = useState('Q1')
+    const currentQuarter = getCurrentQuarter()
+    const [quarter, setQuarter] = useState(currentQuarter.id)
     // const columns = activities &&  getActivitiesColumns(activities, selectedCompetency, selectedCategory, quarter)
     const columns = selectedCapacity ? getActivitiesColumns(activities, selectedCapacity, selectedCategory, quarter) : getCapacitiesColumns(selectedCompetency)
     const {data: students, isLoading, isError, error} = useQuery({
@@ -35,6 +37,7 @@ const StudentsTable = ({ activities, assignature }) => {
 
   return (
     <div className='mx-12 w-full'>
+        {console.log('currentQuarter', currentQuarter)}
         <DashboardFilters 
             assignatureArea={assignature.area}
             filter={filter}
