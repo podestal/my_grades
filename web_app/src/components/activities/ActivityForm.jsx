@@ -13,6 +13,7 @@ import Selector from "../../utils/Selector"
 import MultiSelector from "../../utils/MultiSelector"
 import { quartersData } from "../../data/quarters"
 import getIntegerArray from "../../data/getIntegerArray"
+import { getCurrentQuarter } from "../../data/currentQuarter"
 
 const ActivityForm = ({ activity, assignature, open, setOpen, success, setSuccess, setError, error, create, update }) => {
 
@@ -31,7 +32,8 @@ const ActivityForm = ({ activity, assignature, open, setOpen, success, setSucces
     const [selectedCompetency, setSelectedCompetency] = useState(activity && getIntegerArray(activity.competences.split(',')) || [])
     const capacities = selectedCompetency && capacitiesData.filter( capacity => selectedCompetency.indexOf(capacity.competence) >= 0)
     const [selectedCapacity, setSelectedCapacity] = useState(activity && getIntegerArray(activity.capacities.split(',')) || [])
-    const [selectedQuarter, setSelectedQuarter] = useState(activity && activity.quarter || 'Q2')
+    const currentQuarter = getCurrentQuarter()
+    const [selectedQuarter, setSelectedQuarter] = useState(activity && activity.quarter || currentQuarter.id)
 
     // VALIDATION ERROR HANDLING
     const [titleError, setTitleError] = useState(false)

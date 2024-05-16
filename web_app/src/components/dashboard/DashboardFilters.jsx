@@ -17,24 +17,24 @@ const DashboardFilters = ({ assignatureArea, filter, setFilter, selectedCapacity
         <div className='flex w-full justify-start gap-16'>
             <div className='w-full'>
                 <p className='text-xl mb-4'>Competencias</p>
-                <Select value={selectedCompetency} onValueChange={ value => setSelectedCompetency(value)}>
-                    <SelectItem value='all'>Todas las actividades</SelectItem>
+                <Select placeholder="Seleccione una competencia" value={selectedCompetency} onValueChange={ value => setSelectedCompetency(value)}>
+                    {/* <SelectItem value='all'>Todas las actividades</SelectItem> */}
                     {competencies.map( competency => (
                         <SelectItem value={competency.id}  key={competency.id}>{competency.title}</SelectItem>
                     ))}
                 </Select>
             </div>
             <div className='w-full'>
-                <p className='text-xl mb-4'>Capacities</p>
-                <Select value={selectedCapacity} onValueChange={ value => setSelectedCapacity(value)}>
-                    <SelectItem value='all'>Todas las actividades</SelectItem>
+                <p className='text-xl mb-4'>Capacidades</p>
+                <Select placeholder="Todas las capacidades" value={selectedCapacity} onValueChange={ value => setSelectedCapacity(value)}>
+                    <SelectItem value=''>Todas las capacidades</SelectItem>
                     {capacities.map( capacity => (
                         <SelectItem value={capacity.id}  key={capacity.id}>{capacity.title}</SelectItem>
                     ))}
                 </Select>
             </div>
         </div>
-        <div className='flex w-full justify-center gap-16 '>
+        <div className='flex w-full justify-start gap-16 '>
             <div>
                 <p className='text-xl mb-4 text-center'>Buscar Alumno</p>
                 <TextInput icon={RiSearchLine} placeholder='Buscar Alumno' className='mb-12 w-[240px]' value={filter} onValueChange={value => setFilter(value)}/>

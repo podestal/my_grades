@@ -24,7 +24,6 @@ const StudentsTable = ({ activities, assignature }) => {
     const [filter, setFilter] = useState('')
     const currentQuarter = getCurrentQuarter()
     const [quarter, setQuarter] = useState(currentQuarter.id)
-    // const columns = activities &&  getActivitiesColumns(activities, selectedCompetency, selectedCategory, quarter)
     const columns = selectedCapacity ? getActivitiesColumns(activities, selectedCapacity, selectedCategory, quarter) : getCapacitiesColumns(selectedCompetency)
     const {data: students, isLoading, isError, error} = useQuery({
         queryKey: ['students'],
@@ -37,7 +36,6 @@ const StudentsTable = ({ activities, assignature }) => {
 
   return (
     <div className='mx-12 w-full'>
-        {console.log('currentQuarter', currentQuarter)}
         <DashboardFilters 
             assignatureArea={assignature.area}
             filter={filter}
