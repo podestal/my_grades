@@ -13,18 +13,24 @@ import useGrades from '../../hooks/useGrades'
 import { getActivitiesColumns, getCapacitiesColumns } from './utils/columnsData'
 import GetStudents from '../getters/GetStudents'
 import useStudent from '../../hooks/useStudents'
+import getDashboardData from './utils/dashboardData'
 // setStudents, assignature
 
 const StudentsTable = ({ activities, assignature }) => {
 
+    // LOCAL STATE DATA
+    const { categories } = useCategories()
+    const { grades } = useGrades()
+
     const [selectedCompetency, setSelectedCompetency] = useState('')
     const [selectedCapacity, setSelectedCapacity] = useState('')
     const [selectedCategory, setSelectedCategory] = useState('all')
+    const [filter, setFilter] = useState('')
     const { students, setStudents } = useStudent()
     const studentsByAssignature = students?.filter(student => assignature?.clase?.id == student?.clase) || []
-    const { categories } = useCategories()
-    const { grades } = useGrades()
-    const [filter, setFilter] = useState('')
+    const dashboardData = getDashboardData(studentsByAssignature, filter, grades)
+
+
     const currentQuarter = getCurrentQuarter()
     const [quarter, setQuarter] = useState(currentQuarter.id)
     const columns = selectedCapacity ? getActivitiesColumns(activities, selectedCapacity, selectedCategory, quarter) : getCapacitiesColumns(selectedCompetency)
@@ -56,47 +62,10 @@ const StudentsTable = ({ activities, assignature }) => {
             selectedCategory={selectedCategory}
             selectedCompetency={selectedCompetency}
             columns={columns}
-            studentsData={students && 
-                students?.filter( student => (
-                    `${student?.first_name} ${student?.last_name}`
-                    .toLowerCase()
-                    .includes(filter.toLowerCase())
-                ))
-                .map( student => {
-
-                const studentGrades = grades.filter(grade => grade?.student?.id == student.id)
-                const gradesActivity = studentGrades.map( grade => {
-                    const activity = grade?.activity?.title
-                    const obj = {}
-                    obj[activity] = {calification: grade.calification, id: grade.id}
-                    return {
-                        ...obj
-                    }
-                })
-
-                const average = student.averages
-                    .find(average => average?.quarter == quarter && average?.competence == selectedCompetency)
-                // const averageCalculated = calculateAverage(studentGrades, selectedCompetency, activities, categories, selectedCategory) || 'NA'
-
-                // const averageObject = Object.assign({            
-                //     'fullName': `${student.first_name} ${student.last_name}`,
-                //     'average': average ? {calification: average?.calification, id: average.id}  : {calification: averageCalculated, id: 0},
-                // }, ...gradesActivity)
-
-                // const noAverageObject = Object.assign({            
-                //     'fullName': `${student.first_name} ${student.last_name}`,
-                //     'average': {calification: '-', id: 0}
-                // }, ...gradesActivity)
-
-                return Object.assign({            
-                    'fullName': `${student.first_name} ${student.last_name}`,
-                    'average': {calification: '-', id: 0}
-                }, ...gradesActivity)
-            })}
+            studentsData={dashboardData}
         />
     </div>
     }
-    
     </>
   )
 }
