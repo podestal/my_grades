@@ -11,30 +11,33 @@ import useCategories from '../../hooks/useCategories'
 import DashboardFilters from './DashboardFilters'
 import useGrades from '../../hooks/useGrades'
 import { getActivitiesColumns, getCapacitiesColumns } from './utils/columnsData'
-
+import GetStudents from '../getters/GetStudents'
+import useStudent from '../../hooks/useStudents'
+// setStudents, assignature
 
 const StudentsTable = ({ activities, assignature }) => {
 
     const [selectedCompetency, setSelectedCompetency] = useState('')
     const [selectedCapacity, setSelectedCapacity] = useState('')
     const [selectedCategory, setSelectedCategory] = useState('all')
+    const { students, setStudents } = useStudent()
+    const studentsByAssignature = students?.filter(student => assignature?.clase?.id == student?.clase) || []
     const { categories } = useCategories()
     const { grades } = useGrades()
-    const { user } = useAuth()
     const [filter, setFilter] = useState('')
     const currentQuarter = getCurrentQuarter()
     const [quarter, setQuarter] = useState(currentQuarter.id)
     const columns = selectedCapacity ? getActivitiesColumns(activities, selectedCapacity, selectedCategory, quarter) : getCapacitiesColumns(selectedCompetency)
-    const {data: students, isLoading, isError, error} = useQuery({
-        queryKey: ['students'],
-        queryFn: () => getStudents({ token: user.access, claseId: assignature.clase.id})
-    })
-
-    if (isLoading) return <Loading />
-
-    if (isError) return <p>{error.message}</p>
 
   return (
+    <>
+    {studentsByAssignature.length == 0 
+    ? 
+    <GetStudents 
+        setStudents={setStudents}
+        assignature={assignature}
+    /> 
+    : 
     <div className='mx-12 w-full'>
         <DashboardFilters 
             assignatureArea={assignature.area}
@@ -54,7 +57,7 @@ const StudentsTable = ({ activities, assignature }) => {
             selectedCompetency={selectedCompetency}
             columns={columns}
             studentsData={students && 
-                students.data.filter( student => (
+                students?.filter( student => (
                     `${student?.first_name} ${student?.last_name}`
                     .toLowerCase()
                     .includes(filter.toLowerCase())
@@ -92,6 +95,9 @@ const StudentsTable = ({ activities, assignature }) => {
             })}
         />
     </div>
+    }
+    
+    </>
   )
 }
 
