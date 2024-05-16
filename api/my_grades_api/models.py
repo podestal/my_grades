@@ -191,7 +191,8 @@ class QuarterGrade(models.Model):
     assignature = models.ForeignKey(Assignature, on_delete=models.CASCADE)
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='averages')
     quarter = models.CharField(max_length=2, choices=QUARTER_CHOICES)
-    competence = models.ForeignKey(Competence, on_delete=models.PROTECT)
+    competence = models.CharField(max_length=255)
+    conclusion = models.TextField(null=True, blank=True)
 
 
 class Participation(models.Model):
