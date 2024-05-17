@@ -14,6 +14,7 @@ import { getActivitiesColumns, getCapacitiesColumns } from './utils/columnsData'
 import GetStudents from '../getters/GetStudents'
 import useStudent from '../../hooks/useStudents'
 import getDashboardData from './utils/dashboardData'
+import { filterActivities } from './utils/conditionalFilterActivities'
 // setStudents, assignature
 
 const StudentsTable = ({ activities, assignature }) => {
@@ -32,8 +33,11 @@ const StudentsTable = ({ activities, assignature }) => {
     // FILTERED STUDENTS BY ASSIGNATURE
     const studentsByAssignature = students?.filter(student => assignature?.clase?.id == student?.clase) || []
 
+    // FILTER ACTICITIES BY COMPETENCE
+    const getFileteredActivities = filterActivities(activities, selectedCompetency, selectedCapacity, selectedCategory)
+
     // READY TO USE DATA
-    const dashboardData = getDashboardData(studentsByAssignature, filter, grades, selectedCompetency, selectedCapacity, selectedCategory, activities, categories)
+    const dashboardData = getDashboardData(studentsByAssignature, filter, grades, selectedCompetency, selectedCapacity, selectedCategory, getFileteredActivities, categories)
     const currentQuarter = getCurrentQuarter()
 
     const [quarter, setQuarter] = useState(currentQuarter.id)

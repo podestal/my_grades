@@ -68,11 +68,13 @@ const filterActivitiesByCompetency = (selectedCompetency, activities) => {
 }
 
 const filterActivitiesByCategory = (selectedCategory, activities) => {
-    return activities.map(activity => {
+    const activitiesIds = []
+    activities.map(activity => {
         if (activity?.category == selectedCategory) {
-            return activity.id
+            activitiesIds.push(activity.id)
         }
     })
+    return activitiesIds
 }
 
 const calculateAverage = (grades, selectedCompetency, activities, categories, selectedCategory) => {
@@ -106,10 +108,11 @@ export const calculateAverageWithCats = (grades, activities, categories, selecte
     // TODO ....
     // While calculating all the averages for cats, save those, and show them when user select a cat
     // currently we are repeating a lot, and that is making the app get slower
-    const filteredActivitiesByCapacity = filterActivitiesByCapacity(selectedCapacity, activities)
-    console.log('filteredActivitiesByCapacity', filteredActivitiesByCapacity)
+    // const filteredActivitiesByCapacity = filterActivitiesByCapacity(selectedCapacity, activities)
+    // console.log('filteredActivitiesByCapacity', filteredActivitiesByCapacity)
+    // console.log('cacluating avgs with cats from calculate avgs')
     const catAverages = categories && categories.map( category => {
-        const catAverage = calculateSimpleAverage(grades, filteredActivitiesByCapacity, category.id)
+        const catAverage = calculateSimpleAverage(grades, activities, category.id)
         if (catAverage != undefined) {
             // numericalRepresentation[catAverage]
             return ((numericalRepresentation[catAverage]/4) * category.weight) * 4
@@ -123,6 +126,10 @@ export const calculateAverageWithCats = (grades, activities, categories, selecte
         }
     }, 0)
     return alphabeticalRepresentation[Math.round(final)]
+}
+
+export const getAveragesForCompetency = () => {
+
 }
 
 export default calculateAverage

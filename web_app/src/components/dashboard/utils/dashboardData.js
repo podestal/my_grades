@@ -2,13 +2,17 @@ import { calculateSimpleAverage, calculateAverageWithCats } from "../../../data/
 import { capacitiesData } from "../../../data/capacities";
 
 const getAveragesData = (student, selectedCompetence, selectedCapacity, selectedCategory, activities, studentGrades, categories) => {
-    console.log('selectedCapacity', selectedCapacity)
-    if (selectedCompetence != '' && selectedCategory == 'all') {
+    // console.log('selectedCapacity', selectedCapacity)
+    if (selectedCompetence != '' && selectedCapacity == '' && selectedCategory == 'all') {
+        console.log('not calculating anything yet');
+    }
+    if (selectedCompetence != '' && selectedCapacity != '' && selectedCategory == 'all') {
         console.log('caluclating averages with cats');
         const averageWithCats = calculateAverageWithCats(studentGrades, activities, categories, selectedCapacity)
-        const calification = averageWithCats ? averageWithCats : '-'
+        // const calification = averageWithCats ? averageWithCats : '-'
+        const calification = 'ADX'
         return {calification, id: 0}
-    } else if (selectedCompetence != '' && selectedCategory != 'all') {
+    } else if (selectedCompetence != '' && selectedCapacity != '' && selectedCategory != 'all') {
         console.log('caluclating averages without cats');
         const simpleCategoryAverage = calculateSimpleAverage(studentGrades, activities, selectedCategory)
         const calification = simpleCategoryAverage ? simpleCategoryAverage : '-'
@@ -64,7 +68,8 @@ const getGradesData = (studentGrades) => {
 
 const getDashboardData = (students, filter, grades, selectedCompetency, selectedCapacity, selectedCategory, activities, categories) => {
     // getAveragesData(student, selectedCompetency, selectedCapacity, selectedCategory)
-    console.log('selectedCapacity',selectedCapacity)
+    // console.log('filtered activities by comp',activities)
+    console.log('activities', activities.length)
     const filteredCapacitiesByCompetence = capacitiesData.filter( capacity => capacity.competence == selectedCompetency)
     return students
         .filter( student => (
@@ -75,7 +80,7 @@ const getDashboardData = (students, filter, grades, selectedCompetency, selected
         .map( student => {
             const studentGrades = getStudentGrades(grades, student)
             let gradesData
-            if (selectedCapacity > 0) {
+            if (selectedCapacity != '') {
                 gradesData = getGradesData(studentGrades, student)
             } else {
                 gradesData = getCapacitiesData(filteredCapacitiesByCompetence)
