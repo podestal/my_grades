@@ -127,7 +127,13 @@ export const calculateAverageWithCats = (grades, activities, categories) => {
     return alphabeticalRepresentation[Math.round(final)]
 }
 
-export const getAveragesForCompetency = () => {
+export const getAveragesForCompetency = (capacities, grades, categories, activities) => {
+    console.log('filtered capacities', capacities)
+    // const competencesAverages = capacities.map(capacity => {
+    //     const capacityAverage = calculateAverageWithCats(grades, activities, categories)
+    //     return capacityAverage
+    // })
+    // console.log('competencesAverages', competencesAverages);
 
 }
 
