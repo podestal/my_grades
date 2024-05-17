@@ -1,17 +1,15 @@
 import { calculateSimpleAverage, calculateAverageWithCats } from "../../../data/calculateAverage"
+import { capacitiesData } from "../../../data/capacities";
 
 const getAveragesData = (student, selectedCompetence, selectedCapacity, selectedCategory, activities, studentGrades, categories) => {
-    // TODO ...
+    console.log('selectedCapacity', selectedCapacity)
     if (selectedCompetence != '' && selectedCategory == 'all') {
-        // TODO...
-        // return complex average calculation (includes cats)
-        const averageWithCats = calculateAverageWithCats(studentGrades, activities, categories)
+        console.log('caluclating averages with cats');
+        const averageWithCats = calculateAverageWithCats(studentGrades, activities, categories, selectedCapacity)
         const calification = averageWithCats ? averageWithCats : '-'
         return {calification, id: 0}
     } else if (selectedCompetence != '' && selectedCategory != 'all') {
-        // TODO...
-        // grades, activities, selectedCategory needed
-        // return simple average calculation (sum/total)
+        console.log('caluclating averages without cats');
         const simpleCategoryAverage = calculateSimpleAverage(studentGrades, activities, selectedCategory)
         const calification = simpleCategoryAverage ? simpleCategoryAverage : '-'
         return {calification, id: 0}
@@ -36,6 +34,22 @@ const getStudentGrades = (grades, student) => {
     return grades.filter(grade => grade?.student?.id == student.id)
 }
 
+const getCapacitiesData = (capacities, capacitiesAverage) => {
+    return capacities.map( capacity => {
+        const capacityTitle = capacity.title
+        const obj = {}
+        obj[capacityTitle] = {calification: '-', id: 0}
+        return {
+            ...obj
+        }
+    })
+    // const averages = capacitiesAverage.map( grade => {
+    //     const capacity = grade?.capacity
+    //     const obj = {}
+    //     obj[capacity] = {calification: '-', id: grade.id}
+    // })
+}
+
 const getGradesData = (studentGrades) => {
     const gradesActivity = studentGrades.map( grade => {
         const activity = grade?.activity?.title
@@ -50,6 +64,8 @@ const getGradesData = (studentGrades) => {
 
 const getDashboardData = (students, filter, grades, selectedCompetency, selectedCapacity, selectedCategory, activities, categories) => {
     // getAveragesData(student, selectedCompetency, selectedCapacity, selectedCategory)
+    console.log('selectedCapacity',selectedCapacity)
+    const filteredCapacitiesByCompetence = capacitiesData.filter( capacity => capacity.competence == selectedCompetency)
     return students
         .filter( student => (
             `${student?.first_name} ${student?.last_name}`
@@ -58,7 +74,12 @@ const getDashboardData = (students, filter, grades, selectedCompetency, selected
         ))
         .map( student => {
             const studentGrades = getStudentGrades(grades, student)
-            const gradesData = getGradesData(studentGrades, student)
+            let gradesData
+            if (selectedCapacity > 0) {
+                gradesData = getGradesData(studentGrades, student)
+            } else {
+                gradesData = getCapacitiesData(filteredCapacitiesByCompetence)
+            }
             const average = getAveragesData(student, selectedCompetency, selectedCapacity, selectedCategory, activities, studentGrades, categories)
             return Object.assign({            
                 'fullName': `${student.first_name} ${student.last_name}`,

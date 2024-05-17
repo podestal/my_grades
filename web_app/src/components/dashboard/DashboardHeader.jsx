@@ -8,7 +8,6 @@ const DashboardHeader = ({ assignature }) => {
 
   return (
     <div className="w-full flex items-center justify-center my-20 gap-12">
-        {console.log('assignature options',assignature)}
         <h2 className="text-white text-6xl font-poppins">Registro de Evaluación {assignature.title}</h2>
         <CreateActivity 
             assignature={assignature}
