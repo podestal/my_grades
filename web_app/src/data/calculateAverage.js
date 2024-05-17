@@ -103,7 +103,7 @@ export const calculateSimpleAverage = (grades, activities, selectedCategory) => 
     return alphabeticalAverage
 }
 
-export const calculateAverageWithCats = (grades, activities, categories, selectedCapacity) => {
+export const calculateAverageWithCats = (grades, activities, categories) => {
 
     // TODO ....
     // While calculating all the averages for cats, save those, and show them when user select a cat
@@ -114,7 +114,6 @@ export const calculateAverageWithCats = (grades, activities, categories, selecte
     const catAverages = categories && categories.map( category => {
         const catAverage = calculateSimpleAverage(grades, activities, category.id)
         if (catAverage != undefined) {
-            // numericalRepresentation[catAverage]
             return ((numericalRepresentation[catAverage]/4) * category.weight) * 4
         }
         // console.log('catAverage',catAverage);

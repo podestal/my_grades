@@ -9,8 +9,8 @@ const getAveragesData = (student, selectedCompetence, selectedCapacity, selected
     if (selectedCompetence != '' && selectedCapacity != '' && selectedCategory == 'all') {
         console.log('caluclating averages with cats');
         const averageWithCats = calculateAverageWithCats(studentGrades, activities, categories, selectedCapacity)
-        // const calification = averageWithCats ? averageWithCats : '-'
-        const calification = 'ADX'
+        const calification = averageWithCats ? averageWithCats : '-'
+        // const calification = 'ADX'
         return {calification, id: 0}
     } else if (selectedCompetence != '' && selectedCapacity != '' && selectedCategory != 'all') {
         console.log('caluclating averages without cats');
@@ -69,7 +69,7 @@ const getGradesData = (studentGrades) => {
 const getDashboardData = (students, filter, grades, selectedCompetency, selectedCapacity, selectedCategory, activities, categories) => {
     // getAveragesData(student, selectedCompetency, selectedCapacity, selectedCategory)
     // console.log('filtered activities by comp',activities)
-    console.log('activities', activities.length)
+    // console.log('activities', activities.length)
     const filteredCapacitiesByCompetence = capacitiesData.filter( capacity => capacity.competence == selectedCompetency)
     return students
         .filter( student => (
