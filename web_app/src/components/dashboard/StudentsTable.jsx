@@ -33,14 +33,13 @@ const StudentsTable = ({ activities, assignature }) => {
     // FILTERED STUDENTS BY ASSIGNATURE
     const studentsByAssignature = students?.filter(student => assignature?.clase?.id == student?.clase) || []
 
-    // FILTER ACTICITIES BY COMPETENCE
-    const getFileteredActivities = filterActivities(activities, selectedCompetency, selectedCapacity, selectedCategory)
-
     // READY TO USE DATA
-    const dashboardData = getDashboardData(studentsByAssignature, filter, grades, selectedCompetency, selectedCapacity, selectedCategory, activities, categories)
     const currentQuarter = getCurrentQuarter()
-
     const [quarter, setQuarter] = useState(currentQuarter.id)
+    const activitiesByQuarter = activities.filter(activity => activity.quarter == quarter)
+    const dashboardData = getDashboardData(studentsByAssignature, filter, grades, selectedCompetency, selectedCapacity, selectedCategory, activitiesByQuarter, categories)
+
+
 
     // COLUMNS DATA
     const columns = selectedCapacity ? getActivitiesColumns(activities, selectedCapacity, selectedCategory, quarter) : getCapacitiesColumns(selectedCompetency)
