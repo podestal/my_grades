@@ -13,7 +13,7 @@ import useGrades from '../../hooks/useGrades'
 import { getActivitiesColumns, getCapacitiesColumns } from './utils/columnsData'
 import GetStudents from '../getters/GetStudents'
 import useStudent from '../../hooks/useStudents'
-import getDashboardData from './utils/dashboardData'
+import getDashboardData, {getAveragesForCompetencies} from './utils/dashboardData'
 import { filterActivities } from './utils/conditionalFilterActivities'
 // setStudents, assignature
 
@@ -45,11 +45,14 @@ const StudentsTable = ({ activities, assignature }) => {
     // COLUMNS DATA
     const columns = selectedCapacity ? getActivitiesColumns(activities, selectedCapacity, selectedCategory, quarter) : getCapacitiesColumns(selectedCompetency)
 
+
+    // CAPACITIES GRADES
+    const capacitiesGrades = selectedCompetency != '' && getAveragesForCompetencies()
   return (
     <>
     {/* {console.log('selectedCompetence', selectedCompetency)}
     {console.log('selectedCapacity', selectedCapacity)}
-    {console.log('categories', categories)} */}
+    {console.log('capacitiesGrades', capacitiesGrades)} */}
     {studentsByAssignature.length == 0 
     ? 
     <GetStudents 
@@ -58,7 +61,7 @@ const StudentsTable = ({ activities, assignature }) => {
     /> 
     : 
     <div className='mx-12 w-full'>
-        {/* {console.log('categories', categories)} */}
+        {/* {console.log('capacitiesGrades', capacitiesGrades)} */}
         <DashboardFilters 
             assignatureArea={assignature.area}
             filter={filter}

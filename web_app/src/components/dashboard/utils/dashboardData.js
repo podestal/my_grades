@@ -1,13 +1,40 @@
 import { calculateSimpleAverage, calculateAverageWithCats, getAveragesForCompetency } from "../../../data/calculateAverage"
 import { capacitiesData } from "../../../data/capacities";
+import { filterActivities } from "./conditionalFilterActivities";
+const numericalRepresentation = {
+    'AD': 4,
+    'A': 3,
+    'B': 2,
+    'C': 1,
+    'NA': 0,
+}
+
+const alphabeticalRepresentation = {
+    '4': 'AD',
+    '3': 'A',
+    '2': 'B',
+    '1': 'C',
+    '0': 'NA',
+}
 
 const capacityAverages = []
 
-const getAveragesData = (student, selectedCompetence, selectedCapacity, selectedCategory, activities, studentGrades, categories, filteredCapacitiesByCompetence) => {
+export const getAveragesForCompetencies = () => {
+
+    return capacityAverages
+}
+
+const getAveragesData = (student, selectedCompetence, selectedCapacity, selectedCategory, activities, studentGrades, categories, total, filteredActivitiesByCategory, capacitiesData) => {
     // console.log('selectedCapacity', selectedCapacity)
     if (selectedCompetence != '' && selectedCapacity == '' && selectedCategory == 'all') {
-        // console.log('not calculating anything yet');
-        
+        let sum = 0
+        capacitiesData.map( data => {
+            if (data[1].studentId == student.id) {
+                sum+= numericalRepresentation[data[1].calification]
+            }
+        })
+        const calification = !sum ? '-' : alphabeticalRepresentation[Math.round((sum/total) * 4)]
+        return {calification, id: 0}
     }
     if (selectedCompetence != '' && selectedCapacity != '' && selectedCategory == 'all') {
         console.log('caluclating averages with cats');
@@ -17,7 +44,7 @@ const getAveragesData = (student, selectedCompetence, selectedCapacity, selected
         return {calification, id: 0}
     } else if (selectedCompetence != '' && selectedCapacity != '' && selectedCategory != 'all') {
         console.log('caluclating averages without cats');
-        const simpleCategoryAverage = calculateSimpleAverage(studentGrades, activities, selectedCategory)
+        const simpleCategoryAverage = calculateSimpleAverage(studentGrades, filteredActivitiesByCategory, selectedCategory)
         const calification = simpleCategoryAverage ? simpleCategoryAverage : '-'
         // const calification = 'ADX'
         return {calification, id: 0}
@@ -77,6 +104,8 @@ const getDashboardData = (students, filter, grades, selectedCompetency, selected
     // console.log('capacityAverages', capacityAverages)
     const filteredCapacitiesByCompetence = capacitiesData.filter( capacity => capacity.competence == selectedCompetency)
     const filteredAcitivitesByCompetence = activities.filter( activity => activity.competences.split(',').indexOf(selectedCompetency.toString()) >= 0)
+    const filteredActivitiesByCategory = activities.filter( activity => activity.category == selectedCategory && activity.capacities.split(',').indexOf(selectedCapacity.toString()) >= 0)
+    const total = filteredCapacitiesByCompetence.length * 4
     // const filteredAcitivitesByCapaciy = activities.filter( activity => activity.capacity.split(',').indexOf(capacity.toString()) >= 0)
     return students
         .filter( student => (
@@ -93,18 +122,31 @@ const getDashboardData = (students, filter, grades, selectedCompetency, selected
                 const calification = allAverages ? allAverages : '-'
                 const obj = {}
                 obj[capacityTitle] = {calification, id: 0}
-                return {
-                    ...obj
-                }
+                // console.log('...obj', [{...obj}, 'fdasfaef'])
+                // console.log('...obj', {...obj})
+                // console.log('...obj', [{...obj}, 'fdasfaef'][0])
+                // console.log('///////////////////////////////')
+                // return {
+                //     ...obj,
+                // }
+                return [{
+                    ...obj,
+                }, {calification, studentId: student.id}]
+
             })
+            // const capacitiesGrade = {}
+            // capacitiesGrade[`${student?.first_name} ${student?.last_name}`] = capacitiesData
+            // capacityAverages.push(capacitiesGrade)
             //const allAverages = calculateAverageWithCats(studentGrades, filteredAcitivitesByCompetence, categories)
+            // console.log('capacitiesData',capacitiesData[0][0])
             let gradesData
             if (selectedCapacity != '') {
                 gradesData = getGradesData(studentGrades, student)
             } else {
-                gradesData = capacitiesData
+                gradesData = capacitiesData.map(data => data[0])
             }
-            const average = getAveragesData(student, selectedCompetency, selectedCapacity, selectedCategory, filteredAcitivitesByCompetence, studentGrades, categories, filteredCapacitiesByCompetence)
+            
+            const average = getAveragesData(student, selectedCompetency, selectedCapacity, selectedCategory, filteredAcitivitesByCompetence, studentGrades, categories, total, filteredActivitiesByCategory, capacitiesData)
             return Object.assign({            
                 'fullName': `${student.first_name} ${student.last_name}`,
                 'average': average
