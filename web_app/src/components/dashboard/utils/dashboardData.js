@@ -34,7 +34,7 @@ const getAveragesData = (student, selectedCompetence, selectedCapacity, selected
             }
         })
         const calification = !sum ? '-' : alphabeticalRepresentation[Math.round((sum/total) * 4)]
-        return {calification, id: 0}
+        return {calification, id: 0, final: true}
     }
     if (selectedCompetence != '' && selectedCapacity != '' && selectedCategory == 'all') {
         console.log('caluclating averages with cats');

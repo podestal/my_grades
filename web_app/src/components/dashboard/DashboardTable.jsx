@@ -8,12 +8,16 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
 
     const data = studentsData || []
     const [open, setOpen] = useState(false)
+    const [error, setError] = useState(false)
     const [activity, setActivity] = useState('')
     const [student, setStudent] = useState('')
     const [calification, setCalification] = useState('')
     const [gradeId, setGradeId] = useState('')
     const {categories} = useCategories()
+    const [forceConclusions, setForceConclusions] = useState(false)
     const averageTitle = selectedCategory == 'all' ? 'Logro' : `Promedio de ${categories.find(cat => cat.id == selectedCategory).title}`
+
+    // const [quarterGrade, setQuarterGrade] = useState('')
 
     const columnsDynamic = [
         {
@@ -86,11 +90,17 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                                         
                                     `}
                                     onClick={() => {
+                                        setForceConclusions(false)
+                                        setError(false)
                                         if (cell.column.id == 'average') {
                                             if (selectedCategory != 'all' || selectedCompetency == 'all') {
                                                 return
                                             }
                                         }
+                                        if (cell.getValue()?.final) {
+                                            setForceConclusions(true)
+                                        }
+                                        // console.log('cell', cell.getValue()?.final)
                                         setActivity(cell.column.id)
                                         setOpen(true)
                                         setGradeId(cell.getValue().id)
@@ -119,7 +129,12 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
             setOpen={setOpen}
             open={open}
             calification={calification}
+            setCalification={setCalification}
             gradeId={gradeId}
+            forceConclusions={forceConclusions}
+            setForceConclusions={setForceConclusions}
+            error={error}
+            setError={setError}
         />
     </div>
   )
