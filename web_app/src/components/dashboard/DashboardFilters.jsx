@@ -17,7 +17,10 @@ const DashboardFilters = ({ assignatureArea, filter, setFilter, selectedCapacity
         <div className='flex w-full justify-start gap-16'>
             <div className='w-full'>
                 <p className='text-xl mb-4'>Competencias</p>
-                <Select placeholder="Seleccione una competencia" value={selectedCompetency} onValueChange={ value => setSelectedCompetency(value)}>
+                <Select placeholder="Seleccione una competencia" value={selectedCompetency} onValueChange={ value => {
+                    setSelectedCompetency(value)
+                    setSelectedCapacity('')
+                    setSelectedCategory('all')}}>
                     {/* <SelectItem value='all'>Todas las actividades</SelectItem> */}
                     {competencies.map( competency => (
                         <SelectItem value={competency.id}  key={competency.id}>{competency.title}</SelectItem>
@@ -26,7 +29,10 @@ const DashboardFilters = ({ assignatureArea, filter, setFilter, selectedCapacity
             </div>
             <div className='w-full'>
                 <p className='text-xl mb-4'>Capacidades</p>
-                <Select placeholder="Todas las capacidades" value={selectedCapacity} onValueChange={ value => setSelectedCapacity(value)}>
+                <Select placeholder="Todas las capacidades" value={selectedCapacity} onValueChange={ value => {
+                    setSelectedCapacity(value)
+                    setSelectedCategory('all')
+                    }}>
                     <SelectItem value=''>Todas las capacidades</SelectItem>
                     {capacities.map( capacity => (
                         <SelectItem value={capacity.id}  key={capacity.id}>{capacity.title}</SelectItem>
