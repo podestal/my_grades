@@ -23,6 +23,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
     const [averages, setAverages] = useState(false)
     const [createAverage, setCreateAverage] = useState(false)
     const [averageId, setAverageId] = useState('')
+    const [conclusion, setConclusion] = useState('')
     
 
     const columnsDynamic = [
@@ -107,6 +108,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                                         // if (cell.getValue().id == 0)
                                         if (cell.column.id == 'average') {
                                             setAverageId(cell.getValue().id)
+                                            setConclusion(cell.getValue().conclusion)
                                             if (selectedCapacity != '') {
                                                 return
                                             }
@@ -152,7 +154,6 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
         <>
             {createAverage 
             ? 
-                // open, setOpen, student, studentId, calification, setCalification, average, quarter, assignature, create 
             <CreateAverage
                 open={open}
                 setOpen={setOpen}
@@ -164,9 +165,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                 quarter={quarter}
                 assignature={assignature}
             />
-
             : 
-            // open, setOpen, student, studentId, calification, setCalification, average, quarter, assignature, create 
             <UpdateAverage
                 open={open}
                 setOpen={setOpen}
@@ -178,6 +177,8 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                 quarter={quarter}
                 assignature={assignature}
                 averageId={averageId}
+                conclusion={conclusion}
+                setConclusion={setConclusion}
             />
             }
         </>

@@ -2,14 +2,23 @@ import AveragesForm from "./AveragesForm"
 import { updateQuarterGrade } from "../../api/api"
 import { useMutation } from "@tanstack/react-query"
 import useStudent from "../../hooks/useStudents"
+import { useState } from "react"
 
-const UpdateAverage = ({ open, setOpen, student, studentId, calification, setCalification, selectedCompetency, quarter, assignature, averageId }) => {
+const UpdateAverage = ({ open, setOpen, student, studentId, calification, setCalification, selectedCompetency, quarter, assignature, averageId, conclusion, setConclusion }) => {
+
+
+    const [success, setSuccess] = useState(false)
+    const [error, setError] = useState(false)
+
+    const [disable, setDisable] = useState(false)
 
     const { students, setStudents } = useStudent()
     const { mutate: updateQuarterGradeMutation } = useMutation({
         mutationFn: data => updateQuarterGrade(data),
         onSuccess: res => {
-            console.log(res.data)
+            setDisable(true)
+            setSuccess(true)
+            setError(false)
             const studentFound = students.find(student => student.id == studentId)
             studentFound.averages = studentFound.averages.map( average => {
                 if (average.id == averageId) {
@@ -23,7 +32,10 @@ const UpdateAverage = ({ open, setOpen, student, studentId, calification, setCal
               }
               return student
             }))},
-        onError: err => console.log(err)
+        onError: err => {
+            setSuccess(false)
+            setError(true)
+            console.log(err)}
     })
   
     return (
@@ -39,6 +51,14 @@ const UpdateAverage = ({ open, setOpen, student, studentId, calification, setCal
         assignature={assignature}
         update={updateQuarterGradeMutation}
         averageId={averageId}
+        conclusion={conclusion}
+        setConclusion={setConclusion}
+        success={success}
+        setSuccess={setSuccess}
+        error={error}
+        setError={setError}
+        disable={disable}
+        setDisable={setDisable}
     />
   )
 }

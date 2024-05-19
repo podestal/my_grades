@@ -28,7 +28,7 @@ const getAveragesData = (student, selectedCompetence, selectedCapacity, selected
     // console.log('selectedCapacity', selectedCapacity)
     if (selectedCompetence != '' && selectedCapacity == '' && selectedCategory == 'all') {
         if (studentAverage) {
-            return {calification: studentAverage.calification, id: studentAverage.id, final: true}
+            return {calification: studentAverage.calification, id: studentAverage.id, conclusion: studentAverage.conclusion, final: true}
         }
         let sum = 0
         capacitiesData.map( data => {
