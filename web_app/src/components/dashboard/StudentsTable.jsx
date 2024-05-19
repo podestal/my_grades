@@ -15,7 +15,6 @@ import GetStudents from '../getters/GetStudents'
 import useStudent from '../../hooks/useStudents'
 import getDashboardData, {getAveragesForCompetencies} from './utils/dashboardData'
 import { filterActivities } from './utils/conditionalFilterActivities'
-// setStudents, assignature
 
 const StudentsTable = ({ activities, assignature }) => {
 
@@ -77,6 +76,7 @@ const StudentsTable = ({ activities, assignature }) => {
         <DashboardTable 
             selectedCategory={selectedCategory}
             selectedCompetency={selectedCompetency}
+            selectedCapacity={selectedCapacity}
             columns={columns}
             studentsData={dashboardData}
         />

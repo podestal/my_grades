@@ -4,7 +4,10 @@ import { Dialog, DialogPanel } from "@tremor/react"
 import UpdateGradeModal from "./dashboardComponents/UpdateGradeModal"
 import useCategories from "../../hooks/useCategories"
 
-const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompetency }) => {
+// FOR NOW
+import AveragesForm from "../averages/AveragesForm"
+
+const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompetency, selectedCapacity }) => {
 
     const data = studentsData || []
     const [open, setOpen] = useState(false)
@@ -17,8 +20,9 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
     const [forceConclusions, setForceConclusions] = useState(false)
     const [final, setFinal] = useState(false)
     const averageTitle = selectedCategory == 'all' ? 'Logro' : `Promedio de ${categories.find(cat => cat.id == selectedCategory).title}`
-
-    // const [quarterGrade, setQuarterGrade] = useState('')
+    const [averages, setAverages] = useState(false)
+    const [createAverage, setCreateAverage] = useState(false)
+    
 
     const columnsDynamic = [
         {
@@ -91,14 +95,21 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                                         
                                     `}
                                     onClick={() => {
+                                        setCreateAverage(false)
+                                        setAverages(false)
                                         setForceConclusions(false)
                                         setError(false)
+                                        // if (cell.getValue().id == 0)
                                         if (cell.column.id == 'average') {
-                                            if (selectedCategory != 'all' || selectedCompetency == 'all') {
+                                            if (selectedCapacity != '') {
                                                 return
+                                            }
+                                            if (cell.getValue().id != 0) {
+                                                setCreateAverage(true)
                                             }
                                         }
                                         if (cell.getValue()?.final) {
+                                            setAverages(true)
                                             setForceConclusions(true)
                                             setFinal(true)
                                         }
@@ -126,6 +137,23 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
             </tbody>}
         </table>
         
+        {averages 
+        ? 
+        <>
+            {console.log('handling averages')}
+            {createAverage 
+            ? 
+            // <>{console.log('update average')}</>
+            < AveragesForm
+                open={open}
+                setOpen={setOpen}
+                student={student}
+            />
+            : 
+            <>{console.log('create averages')}</>
+            }
+        </>
+        : 
         <UpdateGradeModal 
             activity={activity}
             student={student}
@@ -139,6 +167,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
             error={error}
             setError={setError}
         />
+        }
     </div>
   )
 }
