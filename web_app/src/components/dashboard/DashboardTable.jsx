@@ -150,7 +150,6 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
         {averages 
         ? 
         <>
-            {console.log('handling averages')}
             {createAverage 
             ? 
                 // open, setOpen, student, studentId, calification, setCalification, average, quarter, assignature, create 

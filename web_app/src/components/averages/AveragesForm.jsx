@@ -40,7 +40,6 @@ const AveragesForm = ({ open, setOpen, student, studentId, calification, setCali
         <DialogPanel
             className="relative flex flex-col gap-4 items-center"
         >
-            {console.log('averageId', averageId)}
             <CloseButton handleClose={handleClosePanel}/>
             <h3 className="text-white text-2xl text-center">{student}</h3>
             <div className="flex flex-col gap-4 w-[270px]">
