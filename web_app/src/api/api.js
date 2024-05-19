@@ -162,5 +162,9 @@ export const createQuarterGrade = data => axios.post(`${URL}api/averages/`, data
 })
 
 export const getQuarterGrades = data => axios.get(`${URL}api/averages/?assignature=${data.assignatureId}&quarter=`, {
-    headers: { Authorization: `JWT ${data.token}` }
+    headers: { Authorization: `JWT ${data.token}`}
+})
+
+export const updateQuarterGrade = data => axios.patch(`${URL}api/averages/${data.averageId}/`, data.updates, {
+    headers: { Authorization: `JWT ${data.token}`}
 })

@@ -5,7 +5,7 @@ import CloseButton from "../../utils/CloseButton"
 import { DialogPanel, Dialog, Select, SelectItem, Button } from "@tremor/react"
 import { useState } from "react"
 
-const AveragesForm = ({ open, setOpen, student, studentId, calification, setCalification, average, selectedCompetency, quarter, assignature, create }) => {
+const AveragesForm = ({ open, setOpen, student, studentId, calification, setCalification, average, selectedCompetency, quarter, assignature, create, update, averageId }) => {
 
     // AUTH
     const { user } = useAuth()
@@ -17,13 +17,18 @@ const AveragesForm = ({ open, setOpen, student, studentId, calification, setCali
     }
 
     const handleSubmit = () => {
-        create({ token: user.access, quarterGrade:{
+        create && create({ token: user.access, quarterGrade:{
             calification,
             quarter,
             competence: selectedCompetency,
             conclusion,
             assignature: assignature.id,
             student: studentId,
+        }})
+
+        update && update({ token: user.access, averageId, updates: {
+            calification,
+            conclusion,
         }})
     }
 
@@ -35,10 +40,7 @@ const AveragesForm = ({ open, setOpen, student, studentId, calification, setCali
         <DialogPanel
             className="relative flex flex-col gap-4 items-center"
         >
-{/* 
-<div className="flex flex-col gap-4 w-[270px]">
-       <Button onClick={handleSubmit} className="w-[160px] mx-auto mt-6" color="blue">{average ? 'Guardar' : 'Crear'}</Button> */}
-
+            {console.log('averageId', averageId)}
             <CloseButton handleClose={handleClosePanel}/>
             <h3 className="text-white text-2xl text-center">{student}</h3>
             <div className="flex flex-col gap-4 w-[270px]">

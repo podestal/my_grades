@@ -4,9 +4,7 @@ import { Dialog, DialogPanel } from "@tremor/react"
 import UpdateGradeModal from "./dashboardComponents/UpdateGradeModal"
 import useCategories from "../../hooks/useCategories"
 import CreateAverage from "../averages/CreateAverage"
-
-// FOR NOW
-import AveragesForm from "../averages/AveragesForm"
+import UpdateAverage from "../averages/UpdateAverage"
 
 const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompetency, selectedCapacity, quarter, assignature }) => {
 
@@ -24,6 +22,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
     const averageTitle = selectedCategory == 'all' ? 'Logro' : `Promedio de ${categories.find(cat => cat.id == selectedCategory).title}`
     const [averages, setAverages] = useState(false)
     const [createAverage, setCreateAverage] = useState(false)
+    const [averageId, setAverageId] = useState('')
     
 
     const columnsDynamic = [
@@ -107,6 +106,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                                         setError(false)
                                         // if (cell.getValue().id == 0)
                                         if (cell.column.id == 'average') {
+                                            setAverageId(cell.getValue().id)
                                             if (selectedCapacity != '') {
                                                 return
                                             }
@@ -128,6 +128,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                                         setCalification(cell.getValue().calification)
                                         setStudent(cell.row.original.fullName)
                                         setStudentId(cell.row.original.studentId)
+                                        
                                     }}
                                     >
                                         {/* {console.log(cell.getValue())} */}
@@ -167,18 +168,18 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
 
             : 
             // open, setOpen, student, studentId, calification, setCalification, average, quarter, assignature, create 
-            // <CreateAverage
-            //     open={open}
-            //     setOpen={setOpen}
-            //     student={student}
-            //     studentId={studentId}
-            //     calification={calification}
-            //     setCalification={setCalification}
-            //     selectedCompetency={selectedCompetency}
-            //     quarter={quarter}
-            //     assignature={assignature}
-            // />
-            <>{console.log('Update average')}</>
+            <UpdateAverage
+                open={open}
+                setOpen={setOpen}
+                student={student}
+                studentId={studentId}
+                calification={calification}
+                setCalification={setCalification}
+                selectedCompetency={selectedCompetency}
+                quarter={quarter}
+                assignature={assignature}
+                averageId={averageId}
+            />
             }
         </>
         : 
