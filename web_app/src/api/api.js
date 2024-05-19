@@ -155,4 +155,12 @@ export const createAnnouncement = data => axios.post(`${URL}api/annunciations/`,
     headers: { Authorization: `JWT ${data.token}`}
 })
 
+// QUARTER GRADE
 
+export const createQuarterGrade = data => axios.post(`${URL}api/averages/`, data.quarterGrade, {
+    headers: { Authorization: `JWT ${data.token}`}
+})
+
+export const getQuarterGrades = data => axios.get(`${URL}api/averages/?assignature=${data.assignatureId}&quarter=`, {
+    headers: { Authorization: `JWT ${data.token}` }
+})

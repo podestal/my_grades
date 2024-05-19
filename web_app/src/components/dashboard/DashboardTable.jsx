@@ -15,6 +15,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
     const [gradeId, setGradeId] = useState('')
     const {categories} = useCategories()
     const [forceConclusions, setForceConclusions] = useState(false)
+    const [final, setFinal] = useState(false)
     const averageTitle = selectedCategory == 'all' ? 'Logro' : `Promedio de ${categories.find(cat => cat.id == selectedCategory).title}`
 
     // const [quarterGrade, setQuarterGrade] = useState('')
@@ -99,6 +100,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                                         }
                                         if (cell.getValue()?.final) {
                                             setForceConclusions(true)
+                                            setFinal(true)
                                         }
                                         // console.log('cell', cell.getValue()?.final)
                                         setActivity(cell.column.id)
@@ -123,6 +125,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                 }
             </tbody>}
         </table>
+        
         <UpdateGradeModal 
             activity={activity}
             student={student}

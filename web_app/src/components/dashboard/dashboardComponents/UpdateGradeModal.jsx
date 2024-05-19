@@ -5,7 +5,7 @@ import useAuth from "../../../hooks/useAuth"
 import { useState } from "react"
 import InputText from "../../../utils/InputText"
 
-const UpdateGradeModal = ({ activity, student, setOpen, open, calification, setCalification, gradeId, forceConclusions, error, setError }) => {
+const UpdateGradeModal = ({ activity, student, setOpen, open, calification, setCalification, gradeId, forceConclusions, error, setError, createAverage }) => {
 
     const { user } = useAuth()
     const [observations, setObservations] = useState('')
@@ -26,6 +26,16 @@ const UpdateGradeModal = ({ activity, student, setOpen, open, calification, setC
         }
         updateGradesMutation({ token: user.access, gradeId, calification: { calification } })
     }
+
+//     <CategoryForm 
+//     open={open}
+//     setOpen={setOpen}
+//     success={success}
+//     error={error}
+//     titleError={titleError}
+//     weightError={weightError}
+//     create={createCategoryMutation}
+// />
 
   return (
     <Dialog

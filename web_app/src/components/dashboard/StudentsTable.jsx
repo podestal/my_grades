@@ -37,7 +37,7 @@ const StudentsTable = ({ activities, assignature }) => {
     const currentQuarter = getCurrentQuarter()
     const [quarter, setQuarter] = useState(currentQuarter.id)
     const activitiesByQuarter = activities.filter(activity => activity.quarter == quarter)
-    const dashboardData = getDashboardData(studentsByAssignature, filter, grades, selectedCompetency, selectedCapacity, selectedCategory, activitiesByQuarter, categories)
+    const dashboardData = getDashboardData(studentsByAssignature, filter, grades, selectedCompetency, selectedCapacity, selectedCategory, activitiesByQuarter, categories, quarter, assignature)
 
 
 
