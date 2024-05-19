@@ -259,8 +259,10 @@ class AnnouncementViewSet(ModelViewSet):
     
 class QuarterGradeViewSet(ModelViewSet):
 
-    queryset = models.QuarterGrade.objects.select_related('student', 'assignature', 'competence')
+    queryset = models.QuarterGrade.objects.select_related('student', 'assignature')
     serializer_class = serializers.GetQuarterGradeSerializer
+    filter_backends=[DjangoFilterBackend]
+    filterset_fields=['assignature', 'quarter']
     http_method_names = ['get', 'post', 'patch', 'delete']
 
     def get_permissions(self):
