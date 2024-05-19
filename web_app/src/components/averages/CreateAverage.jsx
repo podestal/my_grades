@@ -9,7 +9,6 @@ const CreateAverage = ({ open, setOpen, student, studentId, calification, setCal
   const {mutate: createQuarterGradeMutation} = useMutation({
     mutationFn: data => createQuarterGrade(data),
     onSuccess: res => {
-      setCalification(res.data.calification)
       const studentFound = students.find(student => student.id == studentId)
       studentFound.averages = studentFound.averages.length > 0 ? [...studentFound.averages, res.data] : [res.data]
       setStudents( students => students.map( student => {
