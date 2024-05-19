@@ -3,17 +3,19 @@ import { useState } from "react"
 import { Dialog, DialogPanel } from "@tremor/react"
 import UpdateGradeModal from "./dashboardComponents/UpdateGradeModal"
 import useCategories from "../../hooks/useCategories"
+import CreateAverage from "../averages/CreateAverage"
 
 // FOR NOW
 import AveragesForm from "../averages/AveragesForm"
 
-const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompetency, selectedCapacity }) => {
+const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompetency, selectedCapacity, quarter, assignature }) => {
 
     const data = studentsData || []
     const [open, setOpen] = useState(false)
     const [error, setError] = useState(false)
     const [activity, setActivity] = useState('')
     const [student, setStudent] = useState('')
+    const [studentId, setStudentId] = useState('')
     const [calification, setCalification] = useState('')
     const [gradeId, setGradeId] = useState('')
     const {categories} = useCategories()
@@ -25,6 +27,10 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
     
 
     const columnsDynamic = [
+        {
+            header: 'ID',
+            accessorKey: 'studentId'
+        },
         {
             header: 'Alumno',
             accessorKey: 'fullName'
@@ -104,8 +110,10 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                                             if (selectedCapacity != '') {
                                                 return
                                             }
-                                            if (cell.getValue().id != 0) {
+                                            if (cell.getValue().id == 0) {
                                                 setCreateAverage(true)
+                                                // console.log('student id',cell.row.original.studentId);
+                                                
                                             }
                                         }
                                         if (cell.getValue()?.final) {
@@ -119,6 +127,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                                         setGradeId(cell.getValue().id)
                                         setCalification(cell.getValue().calification)
                                         setStudent(cell.row.original.fullName)
+                                        setStudentId(cell.row.original.studentId)
                                     }}
                                     >
                                         {/* {console.log(cell.getValue())} */}
@@ -143,14 +152,33 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
             {console.log('handling averages')}
             {createAverage 
             ? 
-            // <>{console.log('update average')}</>
-            < AveragesForm
+                // open, setOpen, student, studentId, calification, setCalification, average, quarter, assignature, create 
+            <CreateAverage
                 open={open}
                 setOpen={setOpen}
                 student={student}
+                studentId={studentId}
+                calification={calification}
+                setCalification={setCalification}
+                selectedCompetency={selectedCompetency}
+                quarter={quarter}
+                assignature={assignature}
             />
+
             : 
-            <>{console.log('create averages')}</>
+            // open, setOpen, student, studentId, calification, setCalification, average, quarter, assignature, create 
+            // <CreateAverage
+            //     open={open}
+            //     setOpen={setOpen}
+            //     student={student}
+            //     studentId={studentId}
+            //     calification={calification}
+            //     setCalification={setCalification}
+            //     selectedCompetency={selectedCompetency}
+            //     quarter={quarter}
+            //     assignature={assignature}
+            // />
+            <>{console.log('Update average')}</>
             }
         </>
         : 

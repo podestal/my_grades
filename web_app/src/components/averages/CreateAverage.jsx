@@ -1,7 +1,8 @@
 import { createQuarterGrade } from "../../api/api"
 import { useMutation } from "@tanstack/react-query"
+import AveragesForm from "./AveragesForm"
 
-const CreateAverage = () => {
+const CreateAverage = ({ open, setOpen, student, studentId, calification, setCalification, selectedCompetency, quarter, assignature }) => {
 
   const {mutate: createQuarterGradeMutation} = useMutation({
     mutationFn: data => createQuarterGrade(data),
@@ -10,7 +11,19 @@ const CreateAverage = () => {
   })
 
   return (
-    <div>CreateAverage</div>
+
+    < AveragesForm
+      open={open}
+      setOpen={setOpen}
+      student={student}
+      studentId={studentId}
+      calification={calification}
+      setCalification={setCalification}
+      selectedCompetency={selectedCompetency}
+      quarter={quarter}
+      assignature={assignature}
+      create={createQuarterGradeMutation}
+  />
   )
 }
 

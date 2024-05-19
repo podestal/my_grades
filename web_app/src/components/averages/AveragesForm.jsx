@@ -1,20 +1,30 @@
 import InputText from "../../utils/InputText"
 import Selector from "../../utils/Selector"
+import useAuth from "../../hooks/useAuth"
 import CloseButton from "../../utils/CloseButton"
 import { DialogPanel, Dialog, Select, SelectItem, Button } from "@tremor/react"
 import { useState } from "react"
 
-const AveragesForm = ({ open, setOpen, student, calification, setCalification, average }) => {
+const AveragesForm = ({ open, setOpen, student, studentId, calification, setCalification, average, selectedCompetency, quarter, assignature, create }) => {
 
-    const [description, setDescription] = useState(average?.description || '')
-    const califications = ['AD', 'A', 'B', 'C']
+    // AUTH
+    const { user } = useAuth()
+
+    const [conclusion, setConclusion] = useState(average?.conclusion || '')
 
     const handleClosePanel = () => {
         setOpen(false)
     }
 
     const handleSubmit = () => {
-
+        create({ token: user.access, quarterGrade:{
+            calification,
+            quarter,
+            competence: selectedCompetency,
+            conclusion,
+            assignature: assignature.id,
+            student: studentId,
+        }})
     }
 
   return (
@@ -32,6 +42,7 @@ const AveragesForm = ({ open, setOpen, student, calification, setCalification, a
             <CloseButton handleClose={handleClosePanel}/>
             <h3 className="text-white text-2xl text-center">{student}</h3>
             <div className="flex flex-col gap-4 w-[270px]">
+                {console.log('studentId', studentId)}
                 <p className="text-white font-poppins ml-4 text-lg text-center">Calificación</p>
                 <Select value={calification} onValueChange={ value => setCalification(value)}>
                     <SelectItem value="C">C</SelectItem>
@@ -41,9 +52,9 @@ const AveragesForm = ({ open, setOpen, student, calification, setCalification, a
                 </Select>
             </div>
             <InputText 
-                label={'Descripción'}
-                value={description}
-                setter={setDescription}
+                label={'Conclusión'}
+                value={conclusion}
+                setter={setConclusion}
                 textArea={true}
             />
             <Button onClick={handleSubmit} className="w-[160px] mx-auto mt-6" color="blue">{average ? 'Guardar' : 'Crear'}</Button>
@@ -51,14 +62,5 @@ const AveragesForm = ({ open, setOpen, student, calification, setCalification, a
     </Dialog>
   )
 }
-
-{/* <InputText 
-label={'Descriptión'}
-value={description}
-setter={setDescription}
-error={descriptionError}
-errorMsg={"Se necesita el porcentaje para crear la categoría"}
-textArea={true}
-/> */}
 
 export default AveragesForm

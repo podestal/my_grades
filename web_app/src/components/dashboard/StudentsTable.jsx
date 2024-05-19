@@ -79,6 +79,8 @@ const StudentsTable = ({ activities, assignature }) => {
             selectedCapacity={selectedCapacity}
             columns={columns}
             studentsData={dashboardData}
+            quarter={quarter}
+            assignature={assignature}
         />
     </div>
     }
