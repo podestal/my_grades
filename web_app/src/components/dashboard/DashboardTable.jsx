@@ -159,7 +159,6 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                 }
             </tbody>}
         </table>
-        {isParticipation && <StudentParticipations studentId={studentId}/>}
         {averages 
         ? 
         <>
@@ -194,19 +193,30 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
             }
         </>
         : 
-        <UpdateGradeModal 
-            activity={activity}
-            student={student}
-            setOpen={setOpen}
-            open={open}
-            calification={calification}
-            setCalification={setCalification}
-            gradeId={gradeId}
-            forceConclusions={forceConclusions}
-            setForceConclusions={setForceConclusions}
-            error={error}
-            setError={setError}
-        />
+        <>
+            {isParticipation 
+            ? 
+            <StudentParticipations
+                studentId={studentId}
+                open={open}
+                setOpen={setOpen}
+            /> 
+            : 
+            <UpdateGradeModal 
+                activity={activity}
+                student={student}
+                setOpen={setOpen}
+                open={open}
+                calification={calification}
+                setCalification={setCalification}
+                gradeId={gradeId}
+                forceConclusions={forceConclusions}
+                setForceConclusions={setForceConclusions}
+                error={error}
+                setError={setError}
+            />
+            }
+        </>
         }
     </div>
   )

@@ -1,14 +1,17 @@
 import useStudent from "../../hooks/useStudents"
+import StudentParticipationsModal from "./StudentParticipationsModal"
 
-const StudentParticipations = ({studentId}) => {
+const StudentParticipations = ({studentId, open, setOpen}) => {
 
     const {students} = useStudent()
     const student = students.find( student => student.id == studentId)
 
   return (
-    <div>
-        {console.log('student from studentparticipation:',student.participations)}
-    </div>
+    <StudentParticipationsModal 
+        student={student}
+        open={open}
+        setOpen={setOpen}
+    />
   )
 }
 
