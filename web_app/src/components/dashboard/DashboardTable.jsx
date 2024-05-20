@@ -5,6 +5,7 @@ import UpdateGradeModal from "./dashboardComponents/UpdateGradeModal"
 import useCategories from "../../hooks/useCategories"
 import CreateAverage from "../averages/CreateAverage"
 import UpdateAverage from "../averages/UpdateAverage"
+import StudentParticipations from "../participations/StudentParticipations"
 
 const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompetency, selectedCapacity, quarter, assignature }) => {
 
@@ -24,6 +25,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
     const [createAverage, setCreateAverage] = useState(false)
     const [averageId, setAverageId] = useState('')
     const [conclusion, setConclusion] = useState('')
+    const [isParticipation, setIsParticipation] = useState(false)
     const participationsColumn = selectedCapacity != '' && selectedCategory == 'all' ? [{   
         header: 'Participaciones',
         accessorKey: 'participations'
@@ -110,7 +112,11 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                                         setAverages(false)
                                         setForceConclusions(false)
                                         setError(false)
+                                        console.log('cell',cell.row.original.studentId)
                                         // if (cell.getValue().id == 0)
+                                        if (cell.getValue().participation) {
+                                            setIsParticipation(true)
+                                        }
                                         if (cell.column.id == 'average') {
                                             setAverageId(cell.getValue().id)
                                             setConclusion(cell.getValue().conclusion)
@@ -153,7 +159,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                 }
             </tbody>}
         </table>
-        
+        {isParticipation && <StudentParticipations studentId={studentId}/>}
         {averages 
         ? 
         <>
