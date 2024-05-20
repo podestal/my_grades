@@ -24,7 +24,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
     const [createAverage, setCreateAverage] = useState(false)
     const [averageId, setAverageId] = useState('')
     const [conclusion, setConclusion] = useState('')
-    const participationsColumn = selectedCapacity != '' ? [{   
+    const participationsColumn = selectedCapacity != '' && selectedCategory == 'all' ? [{   
         header: 'Participaciones',
         accessorKey: 'participations'
     }] : []
