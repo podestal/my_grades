@@ -232,7 +232,7 @@ class TutorViewSet(ModelViewSet):
     
 class ParticipationViewSet(ModelViewSet):
 
-    queryset = models.Participation.objects.select_related('student', 'competence', 'capacity', 'assignature')
+    queryset = models.Participation.objects.select_related('student', 'assignature')
     serializer_class = serializers.GetParticipationSerializer
 
 class AnnouncementViewSet(ModelViewSet):

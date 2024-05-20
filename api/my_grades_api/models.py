@@ -232,12 +232,12 @@ class Participation(models.Model):
     ]
 
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='participations')
-    competence = models.ForeignKey(Competence, on_delete=models.PROTECT, null=True, blank=True)
-    capacity = models.ForeignKey(Capacity, on_delete=models.PROTECT, null=True, blank=True)
+    competences = models.CharField(max_length=255)
+    capacities = models.CharField(max_length=255)
     assignature = models.ForeignKey(Assignature, on_delete=models.CASCADE)
     calification = models.CharField(max_length=2, choices=CALIFICATION_CHOICES, default='NA')
     observations = models.TextField(null=True, blank=True)
-    created_at = models.DateField(auto_now_add=True)
+    created_at = models.DateField()
     quarter = models.CharField(max_length=2, choices=QUARTER_CHOICES)
 
 class Annunciation(models.Model):
