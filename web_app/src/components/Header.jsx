@@ -17,7 +17,7 @@ const Header = () => {
         <Link to={'/main'}>Cursos</Link>
         <Link to={'/activities'}>Actividades</Link>
         <Link to={'/categories'}>Categories</Link>
-        <Link to={'/announcements'}>Anuncios</Link>
+        {/* <Link to={'/announcements'}>Anuncios</Link> */}
         {/* <Link to={'/profile'}>Perfil</Link> */}
       </nav>
     </header>

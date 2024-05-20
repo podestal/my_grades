@@ -1,6 +1,6 @@
 import { calculateSimpleAverage, calculateAverageWithCats, getAveragesForCompetency } from "../../../data/calculateAverage"
 import { capacitiesData } from "../../../data/capacities";
-import { filterActivities } from "./conditionalFilterActivities";
+
 const numericalRepresentation = {
     'AD': 4,
     'A': 3,
@@ -154,7 +154,8 @@ const getDashboardData = (students, filter, grades, selectedCompetency, selected
             return Object.assign({  
                 'studentId': student.id,          
                 'fullName': `${student.first_name} ${student.last_name}`,
-                'average': average
+                'average': average,
+                'participations': '-',
             }, ...gradesData)
         })
 }

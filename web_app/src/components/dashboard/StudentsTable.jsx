@@ -14,7 +14,6 @@ import { getActivitiesColumns, getCapacitiesColumns } from './utils/columnsData'
 import GetStudents from '../getters/GetStudents'
 import useStudent from '../../hooks/useStudents'
 import getDashboardData, {getAveragesForCompetencies} from './utils/dashboardData'
-import { filterActivities } from './utils/conditionalFilterActivities'
 
 const StudentsTable = ({ activities, assignature }) => {
 
