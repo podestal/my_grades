@@ -2,6 +2,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from rest_framework.decorators import action
+from rest_framework.filters import OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from . import permissions
 from . import models
@@ -234,6 +235,8 @@ class ParticipationViewSet(ModelViewSet):
 
     queryset = models.Participation.objects.select_related('student', 'assignature')
     serializer_class = serializers.GetParticipationSerializer
+    filter_backends = [OrderingFilter]
+    ordering_fields = ['created_at']
 
 class AnnouncementViewSet(ModelViewSet):
 
