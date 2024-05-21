@@ -1,5 +1,6 @@
 import moment from 'moment'
 import 'moment/dist/locale/es'
+import Participation from './Participation'
 
 
 const ParticipationsSummary = ({ participations }) => {
@@ -39,10 +40,15 @@ const ParticipationsSummary = ({ participations }) => {
         {console.log('participations',participations)}
         {console.log('participationsData', participationsData)}
         {participationsData.map( data => (
-            <div className='flex gap-8 justify-between items-start w-[75%]'>
-                <p>{moment(Object.keys(data)[0]).locale('es').format('dddd Do')} de {moment(Object.keys(data)[0]).locale('es').format('MMMM')}:</p>
-                <p>{data[Object.keys(data)[0]].length} participaciones</p>
-            </div>
+            <Participation 
+                key={Object.keys(data)[0]}
+                participationDate={Object.keys(data)[0]}
+                participationsCalifications={data[Object.keys(data)[0]]}
+            />
+            // <div key={Object.keys(data)[0]} className='flex gap-8 justify-between items-start w-[75%]'>
+            //     <p>{moment(Object.keys(data)[0]).locale('es').format('dddd Do')} de {moment(Object.keys(data)[0]).locale('es').format('MMMM')}:</p>
+            //     <p>{data[Object.keys(data)[0]].length} participaciones</p>
+            // </div>
         ))}
 
     </div>
