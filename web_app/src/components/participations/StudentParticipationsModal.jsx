@@ -3,10 +3,11 @@ import CloseButton from "../../utils/CloseButton"
 import ParticipationsSummary from "./ParticipationsSummary"
 import { Divider } from "@tremor/react"
 
-const StudentParticipationsModal = ({student, open, setOpen}) => {
+const StudentParticipationsModal = ({student, open, setOpen, setIsParticipation}) => {
 
     const handleClosePanel = () => {
         setOpen(false)
+        setIsParticipation(false)
     }
 
   return (

@@ -200,6 +200,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                 studentId={studentId}
                 open={open}
                 setOpen={setOpen}
+                setIsParticipation={setIsParticipation}
             /> 
             : 
             <UpdateGradeModal 

@@ -1,7 +1,7 @@
 import useStudent from "../../hooks/useStudents"
 import StudentParticipationsModal from "./StudentParticipationsModal"
 
-const StudentParticipations = ({studentId, open, setOpen}) => {
+const StudentParticipations = ({studentId, open, setOpen, setIsParticipation}) => {
 
     const {students} = useStudent()
     const student = students.find( student => student.id == studentId)
@@ -11,6 +11,7 @@ const StudentParticipations = ({studentId, open, setOpen}) => {
         student={student}
         open={open}
         setOpen={setOpen}
+        setIsParticipation={setIsParticipation}
     />
   )
 }
