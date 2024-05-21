@@ -3,7 +3,15 @@ import CloseButton from "../../utils/CloseButton"
 import ParticipationsSummary from "./ParticipationsSummary"
 import { Divider } from "@tremor/react"
 
-const StudentParticipationsModal = ({student, open, setOpen, setIsParticipation}) => {
+const StudentParticipationsModal = ({student, open, setOpen, setIsParticipation, quarter, selectedCompetency, selectedCapacity, assignature}) => {
+
+    const participations = student && student.participations.filter( participation => (
+        participation.quarter == quarter &&
+        participation.assignature == assignature.id &&
+        participation.competences.split(',').indexOf(selectedCompetency.toString()) >= 0 &&
+        participation.capacities.split(',').indexOf(selectedCapacity.toString()) >= 0
+    ))
+
 
     const handleClosePanel = () => {
         setOpen(false)
@@ -24,7 +32,7 @@ const StudentParticipationsModal = ({student, open, setOpen, setIsParticipation}
             ? 
             <h2 className="text-2xl text-center">No se encotraron participaciones</h2> 
             : 
-            <ParticipationsSummary participations={student.participations}/>
+            <ParticipationsSummary participations={participations}/>
             }
         </DialogPanel>
     </Dialog>
