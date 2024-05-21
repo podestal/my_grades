@@ -37,8 +37,6 @@ const ParticipationsSummary = ({ participations }) => {
     }
   return (
     <div className='text-white w-full flex flex-col justify-center items-center gap-4'>
-        {console.log('participations',participations)}
-        {console.log('participationsData', participationsData)}
         {participationsData.map( data => (
             <Participation 
                 key={Object.keys(data)[0]}
