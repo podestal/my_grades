@@ -1,10 +1,15 @@
-import React from 'react'
+import moment from 'moment'
+import 'moment/dist/locale/es'
+
 
 const ParticipationsSummary = ({ participations }) => {
 
     
     const participationsData = []
-    console.log('new')
+    const todayEnglish = moment()
+    console.log(todayEnglish)
+    const todaySpanish = moment().locale('es')
+    console.log(todaySpanish)
     participations.sort((a ,b) => {
         if (a.created_at < b.created_at) {
             return -1
@@ -26,13 +31,16 @@ const ParticipationsSummary = ({ participations }) => {
         }
     })
 
+    const getFormmatedDate = () => {
+
+    }
   return (
     <div className='text-white w-full flex flex-col justify-center items-center gap-4'>
         {console.log('participations',participations)}
         {console.log('participationsData', participationsData)}
         {participationsData.map( data => (
-            <div className='flex gap-8'>
-                <p>{Object.keys(data)[0]}:</p>
+            <div className='flex gap-8 justify-between items-start w-[75%]'>
+                <p>{moment(Object.keys(data)[0]).locale('es').format('dddd Do')} de {moment(Object.keys(data)[0]).locale('es').format('MMMM')}:</p>
                 <p>{data[Object.keys(data)[0]].length} participaciones</p>
             </div>
         ))}
