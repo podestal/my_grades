@@ -1,26 +1,13 @@
-import { useState } from "react"
-import InputText from "../../utils/InputText"
-import { SearchSelect, SearchSelectItem } from "@tremor/react"
+import ParticipationForm from "./ParticipationForm"
 
-const CreateParticipation = ({ student }) => {
-
-    const [calification, setCalification] = useState('')
-    const [observations, setObservations] = useState('')
-    const [competences, setCompetences] = useState('')
-    const [capacities, setCapcities] = useState('')
-    const [date, setDate] = useState('')
+const CreateParticipation = ({ student, assignature, setOpenCreate }) => {
 
   return (
-    <div>
-        <InputText 
-            label={'Observaciones'}
-        />
-        calification
-        observations
-        competences
-        capacities
-        date
-    </div>
+    <ParticipationForm 
+        student={student}
+        assignature={assignature}
+        setOpenCreate={setOpenCreate}
+    />
   )
 }
 

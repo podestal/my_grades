@@ -35,6 +35,7 @@ const ParticipationsSummary = ({ participations }) => {
     const getFormmatedDate = () => {
 
     }
+
   return (
     <div className='text-white w-full flex flex-col justify-center items-center gap-4'>
         {participationsData.map( data => (
@@ -43,12 +44,7 @@ const ParticipationsSummary = ({ participations }) => {
                 participationDate={Object.keys(data)[0]}
                 participationsCalifications={data[Object.keys(data)[0]]}
             />
-            // <div key={Object.keys(data)[0]} className='flex gap-8 justify-between items-start w-[75%]'>
-            //     <p>{moment(Object.keys(data)[0]).locale('es').format('dddd Do')} de {moment(Object.keys(data)[0]).locale('es').format('MMMM')}:</p>
-            //     <p>{data[Object.keys(data)[0]].length} participaciones</p>
-            // </div>
         ))}
-
     </div>
   )
 }

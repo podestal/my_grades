@@ -1,12 +1,12 @@
 import { useState } from "react"
 import InputText from "../../utils/InputText"
-import { SearchSelect, SearchSelectItem, DatePicker } from "@tremor/react"
+import { SearchSelect, SearchSelectItem, DatePicker, Button } from "@tremor/react"
 import MultiSelector from "../../utils/MultiSelector"
 import { competenciesData } from "../../data/competencies"
 import { capacitiesData } from "../../data/capacities"
 import { es } from 'date-fns/locale'
 
-const ParticipationForm = ({ student, assignature}) => {
+const ParticipationForm = ({ student, assignature, setOpenCreate}) => {
 
 
 
@@ -22,7 +22,6 @@ const ParticipationForm = ({ student, assignature}) => {
 
   return (
     <div className="flex flex-col gap-8 justify-center items-center w-[100%]">
-        {console.log('competences', competences)}
         <SearchSelect className="w-[70px] mx-auto" value={calification} 
             onValueChange={ value => setCalification(value)}>
             <SearchSelectItem value="AD">AD</SearchSelectItem>
@@ -47,6 +46,7 @@ const ParticipationForm = ({ student, assignature}) => {
             locale={es}
             className="w-[270px]"
         />
+        <Button onClick={() => setOpenCreate(CSSFontFeatureValuesRule)} className="w-[160px] mx-auto mt-6" color="blue">Guardar</Button> 
     </div>
   )
 }
