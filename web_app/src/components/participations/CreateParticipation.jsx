@@ -18,7 +18,7 @@ const CreateParticipation = ({ student, assignature, quarter }) => {
             setError(false)
             setTimeout(() => {
                 setDisable(false)
-            }, 3000)
+            }, 4000)
         },
         onError: err => {
             setSuccess(false)

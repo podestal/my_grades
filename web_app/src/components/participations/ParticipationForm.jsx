@@ -12,16 +12,42 @@ import GenericCallout from "../../utils/GenericCallout"
 const ParticipationForm = ({ student, assignature, create, quarter, disable, error, success }) => {
 
     const { user } = useAuth()
+
+    // PARTICIPATION FIELDS
     const [calification, setCalification] = useState('NA')
+    const [calificationValidator, setCalificationValidator] = useState(false)
     const [observations, setObservations] = useState('')
     const [date, setDate] = useState(new Date())
 
     const filteredCompetencies = competenciesData.filter( competency => competency.area == assignature.area)
     const [competences, setCompetences] = useState([])
+    const [competencesValidator, setCompetencesValidator] = useState(false)
+
     const filteredCapacities = competences.length > 0 && capacitiesData.filter( capacity => competences.indexOf(capacity.competence) >= 0)
     const [capacities, setCapacities] = useState([])
+    const [capacitiesValidator, setCapacitiesValidator] = useState(false)
 
     const handleSubmit = () => {
+
+        setCalificationValidator(false)
+        setCompetencesValidator(false)
+        setCapacitiesValidator(false)
+
+        if (calification == 'NA') {
+            setCalificationValidator(true)
+            return
+        }
+
+        if (competences.length == 0) {
+            setCompetencesValidator(true)
+            return
+        }
+
+        if (capacities.length == 0) {
+            setCapacitiesValidator(true)
+            return
+        }
+
         const formattedDate = moment(date).format('YYYY-MM-DD')
         create && create({ token: user.access, participation: {
             competences: competences.toString(),
@@ -41,14 +67,19 @@ const ParticipationForm = ({ student, assignature, create, quarter, disable, err
     <div className="flex flex-col gap-8 justify-center items-center w-[100%]">
         {error && <GenericCallout conditionalMsg={'Ocurrió un error'} title={'Error'} color={'red'}/>}
         {success && <GenericCallout conditionalMsg={'Su participación se ha creado con éxito'} title={'Exito'} color={'teal'}/>}
-        <SearchSelect className="w-[70px] mx-auto" value={calification} 
-            onValueChange={ value => setCalification(value)}>
-            <SearchSelectItem value="AD">AD</SearchSelectItem>
-            <SearchSelectItem value="A">A</SearchSelectItem>
-            <SearchSelectItem value="B">B</SearchSelectItem>
-            <SearchSelectItem value="C">C</SearchSelectItem>
-            <SearchSelectItem value="NA">NA</SearchSelectItem>
-         </SearchSelect>
+        <div className="w-[270px]">
+            <SearchSelect
+                value={calification} 
+                onValueChange={ value => setCalification(value)}
+                error={calificationValidator}
+                errorMessage="La calificación debe de ser seleccionada"
+                >
+                <SearchSelectItem value="AD">AD</SearchSelectItem>
+                <SearchSelectItem value="A">A</SearchSelectItem>
+                <SearchSelectItem value="B">B</SearchSelectItem>
+                <SearchSelectItem value="C">C</SearchSelectItem>
+            </SearchSelect>
+        </div>
          <InputText 
             label={'Observaciones'}
             value={observations}
@@ -57,15 +88,30 @@ const ParticipationForm = ({ student, assignature, create, quarter, disable, err
             // errorMsg={}
             textArea={true}
         />
-        <MultiSelector label={'Competencias'} value={competences} setter={setCompetences} items={filteredCompetencies}/>
-        {competences.length > 0 && <MultiSelector label={'Capacidades'} value={capacities} setter={setCapacities} items={filteredCapacities}/>}
+        <MultiSelector 
+            label={'Competencias'} 
+            value={competences} 
+            setter={setCompetences} 
+            items={filteredCompetencies}
+            error={competencesValidator}
+            errorMsg={'Tiene que elegir al menos una competencia'}
+        />
+        {competences.length > 0 && 
+            <MultiSelector 
+                label={'Capacidades'} 
+                value={capacities} 
+                setter={setCapacities} 
+                items={filteredCapacities}
+                error={capacitiesValidator}
+                errorMsg={'Tiene que elegir al menos una capacidad'}
+            />}
         <DatePicker 
             value={date}
             onValueChange={value => setDate(value)}
             locale={es}
             className="w-[270px]"
         />
-        <Button disabled={disable} onClick={handleSubmit} className="w-[160px] mx-auto mt-6" color="blue">Guardar</Button> 
+        <Button disabled={disable} onClick={handleSubmit} className="w-[160px] mx-auto mt-6" color="blue">{disable ? 'Un momento ...' : 'Guardar'}</Button> 
     </div>
   )
 }
