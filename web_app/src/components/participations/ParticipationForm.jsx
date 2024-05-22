@@ -5,11 +5,13 @@ import MultiSelector from "../../utils/MultiSelector"
 import { competenciesData } from "../../data/competencies"
 import { capacitiesData } from "../../data/capacities"
 import { es } from 'date-fns/locale'
+import useAuth from "../../hooks/useAuth"
+import moment from "moment"
 
-const ParticipationForm = ({ student, assignature, setOpenCreate}) => {
+const ParticipationForm = ({ student, assignature, create, quarter }) => {
 
 
-
+    const { user } = useAuth()
     const [calification, setCalification] = useState('NA')
     const [observations, setObservations] = useState('')
     const [date, setDate] = useState(new Date())
@@ -18,6 +20,21 @@ const ParticipationForm = ({ student, assignature, setOpenCreate}) => {
     const [competences, setCompetences] = useState([])
     const filteredCapacities = competences.length > 0 && capacitiesData.filter( capacity => competences.indexOf(capacity.competence) >= 0)
     const [capacities, setCapacities] = useState([])
+
+    const handleSubmit = () => {
+        const formattedDate = moment(date).format('YYYY-MM-DD')
+        create && create({ token: user.access, participation: {
+            competences: competences.toString(),
+            capacities: capacities.toString(),
+            calification,
+            observations,
+            created_at: formattedDate,
+            quarter,
+            student: student.id,
+            assignature: assignature.id
+
+        } })
+    }
    
 
   return (
@@ -46,7 +63,7 @@ const ParticipationForm = ({ student, assignature, setOpenCreate}) => {
             locale={es}
             className="w-[270px]"
         />
-        <Button onClick={() => setOpenCreate(CSSFontFeatureValuesRule)} className="w-[160px] mx-auto mt-6" color="blue">Guardar</Button> 
+        <Button onClick={handleSubmit} className="w-[160px] mx-auto mt-6" color="blue">Guardar</Button> 
     </div>
   )
 }

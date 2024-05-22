@@ -47,7 +47,7 @@ const StudentParticipationsModal = ({student, open, setOpen, setIsParticipation,
                 <CreateParticipation 
                     student={student}
                     assignature={assignature}
-                    setOpenCreate={setOpenCreate}
+                    quarter={quarter}
                 />
                 :
                 <>
