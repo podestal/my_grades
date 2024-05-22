@@ -36,7 +36,7 @@ const StudentParticipationsModal = ({student, open, setOpen, setIsParticipation,
                 ? 
                 <Button onClick={() => setOpenCreate(true)} className="w-[160px] mx-auto mt-6" color="blue">Nueva Participación</Button> 
                 : 
-                <Button onClick={() => setOpenCreate(false)} className="w-[160px] mx-auto mt-6" color="red">Cancelar</Button>
+                <Button onClick={() => setOpenCreate(false)} className="w-[160px] mx-auto mt-6" color="blue">Volver</Button>
                 }
             </>
             <Divider></Divider>

@@ -7,9 +7,9 @@ import { capacitiesData } from "../../data/capacities"
 import { es } from 'date-fns/locale'
 import useAuth from "../../hooks/useAuth"
 import moment from "moment"
+import GenericCallout from "../../utils/GenericCallout"
 
-const ParticipationForm = ({ student, assignature, create, quarter }) => {
-
+const ParticipationForm = ({ student, assignature, create, quarter, disable, error, success }) => {
 
     const { user } = useAuth()
     const [calification, setCalification] = useState('NA')
@@ -39,6 +39,8 @@ const ParticipationForm = ({ student, assignature, create, quarter }) => {
 
   return (
     <div className="flex flex-col gap-8 justify-center items-center w-[100%]">
+        {error && <GenericCallout conditionalMsg={'Ocurrió un error'} title={'Error'} color={'red'}/>}
+        {success && <GenericCallout conditionalMsg={'Su participación se ha creado con éxito'} title={'Exito'} color={'teal'}/>}
         <SearchSelect className="w-[70px] mx-auto" value={calification} 
             onValueChange={ value => setCalification(value)}>
             <SearchSelectItem value="AD">AD</SearchSelectItem>
@@ -63,7 +65,7 @@ const ParticipationForm = ({ student, assignature, create, quarter }) => {
             locale={es}
             className="w-[270px]"
         />
-        <Button onClick={handleSubmit} className="w-[160px] mx-auto mt-6" color="blue">Guardar</Button> 
+        <Button disabled={disable} onClick={handleSubmit} className="w-[160px] mx-auto mt-6" color="blue">Guardar</Button> 
     </div>
   )
 }
