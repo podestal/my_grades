@@ -5,11 +5,14 @@ import { Divider, Button } from "@tremor/react"
 import { useState } from "react"
 import ParticipationForm from "./ParticipationForm"
 import CreateParticipation from "./CreateParticipation"
+import UpdateParticipation from "./UpdateParticipation"
 import GenericCallout from "../../utils/GenericCallout"
 
 const StudentParticipationsModal = ({student, open, setOpen, setIsParticipation, quarter, selectedCompetency, selectedCapacity, assignature }) => {
 
-    const [openCreate, setOpenCreate] = useState(false)
+    const [openForm, setOpenForm] = useState(false)
+    const [update, setUpdate] = useState(false)
+    const [participation, setParticipation] = useState({})
     const participations = student && student.participations.filter( participation => (
         participation.quarter == quarter &&
         participation.assignature == assignature.id &&
@@ -33,24 +36,38 @@ const StudentParticipationsModal = ({student, open, setOpen, setIsParticipation,
 
             <h2 className="text-white text-4xl text-center font-poppins">Participaciones</h2>
             <>
-                {!openCreate 
+                {!openForm 
                 ? 
-                <Button onClick={() => setOpenCreate(true)} className="w-[160px] mx-auto mt-6" color="blue">Nueva Participación</Button> 
+                <Button onClick={() => setOpenForm(true)} className="w-[160px] mx-auto mt-6" color="blue">Nueva Participación</Button> 
                 : 
-                <Button onClick={() => setOpenCreate(false)} className="w-[160px] mx-auto mt-6" color="blue">Volver</Button>
+                <Button onClick={() => {
+                    setUpdate(false)
+                    setOpenForm(false)}} className="w-[160px] mx-auto mt-6" color="blue">Volver</Button>
                 }
             </>
             <Divider></Divider>
             <h3 className="text-white text-3xl text-center font-poppins mb-6">{student.first_name} {student.last_name}</h3>
-            {!openCreate &&<GenericCallout conditionalMsg={'Para editar, haga click en la nota de la participación'} color={'teal'}/>}
+            {!openForm &&<GenericCallout conditionalMsg={'Para editar, haga click en la nota de la participación'} color={'teal'}/>}
             <>
-            {openCreate 
+            {openForm 
                 ? 
-                <CreateParticipation 
-                    student={student}
-                    assignature={assignature}
-                    quarter={quarter}
-                />
+                <>
+                    {update 
+                    ? 
+                    <UpdateParticipation 
+                        student={student}
+                        assignature={assignature}
+                        quarter={quarter}
+                        participation={participation}
+                    />
+                    : 
+                    <CreateParticipation 
+                        student={student}
+                        assignature={assignature}
+                        quarter={quarter}
+                    />
+                    }
+                </>
                 :
                 <>
 
@@ -60,6 +77,9 @@ const StudentParticipationsModal = ({student, open, setOpen, setIsParticipation,
                 : 
                 <ParticipationsSummary 
                     participations={participations}
+                    setOpenForm={setOpenForm}
+                    setParticipation={setParticipation}
+                    setUpdate={setUpdate}
                 />
                 }
                 </>

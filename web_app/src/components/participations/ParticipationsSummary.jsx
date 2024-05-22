@@ -3,7 +3,7 @@ import 'moment/dist/locale/es'
 import Participation from './Participation'
 
 
-const ParticipationsSummary = ({ participations }) => {
+const ParticipationsSummary = ({ participations, setParticipation, setUpdate, setOpenForm }) => {
 
     
     const participationsData = []
@@ -47,6 +47,9 @@ const ParticipationsSummary = ({ participations }) => {
                 key={Object.keys(data)[0]}
                 participationDate={Object.keys(data)[0]}
                 participations={data[Object.keys(data)[0]]}
+                setParticipation={setParticipation}
+                setUpdate={setUpdate}
+                setOpenForm={setOpenForm}
             />
         ))}
     </div>

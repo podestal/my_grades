@@ -8,23 +8,25 @@ import { es } from 'date-fns/locale'
 import useAuth from "../../hooks/useAuth"
 import moment from "moment"
 import GenericCallout from "../../utils/GenericCallout"
+import getIntegerArray from "../../data/getIntegerArray"
 
-const ParticipationForm = ({ student, assignature, create, quarter, disable, error, success }) => {
+const ParticipationForm = ({ student, assignature, create, quarter, disable, error, success, participation }) => {
 
     const { user } = useAuth()
 
     // PARTICIPATION FIELDS
-    const [calification, setCalification] = useState('NA')
+    const [calification, setCalification] = useState(participation && participation?.calification || 'NA')
     const [calificationValidator, setCalificationValidator] = useState(false)
-    const [observations, setObservations] = useState('')
+
+    const [observations, setObservations] = useState(participation && participation?.observations || '')
     const [date, setDate] = useState(new Date())
 
     const filteredCompetencies = competenciesData.filter( competency => competency.area == assignature.area)
-    const [competences, setCompetences] = useState([])
+    const [competences, setCompetences] = useState(participation && getIntegerArray(participation?.competences.split(',')) || [])
     const [competencesValidator, setCompetencesValidator] = useState(false)
 
     const filteredCapacities = competences.length > 0 && capacitiesData.filter( capacity => competences.indexOf(capacity.competence) >= 0)
-    const [capacities, setCapacities] = useState([])
+    const [capacities, setCapacities] = useState(participation && getIntegerArray(participation?.capacities.split(',')) || [])
     const [capacitiesValidator, setCapacitiesValidator] = useState(false)
 
     const handleSubmit = () => {

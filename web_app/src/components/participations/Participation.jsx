@@ -1,7 +1,7 @@
 import moment from "moment"
 import { Divider } from "@tremor/react"
 
-const Participation = ({ participationDate, participations }) => {
+const Participation = ({ participationDate, participations, setParticipation, setUpdate, setOpenForm }) => {
 
     const fomrattedDate = `${moment(participationDate).locale('es').format('dddd Do')} ${moment(participationDate).locale('es').format('MMMM')}`
 
@@ -14,7 +14,12 @@ const Participation = ({ participationDate, participations }) => {
         <div className="flex gap-6 W-[100%]">
             {participations.map( participation => (
                 <p
-                    onClick={() => console.log('calification', participation)}
+                    onClick={() =>{ 
+                        console.log('calification from participation', participation)
+                        setParticipation(participation)
+                        setUpdate(true)
+                        setOpenForm(true)
+                    }}
                     className={`
                         font-bold cursor-pointer
                         ${participation.calification == 'AD' && 'text-green-500'}
