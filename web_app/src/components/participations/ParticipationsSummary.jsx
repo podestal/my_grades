@@ -23,14 +23,17 @@ const ParticipationsSummary = ({ participations }) => {
     participations.map( participation => {
         const obj = {}
         console.log('obj',obj)
-        obj[participation.created_at] = [participation.calification]
+        // obj[participation.created_at] = [participation.calification]
+        obj[participation.created_at] = [participation]
         const foundObj = participationsData.find( data => Object.keys(data)[0] == participation.created_at)
         if (foundObj) {
-            foundObj[participation.created_at].push(participation.calification) 
+            foundObj[participation.created_at].push(participation) 
         } else {
             participationsData.push(obj)
         }
     })
+
+
 
     const getFormmatedDate = () => {
 
@@ -38,11 +41,12 @@ const ParticipationsSummary = ({ participations }) => {
 
   return (
     <div className='text-white w-full flex flex-col justify-center items-center gap-4'>
+        {/* {console.log('participationsData',participationsData)} */}
         {participationsData.map( data => (
             <Participation 
                 key={Object.keys(data)[0]}
                 participationDate={Object.keys(data)[0]}
-                participationsCalifications={data[Object.keys(data)[0]]}
+                participations={data[Object.keys(data)[0]]}
             />
         ))}
     </div>

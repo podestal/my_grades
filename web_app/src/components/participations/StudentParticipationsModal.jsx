@@ -5,6 +5,7 @@ import { Divider, Button } from "@tremor/react"
 import { useState } from "react"
 import ParticipationForm from "./ParticipationForm"
 import CreateParticipation from "./CreateParticipation"
+import GenericCallout from "../../utils/GenericCallout"
 
 const StudentParticipationsModal = ({student, open, setOpen, setIsParticipation, quarter, selectedCompetency, selectedCapacity, assignature }) => {
 
@@ -41,6 +42,7 @@ const StudentParticipationsModal = ({student, open, setOpen, setIsParticipation,
             </>
             <Divider></Divider>
             <h3 className="text-white text-3xl text-center font-poppins mb-6">{student.first_name} {student.last_name}</h3>
+            {!openCreate &&<GenericCallout conditionalMsg={'Para editar, haga click en la nota de la participación'} color={'teal'}/>}
             <>
             {openCreate 
                 ? 
