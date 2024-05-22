@@ -10,7 +10,7 @@ import moment from "moment"
 import GenericCallout from "../../utils/GenericCallout"
 import getIntegerArray from "../../data/getIntegerArray"
 
-const ParticipationForm = ({ student, assignature, create, quarter, disable, error, success, participation }) => {
+const ParticipationForm = ({ student, assignature, create, quarter, disable, error, success, participation, update }) => {
 
     const { user } = useAuth()
 
@@ -28,6 +28,9 @@ const ParticipationForm = ({ student, assignature, create, quarter, disable, err
     const filteredCapacities = competences.length > 0 && capacitiesData.filter( capacity => competences.indexOf(capacity.competence) >= 0)
     const [capacities, setCapacities] = useState(participation && getIntegerArray(participation?.capacities.split(',')) || [])
     const [capacitiesValidator, setCapacitiesValidator] = useState(false)
+
+    // CONDITIONAL FORM LABELS
+    const disabledButtonText = update ? 'Guardado' : 'Un momento ...'
 
     const handleSubmit = () => {
 
@@ -62,13 +65,20 @@ const ParticipationForm = ({ student, assignature, create, quarter, disable, err
             assignature: assignature.id
 
         } })
+        update && update({ token: user.access, participationId: participation.id ,updates: {
+            competences: competences.toString(),
+            capacities: capacities.toString(),
+            calification,
+            observations,
+            created_at: formattedDate,
+        } })
     }
    
 
   return (
     <div className="flex flex-col gap-8 justify-center items-center w-[100%]">
         {error && <GenericCallout conditionalMsg={'Ocurrió un error'} title={'Error'} color={'red'}/>}
-        {success && <GenericCallout conditionalMsg={'Su participación se ha creado con éxito'} title={'Exito'} color={'teal'}/>}
+        {success && <GenericCallout conditionalMsg={'Su participación se ha guardado con éxito'} title={'Exito'} color={'teal'}/>}
         <div className="w-[270px]">
             <SearchSelect
                 value={calification} 
@@ -86,8 +96,6 @@ const ParticipationForm = ({ student, assignature, create, quarter, disable, err
             label={'Observaciones'}
             value={observations}
             setter={setObservations}
-            // error={}
-            // errorMsg={}
             textArea={true}
         />
         <MultiSelector 
@@ -113,7 +121,7 @@ const ParticipationForm = ({ student, assignature, create, quarter, disable, err
             locale={es}
             className="w-[270px]"
         />
-        <Button disabled={disable} onClick={handleSubmit} className="w-[160px] mx-auto mt-6" color="blue">{disable ? 'Un momento ...' : 'Guardar'}</Button> 
+        <Button disabled={disable} onClick={handleSubmit} className="w-[160px] mx-auto mt-6" color="blue">{disable ? disabledButtonText : 'Guardar'}</Button> 
     </div>
   )
 }
