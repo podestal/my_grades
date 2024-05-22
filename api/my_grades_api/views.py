@@ -235,6 +235,7 @@ class ParticipationViewSet(ModelViewSet):
 
     queryset = models.Participation.objects.select_related('student', 'assignature')
     serializer_class = serializers.GetParticipationSerializer
+    http_method_names = ['get', 'post', 'patch', 'delete']
     filter_backends = [OrderingFilter]
     ordering_fields = ['created_at']
 

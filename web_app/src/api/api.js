@@ -145,6 +145,10 @@ export const createParticipation = data => axios.post(`${URL}api/participations/
     headers: { Authorization: `JWT ${data.token}` }
 })
 
+export const updateParticipation = data => axios.patch(`${URL}api/participations/${data.participationId}/`, data.updates, {
+    headers: { Authorization: `JWT ${data.token}` }
+})
+
 // ANNOUNCEMENTS
 
 export const getAnnouncements = data => axios.get(`${URL}api/annunciations/`, {
