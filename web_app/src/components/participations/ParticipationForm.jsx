@@ -14,6 +14,9 @@ const ParticipationForm = ({ student, assignature, create, quarter, disable, err
 
     const { user } = useAuth()
 
+    const todays = participation && new Date(participation?.created_at) || new Date()
+    const format = moment(todays.setDate(todays.getDate() + 1))
+
     // PARTICIPATION FIELDS
     const [calification, setCalification] = useState(participation && participation?.calification || 'NA')
     const [calificationValidator, setCalificationValidator] = useState(false)
@@ -79,6 +82,9 @@ const ParticipationForm = ({ student, assignature, create, quarter, disable, err
     <div className="flex flex-col gap-8 justify-center items-center w-[100%]">
         {error && <GenericCallout conditionalMsg={'Ocurrió un error'} title={'Error'} color={'red'}/>}
         {success && <GenericCallout conditionalMsg={'Su participación se ha guardado con éxito'} title={'Exito'} color={'teal'}/>}
+        {/* {console.log('participation', participation.created_at)}
+        {console.log('todays', new Date())}
+        {console.log('formatted date', format)} */}
         <div className="w-[270px]">
             <SearchSelect
                 value={calification} 
@@ -115,12 +121,12 @@ const ParticipationForm = ({ student, assignature, create, quarter, disable, err
                 error={capacitiesValidator}
                 errorMsg={'Tiene que elegir al menos una capacidad'}
             />}
-        <DatePicker 
+        {create && <DatePicker 
             value={date}
             onValueChange={value => setDate(value)}
             locale={es}
             className="w-[270px]"
-        />
+        />}
         <Button disabled={disable} onClick={handleSubmit} className="w-[160px] mx-auto mt-6" color="blue">{disable ? disabledButtonText : 'Guardar'}</Button> 
     </div>
   )

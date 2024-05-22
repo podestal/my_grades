@@ -2,6 +2,7 @@ import ParticipationForm from "./ParticipationForm"
 import { useState } from "react"
 import { updateParticipation } from "../../api/api"
 import { useMutation } from "@tanstack/react-query"
+import useStudent from "../../hooks/useStudents"
 
 const UpdateParticipation = ({ student, assignature, quarter, participation }) => {
 
@@ -9,6 +10,9 @@ const UpdateParticipation = ({ student, assignature, quarter, participation }) =
     const [disable, setDisable] = useState(false)
     const [error, setError] = useState(false)
     const [success, setSuccess] = useState(false)
+
+    // LOCAL STATE STUDENT
+    const {students, setStudents} = useStudent()
 
     // UPDATE PARTICIPATION
     const { mutate: updateParticipationMutation } = useMutation({
@@ -18,6 +22,32 @@ const UpdateParticipation = ({ student, assignature, quarter, participation }) =
             setDisable(true)
             setSuccess(true)
             setError(false)
+            // const studentFound = students.find(student => student.id == studentId)
+            // studentFound.averages = studentFound.averages.map( average => {
+            //     if (average.id == averageId) {
+            //         average = res.data
+            //     }
+            //     return average
+            // })
+            // setStudents( students => students.map( student => {
+            //   if (student.id == studentId) {
+            //     student = studentFound
+            //   }
+            //   return student
+            // }))
+            const studentFound = students.find( localStudent => localStudent.id == student.id)
+            studentFound.participations = studentFound.participations.map( singleParticipation => {
+                if (singleParticipation.id == participation.id) {
+                    singleParticipation = res.data
+                }
+                return singleParticipation
+            })
+            setStudents( students => students.map( localStudent => {
+                if (localStudent.id == student.id) {
+                    localStudent = studentFound
+                }
+                return localStudent
+            }))
         },
         onError: err => {
             setSuccess(false)
