@@ -61,6 +61,51 @@ class CreateInstructorSerializer(serializers.ModelSerializer):
         model = models.Instructor
         fields = ['id', 'first_name', 'last_name', 'user', 'school']
 
+    def create(self, validated_data):
+        print('validated_data:',validated_data['user'].id)
+        # This implementation is just for the demo, after that we have to sitch it from user to instructor
+        instructor = models.Instructor.objects.create(**validated_data)
+        user_id = validated_data['user']
+        defaultCategories = [
+            {
+                'user': user_id,
+                'title': 'Examenes',
+                'weight': 0.45,
+            },
+            {
+                'user': user_id,
+                'title': 'Participaciones',
+                'weight': 0.10,
+            },
+            {
+                'user': user_id,
+                'title': 'Tareas',
+                'weight': 0.20,
+            },
+            {
+                'user': user_id,
+                'title': 'Proyectos',
+                'weight': 0.25,
+            },
+        #             grades = [models.Grade(
+        #     activity=activity,
+        #     student = student,
+        #     assignature = assignature
+        # ) for student in students]
+
+        # models.Grade.objects.bulk_create(grades)
+        ]
+        categories = [models.Category(
+            user = category['user'],
+            title = category['title'],
+            weight = category['weight'],
+        ) for category in defaultCategories]
+        models.Category.objects.bulk_create(categories)
+        return instructor
+
+
+
+
 
 class GetCategorySerializer(serializers.ModelSerializer):
 

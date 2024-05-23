@@ -1,7 +1,5 @@
 from django.db import models
 from django.conf import settings
-from multiselectfield import MultiSelectField
-from . import data
 
 class Area(models.Model):
     title = models.CharField(max_length=255)
@@ -171,8 +169,6 @@ class Grade(models.Model):
     created_at = models.DateField(auto_now_add=True)
     observations = models.TextField(null=True, blank=True)
 
-# TODO
-# ... Capacity Grade
 
 class QuarterGrade(models.Model):
 
@@ -199,23 +195,6 @@ class QuarterGrade(models.Model):
 
 
 class Participation(models.Model):
-
-    #     QUARTER_CHOICES = [
-    #     ('Q1', 'First Quarter'),
-    #     ('Q2', 'Second Quarter'),
-    #     ('Q3', 'Third Quarter'),
-    #     ('Q4', 'Fourth Quarter'),
-    # ]
-
-    # title = models.CharField(max_length=255)
-    # assignature = models.ForeignKey(Assignature, on_delete=models.CASCADE)
-    # description = models.TextField(null=True, blank=True)
-    # created_at = models.DateTimeField(auto_now_add=True)
-    # due_date = models.DateField(null=True, blank=True)
-    # category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
-    # quarter = models.CharField(max_length=2, choices=QUARTER_CHOICES)
-    # competences =  models.CharField(max_length=255)
-    # capacities = models.CharField(max_length=255)
 
     QUARTER_CHOICES = [
         ('Q1', 'First Quarter'),

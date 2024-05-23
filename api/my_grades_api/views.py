@@ -57,6 +57,10 @@ class InstructorViewSet(ModelViewSet):
             return serializers.CreateInstructorSerializer
         return serializers.GetInstructorSerializer
     
+    def get_serializer_context(self):
+        # return { 'user': self.request.user.id }
+        return { 'user': self.request.user.id }
+    
     # @action(detail=False, methods=['GET'], permission_classes=[IsAdminUser])
     # def me(self, request):
     #     instructor = models.Instructor.objects.get(user_id=self.request.user.id)
