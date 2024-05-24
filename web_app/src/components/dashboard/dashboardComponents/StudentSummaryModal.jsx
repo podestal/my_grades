@@ -1,4 +1,4 @@
-import { Dialog, DialogPanel, Divider, DonutChart } from "@tremor/react"
+import { Dialog, DialogPanel, Divider, DonutChart, Legend } from "@tremor/react"
 import CloseButton from "../../../utils/CloseButton"
 
 const StudentSummaryModal = ({ open, setOpen, setStudentSummary, student, activities }) => {
@@ -7,10 +7,13 @@ const StudentSummaryModal = ({ open, setOpen, setStudentSummary, student, activi
     const gradesObj = {}
     const greadesForDonutChart = []
     let conditionalColors = []
+    const legendCategories = []
+    let activitiesCount = 0
     student.grades
         .filter( grade => activitiesIds.indexOf(grade.activity) >= 0)
         .map( grade => {
             if (grade.calification != 'NA') {
+                activitiesCount++
                 if (gradesObj[grade.calification]) {
                     gradesObj[grade.calification] += 1
                 } else {
@@ -21,6 +24,7 @@ const StudentSummaryModal = ({ open, setOpen, setStudentSummary, student, activi
     
     for (const [key, value] of Object.entries(gradesObj)) {
         greadesForDonutChart.push({'name': key, value, color: 'red'})
+
     }
 
     greadesForDonutChart
@@ -32,6 +36,9 @@ const StudentSummaryModal = ({ open, setOpen, setStudentSummary, student, activi
             return 1
         }
         return 0
+    })
+    .map( grade => {
+        legendCategories.push(`${grade.name}: ${grade.value}`)
     })
     
     if (greadesForDonutChart[0].name == 'A') {
@@ -65,11 +72,12 @@ const StudentSummaryModal = ({ open, setOpen, setStudentSummary, student, activi
                 data={greadesForDonutChart}
                 variant="donut"
                 showAnimation={true}
-                // 'bg-green-500'}
-                //                         ${cell.getValue() && cell.getValue().calification == 'A' && cell.getValue().id != 0 && 'bg-yellow-300 text-gray-600'}
-                //                         ${cell.getValue() && cell.getValue().calification == 'B' && cell.getValue().id != 0 && 'bg-amber-500'}
-                //                         ${cell.getValue() && cell.getValue().calification == 'C' && cell.getValue().id != 0 && 'bg-red-500'}
-                //                         ${cell.getValue() && cell.getValue().calification == 'NA' && cell.getValue().id != 0 && 'bg-blue-700'}
+                label={activitiesCount > 1 ? `${activitiesCount} actividades` : `${activitiesCount} actividad`}
+                showLabel={true}
+                colors={conditionalColors}
+            />
+            <Legend
+                categories={legendCategories}
                 colors={conditionalColors}
             />
         </DialogPanel>
