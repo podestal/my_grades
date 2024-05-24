@@ -8,7 +8,7 @@ import UpdateAverage from "../averages/UpdateAverage"
 import StudentParticipations from "../participations/StudentParticipations"
 import StudentSummaryModal from "./dashboardComponents/StudentSummaryModal"
 
-const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompetency, selectedCapacity, quarter, assignature }) => {
+const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompetency, selectedCapacity, quarter, assignature, activities }) => {
 
     const data = studentsData || []
     const [open, setOpen] = useState(false)
@@ -28,6 +28,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
     const [conclusion, setConclusion] = useState('')
     const [isParticipation, setIsParticipation] = useState(false)
     const [studentSummary, setStudentSummary] = useState(false)
+    const [selectedStudent, setSelectedStudent] = useState(false)
     const participationsColumn = selectedCapacity != '' && selectedCategory == 'all' ? [{   
         header: 'Participaciones',
         accessorKey: 'participations'
@@ -119,6 +120,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                                         if (cell.getValue()?.school) {
                                             console.log('Student clicked')
                                             setStudentSummary(true)
+                                            setSelectedStudent(cell.getValue())
                                             setOpen(true)
                                             return
                                         }
@@ -168,13 +170,6 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                 }
             </tbody>}
         </table>
-        {studentSummary && 
-            <StudentSummaryModal 
-                open={open}
-                setOpen={setOpen}
-                setStudentSummary={setStudentSummary}
-            />
-        }
         {/* open, setOpen, setStudentSummary, student */}
         {averages 
         ? 
@@ -231,6 +226,8 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                     open={open}
                     setOpen={setOpen}
                     setStudentSummary={setStudentSummary}
+                    student={selectedStudent}
+                    activities={activities}
                 />
                 : 
                 <UpdateGradeModal 

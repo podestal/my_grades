@@ -80,6 +80,7 @@ const StudentsTable = ({ activities, assignature }) => {
             studentsData={dashboardData}
             quarter={quarter}
             assignature={assignature}
+            activities={activitiesByQuarter}
         />
     </div>
     }
