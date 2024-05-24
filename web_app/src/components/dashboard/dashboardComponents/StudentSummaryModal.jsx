@@ -4,12 +4,17 @@ import useStudent from "../../../hooks/useStudents"
 
 const StudentSummaryModal = ({ open, setOpen, student, setStudentSummary, activities, studentId }) => {
 
-    const {students} =  useStudent()
     // const student = students.find( localStudent => localStudent.id == studentId)
+    const colorsDictionary = {
+        'A': 'yellow-300',
+        'AD': 'green-500',
+        'B': 'amber-500',
+        'C': 'red-500',
+    }
     const activitiesIds = activities.map( activity => activity.id)
     const gradesObj = {}
     const greadesForDonutChart = []
-    let conditionalColors = []
+    const conditionalColors = []
     const legendCategories = []
     let activitiesCount = 0
     student?.grades
@@ -26,8 +31,8 @@ const StudentSummaryModal = ({ open, setOpen, student, setStudentSummary, activi
         })
     
     for (const [key, value] of Object.entries(gradesObj)) {
-        greadesForDonutChart.push({'name': key, value, color: 'red'})
-
+        greadesForDonutChart.push({'name': key, value, color: colorsDictionary[key]})
+    
     }
 
     greadesForDonutChart
@@ -42,17 +47,19 @@ const StudentSummaryModal = ({ open, setOpen, student, setStudentSummary, activi
     })
     .map( grade => {
         legendCategories.push(`${grade.name}: ${grade.value}`)
+        conditionalColors.push(grade.color)
     })
-    
-    if (greadesForDonutChart[0].name == 'A') {
-        conditionalColors = ['yellow-300', 'green-500', 'amber-500', 'red-500']
-    } else if (greadesForDonutChart[0].name == 'AD') {
-        conditionalColors = ['green-500', 'amber-500', 'red-500']
-    } else if (greadesForDonutChart[0].name == 'B') {
-        conditionalColors = ['amber-500', 'red-500']
-    } else if (greadesForDonutChart[0].name == 'C') {
-        conditionalColors = ['red-500']
-    }
+    // TODO ...
+    // Work on confitional colors, it is a lot
+    // if (greadesForDonutChart[0].name == 'A') {
+    //     conditionalColors = ['yellow-300', 'green-500', 'amber-500', 'red-500']
+    // } else if (greadesForDonutChart[0].name == 'AD') {
+    //     conditionalColors = ['green-500', 'amber-500', 'red-500']
+    // } else if (greadesForDonutChart[0].name == 'B') {
+    //     conditionalColors = ['amber-500', 'red-500']
+    // } else if (greadesForDonutChart[0].name == 'C') {
+    //     conditionalColors = ['red-500']
+    // }
 
     const handleClosePanel = () => {
         setOpen(false)

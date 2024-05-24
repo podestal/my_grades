@@ -18,21 +18,16 @@ const UpdateGradeModal = ({ activity, student, setOpen, open, calification, setC
         onSuccess: res => {
             queryClient.invalidateQueries(['students'])
             setOpen(false)
-            console.log('res', res.data);
             const studentFound = students.find( localStudent => localStudent.id == studentId)
-            console.log('studentFound', studentFound);
             studentFound.grades = studentFound.grades.map( singleGrade => {
                 if (singleGrade.id == gradeId) {
-                    console.log('found it', singleGrade)
                     singleGrade = res.data
                 }
                 return singleGrade
             })
             setStudents( prevStudents => prevStudents.map( localStudent => {
                 if (localStudent.id == studentFound.id) {
-                    console.log('found it', localStudent)
                     localStudent = studentFound
-                    console.log('after', localStudent)
                 }
                 return localStudent
             }))
