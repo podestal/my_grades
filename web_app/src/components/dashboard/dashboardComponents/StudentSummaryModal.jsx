@@ -1,10 +1,10 @@
-import { Dialog, DialogPanel, Divider, DonutChart, Legend } from "@tremor/react"
+import { Dialog, DialogPanel, Divider, DonutChart, Legend, BadgeDelta } from "@tremor/react"
 import CloseButton from "../../../utils/CloseButton"
 import useStudent from "../../../hooks/useStudents"
 
-const StudentSummaryModal = ({ open, setOpen, student, setStudentSummary, activities, studentId }) => {
 
-    // const student = students.find( localStudent => localStudent.id == studentId)
+const StudentSummaryModal = ({ open, setOpen, student, setStudentSummary, activities }) => {
+
     const colorsDictionary = {
         'A': 'yellow-300',
         'AD': 'green-500',
@@ -49,17 +49,6 @@ const StudentSummaryModal = ({ open, setOpen, student, setStudentSummary, activi
         legendCategories.push(`${grade.name}: ${grade.value}`)
         conditionalColors.push(grade.color)
     })
-    // TODO ...
-    // Work on confitional colors, it is a lot
-    // if (greadesForDonutChart[0].name == 'A') {
-    //     conditionalColors = ['yellow-300', 'green-500', 'amber-500', 'red-500']
-    // } else if (greadesForDonutChart[0].name == 'AD') {
-    //     conditionalColors = ['green-500', 'amber-500', 'red-500']
-    // } else if (greadesForDonutChart[0].name == 'B') {
-    //     conditionalColors = ['amber-500', 'red-500']
-    // } else if (greadesForDonutChart[0].name == 'C') {
-    //     conditionalColors = ['red-500']
-    // }
 
     const handleClosePanel = () => {
         setOpen(false)
@@ -72,24 +61,42 @@ const StudentSummaryModal = ({ open, setOpen, student, setStudentSummary, activi
         onClose={handleClosePanel}
     >
         <DialogPanel className="relative flex flex-col gap-4 items-center">
-            {console.log('student', student)}
-            {console.log('greadesForDonutChart', greadesForDonutChart)}
             <CloseButton handleClose={handleClosePanel}/>
             <h2 className="text-white text-4xl text-center font-poppins">Resumen de Progreso</h2>
             <Divider></Divider>
-            <h3 className="text-white text-3xl text-center font-poppins mb-6">{student.first_name} {student.last_name}</h3>
-            <DonutChart 
-                data={greadesForDonutChart}
-                variant="donut"
-                showAnimation={true}
-                label={activitiesCount > 1 ? `${activitiesCount} actividades` : `${activitiesCount} actividad`}
-                showLabel={true}
-                colors={conditionalColors}
-            />
-            <Legend
-                categories={legendCategories}
-                colors={conditionalColors}
-            />
+            <div className="flex w-full justify-center gap-4 items-center mb-6">
+                <h3 className="text-white text-3xl text-center font-poppins">{student.first_name} {student.last_name}</h3>
+                <BadgeDelta deltaType='increase' isIncreasePositive={true}></BadgeDelta>
+            </div>
+            <div className="flex justify-between gap-6 w-full">
+                <div className="w-[65%]">
+                    <DonutChart 
+                        data={greadesForDonutChart}
+                        variant="donut"
+                        showAnimation={true}
+                        label={activitiesCount > 1 ? `${activitiesCount} actividades` : `${activitiesCount} actividad`}
+                        showLabel={true}
+                        colors={conditionalColors}
+                    />
+                    <Legend
+                        categories={legendCategories}
+                        colors={conditionalColors}
+                        className="mt-4 w-full flex justify-center"
+                    />
+                </div>
+                <div className="flex items-start justify-between w-[35%] my-4 mx-4 gap-6 text-white">
+                    <div className="flex flex-col gap-6">
+                        <p>Faltas:</p>
+                        <p>Tardanzas:</p>
+                        <p>Participaciones:</p>
+                    </div>
+                    <div className="flex flex-col gap-6">
+                        <p>2</p>
+                        <p>2</p>
+                        <p>2</p>
+                    </div>
+                </div>
+            </div>
         </DialogPanel>
     </Dialog>
   )
