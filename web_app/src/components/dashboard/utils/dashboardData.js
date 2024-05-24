@@ -161,6 +161,7 @@ const getDashboardData = (students, filter, grades, selectedCompetency, selected
             const participationsAverage = getParticipationsData(student, quarter, assignature, selectedCompetency, selectedCapacity)
             const average = getAveragesData(student, selectedCompetency, selectedCapacity, selectedCategory, filteredAcitivitesByCompetence, studentGrades, filteredCategoriesWithoutParticipations, total, filteredActivitiesByCategory, capacitiesData, studentAverage, participationsAverage, participationsCat)
             return Object.assign({  
+                'student': student,
                 'studentId': student.id,          
                 'fullName': `${student.first_name} ${student.last_name}`,
                 'average': average,

@@ -6,6 +6,7 @@ import useCategories from "../../hooks/useCategories"
 import CreateAverage from "../averages/CreateAverage"
 import UpdateAverage from "../averages/UpdateAverage"
 import StudentParticipations from "../participations/StudentParticipations"
+import StudentSummaryModal from "./dashboardComponents/StudentSummaryModal"
 
 const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompetency, selectedCapacity, quarter, assignature }) => {
 
@@ -26,6 +27,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
     const [averageId, setAverageId] = useState('')
     const [conclusion, setConclusion] = useState('')
     const [isParticipation, setIsParticipation] = useState(false)
+    const [studentSummary, setStudentSummary] = useState(false)
     const participationsColumn = selectedCapacity != '' && selectedCategory == 'all' ? [{   
         header: 'Participaciones',
         accessorKey: 'participations'
@@ -34,13 +36,13 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
 
     const columnsDynamic = [
         {
-            header: 'ID',
-            accessorKey: 'studentId'
-        },
-        {
             header: 'Alumno',
-            accessorKey: 'fullName'
+            accessorKey: 'student'
         },
+        // {
+        //     header: 'ID',
+        //     accessorKey: 'studentId'
+        // },
         {
             header: averageTitle,
             accessorKey: 'average'
@@ -78,7 +80,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                                     <th 
                                         key={header.id}
                                         onClick={() => console.log(header)}
-                                        className={`py-6 min-w-[160px] ${header.id == 'fullName' && 'min-w-[300px]'} text-md font-poppins sticky top-0 `}
+                                        className={`py-6 min-w-[160px] ${header.id == 'student' && 'min-w-[300px]'} text-md font-poppins sticky top-0 `}
                                     >
                                         {header.placeholderId ? null : header.column.columnDef.header}
                                     </th>
@@ -112,9 +114,16 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                                         setAverages(false)
                                         setForceConclusions(false)
                                         setError(false)
-                                        console.log('cell',cell.row.original.studentId)
+                                        // console.log('originals',cell.row)
+                                        // console.log('cell',cell.getValue())
+                                        if (cell.getValue()?.school) {
+                                            console.log('Student clicked')
+                                            setStudentSummary(true)
+                                            setOpen(true)
+                                            return
+                                        }
                                         // if (cell.getValue().id == 0)
-                                        if (cell.getValue().participation) {
+                                        if (cell.getValue()?.participation) {
                                             setIsParticipation(true)
                                         }
                                         if (cell.column.id == 'average') {
@@ -148,7 +157,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                                         {/* {console.log('Cell value', cell.getValue())} */}
                                         {/* {flexRender(cell.column.columnDef.cell, cell.getContext())} */}
                                         <p className="text-center hover:ml-3 font-bold">
-                                            {cell.getValue() && cell.getValue().calification ? cell.getValue().calification : cell.getValue()}
+                                            {cell.getValue() && cell.getValue().calification ? cell.getValue().calification : `${cell.getValue().first_name} ${cell.getValue().last_name}`}
                                         </p>
                                         
                                     </td>
@@ -159,6 +168,14 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                 }
             </tbody>}
         </table>
+        {studentSummary && 
+            <StudentSummaryModal 
+                open={open}
+                setOpen={setOpen}
+                setStudentSummary={setStudentSummary}
+            />
+        }
+        {/* open, setOpen, setStudentSummary, student */}
         {averages 
         ? 
         <>
@@ -207,19 +224,29 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                 assignature={assignature}
             /> 
             : 
-            <UpdateGradeModal 
-                activity={activity}
-                student={student}
-                setOpen={setOpen}
-                open={open}
-                calification={calification}
-                setCalification={setCalification}
-                gradeId={gradeId}
-                forceConclusions={forceConclusions}
-                setForceConclusions={setForceConclusions}
-                error={error}
-                setError={setError}
-            />
+            <>
+                {studentSummary 
+                ? 
+                <StudentSummaryModal 
+                    open={open}
+                    setOpen={setOpen}
+                    setStudentSummary={setStudentSummary}
+                />
+                : 
+                <UpdateGradeModal 
+                    activity={activity}
+                    student={student}
+                    setOpen={setOpen}
+                    open={open}
+                    calification={calification}
+                    setCalification={setCalification}
+                    gradeId={gradeId}
+                    forceConclusions={forceConclusions}
+                    setForceConclusions={setForceConclusions}
+                    error={error}
+                    setError={setError}
+                />}
+            </>
             }
         </>
         }

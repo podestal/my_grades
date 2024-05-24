@@ -73,7 +73,6 @@ const ParticipationForm = ({ student, assignature, create, quarter, disable, err
             capacities: capacities.toString(),
             calification,
             observations,
-            created_at: formattedDate,
         } })
     }
    

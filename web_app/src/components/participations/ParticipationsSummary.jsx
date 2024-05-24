@@ -8,9 +8,9 @@ const ParticipationsSummary = ({ participations, setParticipation, setUpdate, se
     
     const participationsData = []
     const todayEnglish = moment()
-    console.log(todayEnglish)
+    // console.log(todayEnglish)
     const todaySpanish = moment().locale('es')
-    console.log(todaySpanish)
+    // console.log(todaySpanish)
     participations.sort((a ,b) => {
         if (a.created_at < b.created_at) {
             return -1
@@ -22,7 +22,7 @@ const ParticipationsSummary = ({ participations, setParticipation, setUpdate, se
     })
     participations.map( participation => {
         const obj = {}
-        console.log('obj',obj)
+        // console.log('obj',obj)
         // obj[participation.created_at] = [participation.calification]
         obj[participation.created_at] = [participation]
         const foundObj = participationsData.find( data => Object.keys(data)[0] == participation.created_at)

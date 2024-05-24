@@ -53,7 +53,7 @@ const UpdateGradeModal = ({ activity, student, setOpen, open, calification, setC
                 <SelectItem value="A">A</SelectItem>
                 <SelectItem value="AD">AD</SelectItem>
             </Select>
-            {console.log('error', error)}
+            {/* {console.log('error', error)} */}
             <InputText 
                 value={observations}
                 setter={setObservations}

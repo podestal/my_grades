@@ -12,6 +12,7 @@ import Categories from './pages/Instructor/Categories'
 import Dashboard from './components/dashboard/Dashboard'
 import ActivityPage from './pages/Instructor/ActivityPage'
 import Announcements from './pages/Instructor/Announcements'
+import StatsPage from './pages/Instructor/StatsPage'
 import { Routes, Route } from "react-router-dom"
 import useAuth from './hooks/useAuth'
 import LangingHeader from './pages/landing/LangingHeader'
@@ -38,6 +39,7 @@ const App = () => {
           <Route path='activities' element={<ActivityPage />}/>
           <Route path='activity' element={<SingleActivity />}/>
           <Route path='announcements' element={<Announcements />}/>
+          <Route path='stats' element={<StatsPage />}/>
         </Route>
       </Routes>
     </main>
