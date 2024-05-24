@@ -120,6 +120,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                                         if (cell.getValue()?.school) {
                                             console.log('Student clicked')
                                             setStudentSummary(true)
+                                            setStudentId(cell.row.original.studentId)
                                             setSelectedStudent(cell.getValue())
                                             setOpen(true)
                                             return
@@ -228,6 +229,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                     setStudentSummary={setStudentSummary}
                     student={selectedStudent}
                     activities={activities}
+                    studentId={studentId}
                 />
                 : 
                 <UpdateGradeModal 

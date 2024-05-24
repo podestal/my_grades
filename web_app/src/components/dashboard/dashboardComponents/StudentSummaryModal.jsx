@@ -1,15 +1,18 @@
 import { Dialog, DialogPanel, Divider, DonutChart, Legend } from "@tremor/react"
 import CloseButton from "../../../utils/CloseButton"
+import useStudent from "../../../hooks/useStudents"
 
-const StudentSummaryModal = ({ open, setOpen, setStudentSummary, student, activities }) => {
+const StudentSummaryModal = ({ open, setOpen, student, setStudentSummary, activities, studentId }) => {
 
+    const {students} =  useStudent()
+    // const student = students.find( localStudent => localStudent.id == studentId)
     const activitiesIds = activities.map( activity => activity.id)
     const gradesObj = {}
     const greadesForDonutChart = []
     let conditionalColors = []
     const legendCategories = []
     let activitiesCount = 0
-    student.grades
+    student?.grades
         .filter( grade => activitiesIds.indexOf(grade.activity) >= 0)
         .map( grade => {
             if (grade.calification != 'NA') {
@@ -62,7 +65,7 @@ const StudentSummaryModal = ({ open, setOpen, setStudentSummary, student, activi
         onClose={handleClosePanel}
     >
         <DialogPanel className="relative flex flex-col gap-4 items-center">
-            {console.log('gradesObj', gradesObj)}
+            {console.log('student', student)}
             {console.log('greadesForDonutChart', greadesForDonutChart)}
             <CloseButton handleClose={handleClosePanel}/>
             <h2 className="text-white text-4xl text-center font-poppins">Resumen de Progreso</h2>

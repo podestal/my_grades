@@ -10,7 +10,7 @@ import useStudent from "../../../hooks/useStudents"
 const UpdateGradeModal = ({ activity, student, setOpen, open, calification, setCalification, gradeId, forceConclusions, error, setError, createAverage, studentId }) => {
 
     const { user } = useAuth()
-    const { students, setStudents } = useStudent()
+    const {students, setStudents} = useStudent()
     const [observations, setObservations] = useState('')
     const queryClient = useQueryClient()
     const { mutate: updateGradesMutation } = useMutation({
@@ -28,7 +28,7 @@ const UpdateGradeModal = ({ activity, student, setOpen, open, calification, setC
                 }
                 return singleGrade
             })
-            setStudents( students => students.map( localStudent => {
+            setStudents( prevStudents => prevStudents.map( localStudent => {
                 if (localStudent.id == studentFound.id) {
                     console.log('found it', localStudent)
                     localStudent = studentFound
