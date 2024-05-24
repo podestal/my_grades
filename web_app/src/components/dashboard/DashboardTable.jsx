@@ -242,6 +242,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                     setForceConclusions={setForceConclusions}
                     error={error}
                     setError={setError}
+                    studentId={studentId}
                 />}
             </>
             }

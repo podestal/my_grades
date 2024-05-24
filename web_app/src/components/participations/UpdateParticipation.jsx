@@ -22,19 +22,6 @@ const UpdateParticipation = ({ student, assignature, quarter, participation }) =
             setDisable(true)
             setSuccess(true)
             setError(false)
-            // const studentFound = students.find(student => student.id == studentId)
-            // studentFound.averages = studentFound.averages.map( average => {
-            //     if (average.id == averageId) {
-            //         average = res.data
-            //     }
-            //     return average
-            // })
-            // setStudents( students => students.map( student => {
-            //   if (student.id == studentId) {
-            //     student = studentFound
-            //   }
-            //   return student
-            // }))
             const studentFound = students.find( localStudent => localStudent.id == student.id)
             studentFound.participations = studentFound.participations.map( singleParticipation => {
                 if (singleParticipation.id == participation.id) {
