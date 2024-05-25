@@ -549,3 +549,52 @@ export const capacitiesData = [
 export const getFilteredCapacities = (competence) => {
     return capacitiesData.filter(capacity => capacity.competence == competence)
 }
+
+// AREAS
+
+[
+    {
+        "id": 1,
+        "title": "Desarollo personal y ciudadanía cívica"
+    },
+    {
+        "id": 2,
+        "title": "Ciencias Sociales"
+    },
+    {
+        "id": 3,
+        "title": "Educación para el trabajo"
+    },
+    {
+        "id": 4,
+        "title": "Educación física"
+    },
+    {
+        "id": 5,
+        "title": "Comunicación"
+    },
+    {
+        "id": 6,
+        "title": "Arte y cultura"
+    },
+    {
+        "id": 7,
+        "title": "Castellano como segunda lengua"
+    },
+    {
+        "id": 8,
+        "title": "Inglés como segunda lengua"
+    },
+    {
+        "id": 9,
+        "title": "Matemática"
+    },
+    {
+        "id": 10,
+        "title": "Ciencia y tecnología"
+    },
+    {
+        "id": 11,
+        "title": "Educación religiosa"
+    }
+]
