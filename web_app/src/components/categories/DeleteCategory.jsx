@@ -46,7 +46,7 @@ const DeleteCategory = ({ category }) => {
             success={success}
             error={error}
             deleteCat={deleteCategoryMutation}
-            categoryId={category.id}
+            category={category}
         />
     </>
   )
