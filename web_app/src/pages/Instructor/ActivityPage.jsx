@@ -11,6 +11,7 @@ const ActivityPage = () => {
     const [assignature, setAssignature] = useState('')
     const [quarter, setQuarter] = useState('Q2')
     const { activities, setActivities } = useActivities()
+    const filteredActivitiesByAssignature = activities.length > 0 && activities.filter( activity => activity.assignature == assignature)
 
 
 
@@ -29,7 +30,7 @@ const ActivityPage = () => {
         </div>
         {assignature && 
             <>
-                {activities.length == 0 
+                {filteredActivitiesByAssignature.length == 0 
                 ? 
                 <GetActivities 
                     assignature={assignature}
