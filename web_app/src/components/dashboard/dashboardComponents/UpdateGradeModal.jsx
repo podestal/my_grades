@@ -1,4 +1,4 @@
-import { DialogPanel, Select, SelectItem, Button ,Dialog } from "@tremor/react"
+import { DialogPanel, Select, SelectItem, Button ,Dialog, Divider } from "@tremor/react"
 import { updateGrades } from "../../../api/api"
 import { useMutation, useQueryClient, useQueries } from "@tanstack/react-query"
 import useAuth from "../../../hooks/useAuth"
@@ -72,18 +72,21 @@ const UpdateGradeModal = ({ activity, student, setOpen, open, calification, setC
         open={open}
         onClose={() => setOpen(false)}
     >
-        <DialogPanel className="relative flex flex-col gap-4">
+        <DialogPanel className="relative flex flex-col gap-4 items-center">
+            {console.log('student modify grade', student)}
             <h2 className="text-white text-3xl text-center">{activity}</h2>
-            <h3 className="text-white text-xl text-center">{student.first_name} {student.last_name}</h3>
+            <h3 className="text-white text-xl text-center">{student}</h3>
+            <Divider></Divider>
+            <p className="text-white font-poppins ml-4 text-lg text-center">Calificación</p>
             <button onClick={() => setOpen(false)} className="absolute top-0 right-2 text-4xl text-red-500 hover:text-red-400">x</button>
-            {/* {console.log('calification:', newCalification)} */}
-            <Select value={calification} onValueChange={ value => setCalification(value)}>
-                <SelectItem value="C">C</SelectItem>
-                <SelectItem value="B">B</SelectItem>
-                <SelectItem value="A">A</SelectItem>
-                <SelectItem value="AD">AD</SelectItem>
-            </Select>
-            {/* {console.log('error', error)} */}
+            <div className="flex flex-col gap-4 w-[270px]">
+                <Select value={calification} onValueChange={ value => setCalification(value)}>
+                    <SelectItem value="C">C</SelectItem>
+                    <SelectItem value="B">B</SelectItem>
+                    <SelectItem value="A">A</SelectItem>
+                    <SelectItem value="AD">AD</SelectItem>
+                </Select>
+            </div>
             <InputText 
                 value={observations}
                 setter={setObservations}
