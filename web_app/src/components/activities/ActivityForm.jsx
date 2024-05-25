@@ -15,7 +15,7 @@ import { quartersData } from "../../data/quarters"
 import getIntegerArray from "../../data/getIntegerArray"
 import { getCurrentQuarter } from "../../data/currentQuarter"
 
-const ActivityForm = ({ activity, assignature, open, setOpen, success, setSuccess, setError, error, create, update }) => {
+const ActivityForm = ({ activity, assignature, open, setOpen, success, setSuccess, setError, error, create, update, disable, setDisable }) => {
 
     // USER
     const { user } = useAuth()
@@ -39,6 +39,9 @@ const ActivityForm = ({ activity, assignature, open, setOpen, success, setSucces
     const [titleError, setTitleError] = useState(false)
     const [descriptionError, setDescriptionError] = useState(false)
     const [dateError, setDateError] = useState(false)
+    const [selectedCategoryError, setSelectedCategoryError] = useState(false)
+    const [selectedCompetencyError, setSelectedCompetencyError] = useState(false)
+    const [selectedCapacityError, setSelectedCapacityError] = useState(false)
 
     const handleClosePanel = () => {
         if (create) {
@@ -48,13 +51,41 @@ const ActivityForm = ({ activity, assignature, open, setOpen, success, setSucces
             setSelectedCategory('')
             setSelectedCompetency([])
             setSelectedCapacity([])
+
         } 
         setOpen(false)
         setSuccess('')
         setError('')
+        setDisable(false)
     }
 
     const handleSubmit = () => {
+
+        setTitleError(false)
+        setSelectedCompetencyError(false)
+        setSelectedCapacityError(false)
+        setSelectedCategoryError(false)
+
+        if (title.length == 0) {
+            setTitleError(true)
+            return
+        }
+
+        if (selectedCategory.length == 0) {
+            setSelectedCategoryError(true)
+            return
+        }
+
+        if (selectedCompetency.length == 0) {
+            setSelectedCompetencyError(true)
+            return
+        }
+
+        if (selectedCapacity.length == 0) {
+            setSelectedCapacityError(true)
+            return
+        }
+            
         const formattedDate = moment(date).format('YYYY-MM-DD')
         create &&  create({
             token: user.access,
@@ -121,20 +152,48 @@ const ActivityForm = ({ activity, assignature, open, setOpen, success, setSucces
                 className="w-[270px]"
             />
             {/* Quarter Selector */}
-            <Selector label={'Bimestre'} value={selectedQuarter} setter={setSelectedQuarter} items={quartersData}/>
+            <Selector 
+                label={'Bimestre'} 
+                value={selectedQuarter} 
+                setter={setSelectedQuarter} 
+                items={quartersData}
+            />
 
             {/* Categories Selector */}
-            <Selector label={'Categoría'} value={selectedCategory} setter={setSelectedCategory} items={categories} />
+            <Selector 
+                label={'Categoría'} 
+                value={selectedCategory} 
+                setter={setSelectedCategory} 
+                items={categories} 
+                error={selectedCategoryError}
+                errorMsg={'Necesita seleccionar una categoría'}
+            />
             
             {/* Competences Selector */}
             {/* <Selector label={'Competencia'} value={selectedCompetency} setter={setSelectedCompetency} items={competencies} /> */}
-            <MultiSelector label={'Competencia'} value={selectedCompetency} setter={setSelectedCompetency} items={competencies}/>
+            <MultiSelector 
+                label={'Competencia'} 
+                value={selectedCompetency} 
+                setter={setSelectedCompetency} 
+                items={competencies} 
+                error={selectedCompetencyError} 
+                errorMsg={'Necesita seleccionar al menos una competencia'}
+            />
             
             {/* Capacities Selector */}
             {/* {selectedCompetency && <Selector label={'Capacidad'} value={selectedCapacity} setter={setSelectedCapacity} items={capacities} />} */}
-            {selectedCompetency && <MultiSelector label={'Capacidad'} value={selectedCapacity} setter={setSelectedCapacity} items={capacities}/>}
+            {selectedCompetency && 
+            <MultiSelector 
+                label={'Capacidad'} 
+                value={selectedCapacity} 
+                setter={setSelectedCapacity} 
+                items={capacities}
+                error={selectedCapacityError}
+                errorMsg={'Necesita seleccionar al menos una capacidad'}
+            />
+            }
 
-            <Button onClick={handleSubmit} className="w-[160px] mx-auto mt-6" color="blue">{activity ? 'Guardar' : 'Crear'}</Button>
+            <Button disabled={disable} onClick={handleSubmit} className="w-[160px] mx-auto mt-6" color="blue">{activity ? 'Guardar' : 'Crear'}</Button>
         </DialogPanel>
     </Dialog>
   )

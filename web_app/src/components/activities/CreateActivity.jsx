@@ -20,11 +20,13 @@ const CreateActivity = ({ assignature, activity }) => {
     // Error handling
     const [success, setSuccess] = useState('')
     const [error, setError] = useState('')
+    const [disable, setDisable] = useState(false)
 
     // Mutation Create
     const { mutate: createActivityMutation } = useMutation({
         mutationFn: data => createActivity(data),
         onSuccess: res => {
+            setDisable(true)
             setSuccess('Su actividad fué creada con éxito')
             setError('')
             queryClient.invalidateQueries(['activities'])
@@ -33,7 +35,6 @@ const CreateActivity = ({ assignature, activity }) => {
             :setActivities([res.data])
         },
         onError: err => {
-            console.log(err)
             setError('No se pudo crear actividad, inténtelo otra vez')
             setSuccess('')
         }
@@ -60,6 +61,8 @@ const CreateActivity = ({ assignature, activity }) => {
                 error={error}
                 setError={setError}
                 create={createActivityMutation}
+                disable={disable}
+                setDisable={setDisable}
             />
         </div>
         </>

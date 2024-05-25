@@ -9,7 +9,7 @@ const GetGradesByAssignature = ({ assignature, setGrades }) => {
     const { user } = useAuth()
     const { data: gradesByAssignature, isLoading } = useQuery({
         queryKey: ['gradesByAssignature'],
-        queryFn: () => getGradesByAssignature({ token: user.access, assignatureId:assignature })
+        queryFn: () => getGradesByAssignature({ token: user.access, assignatureId: assignature })
     })
 
     useEffect(() => {

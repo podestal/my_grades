@@ -11,7 +11,7 @@ const ActivityPage = () => {
     const [assignature, setAssignature] = useState('')
     const [quarter, setQuarter] = useState('Q2')
     const { activities, setActivities } = useActivities()
-    const filteredActivitiesByAssignature = activities.length > 0 && activities.filter( activity => activity.assignature == assignature)
+    const filteredActivitiesByAssignature = activities.length > 0 && activities.filter( activity => activity.assignature == assignature) || []
 
 
 

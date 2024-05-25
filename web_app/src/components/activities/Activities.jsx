@@ -6,11 +6,13 @@ import useGrades from "../../hooks/useGrades"
 const Activities = ({ assignature, quarter, activities }) => {
 
     const { grades, setGrades } = useGrades()
+    const filteredGradesByAssignature = grades.length > 0 && grades.filter( grade => grade.assignature == assignature) || []
 
 
   return (
     <div className="grid grid-cols-4 my-8">
-        {grades.length == 0 
+        {console.log('filteredGradesByAssignature', filteredGradesByAssignature)}
+        {filteredGradesByAssignature.length == 0 
         ? 
         <GetGradesByAssignature 
             assignature={assignature}
