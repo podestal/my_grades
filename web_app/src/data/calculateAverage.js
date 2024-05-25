@@ -111,12 +111,13 @@ export const calculateAverageWithCats = (grades, activities, categories) => {
     // const filteredActivitiesByCapacity = filterActivitiesByCapacity(selectedCapacity, activities)
     // console.log('filteredActivitiesByCapacity', filteredActivitiesByCapacity)
     // console.log('cacluating avgs with cats from calculate avgs')
+    console.log('activities in avgs with cats', activities)
     const catAverages = categories && categories.map( category => {
         const catAverage = calculateSimpleAverage(grades, activities, category.id)
         if (catAverage != undefined) {
             return ((numericalRepresentation[catAverage]/4) * category.weight) * 4
         }
-        // console.log('catAverage',catAverage);
+        console.log('catAverage',catAverage);
     })
     // console.log('count',count)
     const final = catAverages.reduce((sum, average) => {
