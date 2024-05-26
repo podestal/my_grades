@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1']
 
 
 # Application definition
@@ -92,26 +92,40 @@ WSGI_APPLICATION = 'my_grades.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': os.environ.get('DB_NAME_DEV'),
-#         'HOST':  os.environ.get('DB_HOST_DEV'),
-#         'USER':  os.environ.get('DB_USER_DEV'),
-#         'PASSWORD':  os.environ.get('DB_PASSWORD_DEV'),
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DB_NAME_TEST'),
-        'HOST':  os.environ.get('DB_HOST_TEST'),
-        'USER':  os.environ.get('DB_USER_TEST'),
-        'PASSWORD':  os.environ.get('DB_PASSWORD_TEST'),
+        'NAME': os.environ.get('DB_NAME_DEV'),
+        'HOST':  os.environ.get('DB_HOST_DEV'),
+        'USER':  os.environ.get('DB_USER_DEV'),
+        'PASSWORD':  os.environ.get('DB_PASSWORD_DEV'),
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': os.environ.get('DB_NAME_TEST'),
+#         'HOST':  os.environ.get('DB_HOST_TEST'),
+#         'USER':  os.environ.get('DB_USER_TEST'),
+#         'PASSWORD':  os.environ.get('DB_PASSWORD_TEST'),
+#     }
+# }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'edumetrica',
+#         'HOST':  'edumetrica-test.cnmy06y44h6n.us-east-1.rds.amazonaws.com',
+#         'USER':  'podestal',
+#         'PASSWORD':  '13anguloX',
+#     }
+# }
+
+# DB_NAME_TEST=edumetrica
+# DB_HOST_TEST=edumetrica-test.cnmy06y44h6n.us-east-1.rds.amazonaws.com
+# DB_USER_TEST=podestal
+# DB_PASSWORD_TEST=13anguloX
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

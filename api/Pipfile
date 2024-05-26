@@ -17,6 +17,7 @@ pytest-django = "*"
 model-bakery = "*"
 django-debug-toolbar = "*"
 python-dotenv = "*"
+django-multiselectfield = "*"
 
 [dev-packages]
 

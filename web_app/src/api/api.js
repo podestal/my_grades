@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-// const URL = 'http://127.0.0.1:8000/'
-const URL = 'https://m-grades-api.vercel.app/api/'
+const URL = 'http://127.0.0.1:8000/'
+// const URL = 'https://m-grades-api.vercel.app/'
 const PROD_URL = ''
 
 // AUTH
