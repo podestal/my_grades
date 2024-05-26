@@ -40,12 +40,15 @@ const ActivityForm = ({ route }) => {
             setActivities([ ...activities, res.data])
         },
         onError: err => {
+            console.log('err',err);
             setErrorMsg('Ocurrió un error, vuélvalo a intentar')
         }
     })
 
     const handleCreateAssignment = () => {
 
+        console.log('competences', competence.id.toString())
+        console.log('capacity', capacity.id.toString())
         setErrorMsg('')
         setSuccessMsg('')
         setTitleError('')
@@ -69,15 +72,16 @@ const ActivityForm = ({ route }) => {
                 activity:{
                     title,
                     due_date: dueDate,
-                    competence: competence.id,
+                    competences: competence.id.toString(),
                     assignature: assignatureId,
-                    capacity: capacity.id
+                    capacities: capacity.id.toString(),
+                    category: 1,
+                    quarter: 'Q2'
                 } 
             })
             setTitle('')
             setDueDate('')
             setCompetence('')
-
         }
         catch {
             console.log('Ocurrió un error')
