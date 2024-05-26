@@ -117,4 +117,21 @@ export const createParticipation = data => axios.post(`${URL}api/participations/
     headers: { Authorization: `JWT ${data.token}` }
 })
 
+// CATEGORIES
+
+export const getCategories = data => axios.get(`${URL}api/categories/`, {
+    headers: { Authorization: `JWT ${data.token}`}
+})
+
+export const createCategory = data => axios.post(`${URL}api/categories/`, data.category, {
+    headers: { Authorization: `JWT ${data.token}` }
+})
+
+export const updateCategory = data => axios.patch(`${URL}api/categories/${data.categoryId}/`, data.updates, {
+    headers: { Authorization: `JWT ${data.token}`}
+})
+
+export const deleteCategory = data => axios.delete(`${URL}api/categories/${data.categoryId}/`, {
+    headers: { Authorization: `JWT ${data.token}`}
+})
 
