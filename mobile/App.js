@@ -24,10 +24,10 @@ export default function App() {
                 <StudentContextProvider>
                   <TutorContextProvider>
                     <CategoryContextProvider>
-                      <QueryClientProvider client={client}>
-                        <MainNavigator />
-                        <StatusBar style="light" />
-                      </QueryClientProvider>
+                        <QueryClientProvider client={client}>
+                          <MainNavigator />
+                          <StatusBar style="light" />
+                        </QueryClientProvider>
                     </CategoryContextProvider>
                   </TutorContextProvider>
                 </StudentContextProvider>

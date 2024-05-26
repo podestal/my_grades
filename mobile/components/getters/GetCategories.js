@@ -19,13 +19,8 @@ const GetCategories = ({ setCategories }) => {
         if (categories?.data.length > 0) {
             setCategories(categories.data)
         }
-    })
+    }, [])
 
-  return (
-    <>
-    <Text>GetCategories</Text>
-    </>
-  )
 }
 
 export default GetCategories
