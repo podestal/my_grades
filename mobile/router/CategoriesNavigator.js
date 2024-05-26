@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Categories from '../components/categories/Categories'
 import CategoryForm from '../components/categories/CategoryForm'
+import CreateCategory from '../components/categories/CreateCategory'
 
 const CategoriesNavigator = () => {
 
@@ -24,7 +25,7 @@ const CategoriesNavigator = () => {
         />
         <Stack.Screen 
             name='CategoriesCreate'
-            component={CategoryForm}
+            component={CreateCategory}
             options={{
                 headerTitle: 'Crear categoría'
             }}

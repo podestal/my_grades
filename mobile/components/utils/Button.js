@@ -1,6 +1,6 @@
 import { View, Button, StyleSheet } from "react-native"
 
-const ButtonElement = ({ title, onPress }) => {
+const ButtonElement = ({ title, onPress, disable }) => {
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
@@ -9,6 +9,7 @@ const ButtonElement = ({ title, onPress }) => {
             title={title}
             color={'#fff'}
             onPress={onPress}
+            disabled={disable}
         />
       </View>
     </View>

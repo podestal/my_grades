@@ -1,8 +1,10 @@
 import { View, Text, TextInput, StyleSheet } from "react-native"
+import ErrorMsg from "./ErrorMsg"
 
-const Input = ({ label, type, secure, value, setter, placeholder }) => {
+const Input = ({ label, type, secure, value, setter, placeholder, error, errorMsg }) => {
   return (
     <View style={styles.container}>
+        {error && <ErrorMsg>{errorMsg}</ErrorMsg>}
         <Text style={styles.label}>{label}</Text>
         <TextInput  
             style={styles.input}

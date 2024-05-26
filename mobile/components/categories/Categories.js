@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query"
 import { getCategories } from "../../api/api"
 import ButtonElement from "../utils/Button"
 import { useState } from "react"
+import { useNavigation } from "@react-navigation/native"
 
 const Categories = () => {
 
@@ -16,30 +17,19 @@ const Categories = () => {
         queryFn: () => getCategories({ token: user.access })
     })
 
-    const [open, setOpen] = useState(false)
+    const navigator = useNavigation()
 
   return (
-    <> 
-        {open 
-        ? 
-        <CreateCategory 
-            setOpen={setOpen}
-        /> 
-        :
-        <NonScrollableContainer>
-            <ButtonElement 
-                title={'Nueva Categoría'}
-                onPress={() => setOpen(true)}
-            />
-            <List 
-                data={categories?.data}
-                DetailComponent={Category}
-            />
-        </NonScrollableContainer>
-        }
-        
-
-    </>
+    <NonScrollableContainer>
+        <ButtonElement 
+            title={'Nueva Categoría'}
+            onPress={() => navigator.navigate('CategoriesCreate')}
+        />
+        <List 
+            data={categories?.data}
+            DetailComponent={Category}
+        />
+    </NonScrollableContainer>
   )
 }
 
