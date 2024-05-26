@@ -8,6 +8,7 @@ import ActivityContextProvider from './context/activities';
 import ClaseContextProvider from './context/clases';
 import StudentContextProvider from './context/students';
 import TutorContextProvider from './context/tutor';
+import CategoryContextProvider from './context/categories';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const client = new QueryClient()
@@ -22,10 +23,12 @@ export default function App() {
               <ClaseContextProvider>
                 <StudentContextProvider>
                   <TutorContextProvider>
-                    <QueryClientProvider client={client}>
-                      <MainNavigator />
-                      <StatusBar style="light" />
-                    </QueryClientProvider>
+                    <CategoryContextProvider>
+                      <QueryClientProvider client={client}>
+                        <MainNavigator />
+                        <StatusBar style="light" />
+                      </QueryClientProvider>
+                    </CategoryContextProvider>
                   </TutorContextProvider>
                 </StudentContextProvider>
               </ClaseContextProvider>
