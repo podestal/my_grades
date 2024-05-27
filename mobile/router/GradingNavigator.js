@@ -6,6 +6,7 @@ import ActivityForm from '../components/grading/ActivityForm'
 import ObservationForm from '../components/grading/ObservationForm'
 import Assignments from '../components/grading/Assignments'
 import Participations from '../components/grading/Participations'
+import SelectCompsAndCaps from '../components/grading/SelectCompsAndCaps'
 
 const GradingNavigator = () => {
 
@@ -68,6 +69,13 @@ const GradingNavigator = () => {
             component={Participations}
             options={{
                 headerTitle: 'Participaciones'
+            }}
+        /> 
+        <Stack.Screen 
+            name='CompsAndCaps'
+            component={SelectCompsAndCaps}
+            options={{
+                headerTitle: 'Selecciona'
             }}
         /> 
     </Stack.Navigator>

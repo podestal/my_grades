@@ -1,4 +1,4 @@
-import { Button } from "react-native"
+import { Button, TextInput, StyleSheet, View } from "react-native"
 import useStudents from "../../hooks/useStudents"
 import { getStudents } from "../../api/api"
 import { useMutation } from "@tanstack/react-query"
@@ -9,13 +9,14 @@ import Error from "../utils/Error"
 import List from "../utils/List"
 import Student from "./Student"
 import NonScrollableContainer from "../utils/NonScrollableContainer"
-import Input from "../utils/Input"
+import { useNavigation } from "@react-navigation/native"
 
 // getStudents({ token: user.access, claseId })
 
 const Participations = ({ route }) => {
 
     const assignature = route?.params?.assignature
+    const navigator = useNavigation()
     const claseId = route?.params?.assignature?.clase?.id
     const [ name, setName] = useState('')
     const { user } = useAuth()
@@ -43,11 +44,23 @@ const Participations = ({ route }) => {
 
   return (
     <NonScrollableContainer>
-        <Input 
+        {/* <Input 
             value={name}
             setter={setName}
             placeholder={'Buscar...'}
-        />
+        /> */}
+        <View style={styles.inputButtonContainer}>
+            <TextInput  
+                style={styles.input}
+                value={name}
+                onChangeText={ inputValue => setName(inputValue)}
+                placeholder={'Buscar alumno ...'}
+            />
+            <Button 
+                title="Competencias y capacidades"
+                onPress={() => navigator.navigate('CompsAndCaps', { assignature })}
+            />
+        </View>
         <NonScrollableContainer>
             <List 
                 data={students
@@ -59,7 +72,7 @@ const Participations = ({ route }) => {
                     ))
                 }
                 DetailComponent={Student}
-                extraData={assignature}
+                extraData={{assignature}}
             />
         </NonScrollableContainer>
     </NonScrollableContainer>
@@ -67,3 +80,20 @@ const Participations = ({ route }) => {
 }
 
 export default Participations
+
+const styles = StyleSheet.create({
+    inputButtonContainer: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: '100%',
+        gap: 10,
+    },
+    input: {
+        backgroundColor: '#ecf0f1',
+        borderRadius: 20,
+        width: 200,
+        padding: 8,
+        marginTop: 12,
+        textAlign: 'center'
+    }
+})

@@ -9,7 +9,7 @@ import useStudents from "../../hooks/useStudents"
 import SuccessMsg from "../utils/SuccessMsg"
 import ErrorMsg from "../utils/ErrorMsg"
 
-const Student = ({ data: student, extraData: assignature }) => {
+const Student = ({ data: student, extraData: {assignature} }) => {
 
     const [calification, setCalification] = useState('')
     const [successMsg, setSuccessMsg] = useState('')
