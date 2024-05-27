@@ -21,6 +21,7 @@ const Category = ({ data: category }) => {
             <Button 
                 title="Eliminar"
                 color={'red'}
+                onPress={() => navigator.navigate('CategoriesDelete', { category })}
             />
         </View>
     </View>

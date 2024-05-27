@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Categories from '../components/categories/Categories'
 import UpdateCategory from '../components/categories/UpdateCategory'
 import CreateCategory from '../components/categories/CreateCategory'
+import DeleteCategory from '../components/categories/DeleteCategory'
 
 const CategoriesNavigator = () => {
 
@@ -35,6 +36,13 @@ const CategoriesNavigator = () => {
             component={UpdateCategory}
             options={{
                 headerTitle: 'Editar categoría'
+            }}
+        />
+        <Stack.Screen 
+            name='CategoriesDelete'
+            component={DeleteCategory}
+            options={{
+                headerTitle: 'Eliminar categoría'
             }}
         />
     </Stack.Navigator>

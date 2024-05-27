@@ -91,7 +91,6 @@ const AttendanceForm = ({ student, late, title, lateHour, handler, remove }) => 
 
   return (
     <ScrollView style={{flex: 1}}>
-        {console.log('Students',students)}
         <Title text={title}/>
         {successMsg && <SuccessMsg>{successMsg}</SuccessMsg>}
         {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
