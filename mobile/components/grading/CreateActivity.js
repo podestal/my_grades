@@ -12,7 +12,6 @@ const CreateActivity = ({ assignature }) => {
 
   return (
     <>
-        {console.log('categories from create', categories)}
         {categories.length == 0 
         ? 
         <GetCategories 

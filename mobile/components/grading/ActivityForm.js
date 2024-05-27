@@ -15,6 +15,8 @@ import Options from "../utils/Options"
 import TextSummary from "../utils/TextSummary"
 import useActivities from "../../hooks/useActivities"
 import useCategories from "../../hooks/useCategories"
+import { getCurrentQuarter } from "../utils/GetCurrentQuarter"
+import { quartersData } from "../../data/quarters"
 
 const ActivityForm = ({ route }) => {
 
@@ -35,6 +37,8 @@ const ActivityForm = ({ route }) => {
     const filteredCapacities = competence && getFilteredCapacities(competence?.id)
     const { categories } = useCategories()
     const [selectedCategory, setSelectedCategory] = useState({})
+    const currentQuarter = getCurrentQuarter(quartersData)
+    const [quarter, setQuarter] = useState(currentQuarter)
 
     const {mutate: createActivityMutation} = useMutation({
         mutationFn: data => createActivity(data),
@@ -49,9 +53,6 @@ const ActivityForm = ({ route }) => {
     })
 
     const handleCreateAssignment = () => {
-
-        
-        console.log('capacity', capacity.id.toString())
         setErrorMsg('')
         setSuccessMsg('')
         setTitleError('')
@@ -97,7 +98,6 @@ const ActivityForm = ({ route }) => {
         <Title 
             text={'Crea una Actividad'}
         />
-        {console.log('categories from form', categories)}
         {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
         {successMsg && <SuccessMsg>{successMsg}</SuccessMsg>}
         {titleError && <ErrorMsg>{titleError}</ErrorMsg>}
@@ -122,6 +122,26 @@ const ActivityForm = ({ route }) => {
                 setDueDate={setDueDate}
             />
         </>
+        }
+        {console.log('quarter',currentQuarter)}
+        {quarter?.id
+        ? 
+        <TextSummary 
+            title={'Bimestre'}
+            item={quarter?.title}
+            setItem={setQuarter}
+        /> 
+        : 
+        <View>
+            <Text style={styles.textTitle}>Selecciona un bimestre</Text>
+            {quartersData.map(quarter => (
+                <Options 
+                    key={quarter.id}
+                    item={quarter}
+                    setter={setQuarter}
+                />
+            ))}
+        </View>
         }
         {selectedCategory?.title 
         ? 

@@ -1,11 +1,8 @@
-import moment from "moment"
-import { quartersData } from "./quarters"
-
 const convertToTimestamp = (date) => {
     return Math.floor(date.getTime() / 1000)
 }
 
-export const getCurrentQuarter = () => {
+export const getCurrentQuarter = (quartersData) => {
     const currentDate = convertToTimestamp(new Date())
 
     return quartersData.find( quarter => {
@@ -16,4 +13,3 @@ export const getCurrentQuarter = () => {
         }
     })
 }
-
