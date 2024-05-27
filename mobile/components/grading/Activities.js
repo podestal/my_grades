@@ -11,6 +11,7 @@ import { useEffect, useState } from "react"
 import ButtonElement from "../utils/Button"
 import { useNavigation } from "@react-navigation/native"
 import useGrades from "../../hooks/useGrades"
+import CreateActivity from "./CreateActivity"
 
 const Activities = ({ route }) => {
 
@@ -44,12 +45,9 @@ const Activities = ({ route }) => {
 
     return (
         <NonScrollableContainer> 
-            <ButtonElement 
-                title={'Crear'}
-                onPress={() => navigator.navigate('ActivityCreate', {
-                    assignature,
-                })}
-            /> 
+            <CreateActivity 
+                assignature={assignature}
+            />
             <NonScrollableContainer>
                 <List 
                     data={activities?.filter(activity => activity.assignature == assignature.id)}
@@ -58,8 +56,6 @@ const Activities = ({ route }) => {
             </NonScrollableContainer>
         </NonScrollableContainer>
     )
-
-
 }
 
 export default Activities

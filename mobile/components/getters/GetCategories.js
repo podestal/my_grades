@@ -19,7 +19,7 @@ const GetCategories = ({ setCategories }) => {
         if (categories?.data.length > 0) {
             setCategories(categories.data)
         }
-    }, [])
+    }, [categories])
 
 }
 

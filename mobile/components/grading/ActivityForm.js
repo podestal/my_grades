@@ -14,6 +14,7 @@ import { getFilteredCompetences } from "../../data/competencies"
 import Options from "../utils/Options"
 import TextSummary from "../utils/TextSummary"
 import useActivities from "../../hooks/useActivities"
+import useCategories from "../../hooks/useCategories"
 
 const ActivityForm = ({ route }) => {
 
@@ -32,6 +33,8 @@ const ActivityForm = ({ route }) => {
     const {activities, setActivities} = useActivities()
     const filteredCometences = getFilteredCompetences(area)
     const filteredCapacities = competence && getFilteredCapacities(competence?.id)
+    const { categories } = useCategories()
+    const [selectedCategory, setSelectedCategory] = useState({})
 
     const {mutate: createActivityMutation} = useMutation({
         mutationFn: data => createActivity(data),
@@ -47,7 +50,7 @@ const ActivityForm = ({ route }) => {
 
     const handleCreateAssignment = () => {
 
-        console.log('competences', competence.id.toString())
+        
         console.log('capacity', capacity.id.toString())
         setErrorMsg('')
         setSuccessMsg('')
@@ -94,6 +97,7 @@ const ActivityForm = ({ route }) => {
         <Title 
             text={'Crea una Actividad'}
         />
+        {console.log('categories from form', categories)}
         {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
         {successMsg && <SuccessMsg>{successMsg}</SuccessMsg>}
         {titleError && <ErrorMsg>{titleError}</ErrorMsg>}
@@ -118,6 +122,25 @@ const ActivityForm = ({ route }) => {
                 setDueDate={setDueDate}
             />
         </>
+        }
+        {selectedCategory?.title 
+        ? 
+        <TextSummary 
+            title={'Categoría'}
+            item={selectedCategory?.title}
+            setItem={setSelectedCategory}
+        /> 
+        : 
+        <View>
+            <Text style={styles.textTitle}>Selecciona una Categoría</Text>
+            {categories.map(category => (
+                <Options 
+                    key={category.id}
+                    item={category}
+                    setter={setSelectedCategory}
+                />
+            ))}
+        </View>
         }
         {competenceError && <ErrorMsg>{competenceError}</ErrorMsg>}
         {competence
