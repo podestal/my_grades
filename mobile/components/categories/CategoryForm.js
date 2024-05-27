@@ -46,11 +46,16 @@ const CategoryForm = ({ create, disable, error, success, update, category }) => 
             title,
             weight: (formattedWeight/100).toFixed(2)
         }})
+
+        update && update({ token: user.access, categoryId: category.id, updates: {
+            title,
+            weight: (formattedWeight/100).toFixed(2)
+        }})
     }
   return (
     // label, type, secure, value, setter, placeholder 
     <NonScrollableContainer>
-        {success && <SuccessMsg>Categoría creada</SuccessMsg>}
+        {success && <SuccessMsg>{category ? 'Categoría actualizada' : 'Categoría creada'}</SuccessMsg>}
         {error && <ErrorMsg>Ocurrió un problema, vuélvalo a intentar más tarde</ErrorMsg>}
         <Input 
             label={'Título'}
