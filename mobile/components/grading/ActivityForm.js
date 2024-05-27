@@ -1,4 +1,4 @@
-import { StyleSheet, ScrollView, Text, View } from "react-native"
+import { StyleSheet, ScrollView, Text, View, Button } from "react-native"
 import ButtonElement from "../utils/Button"
 import Input from "../utils/Input"
 import { useState } from "react"
@@ -17,6 +17,8 @@ import useActivities from "../../hooks/useActivities"
 import useCategories from "../../hooks/useCategories"
 import { getCurrentQuarter } from "../utils/GetCurrentQuarter"
 import { quartersData } from "../../data/quarters"
+import MultiOptions from "../utils/MultiOptions"
+import MultiTextSummary from "../utils/MultiTextSummary"
 
 const ActivityForm = ({ route }) => {
 
@@ -24,7 +26,7 @@ const ActivityForm = ({ route }) => {
     const [titleError, setTitleError] = useState('') 
     const [dueDate, setDueDate] = useState('')
     const [dueDateError, setDueDateError] = useState('')
-    const [competence, setCompetence] = useState('')
+    const [selectedCompetences, setSelectedCompetences] = useState([])
     const [capacity, setCapacity] = useState('')
     const [competenceError, setCompetenceError] = useState('')
     const area = route?.params?.assignature?.area
@@ -34,11 +36,12 @@ const ActivityForm = ({ route }) => {
     const [successMsg, setSuccessMsg] = useState('')
     const {activities, setActivities} = useActivities()
     const filteredCometences = getFilteredCompetences(area)
-    const filteredCapacities = competence && getFilteredCapacities(competence?.id)
+    // const filteredCapacities = competences && getFilteredCapacities(competence?.id)
     const { categories } = useCategories()
     const [selectedCategory, setSelectedCategory] = useState({})
     const currentQuarter = getCurrentQuarter(quartersData)
     const [quarter, setQuarter] = useState(currentQuarter)
+    const [openCompetencesOptions, setOpenCompetencesOptions] = useState(true)
 
     const {mutate: createActivityMutation} = useMutation({
         mutationFn: data => createActivity(data),
@@ -123,7 +126,6 @@ const ActivityForm = ({ route }) => {
             />
         </>
         }
-        {console.log('quarter',currentQuarter)}
         {quarter?.id
         ? 
         <TextSummary 
@@ -162,11 +164,35 @@ const ActivityForm = ({ route }) => {
             ))}
         </View>
         }
-        {competenceError && <ErrorMsg>{competenceError}</ErrorMsg>}
-        {competence
+
+        {console.log('selectedCompetences',selectedCompetences)}
+        {openCompetencesOptions 
+        ? 
+        <View>
+            <Text style={styles.textTitle}>Selecciona una Competencia</Text>
+            {filteredCometences.map(competence => (
+                <MultiOptions 
+                    key={competence.id}
+                    item={competence}
+                    setter={setSelectedCompetences}
+                    state={selectedCompetences}
+                />
+            ))}
+            <Button title="Hecho" onPress={() => setOpenCompetencesOptions(false)}/>
+        </View> 
+        : 
+        <MultiTextSummary 
+            title={'Competencias'}
+            items={selectedCompetences}
+            setShow={setOpenCompetencesOptions}
+            setItem={setSelectedCompetences}
+        />
+        }
+        {/* {competenceError && <ErrorMsg>{competenceError}</ErrorMsg>}
+        {competence.length > 0
         ?
         <TextSummary 
-            title={'Competencia'}
+            title={'Competencias'}
             item={competence.title}
             setItem={setCompetence}
             extraSetter={setCapacity}
@@ -201,7 +227,7 @@ const ActivityForm = ({ route }) => {
                 />
             ))}
         </View>
-        }
+        } */}
         <ButtonElement 
             title={'Crear'}
             onPress={handleCreateAssignment}
