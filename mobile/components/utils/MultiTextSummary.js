@@ -1,13 +1,15 @@
 import { Text, View, StyleSheet, Button } from "react-native"
 
-const MultiTextSummary = ({ title, items, setShow, setItem, extraSetter }) => {
+const MultiTextSummary = ({ title, items, setShow, setItem, extraSetter, idsSetter, openSetter }) => {
   return (
     <View style={styles.textContainer}>
         <Text style={styles.textTitle}>{title}</Text>
         {items.map( item => <Text key={item.id} style={styles.text}>{item.title}</Text>)}
         <Button onPress={() => {
             setItem([])
-            extraSetter && extraSetter()
+            extraSetter && extraSetter([])
+            idsSetter && idsSetter([])
+            openSetter && openSetter(true)
             setShow(true)
         }} title={`Selecciona ${title}`}/>
     </View> 

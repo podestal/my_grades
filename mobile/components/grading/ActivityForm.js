@@ -19,6 +19,7 @@ import { getCurrentQuarter } from "../utils/GetCurrentQuarter"
 import { quartersData } from "../../data/quarters"
 import MultiOptions from "../utils/MultiOptions"
 import MultiTextSummary from "../utils/MultiTextSummary"
+import { capacitiesData } from "../../data/capacities"
 
 const ActivityForm = ({ route }) => {
 
@@ -27,8 +28,12 @@ const ActivityForm = ({ route }) => {
     const [dueDate, setDueDate] = useState('')
     const [dueDateError, setDueDateError] = useState('')
     const [selectedCompetences, setSelectedCompetences] = useState([])
+    const [competencesIds, setCompetencesIds] = useState([])
+    const [selectedCapacities, setSelectedCapacities] = useState([])
+    const [capacitiesIds, setCapacitiesIds] = useState([])
     const [capacity, setCapacity] = useState('')
     const [competenceError, setCompetenceError] = useState('')
+    const [capacityError, setCapacityError] = useState('')
     const area = route?.params?.assignature?.area
     const assignatureId = route?.params?.assignature?.id
     const { user } = useAuth()
@@ -36,12 +41,13 @@ const ActivityForm = ({ route }) => {
     const [successMsg, setSuccessMsg] = useState('')
     const {activities, setActivities} = useActivities()
     const filteredCometences = getFilteredCompetences(area)
-    // const filteredCapacities = competences && getFilteredCapacities(competence?.id)
+    const filteredCapacities = selectedCompetences && capacitiesData.filter( capacity => competencesIds.indexOf(capacity.competence) >= 0)
     const { categories } = useCategories()
     const [selectedCategory, setSelectedCategory] = useState({})
     const currentQuarter = getCurrentQuarter(quartersData)
     const [quarter, setQuarter] = useState(currentQuarter)
     const [openCompetencesOptions, setOpenCompetencesOptions] = useState(true)
+    const [openCapacitiesOptions, setOpenCapacitiesOptions] = useState(true)
 
     const {mutate: createActivityMutation} = useMutation({
         mutationFn: data => createActivity(data),
@@ -61,6 +67,7 @@ const ActivityForm = ({ route }) => {
         setTitleError('')
         setDueDateError('')
         setCompetenceError('')
+        setCapacityError('')
         if (title.length == 0) {
             setTitleError('Se necesita un título para la tarea')
             return
@@ -69,8 +76,12 @@ const ActivityForm = ({ route }) => {
             setDueDateError('Porfavor, seleccione una fecha de entrega')
             return
         }
-        if (competence.length == 0) {
-            setCompetenceError('Porfavor, seleccione una competencia')
+        if (selectedCompetences.length == 0) {
+            setCompetenceError('Porfavor, seleccione al menos una competencia')
+            return
+        }
+        if (selectedCapacities.length == 0) {
+            setCapacityError('Porfavor, seleccione al menos una capacidad')
             return
         }
         try {
@@ -79,9 +90,9 @@ const ActivityForm = ({ route }) => {
                 activity:{
                     title,
                     due_date: dueDate,
-                    competences: competence.id.toString(),
+                    competences: competencesIds.toString(),
                     assignature: assignatureId,
-                    capacities: capacity.id.toString(),
+                    capacities: capacitiesIds.toString(),
                     category: 1,
                     quarter: 'Q2'
                 } 
@@ -160,12 +171,12 @@ const ActivityForm = ({ route }) => {
                     key={category.id}
                     item={category}
                     setter={setSelectedCategory}
+                    
                 />
             ))}
         </View>
         }
-
-        {console.log('selectedCompetences',selectedCompetences)}
+        {competenceError && <ErrorMsg>{competenceError}</ErrorMsg>}
         {openCompetencesOptions 
         ? 
         <View>
@@ -176,6 +187,7 @@ const ActivityForm = ({ route }) => {
                     item={competence}
                     setter={setSelectedCompetences}
                     state={selectedCompetences}
+                    idsSetter={setCompetencesIds}
                 />
             ))}
             <Button title="Hecho" onPress={() => setOpenCompetencesOptions(false)}/>
@@ -186,8 +198,42 @@ const ActivityForm = ({ route }) => {
             items={selectedCompetences}
             setShow={setOpenCompetencesOptions}
             setItem={setSelectedCompetences}
+            extraSetter={setSelectedCapacities}
+            idsSetter={setCapacitiesIds}
+            openSetter={setOpenCapacitiesOptions}
         />
         }
+        {capacityError && <ErrorMsg>{capacityError}</ErrorMsg>}
+        {selectedCompetences.length > 0 &&
+        <>
+            {openCapacitiesOptions 
+            ? 
+            <View>
+                <Text style={styles.textTitle}>Selecciona una Capacidad</Text>
+                {filteredCapacities.map(capacity => (
+                    <MultiOptions 
+                        key={capacity.id}
+                        item={capacity}
+                        setter={setSelectedCapacities}
+                        state={selectedCapacities}
+                        idsSetter={setCapacitiesIds}
+                    />
+                ))}
+                <Button title="Hecho" onPress={() => setOpenCapacitiesOptions(false)}/>
+            </View>  
+            : 
+            <MultiTextSummary 
+                title={'Capacidades'}
+                items={selectedCapacities}
+                setShow={setOpenCapacitiesOptions}
+                setItem={setSelectedCapacities}
+            />
+            }
+        </>
+        }
+        {/* {selectedCompetences.length > 0 &&
+            
+        } */}
         {/* {competenceError && <ErrorMsg>{competenceError}</ErrorMsg>}
         {competence.length > 0
         ?
