@@ -31,7 +31,6 @@ const ActivityForm = ({ route }) => {
     const [competencesIds, setCompetencesIds] = useState([])
     const [selectedCapacities, setSelectedCapacities] = useState([])
     const [capacitiesIds, setCapacitiesIds] = useState([])
-    const [capacity, setCapacity] = useState('')
     const [competenceError, setCompetenceError] = useState('')
     const [capacityError, setCapacityError] = useState('')
     const area = route?.params?.assignature?.area
@@ -93,8 +92,8 @@ const ActivityForm = ({ route }) => {
                     competences: competencesIds.toString(),
                     assignature: assignatureId,
                     capacities: capacitiesIds.toString(),
-                    category: 1,
-                    quarter: 'Q2'
+                    category: selectedCategory.id,
+                    quarter: quarter.id
                 } 
             })
             setTitle('')
