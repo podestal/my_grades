@@ -7,10 +7,10 @@ import SuccessMsg from "../utils/SuccessMsg"
 import ErrorMsg from "../utils/ErrorMsg"
 import NonScrollableContainer from "../utils/NonScrollableContainer"
 
-const CategoryForm = ({ create, disable, error, success }) => {
+const CategoryForm = ({ create, disable, error, success, update, category }) => {
 
-    const [title, setTitle] = useState('')
-    const [weight, setWeigh] = useState()
+    const [title, setTitle] = useState(category && category?.title || '')
+    const [weight, setWeigh] = useState(category && Math.round(category.weight * 100).toString() || '')
     const { user } = useAuth()
 
     // VALIDATORS
@@ -27,6 +27,9 @@ const CategoryForm = ({ create, disable, error, success }) => {
         setWeighValidator(false)
         setWeightValidatorMsg('')
 
+        // CASTING WEIGHT
+        const formattedWeight = parseInt(weight)
+
         if (title.length == 0) {
             setTitleValidator(true)
             setTitleValidatorMsg('El título de la categoría es obligatorio')
@@ -41,7 +44,7 @@ const CategoryForm = ({ create, disable, error, success }) => {
         console.log('created')
         create && create({ token: user.access, category: {
             title,
-            weight: (weight/100).toFixed(2)
+            weight: (formattedWeight/100).toFixed(2)
         }})
     }
   return (
@@ -62,12 +65,11 @@ const CategoryForm = ({ create, disable, error, success }) => {
             value={weight}
             setter={setWeigh}
             placeholder={'Porcentaje ...'}
-            type={'numeric'}
             error={weighValidator}
             errorMsg={weightValidatorMsg}
         />
         <ButtonElement 
-            title={'Crear'}
+            title={category ? 'Guardar' : 'Crear'}
             onPress={handleSubmit}
             disable={disable}
         />

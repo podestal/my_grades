@@ -25,10 +25,12 @@ const Categories = () => {
             title={'Nueva Categoría'}
             onPress={() => navigator.navigate('CategoriesCreate')}
         />
-        <List 
-            data={categories?.data}
-            DetailComponent={Category}
-        />
+        <NonScrollableContainer>
+            <List 
+                data={categories?.data}
+                DetailComponent={Category}
+            />
+        </NonScrollableContainer>
     </NonScrollableContainer>
   )
 }
