@@ -8,9 +8,11 @@ import useAuth from "../../hooks/useAuth"
 import useStudents from "../../hooks/useStudents"
 import SuccessMsg from "../utils/SuccessMsg"
 import ErrorMsg from "../utils/ErrorMsg"
+import { useNavigation } from "@react-navigation/native"
 
 const Student = ({ data: student, extraData: {assignature} }) => {
 
+    const navigator = useNavigation()
     const [calification, setCalification] = useState('')
     const [successMsg, setSuccessMsg] = useState('')
     const [errMsg, setErrMsg] = useState('')
@@ -67,17 +69,19 @@ const Student = ({ data: student, extraData: {assignature} }) => {
                 <Text style={styles.participationText}>Hoy: {student?.participations?.length}</Text>
                 <Text style={styles.participationText}>Total: {todaysParticipations?.length}</Text>
             </ScrollView>
-            <View>
+            <View style={styles.selectorContainer}>
+                {/* <Text>Nota</Text> */}
                 <Select 
                     setter={setCalification}
                     data={califications}
                     label={'calification'}
                     hideSelected={'none'}
+                    title={'Nota'}
                 />
             </View>
             <View style={styles.buttonContainer}>
                 <Text style={styles.calificationText}>{calification ? califications[calification - 1]?.calification : 'NA'}</Text>
-                <Button onPress={handleAddParticipation} title="Agregar"/>
+                <Button onPress={() => navigator.navigate('CreateParticipation', { assignature, student })} title="Agregar"/>
             </View>
         </View>
     </>
@@ -118,4 +122,11 @@ const styles = StyleSheet.create({
     calificationText: {
         fontSize: 22
     },
+    selectorContainer: {
+        flexDirection: 'column',
+        // backgroundColor: 'red',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 100
+    }
 })

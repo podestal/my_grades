@@ -44,11 +44,6 @@ const Participations = ({ route }) => {
 
   return (
     <NonScrollableContainer>
-        {/* <Input 
-            value={name}
-            setter={setName}
-            placeholder={'Buscar...'}
-        /> */}
         <View style={styles.inputButtonContainer}>
             <TextInput  
                 style={styles.input}

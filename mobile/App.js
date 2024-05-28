@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import AuthContextProvider from './context/auth';
 import CompetenciesContextProvider from './context/competencies';
+import CapacityContextProvider from './context/capacities';
 import AssignatureContextProvider from './context/assignatures';
 import MainNavigator from './router/MainNavigator';
 import GradesContextProvider from './context/grades';
@@ -17,24 +18,26 @@ export default function App() {
   return (
     <AuthContextProvider>
       <CompetenciesContextProvider>
-        <AssignatureContextProvider>
-          <ActivityContextProvider>
-            <GradesContextProvider>
-              <ClaseContextProvider>
-                <StudentContextProvider>
-                  <TutorContextProvider>
-                    <CategoryContextProvider>
-                        <QueryClientProvider client={client}>
-                          <MainNavigator />
-                          <StatusBar style="light" />
-                        </QueryClientProvider>
-                    </CategoryContextProvider>
-                  </TutorContextProvider>
-                </StudentContextProvider>
-              </ClaseContextProvider>
-            </GradesContextProvider>
-          </ActivityContextProvider>
-        </AssignatureContextProvider>
+        <CapacityContextProvider>
+          <AssignatureContextProvider>
+            <ActivityContextProvider>
+              <GradesContextProvider>
+                <ClaseContextProvider>
+                  <StudentContextProvider>
+                    <TutorContextProvider>
+                      <CategoryContextProvider>
+                          <QueryClientProvider client={client}>
+                            <MainNavigator />
+                            <StatusBar style="light" />
+                          </QueryClientProvider>
+                      </CategoryContextProvider>
+                    </TutorContextProvider>
+                  </StudentContextProvider>
+                </ClaseContextProvider>
+              </GradesContextProvider>
+            </ActivityContextProvider>
+          </AssignatureContextProvider>
+        </CapacityContextProvider>
       </CompetenciesContextProvider>
     </AuthContextProvider>
   );
