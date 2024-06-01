@@ -10,7 +10,7 @@ const Activities = ({ assignature, quarter, activities }) => {
 
 
   return (
-    <div className="grid grid-cols-4 my-8">
+    <div className="grid grid-cols-4 md:grid-cols-3 my-8">
         {console.log('filteredGradesByAssignature', filteredGradesByAssignature)}
         {filteredGradesByAssignature.length == 0 
         ? 
