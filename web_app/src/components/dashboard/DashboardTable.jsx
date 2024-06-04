@@ -160,7 +160,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                                         {/* {console.log('Cell value', cell.getValue())} */}
                                         {/* {flexRender(cell.column.columnDef.cell, cell.getContext())} */}
                                         <p className="text-center hover:ml-3 font-bold">
-                                            {cell.getValue() && cell.getValue().calification ? cell.getValue().calification : `${cell.getValue().first_name} ${cell.getValue().last_name}`}
+                                            {cell.getValue() && cell.getValue().calification ? cell.getValue().calification : `${cell.getValue()?.first_name} ${cell.getValue()?.last_name}`}
                                         </p>
                                         
                                     </td>
