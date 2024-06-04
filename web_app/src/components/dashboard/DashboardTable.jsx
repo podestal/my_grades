@@ -68,7 +68,6 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
   return (
     <div className=" flex items-center justify-start overflow-x-scroll shadow-violet-950 shadow-[0_10px_20px_rgba(240,_46,_170,_0.7)] mb-12">
         <table className="bg-gray-900">
-            {/* {console.log('averageTitle', averageTitle)} */}
            {columnsDynamic && <thead>
                 {
                     table.getHeaderGroups().map( headerGroup => (
@@ -80,8 +79,10 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                                 headerGroup.headers.map( header => (
                                     <th 
                                         key={header.id}
-                                        onClick={() => console.log(header)}
-                                        className={`py-6 min-w-[160px] ${header.id == 'student' && 'min-w-[300px]'} text-md font-poppins sticky top-0 `}
+                                        // onClick={() => console.log('header',header.id)}
+                                        className={`py-6 min-w-[160px] ${header.id == 'student' && 'min-w-[300px]'} text-md font-poppins 
+                                                    ${header.id == 'student' && 'sticky w-[200px] left-0 bg-gray-900'}
+                                                    `}
                                     >
                                         {header.placeholderId ? null : header.column.columnDef.header}
                                     </th>
@@ -111,12 +112,11 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                                         
                                     `}
                                     onClick={() => {
+
                                         setCreateAverage(false)
                                         setAverages(false)
                                         setForceConclusions(false)
                                         setError(false)
-                                        // console.log('originals',cell.row)
-                                        // console.log('cell',cell.getValue())
                                         if (cell.getValue()?.school) {
                                             console.log('Student clicked')
                                             setStudentSummary(true)
