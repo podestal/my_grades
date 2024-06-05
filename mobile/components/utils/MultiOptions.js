@@ -4,29 +4,29 @@ import { useState } from "react"
 const MultiOptions = ({ state, item, setter, idsSetter, selectedOptions }) => {
 
     const isPressed = selectedOptions && selectedOptions.find( selectedOption => selectedOption == item.id)
-    const [pressed, setPressed] = useState(isPressed ? true : false)
+    const [pressed, setPressed] = useState(isPressed && true || false)
 
     const handlePress = () => {
         if (pressed) {
             setPressed(false)
-            setter(prev => prev.filter( single => single.id != item.id))
+            setter && setter(prev => prev.filter( single => single.id != item.id))
             idsSetter(prev => prev.filter(id => id != item.id))
         } else {
             setPressed(true)
             if (selectedOptions) {
                 if (selectedOptions.length > 0) {
-                    setter( prev => [...prev, item])
+                    setter && setter( prev => [...prev, item])
                     idsSetter( prev => [...prev, item.id])
                 } else {
-                    setter([item])
+                    setter && setter([item])
                     idsSetter([item.id])
                 }
             } else {
                 if (state.length > 0) {
-                    setter( prev => [...prev, item])
+                    setter && setter( prev => [...prev, item])
                     idsSetter( prev => [...prev, item.id])
                 } else {
-                    setter([item])
+                    setter && setter([item])
                     idsSetter([item.id])
                 }
             }

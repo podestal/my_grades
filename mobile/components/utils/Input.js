@@ -1,7 +1,7 @@
 import { View, Text, TextInput, StyleSheet } from "react-native"
 import ErrorMsg from "./ErrorMsg"
 
-const Input = ({ label, type, secure, value, setter, placeholder, error, errorMsg }) => {
+const Input = ({ label, type, secure, value, setter, placeholder, error, errorMsg, multiline }) => {
   return (
     <View style={styles.container}>
         {error && <ErrorMsg>{errorMsg}</ErrorMsg>}
@@ -14,6 +14,7 @@ const Input = ({ label, type, secure, value, setter, placeholder, error, errorMs
             onChangeText={ inputValue => setter(inputValue)}
             autoCapitalize='none'
             placeholder={placeholder}
+            multiline={multiline}
         />
     </View>
   )

@@ -2,10 +2,17 @@ import { Text } from "react-native"
 import NonScrollableContainer from "../utils/NonScrollableContainer"
 import ParticipationForm from "./ParticipationForm"
 
-const CreateParticipation = () => {
+const CreateParticipation = ({ route }) => {
+
+    const assignature = route?.params?.assignature
+    const student = route?.params?.student
+
   return (
     <NonScrollableContainer>
-        <ParticipationForm />
+        <ParticipationForm 
+            assignature={assignature}
+            student={student}
+        />
     </NonScrollableContainer>
 
   )
