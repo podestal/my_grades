@@ -6,7 +6,7 @@ const MultiTextSummary = ({ title, items, setShow, setItem, extraSetter, idsSett
         <Text style={styles.textTitle}>{title}</Text>
         {items.map( item => <Text key={item.id} style={styles.text}>{item.title}</Text>)}
         <Button onPress={() => {
-            setItem([])
+            setItem && setItem([])
             extraSetter && extraSetter([])
             idsSetter && idsSetter([])
             openSetter && openSetter(true)
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         padding: 8,
     },
     textTitle: {
-        fontSize: 22,
+        fontSize: 24,
         marginVertical: 12,
     },
     text: {
