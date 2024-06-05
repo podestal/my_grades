@@ -1,7 +1,7 @@
 import { Text, Pressable, StyleSheet, View } from "react-native"
 import { useState } from "react"
 
-const MultiOptions = ({ state, item, setter, idsSetter, selectedOptions }) => {
+const MultiOptions = ({ state, item, setter, idsSetter, selectedOptions, extraSetter, setShowOptions }) => {
 
     const isPressed = selectedOptions && selectedOptions.find( selectedOption => selectedOption == item.id)
     const [pressed, setPressed] = useState(isPressed && true || false)
@@ -9,6 +9,8 @@ const MultiOptions = ({ state, item, setter, idsSetter, selectedOptions }) => {
     const handlePress = () => {
         if (pressed) {
             setPressed(false)
+            extraSetter && extraSetter([])
+            setShowOptions && setShowOptions(true)
             setter && setter(prev => prev.filter( single => single.id != item.id))
             idsSetter(prev => prev.filter(id => id != item.id))
         } else {

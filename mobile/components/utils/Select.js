@@ -8,7 +8,7 @@ const Select = ({ setter, title, data, label, hideSelected }) => {
 
   return (
     <View style={{width: '100%', alignItems: 'center' }}>
-        <Text style={{fontSize: 24, textAlign: 'center', marginBottom: 18, fontWeight: 'bold'}}>{title}</Text>
+        <Text style={{fontSize: 24, textAlign: 'center', marginBottom: 18,}}>{title}</Text>
         <ScrollView 
             // style={styles.dropdownContainer}
             style={{width: '100%', }}

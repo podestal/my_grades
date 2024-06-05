@@ -4,7 +4,7 @@ const MultiTextSummary = ({ title, items, setShow, setItem, extraSetter, idsSett
   return (
     <View style={styles.textContainer}>
         <Text style={styles.textTitle}>{title}</Text>
-        {items.map( item => <Text key={item.id} style={styles.text}>{item.title}</Text>)}
+        {items?.map( item => <Text key={item.id} style={styles.text}>{item.title}</Text>)}
         <Button onPress={() => {
             setItem && setItem([])
             extraSetter && extraSetter([])
