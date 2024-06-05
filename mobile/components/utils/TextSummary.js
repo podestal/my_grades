@@ -22,12 +22,13 @@ const styles = StyleSheet.create({
     },
     textTitle: {
         fontSize: 22,
-        marginVertical: 12,
+        marginVertical: 14,
     },
     text: {
         textAlign: 'center',
-        fontSize: 15,
+        fontSize: 20,
         marginBottom: 16,
+        fontWeight: 'bold'
     }
 
 })

@@ -71,16 +71,16 @@ const Student = ({ data: student, extraData: {assignature} }) => {
             </ScrollView>
             <View style={styles.selectorContainer}>
                 {/* <Text>Nota</Text> */}
-                <Select 
+                {/* <Select 
                     setter={setCalification}
                     data={califications}
                     label={'calification'}
                     hideSelected={'none'}
                     title={'Nota'}
-                />
+                /> */}
             </View>
             <View style={styles.buttonContainer}>
-                <Text style={styles.calificationText}>{calification ? califications[calification - 1]?.calification : 'NA'}</Text>
+                {/* <Text style={styles.calificationText}>{calification ? califications[calification - 1]?.calification : 'NA'}</Text> */}
                 <Button onPress={() => navigator.navigate('CreateParticipation', { assignature, student })} title="Agregar"/>
             </View>
         </View>
