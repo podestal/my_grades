@@ -12,11 +12,12 @@ import { capacitiesData } from "../../data/capacities"
 import MultiTextSummary from "../utils/MultiTextSummary"
 import ButtonElement from "../utils/Button"
 import ErrorMsg from "../utils/ErrorMsg"
+import SuccessMsg from "../utils/SuccessMsg"
 import { getCurrentQuarter } from "../../data/quarters"
 import moment from "moment"
 import useAuth from "../../hooks/useAuth"
 
-const ParticipationForm = ({ assignature, student, create }) => {
+const ParticipationForm = ({ assignature, student, create, error, success }) => {
 
     // USER
     const {user} = useAuth()
@@ -152,6 +153,7 @@ const ParticipationForm = ({ assignature, student, create }) => {
         <ButtonElement 
             title={'Guardar'}
             onPress={handleSubmit}
+            disable={success}
         />
         {/* 
             Observations
