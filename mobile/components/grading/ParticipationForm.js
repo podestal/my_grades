@@ -12,10 +12,17 @@ import { capacitiesData } from "../../data/capacities"
 import MultiTextSummary from "../utils/MultiTextSummary"
 import ButtonElement from "../utils/Button"
 import ErrorMsg from "../utils/ErrorMsg"
+import { getCurrentQuarter } from "../../data/quarters"
+import moment from "moment"
+import useAuth from "../../hooks/useAuth"
 
-const ParticipationForm = ({ assignature, student }) => {
+const ParticipationForm = ({ assignature, student, create }) => {
+
+    // USER
+    const {user} = useAuth()
 
     const [ calification, setCalification ] = useState({})
+    const quarter = getCurrentQuarter()
 
     // ERROR HANDLING
     const [calificationError, setCalificationError] = useState(false)
@@ -52,7 +59,17 @@ const ParticipationForm = ({ assignature, student }) => {
             setCapacitiesError(true)
             return
         }
-        console.log('saved')
+
+        const formattedDate = moment().format('YYYY-MM-DD')
+        create && create({ token: user.access, participation: {
+            competences: competencies.toString(),
+            capacities: capacities.toString(),
+            calification: calification.calification,
+            created_at: formattedDate,
+            quarter: quarter.id,
+            student: student.id,
+            assignature: assignature.id
+        } })
     }
 
   return (
@@ -62,7 +79,7 @@ const ParticipationForm = ({ assignature, student }) => {
         />
         {/* {console.log('local competencies', competencies)}
         {console.log('filterCapacities', filteredCapacities)} */}
-        {/* {console.log('califications', califications[2])} */}
+        {/* {console.log('quarter', quarter)} */}
         {/* 
         {console.log('assignature', assignature)} */}
         {calificationError && <ErrorMsg>Tienes que seleccionar una nota</ErrorMsg>}

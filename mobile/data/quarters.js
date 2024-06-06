@@ -24,3 +24,19 @@ export const quartersData = [
         'endDate': '2024-12-20',
     },
 ]
+
+const convertToTimestamp = (date) => {
+    return Math.floor(date.getTime() / 1000)
+}
+
+export const getCurrentQuarter = () => {
+    const currentDate = convertToTimestamp(new Date())
+
+    return quartersData.find( quarter => {
+        const start = convertToTimestamp(new Date(quarter.startDate))
+        const end = convertToTimestamp(new Date(quarter.endDate))
+        if (currentDate > start && currentDate < end) {
+            return quarter
+        }
+    })
+}
