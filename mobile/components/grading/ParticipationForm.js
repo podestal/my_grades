@@ -10,10 +10,17 @@ import useCapacities from "../../hooks/useCapacities"
 import { competenciesData } from "../../data/competencies"
 import { capacitiesData } from "../../data/capacities"
 import MultiTextSummary from "../utils/MultiTextSummary"
+import ButtonElement from "../utils/Button"
+import ErrorMsg from "../utils/ErrorMsg"
 
 const ParticipationForm = ({ assignature, student }) => {
 
     const [ calification, setCalification ] = useState({})
+
+    // ERROR HANDLING
+    const [calificationError, setCalificationError] = useState(false)
+    const [competenciesError, setCompetenciesError] = useState(false)
+    const [capacitiesError, setCapacitiesError] = useState(false)
 
     // LOCAL  STATE
     const { competencies, setCompetencies } = useCompetencies()
@@ -27,17 +34,38 @@ const ParticipationForm = ({ assignature, student }) => {
     const filteredCometences = competenciesData.filter( comp => comp.area == assignature?.area)
     const filteredCapacities = competencies.length > 0 ? capacitiesData.filter( capacity => competencies.indexOf(capacity.competence) >= 0) : []
     
+    const handleSubmit = () => {
+
+        setCalificationError(false)
+        setCompetenciesError(false)
+        setCapacitiesError(false)
+
+        if (!calification?.id) {
+            setCalificationError(true)
+            return
+        }
+        if (competencies.length == 0) {
+            setCompetenciesError(true)
+            return
+        }
+        if (capacities.length == 0) {
+            setCapacitiesError(true)
+            return
+        }
+        console.log('saved')
+    }
 
   return (
     <ScrollView style={{backgroundColor: '#fff', flex:1}}>
         <Title 
             text={'Nueva Participación'}
         />
-        {console.log('local competencies', competencies)}
-        {console.log('filterCapacities', filteredCapacities)}
+        {/* {console.log('local competencies', competencies)}
+        {console.log('filterCapacities', filteredCapacities)} */}
         {/* {console.log('califications', califications[2])} */}
         {/* 
         {console.log('assignature', assignature)} */}
+        {calificationError && <ErrorMsg>Tienes que seleccionar una nota</ErrorMsg>}
         {calification?.id 
         ? 
         <TextSummary 
@@ -56,6 +84,7 @@ const ParticipationForm = ({ assignature, student }) => {
         }
         {/* <Text style={styles.textTitle}>Seleccione sus competencias</Text> */}
         {/* title, items, setShow, setItem, extraSetter, idsSetter, openSetter  */}
+        {competenciesError && <ErrorMsg>Al menos una competencia es requerida</ErrorMsg>}
         {openCompetencesOptions 
         ? 
         <>
@@ -79,6 +108,7 @@ const ParticipationForm = ({ assignature, student }) => {
             setShow={setOpenCompetencesOptions}
         />
         }
+        {capacitiesError && <ErrorMsg>Al menos una capacidad es requerida</ErrorMsg>}
         {openCapacitiesOptions 
         ? 
         <>
@@ -102,11 +132,12 @@ const ParticipationForm = ({ assignature, student }) => {
             setShow={setOpenCapacitiesOptions}
         />
         }
-
+        <ButtonElement 
+            title={'Guardar'}
+            onPress={handleSubmit}
+        />
         {/* 
             Observations
-            Competences
-            Capacities
         */}
     </ScrollView>
   )
