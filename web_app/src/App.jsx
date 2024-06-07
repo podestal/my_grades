@@ -17,6 +17,9 @@ import { Routes, Route } from "react-router-dom"
 import useAuth from './hooks/useAuth'
 import LangingHeader from './pages/landing/LangingHeader'
 import Contact from './pages/Contact'
+import { useQueries } from '@tanstack/react-query'
+import { getAssignatures } from './api/api'
+import GetData from './components/getters/GetData'
 
 const App = () => {
 
@@ -25,6 +28,7 @@ const App = () => {
   return (
     <main className="bg-primary w-full overflow-hidden">
       {user.access ? <Header /> : <LangingHeader />}
+      {user.access && <GetData user={user}/>}
       <Routes>
         <Route path='/' element={<Home />}/>
         <Route path='login' element={<Login />}/>
