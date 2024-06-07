@@ -45,7 +45,6 @@ const TutorMain = () => {
 
   return (
     <NonScrollableContainer>  
-        <Text>Tutor main</Text>
         <List 
             data={tutor?.data?.students}
             DetailComponent={StudentSummary}

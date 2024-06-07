@@ -5,6 +5,7 @@ import GradingNavigator from './GradingNavigator'
 import TutorNavigator from './TutorNavigator'
 import CategoriesNavigator from './CategoriesNavigator'
 import useAuth from '../hooks/useAuth'
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const BottonNavigator = () => {
 
@@ -25,7 +26,10 @@ const BottonNavigator = () => {
                 headerShown: false
             }}
         >
-            <Tab.Screen name='tutor' component={TutorNavigator} options={{ title: 'Notas' }}/>   
+            <Tab.Screen name='tutor' component={TutorNavigator} options={{ title: 'Notas' ,
+                tabBarIcon: () => (
+                    <Ionicons name='stats-chart-outline' size={20} />
+            )}}/>   
         </Tab.Navigator>
         :
         <Tab.Navigator
@@ -38,13 +42,26 @@ const BottonNavigator = () => {
                 headerShown: false
             }}
         >
-            <Tab.Screen name='grading' component={GradingNavigator} options={{ title: 'Cursos'}}/>
-            <Tab.Screen name='Student' component={StudentNavigator} options={{ title: 'Estudiantes' }}/>
-            <Tab.Screen name='categories' component={CategoriesNavigator} options={{ title: 'Categorías' }}/>
-            {user.profile == 'A' && <Tab.Screen name='attendance' component={AttendanceNavigator} options={{ title: 'Asistencia' }}/>}   
+            <Tab.Screen name='grading' component={GradingNavigator} options={{ title: 'Cursos', 
+                tabBarIcon: () => (
+                    <Ionicons name='document-outline' size={20} />
+            )}}/>
+            <Tab.Screen name='Student' component={StudentNavigator} options={{ title: 'Estudiantes',
+                tabBarIcon: () => (
+                    <Ionicons name='people-outline' size={20} />
+            )}}/>
+            <Tab.Screen name='categories' component={CategoriesNavigator} options={{ title: 'Categorías',
+                tabBarIcon: () => (
+                    <Ionicons name='analytics-outline' size={20} />
+            )}}/>
+            {user.profile == 'A' && <Tab.Screen name='attendance' component={AttendanceNavigator} options={{ title: 'Asistencia' ,
+                tabBarIcon: () => (
+                    <Ionicons name='time-outline' size={20} />
+            )}}/>}   
         </Tab.Navigator>
         }
     </>
+    // <ion-icon name="people-outline"></ion-icon>
   )
 }
 

@@ -18,7 +18,6 @@ const Students = ({ clases, schoolId }) => {
     const [name, setName] = useState('')
     // const { students, setStudents } = useStudents()
     const { user } = useAuth()
-    const [refresh, setRefresh] = useState(false)
 
     // const {mutate: getStudentsBySchoolMutation, isPending, isError} = useMutation({
     //     mutationFn: data => getStudentsBySchool(data),
@@ -59,11 +58,11 @@ const Students = ({ clases, schoolId }) => {
   return (
     <NonScrollableContainer>
         <View>
-            <Select 
+            {/* <Select 
                 title={'Clase'}
                 setter={setClase}
                 data={clases}
-            />
+            /> */}
             <Input
                 label={'Buscar estudiante ...'}
                 value={name}
