@@ -26,26 +26,31 @@ const App = () => {
   const { user } = useAuth()
 
   return (
-    <main className="bg-primary w-full overflow-hidden">
-      {user.access ? <Header /> : <LangingHeader />}
+    <main className="bg-primary w-full overflow-hidden flex gap-4 justify-between">
       {user.access && <GetData user={user}/>}
+      {user.access 
+      ? 
+      <div className='w-[240px] '>
+        <Header /> 
+      </div>: <LangingHeader />}
       <Routes>
-        <Route path='/' element={<Home />}/>
-        <Route path='login' element={<Login />}/>
-        <Route path='contact' element={<Contact />}/>
-        <Route element={<PersisLogin />}>
-          <Route path='main' element={<AssignaturesPage />}/>
-          <Route path='categories' element={<Categories />}/>
-          <Route path='profile' element={<Profile />}/>
-          {/* <Route path='activities' element={<Activities />}/>
-          <Route path='grades' element={<GradesByActivity />}/> */}
-          <Route path='dashboard' element={<Dashboard />}/>
-          <Route path='activities' element={<ActivityPage />}/>
-          <Route path='activity' element={<SingleActivity />}/>
-          <Route path='announcements' element={<Announcements />}/>
-          <Route path='stats' element={<StatsPage />}/>
-        </Route>
-      </Routes>
+          <Route path='/' element={<Home />}/>
+          <Route path='login' element={<Login />}/>
+          <Route path='contact' element={<Contact />}/>
+          <Route element={<PersisLogin />}>
+            <Route path='main' element={<AssignaturesPage />}/>
+            <Route path='categories' element={<Categories />}/>
+            <Route path='profile' element={<Profile />}/>
+            {/* <Route path='activities' element={<Activities />}/>
+            <Route path='grades' element={<GradesByActivity />}/> */}
+            <Route path='dashboard' element={<Dashboard />}/>
+            <Route path='activities' element={<ActivityPage />}/>
+            <Route path='activity' element={<SingleActivity />}/>
+            <Route path='announcements' element={<Announcements />}/>
+            <Route path='stats' element={<StatsPage />}/>
+          </Route>
+        </Routes>
+
     </main>
     // <Home />
   )

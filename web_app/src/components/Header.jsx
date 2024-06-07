@@ -12,8 +12,8 @@ const Header = () => {
 
   return (
 
-    <header className='sm:px-16 px-8 z-10  w-full relative bg-transparent '>
-      <nav className='bg-slate-600 absolute left-0 flex flex-col w-[220px]'>
+    <header className='z-10 bg-transparent fixed'>
+      <nav className='bg-slate-600 flex flex-col w-[240px] min-h-[100vh] items-center'>
         <Link to={'/main'}>Cursos</Link>
         <Link to={'/activities'}>Actividades</Link>
         <Link to={'/categories'}>Categories</Link>
