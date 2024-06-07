@@ -11,8 +11,8 @@ const TutorActivity = ({ data: grade }) => {
             <Text style={styles.calification}>{grade?.calification}</Text>
         </View>
         <View style={{marginVertical: 12}}>
-            <Text>Observaciones</Text>
-            <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</Text>
+            <Text>Observaciones:</Text>
+            <Text>{grade?.observations}</Text>
         </View>
     </View>
   )

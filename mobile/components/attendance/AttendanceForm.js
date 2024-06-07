@@ -30,6 +30,7 @@ const AttendanceForm = ({ student, late, title, lateHour, handler, remove }) => 
         onSuccess: res => {
             late ? setSuccessMsg('Tardanza creada') : setSuccessMsg('Ausencia creada')
             setSuccess(true)
+            queryClient.invalidateQueries(['students'])
             console.log('data from api', res.data)
             setStudents( prev => prev.map( prevStudent => {
                 if (prevStudent.id == student.id) {

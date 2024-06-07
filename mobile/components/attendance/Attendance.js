@@ -1,6 +1,6 @@
 import { Text } from "react-native"
 import useAuth from "../../hooks/useAuth"
-import { useQuery, useMutation } from "@tanstack/react-query"
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { getClases } from "../../api/api"
 import Students from "./Students"
 import useClases from "../../hooks/useClases"
@@ -16,6 +16,8 @@ const Attendance = () => {
 
     const {assignatures} = useAssignatures()
     const filteredClases = assignatures.map( assignature => assignature.clase)
+
+    const queryClient = useQueryClient()
 
     const {mutate: getClasesMutation, isPending, isError} = useMutation({
         mutationFn: data => getClases(data),

@@ -16,31 +16,36 @@ const Students = ({ clases, schoolId }) => {
 
     const [clase, setClase] = useState('')
     const [name, setName] = useState('')
-    const { students, setStudents } = useStudents()
+    // const { students, setStudents } = useStudents()
     const { user } = useAuth()
     const [refresh, setRefresh] = useState(false)
 
-    const {mutate: getStudentsBySchoolMutation, isPending, isError} = useMutation({
-        mutationFn: data => getStudentsBySchool(data),
-        onSuccess: res => {
-            setStudents(res.data)
-        },
-        onError: err => console.log(err)
+    // const {mutate: getStudentsBySchoolMutation, isPending, isError} = useMutation({
+    //     mutationFn: data => getStudentsBySchool(data),
+    //     onSuccess: res => {
+    //         setStudents(res.data)
+    //     },
+    //     onError: err => console.log(err)
+    // })
+
+    // const getter = () => {
+    //     getStudentsBySchoolMutation({ token: user.access, schoolId })
+    // }
+
+    // useEffect(() => {
+    //     if (students.length == 0) {
+    //         getter()
+    //     }
+    // }, [])
+
+    const { data: students, isLoading, isError } = useQuery({
+        queryKey: ['students'],
+        queryFn: () => getStudentsBySchool({ token: user.access, schoolId })
     })
 
-    const getter = () => {
-        getStudentsBySchoolMutation({ token: user.access, schoolId })
-    }
+    if (isLoading) return <Loading />
 
-    useEffect(() => {
-        if (students.length == 0) {
-            getter()
-        }
-    }, [])
-
-    if (isPending) return <Loading />
-
-    if (isError) return <Error retry={getter}/>
+    if (isError) return <Error />
 
     // const {data, isLoading, isError, error ,refetch} = useQuery({
     //     queryKey: ['studentsAttendance'],
@@ -66,11 +71,12 @@ const Students = ({ clases, schoolId }) => {
                 placeholder={'Nombre o Apellido'}
             />
         </View>
-        {console.log(students)}
+        {/* {console.log(students.data)}
+        {console.log('clase',clase)} */}
         <View style={{flex: 1}}>
             <List 
-                data={students
-                        ?.filter(student => student.clase == clase)
+                data={students.data
+                        ?.filter(student => student.clase == clase.id)
                         ?.filter( student => (
                             `${student?.first_name} ${student?.last_name}`
                             .toLocaleLowerCase()
@@ -78,9 +84,9 @@ const Students = ({ clases, schoolId }) => {
                         ))
                     }
                 DetailComponent={Student}
-                refresh={refresh}
-                setRefresh={setRefresh}
-                onRefresh={getter}
+                // refresh={refresh}
+                // setRefresh={setRefresh}
+                // onRefresh={getter}
             />
         </View>
     </NonScrollableContainer>
