@@ -6,7 +6,7 @@ import NoContent from "../../utils/NoContent"
 const CategoriesBody = ({ categories }) => {
 
   return (
-    <div className='w-full flex flex-row mt-12 mx-auto items-center justify-evenly h-full'>
+    <div className='w-full flex flex-row mx-auto items-center justify-evenly h-full'>
         <div className='flex flex-col'>
             {categories && categories.map( category => (
                 <Category 
