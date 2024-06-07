@@ -1,4 +1,5 @@
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
+import { Text } from "react-native"
 import { getTutor } from "../../api/api"
 import useTutor from "../../hooks/useTutor"
 import Loading from "../utils/Loading"
@@ -11,33 +12,42 @@ import StudentSummary from "./StudentSummary"
 
 const TutorMain = () => {
 
-    const {tutor, setTutor} = useTutor()
+    // const {tutor, setTutor} = useTutor()
     const { user } = useAuth()
 
-    const {mutate: getTutorMutation, isPending, isError} = useMutation({
-        mutationFn: data => getTutor(data),
-        onSuccess: res => setTutor(res.data),
-        onError: err => console.log(err)
+    // const {mutate: getTutorMutation, isPending, isError} = useMutation({
+    //     mutationFn: data => getTutor(data),
+    //     onSuccess: res => setTutor(res.data),
+    //     onError: err => console.log(err)
+    // })
+
+    // const getter = () => {
+    //     getTutorMutation({ token: user.access })
+    // }
+
+    // useEffect(() => {
+    //     if (!tutor.id) {
+    //         getter()
+    //     }
+    // }, [])
+
+    // if (isPending) return <Loading />
+
+    // if (isError) return <Error retry={getter} />
+    const { data: tutor, isLoading, isError } = useQuery({
+        queryKey: ['tutor'],
+        queryFn: () => getTutor({ token: user.access })
     })
 
-    const getter = () => {
-        getTutorMutation({ token: user.access })
-    }
+    if (isLoading) return <Loading />
 
-    useEffect(() => {
-        if (!tutor.id) {
-            getter()
-        }
-    }, [])
-
-    if (isPending) return <Loading />
-
-    if (isError) return <Error retry={getter} />
+    if (isError) return <Error />
 
   return (
     <NonScrollableContainer>  
+        <Text>Tutor main</Text>
         <List 
-            data={tutor?.students}
+            data={tutor?.data?.students}
             DetailComponent={StudentSummary}
         />
     </NonScrollableContainer>

@@ -3,7 +3,7 @@ import NonScrollableContainer from "../utils/NonScrollableContainer"
 import Title from "../utils/Title"
 import useAssignatures from "../../hooks/useAssignatures"
 import { getAssignaturesByClase } from "../../api/api"
-import { useMutation } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import Loading from "../utils/Loading"
 import Error from "../utils/Error"
 import useAuth from "../../hooks/useAuth"
@@ -18,32 +18,37 @@ const TutorAssignatures = ({ route }) => {
     const student = route?.params?.student
     const claseId = route?.params?.student?.clase?.id
     const navigator = useNavigation()
-    const { assignatures, setAssignatures } = useAssignatures()
+    // const { assignatures, setAssignatures } = useAssignatures()
     const {user} = useAuth()
 
-    const { mutate: getAssignaturesByClaseMutation, isPending, isError } = useMutation({
-        mutationFn: data => getAssignaturesByClase(data),
-        onSuccess: res => setAssignatures(res.data),
-        onError: err => console.log(err)
+    const {data: assignatures, isLoading, isError } = useQuery({
+        queryKey: ['assignatures'],
+        queryFn: () => getAssignaturesByClase({ token: user.access, claseId })
     })
+
+    // const { mutate: getAssignaturesByClaseMutation, isPending, isError } = useMutation({
+    //     mutationFn: data => getAssignaturesByClase(data),
+    //     onSuccess: res => setAssignatures(res.data),
+    //     onError: err => console.log(err)
+    // })
 
     const handlePress = () => {
         navigator.navigate('TutorAttendances', {student})
     }
 
-    const getter = () => {
-        getAssignaturesByClaseMutation({ token: user.access, claseId })
-    }
+    // const getter = () => {
+    //     getAssignaturesByClaseMutation({ token: user.access, claseId })
+    // }
 
-    useEffect(() => {
-        if (assignatures.length == 0) {
-            getter()
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (assignatures.length == 0) {
+    //         getter()
+    //     }
+    // }, [])
 
-    if (isPending) return <Loading />
+    if (isLoading) return <Loading />
 
-    if (isError) return <Error retry={getter}/>
+    if (isError) return <Error />
 
   return (
     <NonScrollableContainer>
@@ -52,7 +57,7 @@ const TutorAssignatures = ({ route }) => {
         </View>
         <NonScrollableContainer>
             <List 
-                data={assignatures}
+                data={assignatures.data}
                 DetailComponent={TutorAssignature}
                 extraData={student}
             />
