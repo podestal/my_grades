@@ -49,7 +49,7 @@ const DashboardFilters = ({ assignatureArea, filter, setFilter, selectedCapacity
                 label={'Categorías'}
                 value={selectedCategory}
                 setter={setSelectedCategory}
-                items={categories}
+                items={categories.filter( category => category.title.toLowerCase() != 'participaciones')}
                 everything={'Todas las categorías'}
             />
             <Selector 
