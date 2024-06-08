@@ -73,7 +73,7 @@ const UpdateGradeModal = ({ activity, student, setOpen, open, calification, setC
         onClose={() => setOpen(false)}
     >
         <DialogPanel className="relative flex flex-col gap-4 items-center">
-            {console.log('student modify grade', student)}
+            {/* {console.log('student modify grade', student)} */}
             <h2 className="text-white text-3xl text-center">{activity}</h2>
             <h3 className="text-white text-xl text-center">{student}</h3>
             <Divider></Divider>
