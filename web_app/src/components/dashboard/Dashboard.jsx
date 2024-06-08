@@ -15,7 +15,7 @@ const Dashboard = () => {
     const { setGrades } = useGrades()
 
   return (
-    <div className="text-white min-h-[100vh] mt-[8rem] mx-auto relative">
+    <div className="text-white w-full min-h-[100vh] mt-4 overflow-x-scroll">
         <DashboardHeader 
             assignature={assignature}
         />
