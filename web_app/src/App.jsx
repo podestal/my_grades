@@ -24,9 +24,9 @@ import GetData from './components/getters/GetData'
 const App = () => {
 
   const { user } = useAuth()
-
+  // bg-primary w-full overflow-hidden
   return (
-    <main className="bg-primary w-full overflow-hidden flex gap-12 justify-between">
+    <main className={`bg-primary w-full overflow-hidden ${user.access && 'flex gap-12 justify-between'}`}>
       {user.access && <GetData user={user}/>}
       {user.access 
       ? 
