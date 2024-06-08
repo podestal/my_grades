@@ -8,12 +8,14 @@ class User(AbstractUser):
     TUTOR_PROFILE = 'T'
     INSTRUCTOR_PROFILE = 'I'
     AUXILIAR_PROFILE = 'A'
+    PRINCIPAL_PROFILE = 'P'
 
     PROFILE_CHOICES = [
         (STUDENT_PROFILE, 'Student'),
         (TUTOR_PROFILE, 'Tutor'),
         (INSTRUCTOR_PROFILE, 'Instructor'),
-        (AUXILIAR_PROFILE, 'Auxiliar')
+        (AUXILIAR_PROFILE, 'Auxiliar'),
+        (PRINCIPAL_PROFILE, 'Principal'),
     ]
 
     profile = models.CharField(max_length=1, choices=PROFILE_CHOICES, null=True, blank=True)
