@@ -32,7 +32,9 @@ const App = () => {
       ? 
       <div className='w-[240px] '>
         <Header /> 
-      </div>: <LangingHeader />}
+      </div>: 
+      <LangingHeader />
+      }
       <Routes>
           <Route path='/' element={<Home />}/>
           <Route path='login' element={<Login />}/>
