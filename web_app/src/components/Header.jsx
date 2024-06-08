@@ -4,12 +4,21 @@ import useAuth from '../hooks/useAuth'
 import { useState } from 'react'
 import { Icon, Dialog, DialogPanel } from '@tremor/react'
 import { RiFilePaper2Line, RiBuilding3Line, RiBubbleChartLine } from '@remixicon/react'
+import { useNavigate } from 'react-router-dom'
 
 const Header = () => {
 
-    const { user } = useAuth()
-    const [toggle, setToggle] = useState(false)
+    const { user, setUser } = useAuth()
     const [open, setOpen] = useState(false)
+    const navigator = useNavigate()
+
+    const handleLogout = () => {
+      console.log('Logged out')
+      setOpen(false)
+      localStorage.removeItem('access')
+      navigator('/')
+      setUser({})
+    }
 
 
   return (
@@ -53,8 +62,8 @@ const Header = () => {
       >
         <p className='text-white font-bold text-md'>Está seguro que desea salir</p>
         <div className='flex justify-center gap-8'>
-          <button onClick={() => setOpen(true)} className='px-8 py-3 text-white font-bold text-lg rounded-xl justify-center bg-red-900 hover:bg-red-950 hover:text-slate-200-'>Salir</button>
-          <button onClick={() => setOpen(true)} className='px-8 py-3 text-white font-bold text-lg rounded-xl justify-center bg-blue-800 hover:bg-blue-900 hover:text-slate-200-'>Regresar</button>
+          <button onClick={() => handleLogout()} className='px-8 py-3 text-white font-bold text-lg rounded-xl justify-center bg-red-900 hover:bg-red-950 hover:text-slate-200-'>Salir</button>
+          <button onClick={() => setOpen(false)} className='px-8 py-3 text-white font-bold text-lg rounded-xl justify-center bg-blue-800 hover:bg-blue-900 hover:text-slate-200-'>Regresar</button>
         </div>
       </DialogPanel>
     </Dialog>
