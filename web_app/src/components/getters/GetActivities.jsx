@@ -3,22 +3,27 @@ import { getActivities } from "../../api/api"
 import Loading from "../../utils/Loading"
 import { useEffect } from "react"
 import useAuth from "../../hooks/useAuth"
+import useActivities from "../../hooks/useActivities"
 
-const GetActivities = ({ assignature, setActivities }) => {
+const GetActivities = ({ assignature }) => {
 
     const { user } = useAuth()
     const assignatureId = assignature?.id || assignature
-
-    const { data: activities, isLoading, isError, error } = useQuery({
+    const {activities, setActivities} = useActivities()
+    const { data: response, isLoading, isError, error } = useQuery({
         queryKey: ['activities'],
         queryFn: () => getActivities({ token: user.access, assignature: assignatureId }),
     })
 
     useEffect(() => {
-        if (activities) {
-            setActivities(activities.data)
+        if (response) {
+            if (activities.length == 0) {
+                setActivities(response.data)
+            } else {
+                setActivities(prev => [...prev, response.data])
+            }
         }
-    }, [activities])
+    }, [response])
 
     if (isLoading) return <Loading />
 

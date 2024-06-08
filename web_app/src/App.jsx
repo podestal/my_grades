@@ -21,7 +21,7 @@ const App = () => {
 
   const { user } = useAuth()
   return (
-    <main className={`bg-primary w-full overflow-hidden ${user.access && 'flex gap-12 justify-between'}`}>
+    <main className={`bg-primary w-full overflow-hidden min-h=[100vh] ${user.access && 'flex gap-12 justify-between'}`}>
       {user.access && <GetData user={user}/>}
       {user.access 
       ? 

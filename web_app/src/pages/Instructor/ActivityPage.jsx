@@ -5,18 +5,30 @@ import { styles } from "../../utils/styles"
 import useActivities from "../../hooks/useActivities"
 import GetActivities from "../../components/getters/GetActivities"
 import Activities from "../../components/activities/Activities"
+import { useQuery } from "@tanstack/react-query"
+import Loading from "../../utils/Loading"
+import Error from "../../utils/Error"
+import { getActivities } from "../../api/api"
+import useAuth from "../../hooks/useAuth"
 
 const ActivityPage = () => {
 
+    // const { user } = useAuth()
     const [assignature, setAssignature] = useState('')
     const [quarter, setQuarter] = useState('Q2')
     const { activities, setActivities } = useActivities()
     const filteredActivitiesByAssignature = activities.length > 0 && activities.filter( activity => activity.assignature == assignature) || []
 
 
+    // const { data: activities, isLoading, isError, error } = useQuery({
+    //     queryKey: ['activities'],
+    //     queryFn: () => getActivities({ token: user.access, assignature: assignature?.id }),
+    // })
 
   return (
     <div className="text-white min-h-[100vh] mt-[5rem] w-full relative">
+        {console.log('activities', activities)}
+        {console.log('assignature?.id', assignature?.id)}
         <h2 className={`my-12 ${styles.gradientTitle}`}>Actividades</h2>
         <div className="flex items-center justify-center gap-12 w-full mx-auto">
             <AssignatureSelector 
@@ -34,7 +46,7 @@ const ActivityPage = () => {
                 ? 
                 <GetActivities 
                     assignature={assignature}
-                    setActivities={setActivities}
+                    // setActivities={setActivities}
                 />
                 : 
                 <Activities 
