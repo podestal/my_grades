@@ -4,7 +4,7 @@ import AveragesForm from "./AveragesForm"
 import useStudent from "../../hooks/useStudents"
 import { useState } from "react"
 
-const CreateAverage = ({ open, setOpen, student, studentId, calification, setCalification, selectedCompetency, quarter, assignature }) => {
+const CreateAverage = ({ open, setOpen, student, studentId, calification, setCalification, selectedCompetency, quarter, assignature, conclusion, setConclusion }) => {
 
 
   // ERROR HANDLING
@@ -18,6 +18,8 @@ const CreateAverage = ({ open, setOpen, student, studentId, calification, setCal
     mutationFn: data => createQuarterGrade(data),
     onSuccess: res => {
       setDisable(true)
+      setSuccess(true)
+      setError(false)
       const studentFound = students.find(student => student.id == studentId)
       studentFound.averages = studentFound.averages.length > 0 ? [...studentFound.averages, res.data] : [res.data]
       setStudents( students => students.map( student => {
@@ -26,7 +28,10 @@ const CreateAverage = ({ open, setOpen, student, studentId, calification, setCal
         }
         return student
       }))},
-    onError: err => console.log(err)
+    onError: err => {
+      setSuccess(false)
+      setError(true)
+      console.log(err)}
   })
 
   return (
@@ -48,6 +53,8 @@ const CreateAverage = ({ open, setOpen, student, studentId, calification, setCal
       setError={setError}
       disable={disable}
       setDisable={setDisable}
+      conclusion={conclusion}
+      setConclusion={setConclusion}
   />
   )
 }

@@ -4,11 +4,13 @@ import useAuth from "../../hooks/useAuth"
 import CloseButton from "../../utils/CloseButton"
 import { DialogPanel, Dialog, Select, SelectItem, Button } from "@tremor/react"
 import GenericCallout from "../../utils/GenericCallout"
+import { useState } from "react"
 
 const AveragesForm = ({ open, setOpen, student, studentId, calification, setCalification, average, selectedCompetency, quarter, assignature, create, update, averageId, conclusion, setConclusion, success, setSuccess, setError, error, disable, setDisable }) => {
 
     // AUTH
     const { user } = useAuth()
+    const [conclusionError, setConclusionError] = useState(false)
 
     const handleClosePanel = () => {
 
@@ -16,14 +18,17 @@ const AveragesForm = ({ open, setOpen, student, studentId, calification, setCali
         setError(false)
         setSuccess(false)
         setDisable(false)
+        setConclusionError(false)
     }
 
     const handleSubmit = () => {
 
         setError(false)
         setSuccess(false)
-        if (calification == 'C' && conclusion == '') {
-            setError(true)
+        setConclusionError(false)
+        console.log('conclusion', conclusion)
+        if (calification == 'C' && conclusion.length == 0) {
+            setConclusionError(true)
             return
         }
         create && create({ token: user.access, quarterGrade:{
@@ -67,8 +72,8 @@ const AveragesForm = ({ open, setOpen, student, studentId, calification, setCali
                 label={'Conclusión'}
                 value={conclusion}
                 setter={setConclusion}
-                textArea={true}
-                error={error}
+                textArea={'true'}
+                error={conclusionError}
                 errorMsg={'La conclusión es obligatoria cuando la nota es C'}
             />
             <Button disabled={disable} onClick={handleSubmit} className="w-[160px] mx-auto mt-6" color="blue">{update ? 'Guardar' : 'Crear'}</Button>

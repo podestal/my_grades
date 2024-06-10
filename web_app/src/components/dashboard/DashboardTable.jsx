@@ -130,8 +130,10 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                                             setIsParticipation(true)
                                         }
                                         if (cell.column.id == 'average') {
+                                            // console.log('conclusion',cell.getValue().conclusion)
+                                            const conclusionFromAPI = cell.getValue().conclusion == null ? '' : cell.getValue().conclusion
                                             setAverageId(cell.getValue().id)
-                                            setConclusion(cell.getValue().conclusion)
+                                            setConclusion(conclusionFromAPI)
                                             if (selectedCapacity != '') {
                                                 return
                                             }
@@ -187,6 +189,8 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                 selectedCompetency={selectedCompetency}
                 quarter={quarter}
                 assignature={assignature}
+                conclusion={conclusion}
+                setConclusion={setConclusion}
             />
             : 
             <UpdateAverage
