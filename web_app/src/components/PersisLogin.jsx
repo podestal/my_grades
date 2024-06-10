@@ -4,7 +4,7 @@ import useAuth from '../hooks/useAuth'
 import { jwtDecode } from "jwt-decode";
 import dayjs from "dayjs";
 import { useNavigate } from 'react-router-dom';
-import { getUser } from '../api/api';
+import { getUser, getInstructor } from '../api/api';
 import { useMutation } from '@tanstack/react-query';
 import { Outlet } from 'react-router-dom'
 
@@ -13,15 +13,26 @@ const PersisLogin = ({ children }) => {
     const access = JSON.parse(localStorage.getItem('access')) || ''
     const { user, setUser } = useAuth()
     const navigate = useNavigate()
+
+    const { mutate: getInstructorMutation } = useMutation({
+        mutationFn: data => getInstructor(data),
+        onSuccess: res => {
+          console.log('instructor',res.data)
+          setUser( prev => ({ ...prev, instructor: res.data[0] }))
+          navigate('/main')
+        }
+      })
+
     const { mutate: getUserMutation } = useMutation({
         mutationFn: data => getUser(data),
         onSuccess: res => {
             setUser( prev => ({ ...prev, ...res.data, access }))
-            if (res.data.profile == 'I') {
-                navigate('/main')
-            } else if (res.data.profile == 'P') {
+            if (res.data.profile == 'P') {
                 navigate('/students')
-            }
+                return
+            } 
+            getInstructorMutation({ token: user.access })
+            
         },
         onError: err => console.log(err)
     })

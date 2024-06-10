@@ -8,18 +8,23 @@ import { useState } from 'react'
 import Loading from '../../utils/Loading'
 import Error from '../../utils/Error'
 import FilterStudent from './filters/FilterStudent'
+import { useClasesQuery } from '../../tanstack/Clases'
+import { useAssignaturesQuery } from '../../tanstack/Assignatures'
 
 const Students = ({ students }) => {
 
     const { user } = useAuth()
     const [clase, setClase] = useState('')
     const [studentName, setStudentName] = useState('')
-    const {data: clases, isLoading, isError} = useQuery({
-        queryKey: ['clases'],
-        queryFn: () => getClases({ token: user.access, schoolId: user.school })
+    const {data: clases, isLoading: clasesLoading, isError} = useClasesQuery(user)
+    const {data: assignatures, isLoading: assignaturesLoading} = useAssignaturesQuery(user)
+    let assignaturesDict = {}
+    assignatures && assignatures.data.map(assignature => {
+        assignaturesDict[assignature.id] = assignature
     })
 
-    if (isLoading) return <Loading />
+
+    if (clasesLoading || assignaturesLoading) return <p className='text-white flex w-full text-2xl h-[100vh] justify-center items-center'>Loading ...</p>
 
     if (isError) return <Error />
 

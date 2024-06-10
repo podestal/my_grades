@@ -3,13 +3,16 @@ import GetAssignatures from '../../components/getters/GetAssignatures'
 import Assignatures from '../../components/assignatures/Assignatures'
 import { styles } from '../../utils/styles'
 import useAssignatures from '../../hooks/useAssignatures'
+import useAuth from '../../hooks/useAuth'
 
 const AssignaturesPage = () => {
 
   const {assignatures, setAssignatures} = useAssignatures()
+  const { user } = useAuth()
 
   return (
     <div className='text-white min-h-[100vh] mt-[5rem] w-full relative'>
+      {console.log('user', user)}
       <h2 className={`my-12 ${styles.gradientTitle}`}>Cursos</h2>
       {assignatures.length == 0 
       ? 

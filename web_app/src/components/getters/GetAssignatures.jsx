@@ -7,9 +7,10 @@ import { useEffect } from "react"
 const GetAssignatures = ({ setAssignatures }) => {
 
     const { user } = useAuth()
+    console.log(user)
     const { data: assignatures, isLoading } = useQuery({
         queryKey: ['assignatures'],
-        queryFn: () => getAssignatures({ token: user.access })
+        queryFn: () => getAssignatures({ token: user.access, instructorId: user.instructor.id })
     })
 
     useEffect(() => {

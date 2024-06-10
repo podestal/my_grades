@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { login, getUser } from '../api/api'
+import { login, getUser, getInstructor } from '../api/api'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { TextInput } from '@tremor/react'
@@ -16,16 +16,24 @@ const Login = () => {
   const { user, setUser } = useAuth()
   const [error ,setError] = useState(false)
 
+  const { mutate: getInstructorMutation } = useMutation({
+    mutationFn: data => getInstructor(data),
+    onSuccess: res => {
+      console.log('instructor',res.data)
+      setUser( prev => ({ ...prev, instructor: res.data[0] }))
+      navigate('/main')
+    }
+  })
+
   const { mutate: getUserMutation } = useMutation({
     mutationFn: data => getUser(data),
     onSuccess: res => {
-      console.log('user', res.data )
       setUser( prev => ({ ...prev, ...res.data }))
-      if (res.data.profile == 'I') {
-        navigate('/main')
-      } else if (res.data.profile == 'P') {
+      if (res.data.profile == 'P') {
         navigate('/students')
-      }
+        return
+      } 
+      getInstructorMutation({ token: user.access })
     },
     onError: err => console.log(err)
   })
