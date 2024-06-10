@@ -25,7 +25,6 @@ const Students = ({ students }) => {
 
   return (
     <>
-        {console.log('clase from students', clase)}
         <div className='flex w-[970px] my-8 mx-auto justify-center items-start gap-8'>
             <FilterStudent 
                 filter={studentName}

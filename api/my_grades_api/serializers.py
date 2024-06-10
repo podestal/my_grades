@@ -210,12 +210,26 @@ class GetQuarterGradeSerializer(serializers.ModelSerializer):
         model = models.QuarterGrade
         fields = '__all__'
 
+class GetSimpleAssignatureSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Assignature
+        fields = ['id', 'title']
+
+class GetQUarterGradeForStudent(serializers.ModelSerializer):
+
+    assignature = GetSimpleAssignatureSerializer()
+
+    class Meta:
+        model = models.QuarterGrade
+        fields = ['id', 'calification', 'quarter', 'competence', 'conclusion', 'assignature']
+
 class GetStudentSerializer(serializers.ModelSerializer):
 
     atendances = GetSimpleAttendanceSerializer(many=True)
     participations = GetParticipationSerializer(many=True)
     grades= GetSimpleGradesSerializer(many=True)
-    averages= GetQuarterGradeSerializer(many=True)
+    averages= GetQUarterGradeForStudent(many=True)
 
     class Meta:
         model = models.Student
