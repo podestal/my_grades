@@ -1,16 +1,29 @@
 import React from 'react'
 import useAuth from '../../hooks/useAuth'
 import { useAssignaturesQuery } from '../../tanstack/Assignatures'
+import Averages from './Averages'
 
-const StudentCard = ({ student }) => {
+const StudentCard = ({ student, assignatures, competences }) => {
     const {user} = useAuth
     // const {data: assignatures, isLoading: assignaturesLoading} = useAssignaturesQuery(user)    
   return (
-    <div className='flex justify-between w-[970px] mx-auto'>
+    <div className='flex flex-col justify-between w-[970px] mx-auto'>
         <p className='text-white'>{student.first_name} {student.last_name}</p>
         {/* <button>Detalles</button> */}
-        {/* {console.log('assignatures', assignatures.data)} */}
-        <button >Reporte</button>
+        {console.log('student', student)}
+        {console.log('assignaturesDict in student card', assignatures)}
+        {/* <button >Reporte</button> */}
+        <div>
+        {/* {student.averages.map( average => <p key={average.id}>{assignaturesDict[average.assignature].title} {average.calification}</p>)} */}
+        {assignatures.map(assignature => (
+            <Averages 
+                averages={student.averages}
+                assignature={assignature}
+                competences={competences}
+            />
+        ))}
+        </div>
+        
     </div>
   )
 }

@@ -165,6 +165,14 @@ export const getFilteredCompetences = (area) => {
     return competenciesData.filter(competence => competence.area == area)
 }
 
+export const getCompetenceDict = () => {
+    const obj = {}
+    competenciesData.map( competency => {
+        obj[competency.id] = competency.title
+    })
+    return obj
+}
+
 export const getCompetency = (competencyId) => {
     return competenciesData.find( competency => competency.id == competencyId)
 }

@@ -10,6 +10,7 @@ import Error from '../../utils/Error'
 import FilterStudent from './filters/FilterStudent'
 import { useClasesQuery } from '../../tanstack/Clases'
 import { useAssignaturesQuery } from '../../tanstack/Assignatures'
+import { getCompetenceDict } from '../../data/competencies'
 
 const Students = ({ students }) => {
 
@@ -18,11 +19,7 @@ const Students = ({ students }) => {
     const [studentName, setStudentName] = useState('')
     const {data: clases, isLoading: clasesLoading, isError} = useClasesQuery(user)
     const {data: assignatures, isLoading: assignaturesLoading} = useAssignaturesQuery(user)
-    let assignaturesDict = {}
-    assignatures && assignatures.data.map(assignature => {
-        assignaturesDict[assignature.id] = assignature
-    })
-
+    const competences = getCompetenceDict()
 
     if (clasesLoading || assignaturesLoading) return <p className='text-white flex w-full text-2xl h-[100vh] justify-center items-center'>Loading ...</p>
 
@@ -63,6 +60,8 @@ const Students = ({ students }) => {
             <StudentCard 
                 key={student.id}
                 student={student}
+                assignatures={assignatures.data}
+                competences={competences}
             />
         ))}
     </>
