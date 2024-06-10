@@ -38,6 +38,8 @@ const Students = ({ students }) => {
                 clases={clases.data}
             />
         </div>
+        {console.log('assignatures', assignatures.data)}
+        {console.log('clase', clase)}
         {students
         .filter( student => {
             if (clase == 'all') {
@@ -60,7 +62,7 @@ const Students = ({ students }) => {
             <StudentCard 
                 key={student.id}
                 student={student}
-                assignatures={assignatures.data}
+                assignatures={assignatures.data.filter(assignature => assignature.clase.id == clase)}
                 competences={competences}
             />
         ))}

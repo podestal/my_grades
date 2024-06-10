@@ -9,10 +9,6 @@ const StudentCard = ({ student, assignatures, competences }) => {
   return (
     <div className='flex flex-col justify-between w-[970px] mx-auto'>
         <p className='text-white'>{student.first_name} {student.last_name}</p>
-        {/* <button>Detalles</button> */}
-        {console.log('student', student)}
-        {console.log('assignaturesDict in student card', assignatures)}
-        {/* <button >Reporte</button> */}
         <div>
         {/* {student.averages.map( average => <p key={average.id}>{assignaturesDict[average.assignature].title} {average.calification}</p>)} */}
         {assignatures.map(assignature => (

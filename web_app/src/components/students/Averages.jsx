@@ -8,7 +8,12 @@ const Averages = ({ averages, assignature, competences }) => {
         <p>{assignature.title}</p>
         {averages
             .filter(average => average.assignature == assignature.id)
-            .map(average => <p>{competences[average.competence]}: {average.calification}</p>)
+            .map(average => (
+                <div className='w-[756px] flex justify-between'>
+                    <p>{competences[average.competence]}:</p>
+                    <p>{average.calification}</p>
+                </div>
+            ))
         }
     </div>
   )
