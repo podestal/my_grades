@@ -119,14 +119,14 @@ class AssignatureViewSet(ModelViewSet):
 
     def get_queryset(self):
         if self.request.user.is_superuser:
-            return models.Assignature.objects.select_related('clase', 'Instructor', 'area')
+            return models.Assignature.objects.select_related('clase', 'Instructor', 'area', 'school')
         try:
             instructor = models.Instructor.objects.get(user_id = self.request.user.id)
-            return models.Assignature.objects.select_related('clase', 'Instructor', 'area').filter(Instructor_id=instructor.id)
+            return models.Assignature.objects.select_related('clase', 'Instructor', 'area', 'school').filter(Instructor_id=instructor.id)
         except:
             print('no instructor')
             
-        return models.Assignature.objects.select_related('clase', 'Instructor', 'area').filter(Instructor_id=0)
+        return models.Assignature.objects.select_related('clase', 'Instructor', 'area', 'school').filter(Instructor_id=0)
 
     def get_serializer_class(self):
         if self.request.method == 'POST':

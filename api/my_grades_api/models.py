@@ -74,6 +74,7 @@ class Assignature(models.Model):
     clase =  models.ForeignKey(Clase, on_delete=models.CASCADE, related_name='assignatures')
     Instructor = models.ForeignKey(Instructor, on_delete=models.PROTECT, blank=True, null=True, related_name='assignatures')
     area = models.ForeignKey(Area, on_delete=models.CASCADE)
+    school = models.ForeignKey(School, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title

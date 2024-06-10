@@ -129,13 +129,13 @@ class GetAssignatureSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Assignature
-        fields = ['id', 'title', 'Instructor', 'area', 'clase']
+        fields = ['id', 'title', 'Instructor', 'area', 'clase', 'school']
 
 class CreateAssignatureSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Assignature
-        fields = ['id', 'title', 'Instructor', 'area', 'clase']
+        fields = ['id', 'title', 'Instructor', 'area', 'clase', 'school']
 
 class GetSimpleAssignatureSerializer(serializers.ModelSerializer):
 
