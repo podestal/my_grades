@@ -8,7 +8,7 @@ const Selector = ({ label, value, setter, items, everything ,styles, error, erro
             className={styles}
             value={value} 
             onValueChange={value => setter(value)} 
-            placeholder="Seleccione ..."
+            placeholder={everything ? everything : "Seleccione ..."}
             error={error}
             errorMessage={errorMsg}
             >

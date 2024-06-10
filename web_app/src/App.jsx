@@ -16,6 +16,7 @@ import useAuth from './hooks/useAuth'
 import LangingHeader from './pages/landing/LangingHeader'
 import Contact from './pages/Contact'
 import GetData from './components/getters/GetData'
+import StudentPage from './pages/prinicipal/StudentPage'
 
 const App = () => {
 
@@ -43,6 +44,7 @@ const App = () => {
           <Route path='activity' element={<SingleActivity />}/>
           <Route path='announcements' element={<Announcements />}/>
           <Route path='stats' element={<StatsPage />}/>
+          <Route path='students' element={<StudentPage />}/>
         </Route>
       </Routes>
 

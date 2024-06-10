@@ -19,8 +19,13 @@ const Login = () => {
   const { mutate: getUserMutation } = useMutation({
     mutationFn: data => getUser(data),
     onSuccess: res => {
+      console.log('user', res.data )
       setUser( prev => ({ ...prev, ...res.data }))
-      navigate('/main')
+      if (res.data.profile == 'I') {
+        navigate('/main')
+      } else if (res.data.profile == 'P') {
+        navigate('/students')
+      }
     },
     onError: err => console.log(err)
   })
@@ -50,7 +55,7 @@ const Login = () => {
               value={username}
               onChange={e => setUsername(e.target.value)}
               error={error}
-              autoComplete={false}
+              autoComplete={'false'}
             />
             <TextInput 
               placeholder='Contraseña'
@@ -58,7 +63,7 @@ const Login = () => {
               onChange={e => setPassword(e.target.value)}
               error={error}
               type='password'
-              autoComplete={false}
+              autoComplete={'false'}
             />
             <button className='bg-gradient-to-r from-violet-600 to-indigo-950  border-none py-4 px-8 rounded-3xl text-white font-bold text-xl' type='submit'>Ingresar</button>
           </form>

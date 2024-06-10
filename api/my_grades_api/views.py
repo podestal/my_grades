@@ -104,12 +104,7 @@ class ClaseViewSet(ModelViewSet):
     def get_permissions(self):
         if self.request.method in ['PATCH', 'POST', 'DELETE']:
             return [permissions.IsSuperUserOrReadOnly()]
-        return[IsAuthenticated()]
-
-#     def get_serializer_class(self):
-#         if self.request.method == 'POST':
-#             return serializers.CreateClaseSerializer
-#         return serializers.ClaseSerializer    
+        return[IsAuthenticated()]  
 
 class AssignatureViewSet(ModelViewSet):
 

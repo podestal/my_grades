@@ -17,7 +17,11 @@ const PersisLogin = ({ children }) => {
         mutationFn: data => getUser(data),
         onSuccess: res => {
             setUser( prev => ({ ...prev, ...res.data, access }))
-            navigate('/main')
+            if (res.data.profile == 'I') {
+                navigate('/main')
+            } else if (res.data.profile == 'P') {
+                navigate('/students')
+            }
         },
         onError: err => console.log(err)
     })
