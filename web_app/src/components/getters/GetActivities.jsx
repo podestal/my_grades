@@ -15,12 +15,16 @@ const GetActivities = ({ assignature }) => {
         queryFn: () => getActivities({ token: user.access, assignature: assignatureId }),
     })
 
+    if (isLoading) return 
+
     useEffect(() => {
+        console.log('getting acts')
         if (response) {
             if (activities.length == 0) {
                 setActivities(response.data)
+                
             } else {
-                setActivities(prev => [...prev, response.data])
+                setActivities(prev => [...prev, ...response.data])
             }
         }
     }, [response])
