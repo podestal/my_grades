@@ -1,4 +1,4 @@
-const numericalRepresentation = {
+export const numericalRepresentation = {
     'AD': 4,
     'A': 3,
     'B': 2,
@@ -6,13 +6,12 @@ const numericalRepresentation = {
     'NA': 0,
 }
 
-const alphabeticalRepresentation = {
+export const alphabeticalRepresentation = {
     '4': 'AD',
     '3': 'A',
     '2': 'B',
     '1': 'C',
     '0': 'C'
-
 }
 
 const totalGrades = (grades) => {
