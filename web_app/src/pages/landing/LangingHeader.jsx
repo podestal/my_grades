@@ -2,15 +2,16 @@ import {useState} from 'react'
 import { Link } from 'react-router-dom'
 import hamburger from '../../assets/icons/menu.svg'
 import close from '../../assets/icons/close.svg'
+import logo from '../../assets/icons/edumetrica-logo.svg'
 
 const LangingHeader = () => {
 
     const [toggle, setToggle] = useState(false)
   return (
     <div className="sm:px-16 px-6 flex justify-center items-center bg-primary">
-        <div className="xl:max-w-[1280px] w-full">
+        <header className="xl:max-w-[1280px] w-full" id='header'>
             <nav className='flex justify-between py-6 items-center max-w-[1440px] my-0 mx-auto relative z-10'>
-                <Link to={'/'}><h1 className='text-white text-4xl font-bold'>LOGO</h1></Link>
+                <Link to={'/'}><img src={logo} width={400}/></Link>
                 <div className='flex-1 flex justify-end items-center gap-16 max-lg:hidden'>
                     {/* <Link className='font-montserrat text-white-400 text-xl hover:text-white' to={'/'}>Principal</Link> */}
                     <a className='font-montserrat text-white-400 text-xl hover:text-white' href='/#features'>Carácterísticas</a>
@@ -29,7 +30,7 @@ const LangingHeader = () => {
                     </div>
                 </div>
             </nav>
-        </div>
+        </header>
     </div>
   )
 }

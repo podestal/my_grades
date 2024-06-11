@@ -1,13 +1,16 @@
 import { name, footerLinks } from "../../constants"
 import google from '../../assets/icons/google.svg'
 import apple from '../../assets/icons/apple.svg'
+import logo from '../../assets/icons/edumetrica-logo.svg'
+import { Link } from "react-router-dom"
 
 const Footer = () => {
   return (
     <footer className='flex justify-center items-center flex-col sm:py-16 py-6 relative z-40 mt-16'>
         <div className='flex justify-center items-start md:flex-row flex-col mb-8 w-full'>
             <div className="flex-1 flex flex-col justify-start mr-10">
-                <a href="/#main">LOGO</a>
+                <a href="/#header"><img src={logo} width={200}/></a>
+                {/* <Link to={'/'}><img src={logo} width={200}/></Link> */}
                 <p className='mt-4  max-w-[310px] font-poppins font-normal text-slate-400 text-[18px] leading-[30.8px]'>
                     Información académica al alcance de todos.
                 </p>

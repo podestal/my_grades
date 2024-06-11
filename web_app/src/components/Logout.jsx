@@ -18,7 +18,7 @@ const Logout = ({ open, setOpen }) => {
 
   return (
     <>
-        <button onClick={() => setOpen(true)} className='px-8 py-3 text-white font-bold text-lg rounded-xl justify-center bg-red-900 hover:bg-red-950 hover:text-slate-200-'>Salir</button>
+        <button onClick={() => setOpen(true)} className='px-8 py-3 mt-8 text-white font-bold text-lg rounded-xl justify-center bg-red-900 hover:bg-red-950 hover:text-slate-200-'>Salir</button>
         <Dialog
             open={open}
             onClose={() => setOpen(false)}

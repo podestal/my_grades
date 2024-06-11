@@ -22,13 +22,13 @@ const Header = () => {
         <div className='flex flex-col gap-2'>
           <h3 className='text-white font-bold text-lg text-center'>Bienvenido</h3>
           <h3 className='text-white font-bold text-md text-center'>{user.first_name}</h3>
+          <Logout 
+            open={open}
+            setOpen={setOpen}
+          />
         </div>
         {user.profile == 'I' && <InstructorNavigator />}
         {user.profile == 'P' && <PrincipalNavigator />}
-        <Logout 
-            open={open}
-            setOpen={setOpen}
-        />
       </nav>
     </header>
 

@@ -22,7 +22,7 @@ const Categories = () => {
 
 
   return (
-    <div className='min-h-[100vh] md:w-[1260px]'>
+    <div className='min-h-[100vh] w-[90%]'>
         <div className='flex items-center justify-center gap-12 w-full'>
             <h2 className={`mt-6 ${styles.gradientTitle}`}>Categorías</h2>
             <CreateCategory />

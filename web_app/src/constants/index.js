@@ -1,4 +1,4 @@
-export const name = 'MyGrades'
+export const name = 'Edumétrica'
 import { RiLockFill, RiTimeFill, RiDragDropFill, RiCustomerService2Fill } from "@remixicon/react"
 
 
