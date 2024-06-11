@@ -10,12 +10,16 @@ import Error from '../../utils/Error'
 import FilterStudent from './filters/FilterStudent'
 import { useClasesQuery } from '../../tanstack/Clases'
 import { useAssignaturesQuery } from '../../tanstack/Assignatures'
+import { getCurrentQuarter } from '../../data/currentQuarter'
+import QuarterFilter from './filters/QuarterFilter'
 
 const Students = ({ students }) => {
 
     const { user } = useAuth()
     const [clase, setClase] = useState('')
     const [studentName, setStudentName] = useState('')
+    const currentQuarter = getCurrentQuarter()
+    const [quarter, setQuarter] = useState(currentQuarter.id)
     const {data: clases, isLoading: clasesLoading, isError} = useClasesQuery(user)
     const {data: assignatures, isLoading: assignaturesLoading} = useAssignaturesQuery(user)
 
@@ -35,22 +39,14 @@ const Students = ({ students }) => {
                 setClase={setClase}
                 clases={clases.data}
             />
+            <QuarterFilter 
+                quarter={quarter}
+                setQuarter={setQuarter}
+            />
         </div>
-        {console.log('assignatures', assignatures.data)}
-        {console.log('clase', clase)}
+        {console.log('quarter', quarter)}
         {students
-        .filter( student => {
-            if (clase == 'all') {
-                return student
-            }
-            if (clase) {
-                if (student.clase == clase) {
-                    return student
-                }
-            } else {
-                return student
-            }
-        })
+        .filter( student => (student.clase == clase))
         .filter( student => (
             `${student?.first_name} ${student?.last_name}`
             .toLowerCase()
@@ -61,6 +57,7 @@ const Students = ({ students }) => {
                 key={student.id}
                 student={student}
                 assignatures={assignatures.data.filter(assignature => assignature.clase.id == clase)}
+                quarter={quarter}
             />
         ))}
     </>

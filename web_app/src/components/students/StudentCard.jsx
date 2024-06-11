@@ -4,7 +4,7 @@ import { useAssignaturesQuery } from '../../tanstack/Assignatures'
 import Averages from './Averages'
 import { getFilteredCompetenceDict } from '../../data/competencies'
 
-const StudentCard = ({ student, assignatures, competences }) => {
+const StudentCard = ({ student, assignatures, competences, quarter }) => {
     const {user} = useAuth
     // const {data: assignatures, isLoading: assignaturesLoading} = useAssignaturesQuery(user)    
   return (
@@ -14,7 +14,10 @@ const StudentCard = ({ student, assignatures, competences }) => {
         {/* {student.averages.map( average => <p key={average.id}>{assignaturesDict[average.assignature].title} {average.calification}</p>)} */}
         {assignatures.map(assignature => (
             <Averages 
-                averages={student.averages.filter(average => average.assignature == assignature.id)}
+                averages={student.averages
+                    .filter(average => average.assignature == assignature.id)
+                    .filter(average => average.quarter == quarter)
+                }
                 assignature={assignature}
                 competences={getFilteredCompetenceDict(assignature.area)}
             />

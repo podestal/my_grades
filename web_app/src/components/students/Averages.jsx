@@ -17,10 +17,9 @@ const Averages = ({ averages, assignature, competences }) => {
     const data = filteredCompetencies.map( comp => {
         const average = averages.find( average => average.competence == comp.id)
         const calification = average ? numericalRepresentation[average.calification] : 0
-        console.log('calification', calification)
         return { name: comp.title, 'calificación': calification }
     })
-    // const data = averages.map( average => ({name: competences[average.competence], 'calificación': numericalRepresentation[average.calification]}))
+
     const dataFormated = (value) => {
         return alphabeticalRepresentation[value]
     }

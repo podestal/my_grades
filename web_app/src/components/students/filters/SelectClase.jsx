@@ -11,7 +11,6 @@ const SelectClase = ({ clases, clase, setClase }) => {
             value={clase}
             setter={setClase}
             items={clases}
-            everything={'Todas las clases'}
         />
     </div>
   )
