@@ -57,7 +57,7 @@ const StudentsTable = ({ activities, assignature }) => {
         assignature={assignature}
     /> 
     : 
-    <div className='w-full md:w-[1170px]'>
+    <div className='w-[95%]'>
         {/* {console.log('capacitiesGrades', capacitiesGrades)} */}
         <DashboardFilters 
             assignatureArea={assignature.area}

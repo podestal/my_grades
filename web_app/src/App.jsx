@@ -17,8 +17,11 @@ import LangingHeader from './pages/landing/LangingHeader'
 import Contact from './pages/Contact'
 import GetData from './components/getters/GetData'
 import StudentPage from './pages/prinicipal/StudentPage'
+import ReportPage from './pages/prinicipal/ReportPage'
 
 const App = () => {
+
+
 
   const { user } = useAuth()
   return (
@@ -28,7 +31,8 @@ const App = () => {
       ? 
       <div className='w-[240px] '>
         <Header /> 
-      </div>: 
+      </div>
+      :
       <LangingHeader />
       }
       <Routes>
@@ -45,6 +49,7 @@ const App = () => {
           <Route path='announcements' element={<Announcements />}/>
           <Route path='stats' element={<StatsPage />}/>
           <Route path='students' element={<StudentPage />}/>
+          <Route path='report' element={<ReportPage />}/>
         </Route>
       </Routes>
 

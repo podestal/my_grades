@@ -1,7 +1,5 @@
 import React from 'react'
 import StudentCard from './StudentCard'
-import { getClases } from '../../api/api'
-import { useQuery } from '@tanstack/react-query'
 import useAuth from '../../hooks/useAuth'
 import SelectClase from './filters/SelectClase'
 import { useState } from 'react'
@@ -12,6 +10,9 @@ import { useClasesQuery } from '../../tanstack/Clases'
 import { useAssignaturesQuery } from '../../tanstack/Assignatures'
 import { getCurrentQuarter } from '../../data/currentQuarter'
 import QuarterFilter from './filters/QuarterFilter'
+import { Button } from '@tremor/react'
+import GenericCallout from '../../utils/GenericCallout'
+import { useNavigate } from 'react-router-dom'
 
 const Students = ({ students }) => {
 
@@ -22,14 +23,25 @@ const Students = ({ students }) => {
     const [quarter, setQuarter] = useState(currentQuarter.id)
     const {data: clases, isLoading: clasesLoading, isError} = useClasesQuery(user)
     const {data: assignatures, isLoading: assignaturesLoading} = useAssignaturesQuery(user)
+    const [reportError, setReportError] = useState(false)
+    const navigator = useNavigate()
 
     if (clasesLoading || assignaturesLoading) return <p className='text-white flex w-full text-2xl h-[100vh] justify-center items-center'>Loading ...</p>
 
     if (isError) return <Error />
 
+    const handleOpenReports = () => {
+        setReportError(false)
+        if (clase.length == 0) {
+            setReportError(true)
+            return
+        }
+        navigator('/report')
+    }
+
   return (
     <>
-        <div className='flex w-[970px] my-8 mx-auto justify-center items-start gap-8'>
+        <div className='flex w-[970px] my-2 mx-auto justify-center items-start gap-8'>
             <FilterStudent 
                 filter={studentName}
                 setFilter={setStudentName}
@@ -44,7 +56,11 @@ const Students = ({ students }) => {
                 setQuarter={setQuarter}
             />
         </div>
-        {console.log('quarter', quarter)}
+        {/* The report is going to wait due that SIEGIE is doing that automatically*/}
+        {/* <div className='flex flex-col w-full items-center justify-center mb-8 gap-8'>
+            {reportError && <GenericCallout conditionalMsg={'Tiene que seleccionar una clase'} title={'Error'} color={'red'}/>}
+            <Button onClick={() => handleOpenReports()} variant='secondary'>Reporte</Button>
+        </div> */}
         {students
         .filter( student => (student.clase == clase))
         .filter( student => (

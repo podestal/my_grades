@@ -31,7 +31,7 @@ const PersisLogin = ({ children }) => {
                 navigate('/students')
                 return
             } 
-            getInstructorMutation({ token: user.access })
+            getInstructorMutation({ token: access })
             
         },
         onError: err => console.log(err)
