@@ -8,6 +8,7 @@ const AssignatureSelector = ({ assignature, setAssignature }) => {
 
   return (
     <div className="flex flex-col justify-center items-center">
+        {console.log('assignatures for select', assignatures)}
         <p className="mb-8 font-poppins text-md">Seleccione un curso</p>
         <Select value={assignature} onValueChange={ value => setAssignature(value)} className="w-[400px] mx-auto">
             {assignatures.map( curso => (

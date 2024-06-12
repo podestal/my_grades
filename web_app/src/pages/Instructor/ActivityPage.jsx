@@ -4,14 +4,10 @@ import { useState } from "react"
 import { styles } from "../../utils/styles"
 import Activities from "../../components/activities/Activities"
 import { getCurrentQuarter } from "../../data/currentQuarter"
-import { useActivitiesQuery } from "../../tanstack/Activities"
-import useAuth from "../../hooks/useAuth"
-import Loading from "../../utils/Loading"
-import Error from "../../utils/Error"
 
 const ActivityPage = () => {
 
-    const [assignature, setAssignature] = useState({})
+    const [assignature, setAssignature] = useState()
     const currentQuarter = getCurrentQuarter()
     const [quarter, setQuarter] = useState(currentQuarter.id)
 
@@ -28,6 +24,7 @@ const ActivityPage = () => {
                 setQuarter={setQuarter}
             />
         </div>
+        {console.log('assignature', assignature)}
         {assignature && 
             <Activities 
                 assignature={assignature}
