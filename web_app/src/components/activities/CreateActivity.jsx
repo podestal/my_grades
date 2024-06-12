@@ -13,10 +13,7 @@ const CreateActivity = ({ assignature, activity }) => {
     const [open, setOpen] = useState(false)
     const queryClient = useQueryClient()
     const { activities, setActivities } = useActivities()
-
-    const {} = useCategoriesQuery()
     
-
     // Error handling
     const [success, setSuccess] = useState('')
     const [error, setError] = useState('')
@@ -41,32 +38,21 @@ const CreateActivity = ({ assignature, activity }) => {
     })
 
   return (
-    <div>
-        {categories.length == 0 
-        ?
-        <GetCategories 
-            setCategories={setCategories}
+    <div className='flex items-start justify-center'>
+        <Button onClick={() => setOpen(true)} color='violet-950' className="hover:bg-violet-900">Crear Actividad</Button>
+        <ActivityForm 
+            activity={activity}
+            assignature={assignature}
+            open={open}
+            setOpen={setOpen}
+            success={success}
+            setSuccess={setSuccess}
+            error={error}
+            setError={setError}
+            create={createActivityMutation}
+            disable={disable}
+            setDisable={setDisable}
         />
-        :
-        <>
-        <div className='flex items-start justify-center'>
-            <Button onClick={() => setOpen(true)} color='violet-950' className="hover:bg-violet-900">Crear Actividad</Button>
-            <ActivityForm 
-                activity={activity}
-                assignature={assignature}
-                open={open}
-                setOpen={setOpen}
-                success={success}
-                setSuccess={setSuccess}
-                error={error}
-                setError={setError}
-                create={createActivityMutation}
-                disable={disable}
-                setDisable={setDisable}
-            />
-        </div>
-        </>
-        }
     </div>
   )
 }

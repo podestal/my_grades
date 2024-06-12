@@ -5,10 +5,13 @@ import useCategories from "../../hooks/useCategories"
 import { competenciesData } from "../../data/competencies"
 import { capacitiesData } from "../../data/capacities"
 import { quartersData } from "../../data/quarters"
+import { useQueryClient } from "@tanstack/react-query"
 
 const DashboardFilters = ({ assignatureArea, filter, setFilter, selectedCapacity, setSelectedCapacity, selectedCompetency, setSelectedCompetency, selectedCategory, setSelectedCategory, quarter, setQuarter }) => {
 
-    const { categories } = useCategories()
+    // QUERY CLIENT
+    const queryClient = useQueryClient()
+    const categories = queryClient.getQueryData(['categories'])
     const competencies = competenciesData.filter( competency => competency.area == assignatureArea)
     const capacities = capacitiesData.filter( capacity => capacity.competence == selectedCompetency)
 

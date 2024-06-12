@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Button, Dialog, DialogPanel, DatePicker, Textarea } from "@tremor/react"
+import { useQueryClient } from "@tanstack/react-query"
 import { es } from 'date-fns/locale'
 import moment from "moment"
 import useCategories from "../../hooks/useCategories"
@@ -17,11 +18,13 @@ import { getCurrentQuarter } from "../../data/currentQuarter"
 
 const ActivityForm = ({ activity, assignature, open, setOpen, success, setSuccess, setError, error, create, update, disable, setDisable }) => {
 
+    //QUERY CLIENT
+    const queryClient = useQueryClient()
     // USER
     const { user } = useAuth()
 
     // LOCAL CATEGORIES
-    const { categories } = useCategories()
+    const categories = queryClient.getQueryData(['categories'])
 
     // MODEL FIELDS
     const [title, setTitle] = useState(activity && activity.title || '')

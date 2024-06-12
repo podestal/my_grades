@@ -15,10 +15,9 @@ import GetStudents from '../getters/GetStudents'
 import useStudent from '../../hooks/useStudents'
 import getDashboardData, {getAveragesForCompetencies} from './utils/dashboardData'
 
-const StudentsTable = ({ activities, assignature }) => {
+const StudentsTable = ({ activities, assignature, categories }) => {
 
     // LOCAL STATE DATA
-    const { categories } = useCategories()
     const { grades } = useGrades()
     const { students, setStudents } = useStudent()
 
