@@ -1,6 +1,6 @@
 import { TextInput, Textarea } from "@tremor/react"
 
-const InputText = ({ value, setter, label, type, error, errorMsg, textArea, icon, placeholder }) => {
+const InputText = ({ value, setter, label, type, error, errorMsg, textArea, icon, placeholder, disabled }) => {
   return (
     <div className="flex flex-col gap-4">
         <p className="text-white text-center font-poppins ml-4 text-lg">{label}</p>
@@ -25,6 +25,7 @@ const InputText = ({ value, setter, label, type, error, errorMsg, textArea, icon
             error={error}
             errorMessage={errorMsg}
             icon={icon}
+            disabled={disabled}
         />
         }
     </div>

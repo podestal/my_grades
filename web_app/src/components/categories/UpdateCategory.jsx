@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import useCategories from "../../hooks/useCategories"
 import CategoryForm from "./CategoryForm"
 import { updateCategory } from "../../api/api"
@@ -7,11 +7,11 @@ import { Button } from "@tremor/react"
 
 const UpdateCategory = ({ category }) => {
 
+    // QUERY CLIENT
+    const queryClient = useQueryClient()
+
     // PANEL CONDITIONALS
     const [open, setOpen] = useState(false)
-
-    // LOCAL CATEGORIES SETTER
-    const { setCategories } = useCategories()
 
     // ERROR HANDLING
     const [success, setSuccess] = useState('')
@@ -27,10 +27,9 @@ const UpdateCategory = ({ category }) => {
             setTitleError(false)
             setWeightError(false)
             setSuccess('Su categoría ha sido actualizada con éxito')
-            setCategories( prevCats => prevCats.map( prevCat => {
+            queryClient.setQueryData(['categories'], prevCats => prevCats.map( prevCat => {
                 if (prevCat.id == category.id) {
-                    category.title = res.data.title
-                    category.weight = res.data.weight
+                    prevCat = {...prevCat, ...res}
                 }
                 return prevCat
             }))

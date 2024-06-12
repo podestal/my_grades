@@ -78,6 +78,7 @@ const CategoryForm = ({ open, setOpen, category, success, error, create, update 
                 setter={setTitle}
                 error={titleError}
                 errorMsg={"Se necesita un título para crear la categoría"}
+                disabled={category?.title == 'Participaciones' && true}
             />
             <InputText 
                 label={'Porcentaje'}
