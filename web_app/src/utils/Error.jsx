@@ -1,15 +1,15 @@
 import React from 'react'
 
 
-const Error = ({ refetch }) => {
-
-    const handleRefetch = () => {
-        refetch()
-    }
+const Error = ({error}) => {
 
   return (
-    <button onClick={handleRefetch}>Error</button>
+    <div className='flex flex-col w-full h-[80vh] font-bold justify-center items-center gap-8'>
+      <p className='text-white text-4xl text-center my-0'>Ocurrió un error</p>  
+      <p className='text-white text-lg text-center my-0 py-2 '>{error.message}</p>  
+    </div>
   )
+   
 }
 
 export default Error

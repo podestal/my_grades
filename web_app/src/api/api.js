@@ -28,6 +28,11 @@ export const getAssignatures = data => axios.get(`${URL}api/assignatures/?clase=
     headers: { Authorization: `JWT ${data.token}` }
 })
 
+export const getAssignaturesByInstructor = data => axios.get(`${URL}api/assignatures/?clase=&Instructor=${data.instructorId}&school=` ,{
+    headers: { Authorization: `JWT ${data.token}` }
+})
+.then(res => res.data)
+
 export const getAssignaturesByClase = data => axios.get(`${URL}api/tutorAssignatures/?clase=${data.claseId}`, {
     headers: { Authorization: `JWY ${data.access}` }
 })
@@ -41,6 +46,7 @@ export const getAssignaturesBySchool = data => axios.get(`${URL}api/assignatures
 export const getActivities = data => axios.get(`${URL}api/activities/?assignature=${data.assignature}` ,{
     headers: { Authorization: `JWT ${data.token}` }
 })
+.then(res => res.data)
 
 export const getAllActivities = data => axios.get(`${URL}api/activities/` ,{
     headers: { Authorization: `JWT ${data.token}` }

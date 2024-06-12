@@ -2,28 +2,21 @@ import AssignatureSelector from "../../components/activities/AssignatureSelector
 import QuarterSelector from "../../components/activities/QuarterSelector"
 import { useState } from "react"
 import { styles } from "../../utils/styles"
-import useActivities from "../../hooks/useActivities"
-import GetActivities from "../../components/getters/GetActivities"
 import Activities from "../../components/activities/Activities"
-import { useQuery } from "@tanstack/react-query"
+import { getCurrentQuarter } from "../../data/currentQuarter"
+import { useActivitiesQuery } from "../../tanstack/Activities"
+import useAuth from "../../hooks/useAuth"
 import Loading from "../../utils/Loading"
 import Error from "../../utils/Error"
-import { getActivities } from "../../api/api"
-import useAuth from "../../hooks/useAuth"
 
 const ActivityPage = () => {
 
-    // const { user } = useAuth()
     const [assignature, setAssignature] = useState('')
-    const [quarter, setQuarter] = useState('Q2')
-    const { activities, setActivities } = useActivities()
-    const filteredActivitiesByAssignature = activities.length > 0 && activities.filter( activity => activity.assignature == assignature) || []
-
+    const currentQuarter = getCurrentQuarter()
+    const [quarter, setQuarter] = useState(currentQuarter.id)
 
   return (
     <div className="text-white min-h-[100vh] mt-[5rem] w-full relative">
-        {console.log('activities', activities)}
-        {console.log('assignature?.id', assignature?.id)}
         <h2 className={`my-12 ${styles.gradientTitle}`}>Actividades</h2>
         <div className="flex items-center justify-center gap-12 w-full mx-auto">
             <AssignatureSelector 
@@ -36,21 +29,10 @@ const ActivityPage = () => {
             />
         </div>
         {assignature && 
-            <>
-                {filteredActivitiesByAssignature.length == 0 
-                ? 
-                <GetActivities 
-                    assignature={assignature}
-                    // setActivities={setActivities}
-                />
-                : 
-                <Activities 
-                    assignature={assignature}
-                    quarter={quarter}
-                    activities={activities}
-                />
-                }
-            </>
+            <Activities 
+                assignature={assignature}
+                quarter={quarter}
+            />
         }
     </div>
   )

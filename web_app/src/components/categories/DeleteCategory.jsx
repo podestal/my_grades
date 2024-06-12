@@ -13,9 +13,6 @@ const DeleteCategory = ({ category }) => {
     // PANEL CONDITIONALS
     const [open, setOpen] = useState(false)
 
-    // LOCAL CATEGORIES
-    // const { setCategories } = useCategories()
-
     // ERROR HANDLING
     const [success, setSuccess] = useState('')
     const [error, setError] = useState('')
@@ -25,7 +22,6 @@ const DeleteCategory = ({ category }) => {
         mutationFn: data => deleteCategory(data),
         onSuccess: res => {
             queryClient.setQueryData(['categories'], prevCats => prevCats.filter( prevCat => prevCat.id != category.id))
-            // setCategories( prevCats => prevCats.filter( prevCat => prevCat.id != category.id))
             setSuccess('Su categoría ha sido creada con éxito')
             setError('')
             setTimeout(() => {

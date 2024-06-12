@@ -32,7 +32,7 @@ const Dashboard = () => {
             assignature={assignature?.id}
         />
         <StudentsTable 
-            activities={activities?.data}
+            activities={activities}
             assignature={assignature}
         />
     </div>

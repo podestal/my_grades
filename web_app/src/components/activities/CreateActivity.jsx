@@ -6,6 +6,7 @@ import useCategories from "../../hooks/useCategories"
 import GetCategories from "../getters/GetCategories"
 import useActivities from "../../hooks/useActivities"
 import ActivityForm from "./ActivityForm"
+import { useCategoriesQuery } from "../../tanstack/Categories"
 
 const CreateActivity = ({ assignature, activity }) => {
 
@@ -13,8 +14,7 @@ const CreateActivity = ({ assignature, activity }) => {
     const queryClient = useQueryClient()
     const { activities, setActivities } = useActivities()
 
-    // Cats
-    const { categories, setCategories } = useCategories()
+    const {} = useCategoriesQuery()
     
 
     // Error handling
