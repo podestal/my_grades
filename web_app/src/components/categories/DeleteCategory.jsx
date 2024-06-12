@@ -24,7 +24,7 @@ const DeleteCategory = ({ category }) => {
     const { mutate: deleteCategoryMutation } = useMutation({
         mutationFn: data => deleteCategory(data),
         onSuccess: res => {
-            queryClient.invalidateQueries(['categories'])
+            queryClient.setQueryData(['categories'], prevCats => prevCats.filter( prevCat => prevCat.id != category.id))
             // setCategories( prevCats => prevCats.filter( prevCat => prevCat.id != category.id))
             setSuccess('Su categoría ha sido creada con éxito')
             setError('')
