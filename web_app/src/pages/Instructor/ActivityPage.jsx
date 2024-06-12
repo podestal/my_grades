@@ -11,7 +11,7 @@ import Error from "../../utils/Error"
 
 const ActivityPage = () => {
 
-    const [assignature, setAssignature] = useState('')
+    const [assignature, setAssignature] = useState({})
     const currentQuarter = getCurrentQuarter()
     const [quarter, setQuarter] = useState(currentQuarter.id)
 

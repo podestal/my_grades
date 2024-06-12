@@ -4,7 +4,7 @@ export const AssignatureContext = createContext()
 
 const AssignatureContextProvider = ({ children }) => {
 
-    const [ assignatures, setAssignatures ] = useState([])
+    const [ assignatures, setAssignatures ] = useState()
 
     return (
         <AssignatureContext.Provider value={{ assignatures, setAssignatures }}>

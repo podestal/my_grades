@@ -1,9 +1,10 @@
-import useAssignatures from "../../hooks/useAssignatures"
 import { Select, SelectItem } from "@tremor/react"
+import { useQueryClient } from "@tanstack/react-query"
 
 const AssignatureSelector = ({ assignature, setAssignature }) => {
 
-    const { assignatures } = useAssignatures()
+    const queryClient = useQueryClient()
+    const assignatures = queryClient.getQueryData(['assignaturesByInstructor'])
 
   return (
     <div className="flex flex-col justify-center items-center">

@@ -7,20 +7,18 @@ import { useActivitiesQuery } from "../../tanstack/Activities"
 import Loading from "../../utils/Loading"
 import Error from "../../utils/Error"
 import { useEffect, useState } from "react"
+import useAssignatures from "../../hooks/useAssignatures"
+import { useQueryClient } from "@tanstack/react-query"
 
 const Activities = ({ assignature, quarter }) => {
 
-    // USER
-    const { user } = useAuth()
+    //QUERY CLIENT
+    const queryClient = useQueryClient()
 
-
+    //SELECTED ASSIGNATURE
     const { grades, setGrades } = useGrades()
     const filteredGradesByAssignature = grades.length > 0 && grades.filter( grade => grade.assignature == assignature) || []
-    const {data: activities, isLoading, isError, error} = useActivitiesQuery(user, assignature.id)
-
-    if (isLoading) return <Loading />
-
-    if (isError) return <Error  error={error}/>
+    const activities = queryClient.getQueryData(['activities', assignature])
 
   return (
     <div className="grid grid-cols-4 md:grid-cols-3 my-8">
