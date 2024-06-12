@@ -57,7 +57,7 @@ const Averages = ({ averages, assignature, competences }) => {
                             </div>
                             <div className='w-full flex flex-col justify-between'>
                                 <p className=' text-slate-400 font-bold text-lg mb-2'>Conclusión descriptiva:</p>
-                                <p>{average.conclusion} dfadfasdfadfadfasdfasdfasdfasdf Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati laboriosam temporibus nobis fuga beatae enim ex sint placeat dolorem, accusantium dolores iste error? Necessitatibus nihil quidem hic consequuntur expedita natus!</p>
+                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati laboriosam temporibus nobis fuga beatae enim ex sint placeat dolorem, accusantium dolores iste error? Necessitatibus nihil quidem hic consequuntur expedita natus!</p>
                             </div>
                         </div>
                     ))

@@ -117,7 +117,7 @@ class CreateCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Category
-        fields = ['id', 'title', 'weight']
+        fields = ['id', 'title', 'weight', 'created_at', 'user']
 
     def create(self, validated_data):
         user_id = self.context['user']

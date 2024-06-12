@@ -8,6 +8,8 @@ const TeacherDashboard = () => {
             <p className='font-poppins font-normal text-gray-400 text-[18px] leading-[30px] mt-4'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem nulla fugit dolorem vel repudiandae ut blanditiis laboriosam obcaecati molestiae, corporis animi saepe reprehenderit minus aperiam accusantium laudantium. Aut, repellat dolore!</p>
         </div>
         <div className='flex-1 flex justify-center items-center md:ml-10 ml-0 md:mt-0 mt-10 relative'>
+            {/* <img src={dashboard} width={100} alt="Academic Progress" className="h-[100%] rounded-3xl absolute top-10"/>
+            <img src={dashboard} alt="Academic Progress" className="w-[100%] h-[100%] rounded-3xl absolute top-20 left-80"/> */}
             <img src={dashboard} alt="Academic Progress" className="w-[100%] h-[100%] rounded-3xl"/>
         </div>
     </section>

@@ -1,11 +1,18 @@
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { createCategory } from "../../api/api"
 import { useState } from "react"
 import CategoryForm from "./CategoryForm"
 import useCategories from "../../hooks/useCategories"
 import { Button } from "@tremor/react"
+import useAuth from "../../hooks/useAuth"
 
 const CreateCategory = () => {
+
+    // USER
+    const {user} = useAuth()
+
+    // QUERY CLIENT
+    const queryClient = useQueryClient()
 
     // PANEL CONDITIONALS
     const [open, setOpen] = useState(false)
@@ -30,9 +37,21 @@ const CreateCategory = () => {
             setTitleError(false)
             setWeightError(false)
             setSuccess('Su categoría ha sido creada con éxito')
-            categories.length > 0 
-            ? setCategories(prev => [...prev, res.data])
-            : setCategories([res.data])
+            console.log('res',res)
+            queryClient.setQueryData(['categories'], (prev) => [...prev, res])
+            // queryClient.setQueryData(['categories' ], prev => ([...prev, res]))
+            // console.log('response', res.data)
+            // const newData = [ ...queryClient.getQueryData(['categories']).data, res.data]
+            // console.log('newData',newData)
+            // queryClient.setQueryData(['categories'], prev => {
+            //     prev.data.push({...res.data, user: user.id})
+            //     return prev
+            // })
+            // queryClient.invalidateQueries(['categories'])
+            // queryClient.setQueryData(['categories'], prev => ([ ...prev, res.data]))
+            // categories.length > 0 
+            // ? setCategories(prev => [...prev, res.data])
+            // : setCategories([res.data])
             setTimeout(() => {
                 setSuccess('')
             }, 2000)
@@ -49,6 +68,8 @@ const CreateCategory = () => {
   return (
     <>
         <Button color='violet-950' onClick={() => setOpen(true)} className=' hover:bg-violet-900'>Crear Categoría</Button>
+        {console.log('queryClient', queryClient.getQueryData(['categories']))}
+        {/* {console.log('queryClient', queryClient.setQueryData(['categories'], prev => console.log([ ...prev])))} */}
         <CategoryForm 
             open={open}
             setOpen={setOpen}

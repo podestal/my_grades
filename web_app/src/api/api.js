@@ -59,10 +59,12 @@ export const updateActivity = data => axios.patch(`${URL}api/activities/${data.a
 export const getCategories = data => axios.get(`${URL}api/categories/`, {
     headers: { Authorization: `JWT ${data.token}`}
 })
+.then(res => res.data)
 
 export const createCategory = data => axios.post(`${URL}api/categories/`, data.category, {
     headers: { Authorization: `JWT ${data.token}` }
 })
+.then(res => res.data)
 
 export const updateCategory = data => axios.patch(`${URL}api/categories/${data.categoryId}/`, data.updates, {
     headers: { Authorization: `JWT ${data.token}`}

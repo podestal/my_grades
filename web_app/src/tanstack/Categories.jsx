@@ -1,8 +1,29 @@
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query"
+import { getCategories, createCategory } from "../api/api"
 
-export const useGetCategories = (fxn) => {
-    return useQuery({
+
+
+export const useCategoriesQuery = (user) => {
+    return  useQuery({
         queryKey: ['categories'],
-        queryFn: () => fxn,
+        queryFn: () => getCategories({ token: user.access }),
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
+    })
+}
+
+export const useCategorieCreateMutation = () => {
+
+    const queryClient = useQueryClient()
+    console.log(queryClient.getQueryData(['categories']))
+    return useMutation({
+        mutationFn: data => createCategory(data),
+        onSuccess: res => {
+            console.log(res.data)
+            queryClient.setQueryData(['categories'], prev => ({ ...prev, ...res.data}))
+        },
+        onError: err => {
+            console.log(err);
+        }
     })
 }

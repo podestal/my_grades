@@ -20,11 +20,6 @@ const ActivityPage = () => {
     const filteredActivitiesByAssignature = activities.length > 0 && activities.filter( activity => activity.assignature == assignature) || []
 
 
-    // const { data: activities, isLoading, isError, error } = useQuery({
-    //     queryKey: ['activities'],
-    //     queryFn: () => getActivities({ token: user.access, assignature: assignature?.id }),
-    // })
-
   return (
     <div className="text-white min-h-[100vh] mt-[5rem] w-full relative">
         {console.log('activities', activities)}

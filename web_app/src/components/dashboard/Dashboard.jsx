@@ -31,18 +31,6 @@ const Dashboard = () => {
             setGrades={setGrades}
             assignature={assignature?.id}
         />
-        {/* {filteredActivities.length == 0 
-        ? 
-        <GetActivities 
-            assignature={assignature}
-            setActivities={setActivities}
-        />
-        : 
-        <StudentsTable 
-            activities={activities.data}
-            assignature={assignature}
-        />
-        } */}
         <StudentsTable 
             activities={activities?.data}
             assignature={assignature}

@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { deleteCategory } from "../../api/api"
 import { useState } from "react"
 import useCategories from "../../hooks/useCategories"
@@ -6,12 +6,15 @@ import { Button } from "@tremor/react"
 import DeleteCategoryModal from "./DeleteCategoryModal"
 
 const DeleteCategory = ({ category }) => {
+
+    // QUERY CLIENT
+    const queryClient = useQueryClient()
     
     // PANEL CONDITIONALS
     const [open, setOpen] = useState(false)
 
     // LOCAL CATEGORIES
-    const { setCategories } = useCategories()
+    // const { setCategories } = useCategories()
 
     // ERROR HANDLING
     const [success, setSuccess] = useState('')
@@ -21,7 +24,8 @@ const DeleteCategory = ({ category }) => {
     const { mutate: deleteCategoryMutation } = useMutation({
         mutationFn: data => deleteCategory(data),
         onSuccess: res => {
-            setCategories( prevCats => prevCats.filter( prevCat => prevCat.id != category.id))
+            queryClient.invalidateQueries(['categories'])
+            // setCategories( prevCats => prevCats.filter( prevCat => prevCat.id != category.id))
             setSuccess('Su categoría ha sido creada con éxito')
             setError('')
             setTimeout(() => {

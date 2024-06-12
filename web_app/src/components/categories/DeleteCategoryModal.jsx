@@ -20,12 +20,11 @@ const DeleteCategoryModal = ({ open, setOpen, deleteCat, category, success, erro
     //DELETE HANDLER
     const handleDelete = () => {
         setCannotDelete(false)
-        console.log('category title', category.title)
         if (category.title == 'Participaciones') {
             setCannotDelete(true)
             return
         }
-        // deleteCat({ token: user.access, categoryId: category.id })
+        deleteCat({ token: user.access, categoryId: category.id })
     }
 
   return (
