@@ -46,9 +46,6 @@ const StudentsTable = ({ activities, assignature, categories }) => {
     const capacitiesGrades = selectedCompetency != '' && getAveragesForCompetencies()
   return (
     <>
-    {/* {console.log('selectedCompetence', selectedCompetency)}
-    {console.log('selectedCapacity', selectedCapacity)}
-    {console.log('capacitiesGrades', capacitiesGrades)} */}
     {studentsByAssignature.length == 0 
     ? 
     <GetStudents 

@@ -11,10 +11,10 @@ const InstructorNavigator = () => {
             <Icon color="violet" icon={RiFilePaper2Line} size="md"/>
             <p className='text-white font-bold text-md hover:text-slate-200'>Cursos</p>
         </Link>
-        <Link className='flex flex-col w-[75%] justify-center items-center gap-2'  to={'/activities'}>
+        {/* <Link className='flex flex-col w-[75%] justify-center items-center gap-2'  to={'/activities'}>
             <Icon color="violet" icon={RiBuilding3Line} size="md"/>
             <p className='text-white font-bold text-md hover:text-slate-200'>Actividades</p>
-        </Link>
+        </Link> */}
         <Link className='flex flex-col w-[75%] justify-center items-center gap-2' to={'/categories'}>
             <Icon color="violet" icon={RiBubbleChartLine} size="md"/>
             <p className='text-white font-bold text-md hover:text-slate-200'>Categorías</p>

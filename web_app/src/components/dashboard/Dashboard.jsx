@@ -22,7 +22,7 @@ const Dashboard = () => {
 
     if (isLoadingActivities || isLoadingCategories) return <p className='text-white flex w-full text-2xl h-[100vh] justify-center items-center'>Loading ...</p>
 
-    if (activitiesError || isErrorCategories) return  <p className='text-white flex w-full text-2xl h-[100vh] justify-center items-center'>{activitiesError}</p>
+    if (activitiesError || isErrorCategories) return  <p className='text-white flex w-full text-2xl h-[100vh] justify-center items-center'>{activitiesError.message}</p>
   return (
     <div className="text-white w-full min-h-[100vh] mt-4 overflow-x-scroll">
         {/* {console.log('filteredActivities', filteredActivities)} */}

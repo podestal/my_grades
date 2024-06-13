@@ -68,7 +68,6 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
   return (
     <div className=" flex items-center justify-start overflow-x-scroll shadow-violet-950 shadow-[0_10px_20px_rgba(240,_46,_170,_0.7)] mb-12">
         <table className="bg-gray-900">
-            {console.log('activities', activities)}
            {columnsDynamic && <thead>
                 {
                     table.getHeaderGroups().map( headerGroup => (
