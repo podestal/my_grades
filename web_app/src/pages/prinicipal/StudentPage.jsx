@@ -20,6 +20,7 @@ const StudentPage = () => {
 
   return (
     <div className='text-white min-h-[100vh] mt-[5rem] w-full relative'>
+        {console.log('students', students)}
         <Students 
             students={students}
         />

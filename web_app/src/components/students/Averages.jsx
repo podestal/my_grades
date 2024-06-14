@@ -28,7 +28,7 @@ const Averages = ({ averages, assignature, competences }) => {
     <AccordionList>
         <Accordion className='my-6 '>
             <AccordionHeader> <p className='text-2xl font-montserrat my-4'>{assignature.title}</p></AccordionHeader>
-            <AccordionBody className=''>
+            <AccordionBody>
                 <BarChart 
                     data={data}
                     index="name"
