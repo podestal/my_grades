@@ -13,17 +13,33 @@ import QuarterFilter from './filters/QuarterFilter'
 import { Button } from '@tremor/react'
 import GenericCallout from '../../utils/GenericCallout'
 import { useNavigate } from 'react-router-dom'
+import { useQueryClient } from '@tanstack/react-query'
+import useStudent from '../../hooks/useStudents'
+
+const data = [
+    {id: 1, name: 'gggg'},
+    {id: 2, name: 'tttt'},
+    {id: 1, name: 'gggg'},
+]
 
 const Students = ({ students }) => {
 
+    const clasesIds = []
+    const queryClient = useQueryClient()
     const { user } = useAuth()
+    const instructorAssignatures = queryClient.getQueryData(['assignaturesByInstructor'])
+    instructorAssignatures && instructorAssignatures.map( assignature =>{
+        if (clasesIds.indexOf(assignature.clase.id) == -1) {
+            clasesIds.push(assignature.clase.id)
+        }})
     const [clase, setClase] = useState('')
     const [studentName, setStudentName] = useState('')
     const currentQuarter = getCurrentQuarter()
     const [quarter, setQuarter] = useState(currentQuarter.id)
     const {data: clases, isLoading: clasesLoading, isError} = useClasesQuery(user)
-    const {data: assignatures, isLoading: assignaturesLoading} = useAssignaturesQuery(user)
+    const {data: assignatures, isLoading: assignaturesLoading, isSuccess: assignaturesSuccess} = user.profile == 'P' && useAssignaturesQuery(user)
     const [reportError, setReportError] = useState(false)
+
     const navigator = useNavigate()
 
     if (clasesLoading || assignaturesLoading) return <p className='text-white flex w-full text-2xl h-[100vh] justify-center items-center'>Loading ...</p>
@@ -42,6 +58,8 @@ const Students = ({ students }) => {
   return (
     <>
         <div className='flex w-[970px] my-2 mx-auto justify-center items-start gap-8'>
+            {console.log('students', students)}
+            {console.log('assignatures', assignatures)}
             <FilterStudent 
                 filter={studentName}
                 setFilter={setStudentName}
@@ -50,17 +68,14 @@ const Students = ({ students }) => {
                 clase={clase}
                 setClase={setClase}
                 clases={clases.data}
+                filter={user.profile == 'I' && clasesIds}
             />
             <QuarterFilter 
                 quarter={quarter}
                 setQuarter={setQuarter}
             />
+
         </div>
-        {/* The report is going to wait due that SIEGIE is doing that automatically*/}
-        {/* <div className='flex flex-col w-full items-center justify-center mb-8 gap-8'>
-            {reportError && <GenericCallout conditionalMsg={'Tiene que seleccionar una clase'} title={'Error'} color={'red'}/>}
-            <Button onClick={() => handleOpenReports()} variant='secondary'>Reporte</Button>
-        </div> */}
         {students
         .filter( student => (student.clase == clase))
         .filter( student => (
@@ -72,8 +87,9 @@ const Students = ({ students }) => {
             <StudentCard 
                 key={student.id}
                 student={student}
-                assignatures={assignatures.data.filter(assignature => assignature.clase.id == clase)}
+                assignatures={assignatures ? assignatures.data : instructorAssignatures}
                 quarter={quarter}
+                clase={clase}
             />
         ))}
     </>

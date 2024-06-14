@@ -45,7 +45,7 @@ const Averages = ({ averages, assignature, competences }) => {
                 />
                 {averages
                     .map(average => (
-                        <div className='flex-col w-[95%] mx-4 my-6'>
+                        <div key={average.id} className='flex-col w-[95%] mx-4 my-6'>
                             <div className='w-full flex justify-between my-2'>
                                 <p className='text-white font-bold text-lg'>{competences[average.competence]}</p>
                                 <p className={`text-md font-bold text-xl
