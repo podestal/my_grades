@@ -18,6 +18,7 @@ model-bakery = "*"
 django-debug-toolbar = "*"
 python-dotenv = "*"
 django-multiselectfield = "*"
+pillow = "*"
 
 [dev-packages]
 

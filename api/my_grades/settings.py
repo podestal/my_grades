@@ -192,3 +192,7 @@ DJOSER = {
         'current_user': 'core.serializers.GetUserSerializer',
     }
 }
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'
