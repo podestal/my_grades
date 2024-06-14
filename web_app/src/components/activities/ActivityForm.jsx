@@ -24,7 +24,7 @@ const ActivityForm = ({ activity, assignature, open, setOpen, success, setSucces
     const { user } = useAuth()
 
     // LOCAL CATEGORIES
-    const categories = queryClient.getQueryData(['categories'])
+    const categories = queryClient.getQueryData(['categories'])?.filter(category => category.title != 'Participaciones')
 
     // MODEL FIELDS
     const [title, setTitle] = useState(activity && activity.title || '')
