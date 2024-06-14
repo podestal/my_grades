@@ -7,8 +7,9 @@ import CreateAverage from "../averages/CreateAverage"
 import UpdateAverage from "../averages/UpdateAverage"
 import StudentParticipations from "../participations/StudentParticipations"
 import StudentSummaryModal from "./dashboardComponents/StudentSummaryModal"
+import UpdateActivity from "../activities/UpdateActivity"
 
-const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompetency, selectedCapacity, quarter, assignature, activities }) => {
+const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompetency, selectedCapacity, quarter, assignature, activities, activitiesDict }) => {
 
     const data = studentsData || []
     const [open, setOpen] = useState(false)
@@ -29,6 +30,8 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
     const [isParticipation, setIsParticipation] = useState(false)
     const [studentSummary, setStudentSummary] = useState(false)
     const [selectedStudent, setSelectedStudent] = useState(false)
+    const [foundActivity, setFoundActivity] = useState({})
+    const [editActivity, setEditActivity] = useState(false)
     const participationsColumn = selectedCapacity != '' && selectedCategory == 'all' ? [{   
         header: 'Participaciones',
         accessorKey: 'participations'
@@ -73,16 +76,22 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                     table.getHeaderGroups().map( headerGroup => (
                         <tr 
                             key={headerGroup.id}
-                    
+
                         >
                             {
                                 headerGroup.headers.map( header => (
                                     <th 
                                         key={header.id}
-                                        // onClick={() => console.log('header',header.id)}
+                                        onClick={() => {
+                                            if (activitiesDict[header.id]) {
+                                                // console.log(activitiesDict[header.id]);
+                                                setFoundActivity(activitiesDict[header.id])
+                                                setEditActivity(true)
+                                            }
+                                        }}
                                         className={`py-6 min-w-[160px] ${header.id == 'student' && 'min-w-[300px]'} text-md font-poppins 
-                                                    ${header.id == 'student' && 'sticky w-[200px] left-0 bg-gray-900'}
-                                                    `}
+                                                    ${header.id == 'student' && 'sticky w-[200px] left-0 bg-gray-90'}
+                                                    ${activitiesDict[header.id] && 'cursor-pointer'}`}
                                     >
                                         {header.placeholderId ? null : header.column.columnDef.header}
                                     </th>
@@ -174,6 +183,15 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
             </tbody>}
         </table>
         {/* open, setOpen, setStudentSummary, student */}
+        {editActivity &&
+            <UpdateActivity 
+                assignature={assignature}
+                activity={foundActivity}
+                editActivity={editActivity}
+                setEditActivity={setEditActivity}
+            />
+            // assignature, activity, editActivity, setEditActivity 
+        }
         {averages 
         ? 
         <>

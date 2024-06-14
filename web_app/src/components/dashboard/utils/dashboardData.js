@@ -194,7 +194,6 @@ const getDashboardData = (students, filter, grades, selectedCompetency, selected
                 let averageWithCatsAndParticipations = alphabeticalRepresentation[Math.round(numericalRepresentation[allAverages] + (numericalRepresentation[participationsAverage.calification] * participationsCat.weight))]
                 const totalAverage = averageWithCatsAndParticipations ? averageWithCatsAndParticipations : allAverages
                 const capacityTitle = capacity.title
-                console.log('totalAverage' ,totalAverage)
                 const calification = totalAverage ? totalAverage : '-'
                 const obj = {}
                 obj[capacityTitle] = {calification, id: 0}

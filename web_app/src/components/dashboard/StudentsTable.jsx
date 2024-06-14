@@ -17,6 +17,9 @@ import getDashboardData, {getAveragesForCompetencies} from './utils/dashboardDat
 
 const StudentsTable = ({ activities, assignature, categories }) => {
 
+    // ACTIVITIES DICT
+    const activitiesDict = {}
+
     // LOCAL STATE DATA
     const { grades } = useGrades()
     const { students, setStudents } = useStudent()
@@ -39,7 +42,7 @@ const StudentsTable = ({ activities, assignature, categories }) => {
 
 
     // COLUMNS DATA
-    const columns = selectedCapacity ? getActivitiesColumns(activities, selectedCapacity, selectedCategory, quarter) : getCapacitiesColumns(selectedCompetency)
+    const columns = selectedCapacity ? getActivitiesColumns(activities, selectedCapacity, selectedCategory, quarter, activitiesDict) : getCapacitiesColumns(selectedCompetency)
 
 
     // CAPACITIES GRADES
@@ -54,7 +57,7 @@ const StudentsTable = ({ activities, assignature, categories }) => {
     /> 
     : 
     <div className='w-[95%]'>
-        {/* {console.log('capacitiesGrades', capacitiesGrades)} */}
+        {console.log('activitiesDict', activitiesDict)}
         <DashboardFilters 
             assignatureArea={assignature.area}
             filter={filter}
@@ -77,6 +80,7 @@ const StudentsTable = ({ activities, assignature, categories }) => {
             quarter={quarter}
             assignature={assignature}
             activities={activitiesByQuarter}
+            activitiesDict={activitiesDict}
         />
     </div>
     }

@@ -12,7 +12,7 @@ export const getCapacitiesColumns = (selectedCompetency) => {
 
 }
 
-export const getActivitiesColumns = (activities, selectedCapacity, selectedCategory, quarter) => {
+export const getActivitiesColumns = (activities, selectedCapacity, selectedCategory, quarter, activitiesDict) => {
     return activities
     .filter( activity => {
         if (selectedCapacity == 'all') {
@@ -33,6 +33,8 @@ export const getActivitiesColumns = (activities, selectedCapacity, selectedCateg
     })
     .filter( activity => activity.quarter == quarter)
     .map( activity => {
+        // obj[capacityTitle] = {calification, id: 0}
+        activitiesDict[activity.title] = activity
     return {
         header: activity.title,
         accessorKey: activity.title
