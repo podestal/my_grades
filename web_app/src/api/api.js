@@ -170,13 +170,15 @@ export const updateParticipation = data => axios.patch(`${URL}api/participations
 
 // ANNOUNCEMENTS
 
-export const getAnnouncements = data => axios.get(`${URL}api/annunciations/`, {
+export const getAnnouncements = data => axios.get(`${URL}api/annunciations/?user=${data.userId}&clase=`, {
     headers: { Authorization: `JWT ${data.token}` }
 })
+.then(res => res.data)
 
 export const createAnnouncement = data => axios.post(`${URL}api/annunciations/`, data.announcement, {
     headers: { Authorization: `JWT ${data.token}`}
 })
+.then(res => res.data)
 
 // QUARTER GRADE
 

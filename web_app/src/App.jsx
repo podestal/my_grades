@@ -9,7 +9,7 @@ import SingleActivity from './components/activities/SingleActivity'
 import Categories from './pages/Instructor/Categories'
 import Dashboard from './components/dashboard/Dashboard'
 import ActivityPage from './pages/Instructor/ActivityPage'
-import Announcements from './pages/Instructor/Announcements'
+import AnnouncementsPage from './pages/Instructor/AnnouncementsPage'
 import StatsPage from './pages/Instructor/StatsPage'
 import { Routes, Route } from "react-router-dom"
 import useAuth from './hooks/useAuth'
@@ -26,7 +26,6 @@ const App = () => {
   const { user } = useAuth()
   return (
     <main className={`bg-primary w-full overflow-hidden min-h=[100vh] ${user.access && 'flex gap-12 justify-between'}`}>
-      {/* {user.access && <GetData user={user}/>} */}
       {user.access 
       ? 
       <div className='w-[240px] '>
@@ -46,7 +45,7 @@ const App = () => {
           <Route path='dashboard' element={<Dashboard />}/>
           <Route path='activities' element={<ActivityPage />}/>
           <Route path='activity' element={<SingleActivity />}/>
-          <Route path='announcements' element={<Announcements />}/>
+          <Route path='announcements' element={<AnnouncementsPage />}/>
           <Route path='stats' element={<StatsPage />}/>
           <Route path='students' element={<StudentPage />}/>
           <Route path='report' element={<ReportPage />}/>
