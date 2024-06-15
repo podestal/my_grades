@@ -275,7 +275,7 @@ class GetAllAnnouncementAllDataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Annunciation
-        fields = ['id', 'title', 'description', 'created_at', 'user', 'clase']
+        fields = ['id', 'title', 'quarter', 'description', 'created_at', 'user', 'clase']
 
 class AnnunciationImagesSerializer(serializers.ModelSerializer):
 
@@ -288,7 +288,7 @@ class GetAnnouncementSerializer(serializers.ModelSerializer):
     annunciation_imgs = AnnunciationImagesSerializer(many=True)
     class Meta:
         model = models.Annunciation
-        fields = ['id', 'title', 'description', 'created_at', 'clase', 'user', 'annunciation_imgs']
+        fields = ['id', 'title', 'description', 'quarter', 'created_at', 'clase', 'user', 'annunciation_imgs']
 
 
 class CreateAnnouncementSerializer(serializers.ModelSerializer):
@@ -300,7 +300,7 @@ class CreateAnnouncementSerializer(serializers.ModelSerializer):
     # )
     class Meta:
         model = models.Annunciation
-        fields = ['id', 'title', 'description', 'created_at', 'clase']
+        fields = ['id', 'title', 'description', 'quarter', 'created_at', 'clase']
 
     def create(self, validated_data):
         
@@ -313,7 +313,11 @@ class CreateAnnouncementSerializer(serializers.ModelSerializer):
         user_id = self.context['user_id']
         return models.Annunciation.objects.create(user_id = user_id, **validated_data)
 
+class UpdateAnnouncementSerializer(serializers.ModelSerializer):
 
+    class Meta:
+        model = models.Annunciation
+        fields = ['id', 'title', 'description', 'quarter']
 
 
 # class CreateAssignmentSerializer(serializers.ModelSerializer):

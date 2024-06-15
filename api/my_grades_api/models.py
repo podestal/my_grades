@@ -222,8 +222,16 @@ class Participation(models.Model):
 
 class Annunciation(models.Model):
 
+    QUARTER_CHOICES = [
+        ('Q1', 'First Quarter'),
+        ('Q2', 'Second Quarter'),
+        ('Q3', 'Third Quarter'),
+        ('Q4', 'Fourth Quarter'),
+    ]
+
     title = models.CharField(max_length=255)
     description = models.TextField()
+    quarter = models.CharField(max_length=2, choices=QUARTER_CHOICES, blank=True, null=True)
     created_at = models.DateField(auto_now_add=True)
     clase = models.ForeignKey(Clase, on_delete=models.CASCADE, related_name='announcements')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='announcements')

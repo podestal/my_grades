@@ -256,6 +256,8 @@ class AnnouncementViewSet(ModelViewSet):
             return serializers.GetAllAnnouncementAllDataSerializer
         if self.request.method == 'POST':
             return serializers.CreateAnnouncementSerializer
+        if self.request.method == 'PATCH':
+            return serializers.UpdateAnnouncementSerializer
         return serializers.GetAnnouncementSerializer
     
     def get_queryset(self):
