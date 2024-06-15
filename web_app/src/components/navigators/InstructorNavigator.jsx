@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Icon } from '@tremor/react'
-import { RiFilePaper2Line, RiBuilding3Line, RiBubbleChartLine, RiUser2Line } from '@remixicon/react'
+import { RiFilePaper2Line, RiBuilding3Line, RiBubbleChartLine, RiUser2Line, RiArticleLine } from '@remixicon/react'
 
 const InstructorNavigator = () => {
 
@@ -18,6 +18,10 @@ const InstructorNavigator = () => {
         <Link className='flex flex-col w-[75%] justify-center items-center gap-2' to={'/students'}>
             <Icon color="violet" icon={RiUser2Line} size="md"/>
             <p className='text-white font-bold text-md hover:text-slate-200'>Estudiantes</p>
+        </Link>
+        <Link className='flex flex-col w-[75%] justify-center items-center gap-2'  to={'/activities'}>
+            <Icon color="violet" icon={RiArticleLine} size="md"/>
+            <p className='text-white font-bold text-md hover:text-slate-200'>Anuncios</p>
         </Link>
         <Link className='flex flex-col w-[75%] justify-center items-center gap-2' to={'/categories'}>
             <Icon color="violet" icon={RiBubbleChartLine} size="md"/>

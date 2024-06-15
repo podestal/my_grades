@@ -21,6 +21,9 @@ router.register('participations', views.ParticipationViewSet)
 router.register('annunciations', views.AnnouncementViewSet, basename='annunciations')
 router.register('averages', views.QuarterGradeViewSet, basename='averages')
 
+annunciation_router = routers.NestedDefaultRouter(router, 'annunciations', lookup='annunciations')
+annunciation_router.register('images', views.AnnunciationImagesViewSet, basename='annunciations-images')
+
 # competences_router = routers.NestedDefaultRouter(router, 'competences', lookup='competence') 
 # competences_router.register('capacities', views.CapacityViewSet, basename='capacities')
 
@@ -34,4 +37,4 @@ router.register('averages', views.QuarterGradeViewSet, basename='averages')
 
 # urlpatterns = router.urls + assignments_router.urls
 
-urlpatterns = router.urls 
+urlpatterns = router.urls + annunciation_router.urls

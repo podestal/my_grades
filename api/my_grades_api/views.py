@@ -262,6 +262,21 @@ class AnnouncementViewSet(ModelViewSet):
     def get_serializer_context(self):
         return { 'user_id': self.request.user.id }
     
+class AnnunciationImagesViewSet(ModelViewSet):
+    
+    serializer_class=serializers.AnnunciationImagesSerializer
+    # def get_serializer_class(self):
+    #     if self.request.method == 'POST':
+    #         return serializers.CreateOrderReceiptSerializer
+    #     return serializers.OrderReceiptSerializer
+
+    # def get_serializer_context(self):
+    #     return {'order_id': self.kwargs['order_pk']}
+
+    def get_queryset(self):
+        return models.AnnunciationImages.objects.filter(annunciation_id=self.kwargs['annunciation_pk'])
+
+    
 class QuarterGradeViewSet(ModelViewSet):
 
     queryset = models.QuarterGrade.objects.select_related('student', 'assignature')
@@ -275,7 +290,7 @@ class QuarterGradeViewSet(ModelViewSet):
             return [IsAdminUser()]
         return [IsAuthenticated()]
 
-    
+
 
 # class AssignmentViewSet(ModelViewSet):
 

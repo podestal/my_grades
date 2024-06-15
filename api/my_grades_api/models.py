@@ -230,5 +230,5 @@ class Annunciation(models.Model):
 
 class AnnunciationImages(models.Model):
 
-    annunciation = models.ForeignKey(Annunciation, related_name='annunciation_img', on_delete=models.CASCADE)
+    annunciation = models.ForeignKey(Annunciation, related_name='annunciation_imgs', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='api/images', blank=True, null=True)

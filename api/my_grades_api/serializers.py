@@ -283,21 +283,32 @@ class GetAnnouncementSerializer(serializers.ModelSerializer):
         model = models.Annunciation
         fields = ['id', 'title', 'description', 'created_at', 'clase']
 
-class CreateAnnouncementSerializer(serializers.ModelSerializer):
+class AnnunciationImagesSerializer(serializers.ModelSerializer):
 
     class Meta:
+        model = models.AnnunciationImages
+        fields = '__all__'
+
+class CreateAnnouncementSerializer(serializers.ModelSerializer):
+
+    annunciation_img = AnnunciationImagesSerializer(many=True, read_only = True)
+    # uploaded_images = serializers.ListField(
+    #     child = serializers.FileField(max_length = 1000000, allow_empty_file = False, use_url = False),
+    #     write_only = True
+    # )
+    class Meta:
         model = models.Annunciation
-        fields = ['id', 'title', 'description', 'created_at', 'clase']
+        fields = ['id', 'title', 'description', 'created_at', 'clase', 'annunciation_img']
 
     def create(self, validated_data):
         
+        uploaded_data = validated_data.pop('uploaded_images')
         user_id = self.context['user_id']
-        return models.Annunciation.objects.create(user_id = user_id, **validated_data)
-# class AnnunciationImagesSerializer(serializers.ModelSerializer):
+        annunciation = models.Annunciation.objects.create(user_id = user_id, **validated_data)
+        for uploaded_item in uploaded_data:
+            models.AnnunciationImages.create(annunciation=annunciation, image=uploaded_item)
+        return annunciation
 
-#     class Meta:
-#         model = models.AnnunciationImages
-#         fields = '__all__'
 
 
 
