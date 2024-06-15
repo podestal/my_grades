@@ -8,8 +8,9 @@ import useAuth from "../../hooks/useAuth"
 import {getCurrentQuarter} from "../../data/currentQuarter"
 import { quartersData } from "../../data/quarters"
 import { getClasesForInstructors } from "../../data/getClasesForInstructors"
+import GenericCallout from "../../utils/GenericCallout"
 
-const AnnouncementsForm = ({ open, setOpen, announcement, create, clases }) => {
+const AnnouncementsForm = ({ open, setOpen, announcement, create, clases, success, setSuccess, error, setError, disable, setDisable }) => {
 
     // const { clases } = useClases()
     const { user } = useAuth()
@@ -25,6 +26,9 @@ const AnnouncementsForm = ({ open, setOpen, announcement, create, clases }) => {
     }
 
     const handleCreate = () => {
+        setSuccess(false)
+        setError(false)
+        setDisable(false)
         create({ token: user.access, announcement: {
             title,
             description,
@@ -38,11 +42,13 @@ const AnnouncementsForm = ({ open, setOpen, announcement, create, clases }) => {
             onClose={() => handleClosePanel()}
         >
             <DialogPanel
-                className="relative flex flex-col items-center gap-4"
+                className="relative flex flex-col items-center gap-4 w-full"
             >
                 <CloseButton 
                     handleClose={handleClosePanel}
                 />
+                {error && <GenericCallout conditionalMsg={'No se pudo crear el nuevo anuncio'} title={'Error'} color={'red'}/>}
+                {success && <GenericCallout conditionalMsg={'Anuncio creado'} title={announcement ? 'Editar Anuncio' :'Nuevo Anuncio'} color={'teal'}/>}
                 <h2 className="text-white mb-6 text-3xl text-center">{announcement ? 'Editar Anuncio' : 'Nuevo Anuncio'}</h2>
                 <InputText 
                     label='Título'
@@ -66,7 +72,7 @@ const AnnouncementsForm = ({ open, setOpen, announcement, create, clases }) => {
                     setter={setSelectedClase}
                     items={clases}
                 />
-                <Button onClick={handleCreate} className="w-[160px] mx-auto mt-6" color="blue">{announcement ? 'Guardar' : 'Crear'}</Button>
+                <Button disabled={disable} onClick={handleCreate} className="w-[160px] mx-auto mt-6" color="blue">{announcement ? 'Guardar' : 'Crear'}</Button>
             </DialogPanel>
         </Dialog>
   )

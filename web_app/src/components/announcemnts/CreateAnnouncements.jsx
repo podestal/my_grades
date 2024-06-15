@@ -13,6 +13,10 @@ const CreateAnnouncements = ({clases, assignatures}) => {
     const clasesIds = getClasesIds(assignatures)
     const filteredClases = getClasesForInstructors(clases, clasesIds)
 
+    // ERROR HANDLING
+    const [error, setError] = useState(false)
+    const [success, setSuccess] = useState(false)
+    const [disable, setDisable] = useState(false)
 
     const { setAnnouncements } = useAnnouncements()
 
@@ -21,8 +25,15 @@ const CreateAnnouncements = ({clases, assignatures}) => {
         onSuccess: res => {
             setAnnouncements( prev => [...prev, res.data])
             queryClient.invalidateQueries(['announcements'])
+            setError(false)
+            setSuccess(true)
+            setDisable(true)
         },
-        onError: err => console.log(err),
+        onError: err => {
+            setError(true)
+            setSuccess(false)
+            setDisable(false)
+        },
     })
 
   return (
@@ -36,6 +47,12 @@ const CreateAnnouncements = ({clases, assignatures}) => {
             setOpen={setOpen}
             create={createAnnouncementMutation}
             clases={filteredClases}
+            success={success}
+            setSuccess={setSuccess}
+            error={error}
+            setError={setError}
+            disable={disable}
+            setDisable={setDisable}
         />
     </div>
   )
