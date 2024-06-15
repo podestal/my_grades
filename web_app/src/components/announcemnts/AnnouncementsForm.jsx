@@ -10,16 +10,16 @@ import { quartersData } from "../../data/quarters"
 import { getClasesForInstructors } from "../../data/getClasesForInstructors"
 import GenericCallout from "../../utils/GenericCallout"
 
-const AnnouncementsForm = ({ open, setOpen, announcement, create, clases, success, setSuccess, error, setError, disable, setDisable }) => {
+const AnnouncementsForm = ({ open, setOpen, announcement, create, update, clases, success, setSuccess, error, setError, disable, setDisable }) => {
 
     // const { clases } = useClases()
     const { user } = useAuth()
 
-    const [title, setTitle] = useState(announcement && announcement.title || '')
-    const [description, setDescription] = useState(announcement && announcement.description || '')
-    const [selectedClase, setSelectedClase] = useState(announcement && announcement.clase || '')
+    const [title, setTitle] = useState(announcement?.title || '')
+    const [description, setDescription] = useState(announcement?.description || '')
+    const [selectedClase, setSelectedClase] = useState(announcement?.clase || '')
     const currentQuarter = getCurrentQuarter()
-    const [quarter, setQuarter] = useState(currentQuarter.id || '')
+    const [quarter, setQuarter] = useState(announcement?.quarter || currentQuarter.id)
 
     // VALIDATION
     const [titleValidator, setTitleValidator] = useState(false)
@@ -29,6 +29,13 @@ const AnnouncementsForm = ({ open, setOpen, announcement, create, clases, succes
 
     const handleClosePanel = () => {
         setOpen(false)
+        setSuccess(false)
+        setError(false)
+        setDisable(false)
+        setTitle(announcement?.title || '')
+        setDescription(announcement?.description || '')
+        setSelectedClase(announcement?.clase || '')
+        setQuarter(announcement?.quarter || currentQuarter.id)
     }
 
     const handleCreate = () => {
@@ -55,9 +62,16 @@ const AnnouncementsForm = ({ open, setOpen, announcement, create, clases, succes
         setSuccess(false)
         setError(false)
         setDisable(false)
-        create({ token: user.access, announcement: {
+        create && create({ token: user.access, announcement: {
             title,
             description,
+            quarter,
+            clase: selectedClase,
+        } })
+        update && update({ token: user.access, announcementId: announcement.id, updates: {
+            title,
+            description,
+            quarter,
             clase: selectedClase,
         } })
     }

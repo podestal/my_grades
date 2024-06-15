@@ -8,6 +8,5 @@ export const getClasesIds = (assignatures) => {
 }
 
 export const getClasesForInstructors = (clases, clasesIds) => {
-    console.log('clases', clases)
     return clases?.filter( singleClase => clasesIds.indexOf(singleClase.id) >= 0)
 }

@@ -16,9 +16,6 @@ const AnnouncementsPage = () => {
     const {data: clases, isLoading: clasesLoading, isError: isClasesError, error: clasesError} = useClasesQuery(user)
     const {data: assignatures, isLoading: assignaturesLoading, isError: isAssignaturesError, error: assignaturesError} = useAssignaturesQueryByInstructor(user)
 
-    const [clase, setClase] = useState('')
-    const [quarter, setQuarter] = useState('')
-
     if (announcementsLoading) return <Loading />
 
     if (clasesLoading) return <Loading />
@@ -46,6 +43,7 @@ const AnnouncementsPage = () => {
         <Announcements 
             announcements={announcements}
             clases={clases.data}
+            assignatures={assignatures}
         />
     </div>
   )

@@ -4,6 +4,8 @@ const URL = 'http://127.0.0.1:8000/'
 // const URL = 'https://m-grades-api.vercel.app/'
 const PROD_URL = ''
 
+export const API_URL = 'http://127.0.0.1:8000/'
+
 // AUTH
 
 export const createUser = (userData) => axios.post(`${URL}auth/users/`, userData)
@@ -176,6 +178,11 @@ export const getAnnouncements = data => axios.get(`${URL}api/annunciations/?user
 .then(res => res.data)
 
 export const createAnnouncement = data => axios.post(`${URL}api/annunciations/`, data.announcement, {
+    headers: { Authorization: `JWT ${data.token}`}
+})
+.then(res => res.data)
+
+export const updateAnnouncement = data => axios.patch(`${URL}api/annunciations/${data.announcementId}/`, data.updates, {
     headers: { Authorization: `JWT ${data.token}`}
 })
 .then(res => res.data)
