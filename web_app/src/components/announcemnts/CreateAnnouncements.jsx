@@ -1,16 +1,18 @@
 import { Button, Dialog, DialogPanel } from "@tremor/react"
 import { useState } from "react"
 import AnnouncementsForm from "./AnnouncementsForm"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { createAnnouncement } from "../../api/api"
 import useAnnouncements from "../../hooks/useAnnouncements"
 import { getClasesIds, getClasesForInstructors } from "../../data/getClasesForInstructors"
 
 const CreateAnnouncements = ({clases, assignatures}) => {
 
+    const queryClient = useQueryClient()
     const [open, setOpen] = useState(false)
     const clasesIds = getClasesIds(assignatures)
     const filteredClases = getClasesForInstructors(clases, clasesIds)
+
 
     const { setAnnouncements } = useAnnouncements()
 
@@ -18,6 +20,7 @@ const CreateAnnouncements = ({clases, assignatures}) => {
         mutationFn: data => createAnnouncement(data),
         onSuccess: res => {
             setAnnouncements( prev => [...prev, res.data])
+            queryClient.invalidateQueries(['announcements'])
         },
         onError: err => console.log(err),
     })
