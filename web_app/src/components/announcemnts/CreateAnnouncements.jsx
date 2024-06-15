@@ -4,10 +4,13 @@ import AnnouncementsForm from "./AnnouncementsForm"
 import { useMutation } from "@tanstack/react-query"
 import { createAnnouncement } from "../../api/api"
 import useAnnouncements from "../../hooks/useAnnouncements"
+import { getClasesIds, getClasesForInstructors } from "../../data/getClasesForInstructors"
 
-const CreateAnnouncements = () => {
+const CreateAnnouncements = ({clases, assignatures}) => {
 
     const [open, setOpen] = useState(false)
+    const clasesIds = getClasesIds(assignatures)
+    const filteredClases = getClasesForInstructors(clases, clasesIds)
 
     const { setAnnouncements } = useAnnouncements()
 
@@ -29,6 +32,7 @@ const CreateAnnouncements = () => {
             open={open}
             setOpen={setOpen}
             create={createAnnouncementMutation}
+            clases={filteredClases}
         />
     </div>
   )

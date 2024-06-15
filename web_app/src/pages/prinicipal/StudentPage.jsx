@@ -5,17 +5,19 @@ import Students from '../../components/students/Students'
 import { styles } from '../../utils/styles'
 import { useStudentsQuery } from '../../hooks/useStudentsCRUD'
 import useAuth from '../../hooks/useAuth'
+import Loading from '../../utils/Loading'
+import Error from '../../utils/Error'
 
 const StudentPage = () => {
 
     // const { students, setStudents } = useStudent()
     const { user } = useAuth()
-    const { data: response, isLoading, isError } = useStudentsQuery(user)
+    const { data: response, isLoading, isError, error } = useStudentsQuery(user)
     const students = response && response.data
 
-    if (isLoading) return <p className='text-white flex w-full text-2xl h-[100vh] justify-center items-center'>Loading ...</p>
+    if (isLoading) return <Loading />
 
-    if (isError) return <p>Error</p>
+    if (isError) return <Error error={error}/>
     
 
   return (

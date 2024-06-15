@@ -6,6 +6,7 @@ import Category from '../../components/categories/Category'
 import { TextInput, Button, Dialog, DialogPanel } from '@tremor/react'
 import CreateCategory from '../../components/categories/CreateCategory'
 import Loading from '../../utils/Loading'
+import Error from '../../utils/Error'
 import CategoryChart from '../../components/categories/CategoryChart'
 import useCategories from '../../hooks/useCategories'
 import GetCategories from '../../components/getters/GetCategories'
@@ -20,9 +21,9 @@ const Categories = () => {
     const { user } = useAuth()
     const { data: categories, isLoading, isError, error, isSuccess } = useCategoriesQuery(user)
 
-    if (isLoading) return <p className='text-white flex w-full text-2xl h-[100vh] justify-center items-center'>Loading ...</p>
+    if (isLoading) return <Loading />
 
-    if (isError) return  <p className='text-white flex w-full text-2xl h-[100vh] justify-center items-center'>{error}</p>
+    if (isError) return  <Error error={error}/>
 
     if (isSuccess) return (
         <div className='min-h-[100vh] w-[90%]'>

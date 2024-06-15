@@ -15,6 +15,7 @@ import GenericCallout from '../../utils/GenericCallout'
 import { useNavigate } from 'react-router-dom'
 import { useQueryClient } from '@tanstack/react-query'
 import useStudent from '../../hooks/useStudents'
+import { getClasesIds } from '../../data/getClasesForInstructors'
 
 const data = [
     {id: 1, name: 'gggg'},
@@ -24,14 +25,16 @@ const data = [
 
 const Students = ({ students }) => {
 
-    const clasesIds = []
+    // const clasesIds = []
     const queryClient = useQueryClient()
     const { user } = useAuth()
     const instructorAssignatures = queryClient.getQueryData(['assignaturesByInstructor'])
-    instructorAssignatures && instructorAssignatures.map( assignature =>{
-        if (clasesIds.indexOf(assignature.clase.id) == -1) {
-            clasesIds.push(assignature.clase.id)
-        }})
+    // instructorAssignatures && instructorAssignatures.map( assignature =>{
+    //     if (clasesIds.indexOf(assignature.clase.id) == -1) {
+    //         clasesIds.push(assignature.clase.id)
+    //     }})
+
+    const clasesIds = getClasesIds(instructorAssignatures)
     const [clase, setClase] = useState('')
     const [studentName, setStudentName] = useState('')
     const currentQuarter = getCurrentQuarter()
@@ -58,7 +61,7 @@ const Students = ({ students }) => {
   return (
     <>
         <div className='flex w-[970px] my-2 mx-auto justify-center items-start gap-8'>
-            {console.log('students', students)}
+            {console.log('clasesIds', clasesIds)}
             {console.log('assignatures', assignatures)}
             <FilterStudent 
                 filter={studentName}

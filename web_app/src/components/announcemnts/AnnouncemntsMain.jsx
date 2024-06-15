@@ -1,6 +1,6 @@
 import useAnnouncements from "../../hooks/useAnnouncements"
 
-const AnnouncemntsMain = () => {
+const AnnouncemntsMain = ({ announcements }) => {
 
     const {announcements} = useAnnouncements()
 
