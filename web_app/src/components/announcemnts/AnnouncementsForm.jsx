@@ -19,13 +19,39 @@ const AnnouncementsForm = ({ open, setOpen, announcement, create, clases, succes
     const [description, setDescription] = useState(announcement && announcement.description || '')
     const [selectedClase, setSelectedClase] = useState(announcement && announcement.clase || '')
     const currentQuarter = getCurrentQuarter()
-    const [quarter, setQuarter] = useState(currentQuarter)
+    const [quarter, setQuarter] = useState(currentQuarter.id || '')
+
+    // VALIDATION
+    const [titleValidator, setTitleValidator] = useState(false)
+    const [descriptionValidator, setDescriptionValidator] = useState(false)
+    const [claseValidator, setClaseValidator] = useState(false)
+
 
     const handleClosePanel = () => {
         setOpen(false)
     }
 
     const handleCreate = () => {
+
+        setTitleValidator(false)
+        setDescriptionValidator(false)
+        setClaseValidator(false)
+
+        if (title.length == 0) {
+            setTitleValidator(true)
+            return
+        }
+
+        if (description.length == 0) {
+            setDescriptionValidator(true)
+            return
+        }
+
+        if (selectedClase.length == 0) {
+            setClaseValidator(true)
+            return
+        }
+
         setSuccess(false)
         setError(false)
         setDisable(false)
@@ -54,11 +80,16 @@ const AnnouncementsForm = ({ open, setOpen, announcement, create, clases, succes
                     label='Título'
                     value={title}
                     setter={setTitle}
+                    error={titleValidator}
+                    errorMsg={'Para crear el anuncio, un título es necesario'}
                 />
                 <InputText 
                     label='Descripción'
                     value={description}
                     setter={setDescription}
+                    textArea={true}
+                    error={descriptionValidator}
+                    errorMsg={'Para crear el anuncio, una descripción es necesaria'}
                 />
                 <Selector 
                     label={'Bimestre'}
@@ -71,6 +102,8 @@ const AnnouncementsForm = ({ open, setOpen, announcement, create, clases, succes
                     value={selectedClase}
                     setter={setSelectedClase}
                     items={clases}
+                    error={claseValidator}
+                    errorMsg={'Para crear el anuncio, una clase es necesaria'}
                 />
                 <Button disabled={disable} onClick={handleCreate} className="w-[160px] mx-auto mt-6" color="blue">{announcement ? 'Guardar' : 'Crear'}</Button>
             </DialogPanel>
