@@ -277,37 +277,41 @@ class GetAllAnnouncementAllDataSerializer(serializers.ModelSerializer):
         model = models.Annunciation
         fields = ['id', 'title', 'description', 'created_at', 'user', 'clase']
 
-class GetAnnouncementSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = models.Annunciation
-        fields = ['id', 'title', 'description', 'created_at', 'clase']
-
 class AnnunciationImagesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.AnnunciationImages
         fields = '__all__'
 
+class GetAnnouncementSerializer(serializers.ModelSerializer):
+
+    annunciation_imgs = AnnunciationImagesSerializer(many=True)
+    class Meta:
+        model = models.Annunciation
+        fields = ['id', 'title', 'description', 'created_at', 'clase', 'user', 'annunciation_imgs']
+
+
 class CreateAnnouncementSerializer(serializers.ModelSerializer):
 
-    annunciation_img = AnnunciationImagesSerializer(many=True, read_only = True)
+    
     # uploaded_images = serializers.ListField(
     #     child = serializers.FileField(max_length = 1000000, allow_empty_file = False, use_url = False),
     #     write_only = True
     # )
     class Meta:
         model = models.Annunciation
-        fields = ['id', 'title', 'description', 'created_at', 'clase', 'annunciation_img']
+        fields = ['id', 'title', 'description', 'created_at', 'clase']
 
     def create(self, validated_data):
         
-        uploaded_data = validated_data.pop('uploaded_images')
+        # uploaded_data = validated_data.pop('uploaded_images')
+        
+        # annunciation = models.Annunciation.objects.create(user_id = user_id, **validated_data)
+        # for uploaded_item in uploaded_data:
+        #     models.AnnunciationImages.create(annunciation=annunciation, image=uploaded_item)
+        # return annunciation
         user_id = self.context['user_id']
-        annunciation = models.Annunciation.objects.create(user_id = user_id, **validated_data)
-        for uploaded_item in uploaded_data:
-            models.AnnunciationImages.create(annunciation=annunciation, image=uploaded_item)
-        return annunciation
+        return models.Annunciation.objects.create(user_id = user_id, **validated_data)
 
 
 

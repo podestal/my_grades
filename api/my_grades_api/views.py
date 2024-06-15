@@ -243,6 +243,8 @@ class ParticipationViewSet(ModelViewSet):
 class AnnouncementViewSet(ModelViewSet):
 
     http_method_names = ['get', 'post', 'patch', 'delete']
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['user', 'clase']
     
     def get_permissions(self):
         if self.request.method in ['PATCH', 'POST', 'DELETE']:
@@ -257,7 +259,7 @@ class AnnouncementViewSet(ModelViewSet):
         return serializers.GetAnnouncementSerializer
     
     def get_queryset(self):
-        return models.Annunciation.objects.select_related('user', 'clase').filter(user_id=self.request.user.id)
+        return models.Annunciation.objects.select_related('user', 'clase').prefetch_related('annunciation_imgs').filter(user_id=self.request.user.id)
     
     def get_serializer_context(self):
         return { 'user_id': self.request.user.id }
@@ -274,7 +276,7 @@ class AnnunciationImagesViewSet(ModelViewSet):
     #     return {'order_id': self.kwargs['order_pk']}
 
     def get_queryset(self):
-        return models.AnnunciationImages.objects.filter(annunciation_id=self.kwargs['annunciation_pk'])
+        return models.AnnunciationImages.objects.filter(annunciation_id=self.kwargs['annunciations_pk'])
 
     
 class QuarterGradeViewSet(ModelViewSet):
