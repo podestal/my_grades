@@ -252,6 +252,7 @@ const DashboardTable = ({ studentsData, columns, selectedCategory, selectedCompe
                     student={selectedStudent}
                     activities={activities}
                     studentId={studentId}
+                    quarter={quarter}
                 />
                 : 
                 <UpdateGradeModal 

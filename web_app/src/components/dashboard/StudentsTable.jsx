@@ -57,7 +57,6 @@ const StudentsTable = ({ activities, assignature, categories }) => {
     /> 
     : 
     <div className='w-[95%]'>
-        {console.log('activitiesDict', activitiesDict)}
         <DashboardFilters 
             assignatureArea={assignature.area}
             filter={filter}

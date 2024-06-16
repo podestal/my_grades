@@ -42,11 +42,6 @@ const Students = ({ students }) => {
 
     if (isError) return <Error error={isError}/>
 
-    // if (isSuccess) {
-    //     console.log('Success assignatures')
-    //     clasesIds = getClasesIds(assignatures.data)
-    // }
-
     const handleOpenReports = () => {
         setReportError(false)
         if (clase.length == 0) {
@@ -59,8 +54,6 @@ const Students = ({ students }) => {
   return (
     <>
         <div className='flex w-[970px] my-2 mx-auto justify-center items-start gap-8'>
-            {console.log('clasesIds', clasesIds)}
-            {console.log('assignatures', assignatures)}
             <FilterStudent 
                 filter={studentName}
                 setFilter={setStudentName}

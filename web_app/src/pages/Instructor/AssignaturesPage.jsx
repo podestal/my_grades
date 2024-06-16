@@ -11,7 +11,6 @@ import Error from '../../utils/Error'
 const AssignaturesPage = () => {
 
   const { user } = useAuth()
-  console.log('user',user)
   const {data: assignatures, isLoading, isError, error} = useAssignaturesQueryByInstructor(user)
 
   if (isLoading) return <Loading />
@@ -20,7 +19,6 @@ const AssignaturesPage = () => {
 
   return (
     <div className='text-white min-h-[100vh] mt-[5rem] w-full relative'>
-      {console.log('user', user)}
       <h2 className={`my-12 ${styles.gradientTitle}`}>Cursos</h2>
       <Assignatures 
         assignatures={assignatures}

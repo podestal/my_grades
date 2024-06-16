@@ -11,10 +11,11 @@ const alphabeticalRepresentation = {
     '0': 'NA'
 }
 
-const StudentSummaryModal = ({ open, setOpen, student, setStudentSummary, activities }) => {
+const StudentSummaryModal = ({ open, setOpen, student, setStudentSummary, activities, quarter }) => {
 
     let unattendance = 0
     let late = 0
+
     student?.atendances?.map( attendance => {
         if (attendance.status == 'N') {
             unattendance++
@@ -22,6 +23,14 @@ const StudentSummaryModal = ({ open, setOpen, student, setStudentSummary, activi
             late++
         }
     })
+
+    let participations = 0
+    student?.participations
+        ?.filter( participation => participation?.quarter == quarter)
+        ?.map( participation => {
+            participations++
+    })
+
     const colorsDictionary = {
         'A': 'yellow-300',
         'AD': 'green-500',
@@ -83,7 +92,7 @@ const StudentSummaryModal = ({ open, setOpen, student, setStudentSummary, activi
         open={open}
         onClose={handleClosePanel}
     >
-        {console.log('gradesData', gradesData)}
+        {console.log('quarter', quarter)}
         <DialogPanel className="relative flex flex-col gap-4 items-center">
             <CloseButton handleClose={handleClosePanel}/>
             <h2 className="text-white text-4xl text-center font-poppins">Resumen de Progreso</h2>
@@ -117,7 +126,7 @@ const StudentSummaryModal = ({ open, setOpen, student, setStudentSummary, activi
                     <div className="flex flex-col gap-4">
                         <span className={`${unattendance == 0 ? 'text-green-500' : 'text-red-500'} ml-2`}>{unattendance}</span>
                         <span className={`${late == 0 ? 'text-green-500' : 'text-amber-500'} ml-2`}>{late}</span>
-                        <p className="text-green-500 ml-2">4</p>
+                        <p className="text-green-500 ml-2">{participations}</p>
                     </div>
                 </div>
 
