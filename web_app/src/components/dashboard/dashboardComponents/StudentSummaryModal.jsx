@@ -115,8 +115,8 @@ const StudentSummaryModal = ({ open, setOpen, student, setStudentSummary, activi
                         <p>Participaciones:</p>
                     </div>
                     <div className="flex flex-col gap-4">
-                        <span className='text-red-500 ml-2'>{unattendance}</span>
-                        <span className='text-amber-500 ml-2'>{late}</span>
+                        <span className={`${unattendance == 0 ? 'text-green-500' : 'text-red-500'} ml-2`}>{unattendance}</span>
+                        <span className={`${late == 0 ? 'text-green-500' : 'text-amber-500'} ml-2`}>{late}</span>
                         <p className="text-green-500 ml-2">4</p>
                     </div>
                 </div>
