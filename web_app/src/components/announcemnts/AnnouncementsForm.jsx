@@ -9,6 +9,7 @@ import {getCurrentQuarter} from "../../data/currentQuarter"
 import { quartersData } from "../../data/quarters"
 import { getClasesForInstructors } from "../../data/getClasesForInstructors"
 import GenericCallout from "../../utils/GenericCallout"
+import AnnouncementImgs from "./AnnouncementImgs"
 
 const AnnouncementsForm = ({ open, setOpen, announcement, create, update, clases, success, setSuccess, error, setError, disable, setDisable }) => {
 
@@ -17,7 +18,7 @@ const AnnouncementsForm = ({ open, setOpen, announcement, create, update, clases
 
     const [title, setTitle] = useState(announcement?.title || '')
     const [description, setDescription] = useState(announcement?.description || '')
-    const [selectedClase, setSelectedClase] = useState(announcement?.clase || '')
+    const [selectedClase, setSelectedClase] = useState(announcement?.clase?.id || '')
     const currentQuarter = getCurrentQuarter()
     const [quarter, setQuarter] = useState(announcement?.quarter || currentQuarter.id)
 
@@ -119,6 +120,11 @@ const AnnouncementsForm = ({ open, setOpen, announcement, create, update, clases
                     error={claseValidator}
                     errorMsg={'Para crear el anuncio, una clase es necesaria'}
                 />
+                {announcement &&
+                <AnnouncementImgs 
+                    images={announcement.annunciation_imgs}
+                    form={true}
+                />}
                 <Button disabled={disable} onClick={handleCreate} className="w-[160px] mx-auto mt-6" color="blue">{announcement ? 'Guardar' : 'Crear'}</Button>
             </DialogPanel>
         </Dialog>

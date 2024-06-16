@@ -187,6 +187,17 @@ export const updateAnnouncement = data => axios.patch(`${URL}api/annunciations/$
 })
 .then(res => res.data)
 
+// ANNOUNCEMENTS IMGS
+
+export const createAnnouncementImg = async data => axios.post(`${URL}api/annunciations/${data.announcementId}/images/`, data.announcementImg, {
+    headers: { Authorization: `JWT ${data.token}`, "Content-Type": 'multipart/form-data'}
+})
+
+// export const createOrderReceipt = async data => baseAxios.post(`${ORDERS}${data.orderId}/receipts/`, data.image, {
+//     headers: { Authorization: `JWT ${data.access}`}
+// })
+// .then(res => res.data)
+
 // QUARTER GRADE
 
 export const createQuarterGrade = data => axios.post(`${URL}api/averages/`, data.quarterGrade, {

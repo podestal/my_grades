@@ -5,11 +5,18 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { createAnnouncement } from "../../api/api"
 import useAnnouncements from "../../hooks/useAnnouncements"
 import { getClasesIds, getClasesForInstructors } from "../../data/getClasesForInstructors"
+import CloseButton from "../../utils/CloseButton"
+import CreateImageForm from "./CreateImageForm"
 
 const CreateAnnouncements = ({clases, assignatures}) => {
 
     const queryClient = useQueryClient()
+
+    // MODAL CONTROLLERS
     const [open, setOpen] = useState(false)
+    const [openConfirm, setOpenConfirm] = useState(false)
+    const [openImgForm, setOpenImgForm] = useState(false)
+
     const clasesIds = getClasesIds(assignatures)
     const filteredClases = getClasesForInstructors(clases, clasesIds)
 
@@ -17,6 +24,9 @@ const CreateAnnouncements = ({clases, assignatures}) => {
     const [error, setError] = useState(false)
     const [success, setSuccess] = useState(false)
     const [disable, setDisable] = useState(false)
+
+    //NEW ANNOUNCMENT
+    const [newAnnouncement, setNewAnnouncement] = useState({})
 
     const { setAnnouncements } = useAnnouncements()
 
@@ -28,11 +38,15 @@ const CreateAnnouncements = ({clases, assignatures}) => {
             setError(false)
             setSuccess(true)
             setDisable(true)
+            setOpen(false)
+            setOpenConfirm(true)
+            setNewAnnouncement(res)
         },
         onError: err => {
             setError(true)
             setSuccess(false)
             setDisable(false)
+            setOpenConfirm(false)
         },
     })
 
@@ -53,6 +67,26 @@ const CreateAnnouncements = ({clases, assignatures}) => {
             setError={setError}
             disable={disable}
             setDisable={setDisable}
+        />
+        <Dialog
+            open={openConfirm}
+            onClose={() => setOpenConfirm(false)}
+        >
+            <DialogPanel className="flex flex-col gap-6">
+                <CloseButton handleClose={() => setOpenConfirm(false)}/>
+                <p className="text-white font-montserrat text-center text-2xl">Su anuncio ha sido creado con éxito, desea adjuntar imágenes?</p>
+                <div className="w-full flex justify-center items-center gap-12 my-8">
+                    <Button onClick={() => {
+                        setOpenConfirm(false)
+                        setOpenImgForm(true)}} className="px-10 font-bold" size="xl" color="blue">Si</Button>
+                    <Button onClick={() => setOpenConfirm(false)} className="px-10 font-bold" size="xl" color="red">No</Button>
+                </div>
+            </DialogPanel>
+        </Dialog>
+        <CreateImageForm 
+            open={openImgForm}
+            setOpenImgForm={setOpenImgForm}
+            announcement={newAnnouncement}
         />
     </div>
   )

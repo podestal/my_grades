@@ -277,15 +277,26 @@ class GetAllAnnouncementAllDataSerializer(serializers.ModelSerializer):
         model = models.Annunciation
         fields = ['id', 'title', 'quarter', 'description', 'created_at', 'user', 'clase']
 
-class AnnunciationImagesSerializer(serializers.ModelSerializer):
+class CreateAnnunciationImagesSerializer(serializers.ModelSerializer):
 
+    class Meta:
+        model = models.AnnunciationImages
+        fields = ['image']
+
+    def create(self, validated_data):
+        annunciation_id = self.context['annunciation_id']
+        return models.AnnunciationImages.objects.create(annunciation_id=annunciation_id, **validated_data)
+
+class GetAnnunciationImagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.AnnunciationImages
         fields = '__all__'
 
 class GetAnnouncementSerializer(serializers.ModelSerializer):
 
-    annunciation_imgs = AnnunciationImagesSerializer(many=True)
+    annunciation_imgs = GetAnnunciationImagesSerializer(many=True)
+    clase = GetSimpleClaseSerializer()
+
     class Meta:
         model = models.Annunciation
         fields = ['id', 'title', 'description', 'quarter', 'created_at', 'clase', 'user', 'annunciation_imgs']

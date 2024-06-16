@@ -268,14 +268,14 @@ class AnnouncementViewSet(ModelViewSet):
     
 class AnnunciationImagesViewSet(ModelViewSet):
     
-    serializer_class=serializers.AnnunciationImagesSerializer
-    # def get_serializer_class(self):
-    #     if self.request.method == 'POST':
-    #         return serializers.CreateOrderReceiptSerializer
-    #     return serializers.OrderReceiptSerializer
+    # serializer_class=serializers.AnnunciationImagesSerializer
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return serializers.CreateAnnunciationImagesSerializer
+        return serializers.GetAnnunciationImagesSerializer
 
-    # def get_serializer_context(self):
-    #     return {'order_id': self.kwargs['order_pk']}
+    def get_serializer_context(self):
+        return {'annunciation_id': self.kwargs['annunciations_pk']}
 
     def get_queryset(self):
         return models.AnnunciationImages.objects.filter(annunciation_id=self.kwargs['annunciations_pk'])
