@@ -42,6 +42,7 @@ export const getAssignaturesByClase = data => axios.get(`${URL}api/tutorAssignat
 export const getAssignaturesBySchool = data => axios.get(`${URL}api/assignatures/?clase=&Instructor=&school=${data.schoolId}`, {
     headers: { Authorization: `JWY ${data.access}` }
 })
+.then(res => res.data)
 
 // ACTIVITIES
 

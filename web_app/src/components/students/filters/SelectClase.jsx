@@ -9,6 +9,7 @@ const SelectClase = ({ clases, clase, setClase, filter }) => {
 
   return (
     <div className="flex flex-col  items-center">
+        {console.log('filter',filter)}
         <Selector 
             label={'Clase'}
             value={clase}

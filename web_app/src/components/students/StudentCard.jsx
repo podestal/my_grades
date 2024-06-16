@@ -13,8 +13,8 @@ const StudentCard = ({ student, assignatures, quarter, clase }) => {
         />
         <div>
         {assignatures
-        .filter(assignature => assignature?.clase.id == clase)
-        .map(assignature => (
+        ?.filter(assignature => assignature?.clase.id == clase)
+        ?.map(assignature => (
             <Averages 
                 key={assignature.id}
                 averages={student.averages

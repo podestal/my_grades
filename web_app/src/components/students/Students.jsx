@@ -16,38 +16,36 @@ import { useNavigate } from 'react-router-dom'
 import { useQueryClient } from '@tanstack/react-query'
 import useStudent from '../../hooks/useStudents'
 import { getClasesIds } from '../../data/getClasesForInstructors'
-
-const data = [
-    {id: 1, name: 'gggg'},
-    {id: 2, name: 'tttt'},
-    {id: 1, name: 'gggg'},
-]
+import { useAssignaturesQueryByInstructor } from '../../tanstack/Assignatures'
 
 const Students = ({ students }) => {
 
     // const clasesIds = []
     const queryClient = useQueryClient()
     const { user } = useAuth()
-    const instructorAssignatures = queryClient.getQueryData(['assignaturesByInstructor'])
-    // instructorAssignatures && instructorAssignatures.map( assignature =>{
-    //     if (clasesIds.indexOf(assignature.clase.id) == -1) {
-    //         clasesIds.push(assignature.clase.id)
-    //     }})
-
-    const clasesIds = getClasesIds(instructorAssignatures)
+    const {data: assignatures, isLoading: isLoadingAssignatures, isError: isErrorAssignatures, error: assignaturesError, isSuccess} = user.profile == 'P' ? useAssignaturesQuery(user) : useAssignaturesQueryByInstructor(user)
+    let clasesIds = getClasesIds(assignatures)
     const [clase, setClase] = useState('')
     const [studentName, setStudentName] = useState('')
     const currentQuarter = getCurrentQuarter()
     const [quarter, setQuarter] = useState(currentQuarter.id)
     const {data: clases, isLoading: clasesLoading, isError} = useClasesQuery(user)
-    const {data: assignatures, isLoading: assignaturesLoading, isSuccess: assignaturesSuccess} = user.profile == 'P' && useAssignaturesQuery(user)
     const [reportError, setReportError] = useState(false)
 
     const navigator = useNavigate()
 
-    if (clasesLoading || assignaturesLoading) return <p className='text-white flex w-full text-2xl h-[100vh] justify-center items-center'>Loading ...</p>
+    if (isLoadingAssignatures) return <Loading />
 
-    if (isError) return <Error />
+    if (clasesLoading) return <Loading />
+
+    if (isErrorAssignatures) return <Error error={assignaturesError}/>
+
+    if (isError) return <Error error={isError}/>
+
+    // if (isSuccess) {
+    //     console.log('Success assignatures')
+    //     clasesIds = getClasesIds(assignatures.data)
+    // }
 
     const handleOpenReports = () => {
         setReportError(false)
@@ -90,7 +88,7 @@ const Students = ({ students }) => {
             <StudentCard 
                 key={student.id}
                 student={student}
-                assignatures={assignatures ? assignatures.data : instructorAssignatures}
+                assignatures={assignatures}
                 quarter={quarter}
                 clase={clase}
             />
