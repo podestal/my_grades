@@ -1,7 +1,7 @@
 import { Text , View} from "react-native"
 import useAssignatures from "../../hooks/useAssignatures"
 import { useMutation } from "@tanstack/react-query"
-import { getAssignatures } from "../../api/api"
+import { getAssignaturesByInstructor, getAssignatures } from "../../api/api"
 import useAuth from "../../hooks/useAuth"
 import Assignature from "./Assignature"
 import List from "../utils/List"
@@ -14,7 +14,6 @@ const Assignatures = () => {
 
     const {assignatures, setAssignatures} = useAssignatures()
     const { user } = useAuth()
-
     const {mutate: getAssignaturesMutation, isPending, isError} = useMutation({
         mutationFn: (data) => getAssignatures(data),
         onSuccess: res => setAssignatures(res.data)
@@ -22,6 +21,7 @@ const Assignatures = () => {
 
     const getter = () => {
         getAssignaturesMutation({ token: user.access })
+        // getAssignaturesMutation({ token: user.access, instructorId: user.instructor.id })
     }
 
     useEffect(() => {
@@ -37,6 +37,7 @@ const Assignatures = () => {
 
     return (
         <>
+            {console.log('user assignatures', user)}
             {assignatures.length > 0 
             ?
             <NonScrollableContainer>

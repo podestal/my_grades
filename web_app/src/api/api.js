@@ -173,7 +173,7 @@ export const updateParticipation = data => axios.patch(`${URL}api/participations
 
 // ANNOUNCEMENTS
 
-export const getAnnouncements = data => axios.get(`${URL}api/annunciations/?user=${data.userId}&clase=`, {
+export const getAnnouncements = data => axios.get(`${URL}api/annunciations/?ordering=-created_at`, {
     headers: { Authorization: `JWT ${data.token}` }
 })
 .then(res => res.data)

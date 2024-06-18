@@ -7,7 +7,7 @@ import { useState } from "react"
 import { useNavigation } from "@react-navigation/native"
 import useAuth from "../../hooks/useAuth"
 import { useMutation } from "@tanstack/react-query"
-import { login, getUser } from "../../api/api"
+import { login, getUser, getInstructor } from "../../api/api"
 import Loading from "../utils/Loading"
 import Error from "../utils/Error"
 
@@ -17,13 +17,21 @@ const Login = () => {
     const [password, setPassword] = useState("")
     const [errorMsh, setErrorMsg] = useState("")
 
-    const navigator = useNavigation()
     const { setUser } = useAuth()
+    let token = ''
+
+    const { mutate: getInstructorMutation } = useMutation({
+        mutationFn: data => getInstructor(data),
+        onSuccess: res => {
+          setUser( prev => ({ ...prev, instructor: res.data[0] }))
+        }
+      })
 
     const {mutate: getUserMutation} = useMutation({
         mutationFn: data => getUser(data),
         onSuccess: res => {
             setUser(( prev => ({ ...prev, ...res.data })))
+            getInstructorMutation({ token: token})
         },
         onError: err => console.log(err)
     })
@@ -31,7 +39,8 @@ const Login = () => {
     const {mutate: loginMutation, isPending} = useMutation({
         mutationFn: data => login(data),
         onSuccess: res => {
-            setUser({ isAuthenticated: true, ...res.data })
+            token = res.data.access
+            setUser({isAuthenticated: true, ...res.data})
             getUserMutation({ token: res.data.access })
             setErrorMsg('')
             setUsername('')

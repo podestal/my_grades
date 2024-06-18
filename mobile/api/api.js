@@ -17,6 +17,10 @@ export const getProfile = (data) => axios.get(`${URL}api/instructors/`, {
     headers: { Authorization: `JWT ${data.token}` }
 })
 
+export const getInstructor = (data) => axios.get(`${URL}api/instructors/`, {
+    headers: { Authorization: `JWT ${data.token}` }
+})
+
 // ASSIGNATURES
 
 export const getAssignatures = data => axios.get(`${URL}api/assignatures/` ,{
@@ -25,6 +29,10 @@ export const getAssignatures = data => axios.get(`${URL}api/assignatures/` ,{
 
 export const getAssignaturesByClase = data => axios.get(`${URL}api/tutorAssignatures/?clase=${data.claseId}`, {
     headers: { Authorization: `JWY ${data.access}` }
+})
+
+export const getAssignaturesByInstructor = data => axios.get(`${URL}api/assignatures/?clase=&Instructor=${data.instructorId}&school=` ,{
+    headers: { Authorization: `JWT ${data.token}` }
 })
 
 // ASIGNMENTS

@@ -243,8 +243,10 @@ class ParticipationViewSet(ModelViewSet):
 class AnnouncementViewSet(ModelViewSet):
 
     http_method_names = ['get', 'post', 'patch', 'delete']
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_fields = ['user', 'clase']
+    ordering_fields = ['created_at']
+
     
     def get_permissions(self):
         if self.request.method in ['PATCH', 'POST', 'DELETE']:

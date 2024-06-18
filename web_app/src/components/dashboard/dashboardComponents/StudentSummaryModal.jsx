@@ -142,6 +142,7 @@ const StudentSummaryModal = ({ open, setOpen, student, setStudentSummary, activi
                     yAxisWidth={60}
                     onValueChange={(v) => console.log(v)}
                     showXAxis={false}
+                    showAnimation={true}
                 />
         </DialogPanel>
     </Dialog>
