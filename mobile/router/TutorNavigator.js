@@ -46,6 +46,13 @@ const TutorNavigator = () => {
                 headerTitle: 'Asistencias'
             }}
         />
+        {/* <Stack.Screen 
+            name='TutorActivitySummary'
+            component={TutorAttendances}
+            options={{
+                headerTitle: 'Actividad'
+            }}
+        /> */}
     </Stack.Navigator>
   )
 }

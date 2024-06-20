@@ -251,7 +251,7 @@ class GetSimpleActivitySerializer(serializers.ModelSerializer):
 class GetGradeSerializer(serializers.ModelSerializer):
 
     student = GetSimpleStudentSerializer()
-    activity = GetSimpleActivitySerializer()
+    activity = GetActivitySerializer()
 
     class Meta:
         model = models.Grade

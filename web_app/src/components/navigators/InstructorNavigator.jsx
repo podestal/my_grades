@@ -19,10 +19,10 @@ const InstructorNavigator = () => {
             <Icon color="violet" icon={RiUser2Line} size="md"/>
             <p className='text-white font-bold text-md hover:text-slate-200'>Estudiantes</p>
         </Link>
-        <Link className='flex flex-col w-[75%] justify-center items-center gap-2'  to={'/announcements'}>
+        {/* <Link className='flex flex-col w-[75%] justify-center items-center gap-2'  to={'/announcements'}>
             <Icon color="violet" icon={RiArticleLine} size="md"/>
             <p className='text-white font-bold text-md hover:text-slate-200'>Anuncios</p>
-        </Link>
+        </Link> */}
         <Link className='flex flex-col w-[75%] justify-center items-center gap-2' to={'/categories'}>
             <Icon color="violet" icon={RiBubbleChartLine} size="md"/>
             <p className='text-white font-bold text-md hover:text-slate-200'>Categorías</p>

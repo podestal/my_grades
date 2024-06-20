@@ -58,11 +58,11 @@ const Students = ({ clases, schoolId }) => {
   return (
     <NonScrollableContainer>
         <View>
-            {/* <Select 
+            <Select 
                 title={'Clase'}
                 setter={setClase}
                 data={clases}
-            /> */}
+            />
             <Input
                 label={'Buscar estudiante ...'}
                 value={name}

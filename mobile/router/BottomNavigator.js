@@ -54,10 +54,10 @@ const BottonNavigator = () => {
                 tabBarIcon: () => (
                     <Ionicons name='analytics-outline' size={20} />
             )}}/>
-            {user.profile == 'A' && <Tab.Screen name='attendance' component={AttendanceNavigator} options={{ title: 'Asistencia' ,
+            <Tab.Screen name='attendance' component={AttendanceNavigator} options={{ title: 'Asistencia' ,
                 tabBarIcon: () => (
                     <Ionicons name='time-outline' size={20} />
-            )}}/>}   
+            )}}/> 
         </Tab.Navigator>
         }
     </>

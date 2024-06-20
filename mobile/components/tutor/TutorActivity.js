@@ -4,16 +4,22 @@ import Title from "../utils/Title"
 const TutorActivity = ({ data: grade }) => {
   return (
     <View style={styles.container}>
+        {console.log('grade', grade)}
         <View style={styles.activityContainer}>
             <ScrollView>
                 <Text style={styles.title}>{grade?.activity?.title}</Text>
             </ScrollView>
             <Text style={styles.calification}>{grade?.calification}</Text>
+            
         </View>
         <View style={{marginVertical: 12}}>
             <Text>Observaciones:</Text>
             <Text>{grade?.observations}</Text>
-        </View>
+            <Text>Fecha de entrega</Text>
+            <Text>{grade?.activity?.due_date}</Text>
+            <Text>Descripción de la actividad</Text>
+            <Text>{grade?.activity?.description}</Text>
+        </View> 
     </View>
   )
 }

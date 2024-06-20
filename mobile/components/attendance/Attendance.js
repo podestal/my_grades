@@ -33,10 +33,13 @@ const Attendance = () => {
     }
 
     useEffect(() => {
-        if (user.profile == 'I' && clases.length == 0) {
-            setClases(filteredClases)
-        }
-        else if (user.profile == 'A' && clases.length == 0) {
+        // if (user.profile == 'I' && clases.length == 0) {
+        //     setClases(filteredClases)
+        // }
+        // else if (user.profile == 'A' && clases.length == 0) {
+        //     getter()
+        // }
+        if (clases.length == 0 ) {
             getter()
         }
     }, [])
@@ -46,7 +49,8 @@ const Attendance = () => {
     if (isError) return <Error retry={getter}/>
 
   return (
-    <>
+    <>  
+        {console.log('clases', clases)}
         <Students 
             clases={clases}
             schoolId={user.school}

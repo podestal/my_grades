@@ -32,6 +32,7 @@ const UpdateActivity = ({ assignature, activity, editActivity, setEditActivity }
         onSuccess: res => {
             console.log('Activity update response',res.data)
             setDisable(true)
+            queryClient.invalidateQueries(['activities'])
             queryClient.setQueryData(['activities'], prevCats => prevCats.map( prevCat => {
                 if (prevCat.id == activity.id) {
                     prevCat = {...prevCat, ...res.data}

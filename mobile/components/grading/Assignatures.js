@@ -9,6 +9,7 @@ import NonScrollableContainer from "../utils/NonScrollableContainer"
 import Loading from "../utils/Loading"
 import Error from "../utils/Error"
 import { useEffect } from "react"
+import { useQuery } from "@tanstack/react-query"
 
 const Assignatures = () => {
 
@@ -37,12 +38,12 @@ const Assignatures = () => {
 
     return (
         <>
-            {console.log('user assignatures', user)}
+            {console.log('user assignatures', assignatures)}
             {assignatures.length > 0 
             ?
             <NonScrollableContainer>
                 <List 
-                    data={assignatures}
+                    data={assignatures?.filter(assignature => assignature.title == 'Aritmética' || assignature.title == 'Algebra')}
                     DetailComponent={Assignature}
                 />
             </NonScrollableContainer>

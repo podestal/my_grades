@@ -12,7 +12,8 @@ const TutorAssignature = ({ data: assignature, extraData: student }) => {
   return (
     <Pressable onPress={handlePress} style={styles.pressable}>
         <Title text={assignature.title}/>
-        <Text style={styles.subTitle}>Promedio: C</Text>
+        <Text style={styles.subTitle}>Promedio: NA</Text>
+        <Text style={styles.subTitle}>Participaciones: 3</Text>
     </Pressable>
   )
 }
@@ -32,6 +33,6 @@ const styles = StyleSheet.create({
         fontSize: 22,
         textAlign: 'center',
         marginVertical: 8,
-        fontWeight: 'bold'
+
     },
 })
