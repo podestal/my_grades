@@ -18,6 +18,8 @@ import Contact from './pages/Contact'
 import GetData from './components/getters/GetData'
 import StudentPage from './pages/prinicipal/StudentPage'
 import ReportPage from './pages/prinicipal/ReportPage'
+import Careers from './pages/landing/Careers'
+import Privacy from './pages/landing/Privacy'
 
 const App = () => {
 
@@ -38,6 +40,8 @@ const App = () => {
         <Route path='/' element={<Home />}/>
         <Route path='login' element={<Login />}/>
         <Route path='contact' element={<Contact />}/>
+        <Route path='careers' element={<Careers />}/>
+        <Route path='privacy' element={<Privacy />}/>
         <Route element={<PersisLogin />}>
           <Route path='main' element={<AssignaturesPage />}/>
           <Route path='categories' element={<Categories />}/>

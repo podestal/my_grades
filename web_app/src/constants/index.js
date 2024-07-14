@@ -2,31 +2,34 @@ export const name = 'Edumétrica'
 import { RiLockFill, RiGlobalLine, RiDragDropFill, RiCustomerService2Fill } from "@remixicon/react"
 
 import academicProgress from '../assets/academic-progress.png'
-
+import automationLanding from '../assets/automation-landing.png'
+import visualizationLanding from '../assets/visualization-landing.png'
+import customizableLanding from '../assets/customizable-landing.png'
+import accessLanding from '../assets/access-landing.png'
 
 export const features = [
     {
         title: 'Acceso 24/7 y Notificaciones',
         description: 'Los padres pueden iniciar sesión en la aplicación utilizando sus credenciales proporcionadas para ver la asistencia, calificaciones, actividades y anuncios de su hijo las 24 horas del día, los 7 días de la semana. Ademéas envío de notificaciones sobre cualquier actualización relacionada con la asistencia, actividades, calificaciones y anuncios.',
-        imgUrl: academicProgress,
+        imgUrl: accessLanding,
         styles: 'flex-row-reverse',
     },
     {
         title: 'Automatización del Proceso de Calificación',
         description: 'La aplicación cuenta con herramientas avanzadas que automatizan el proceso de calificación, permitiendo a los maestros ahorrar tiempo y reducir errores. Los maestros pueden ingresar los resultados de las evaluaciones y la aplicación se encarga de calcular automáticamente las calificaciones finales, generando informes detallados y precisos.',
-        imgUrl: academicProgress,
+        imgUrl: automationLanding,
         styles: ''
     },
     {
         title: 'Visualización de Información Académica',
         description: 'La aplicación ofrece una visualización clara y detallada de la información académica de los estudiantes. Los maestros pueden acceder a gráficos, tablas y reportes que muestran el rendimiento y progreso de los estudiantes de manera comprensible. Esta funcionalidad ayuda a identificar áreas de mejora y a tomar decisiones informadas sobre el proceso de enseñanza.',
-        imgUrl: academicProgress,
+        imgUrl: visualizationLanding,
         styles: 'flex-row-reverse',
     },
     {
         title: 'Altamente Personalizable',
         description: 'Los maestros tienen la capacidad de personalizar la aplicación para adaptarse a sus métodos de enseñanza y evaluación. Pueden crear y gestionar actividades específicas, definir categorías de evaluación, y configurar anuncios personalizados. Esta flexibilidad permite a los maestros diseñar un entorno de aprendizaje que se ajuste a las necesidades individuales de sus estudiantes.',
-        imgUrl: academicProgress,
+        imgUrl: customizableLanding,
         styles: '',
     },
 ]
@@ -105,11 +108,11 @@ export const footerLinks = [
         links: [
             {
                 name: 'Carreras',
-                link: '/#faq'
+                link: '/careers'
             },
             {
                 name: 'Privacidad',
-                link: '/#contact'
+                link: '/privacy'
             },
 
         ]

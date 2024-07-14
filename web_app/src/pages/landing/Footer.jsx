@@ -33,7 +33,13 @@ const Footer = () => {
                                     className={`font-normal font-poppins text-[16px] text-slate-400 hover:text-white leading-[24px] text-dimWhite hover:text-secondary cursor-pointer
                                     ${idx !== footerLink.links.length - 1 ? 'mb-4' : 'mb-0'}`}
                                 >
-                                    {link.name}
+                                    {/* {link.name} */}
+                                    {footerLink.title == 'Empresa' 
+                                    ? 
+                                    <Link to={link.link}>{link.name}</Link> 
+                                    : 
+                                    <p>{link.name}</p>
+                                    } 
                                 </li>
                             ))}
                         </ul>
