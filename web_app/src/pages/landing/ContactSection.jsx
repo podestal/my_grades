@@ -1,7 +1,7 @@
-import { TextInput } from "@tremor/react"
+import { TextInput, Textarea, Callout } from "@tremor/react"
 import ubication from '../../assets/contact-ubication.png'
 import emailjs from '@emailjs/browser'
-import { useRef } from "react"
+import { useRef, useState } from "react"
 
 const ContactSection = () => {
 
@@ -11,15 +11,83 @@ const ContactSection = () => {
     const phone = useRef(null)
     const city = useRef(null)
     const school = useRef(null)
+    const [message, setMessage] = useState('')
+
+    // ERROR HANDLING
+    const [nameError, setNameError] = useState(false)
+    const [emailError, setEmaiError] = useState(false)
+    const [phoneError, setPhoneError] = useState(false)
+    const [cityError, setCityError] = useState(false)
+    const [schoolError, setSchoolError] = useState(false)
+    const [messageError, setMessageError] = useState(false)
+
+    const [success, setSuccess] = useState(false)
+    const [error, setError] = useState(false)
+    const [disable, setDisable] = useState(false)
 
     const handleSubmit = e => {
         e.preventDefault()
-        console.log('hola')
-        emailjs.sendForm('service_uoi14fu', 'template_v7o1xlg', form.current, {
+        setNameError(false)
+        setEmaiError(false)
+        setPhoneError(false)
+        setCityError(false)
+        setSchoolError(false)
+        setMessageError(false)
+
+        setSuccess(false)
+        setError(false)
+
+        if (form.current === null) {
+            return
+        }
+    
+        if (name.current?.value.length === 0) {
+            setNameError(true)
+            return
+        }
+    
+        if (email.current?.value.length === 0) {
+            setEmaiError(true)
+            return
+        }
+    
+        if (phone.current?.value.length === 0) {
+            setPhoneError(true)
+            return
+        }
+    
+        if (city.current?.value.length === 0) {
+            setCityError(true)
+            return
+        }
+    
+        if (school.current?.value.length === 0) {
+            setSchoolError(true)
+        }
+    
+        if (message.length === 0) {
+            setMessageError(true)
+        }
+
+        emailjs.sendForm('service_uoi14fu', 'template_qzfjt0u', form.current, {
             publicKey: 'JWOBBVI0xbGxiZOd0'
         })
-        .then( res => console.log('success'))
-        .catch( err => console.log('err'))
+        .then( res => {
+            form.current?.reset()
+            setMessage('')
+            setSuccess(true)
+            setError(false)
+            setTimeout(() => {
+                setSuccess(false)
+            }, 5000)
+        })
+        .catch( err => {
+            setSuccess(false)
+            setError(true)
+            setTimeout(() => {
+                setError(false)
+            }, 5000)
+        })
     }
 
   return (
@@ -31,7 +99,9 @@ const ContactSection = () => {
             <p className='font-poppins font-normal text-gray-400 text-[18px] leading-[30px] mt-4'>Estamos ubicados en Urb Luz y Fuerza D-8 Mollendo-Islay-Arequipa</p>
             <img src={ubication} alt="" className="rounded-[35px] my-8" />
         </div>
-        <div className='flex-1 flex justify-center items-center md:ml-10 ml-0 md:mt-0 mt-10'>
+        <div className='flex-1 flex flex-col justify-center items-center gap-6 md:ml-10 ml-0 md:mt-0 mt-10'>
+            {success && <Callout title="Su mensaje ha sido enviado" color='teal'/>}
+            {error && <Callout title="Ocurrió un error" color='red'/>}
             <form ref={form} onSubmit={e => handleSubmit(e)} className='flex flex-col justify-center items-center gap-8 w-[400px]'>
                 <TextInput 
                 placeholder='Nombre y Apellido'
@@ -39,7 +109,8 @@ const ContactSection = () => {
                 name="from_name"
                 // value={username}
                 // onChange={e => setUsername(e.target.value)}
-                // error={error}
+                error={nameError}
+                errorMessage="Su nombre es necesario"
                 />
                <TextInput 
                 placeholder='Correo Electrónico'
@@ -48,7 +119,9 @@ const ContactSection = () => {
                 // onChange={e => setUsername(e.target.value)}
                 // error={error}
                 type="email"
-                name="email_id"
+                name="from_email"
+                error={emailError}
+                errorMessage="Su correo electrónico es necesario"
                 />
                 <TextInput 
                 placeholder='Teléfono'
@@ -57,6 +130,9 @@ const ContactSection = () => {
                 // onChange={e => setUsername(e.target.value)}
                 // error={error}
                 type="phone"
+                name="from_phone"
+                error={phoneError}
+                errorMessage="Su telélofono es necesario"
                 />
                 <TextInput 
                 placeholder='Ciudad'
@@ -64,7 +140,9 @@ const ContactSection = () => {
                 // value={password}
                 // onChange={e => setPassword(e.target.value)}
                 // error={error}
-
+                name="from_city"
+                error={cityError}
+                errorMessage="Su ciudad es necesaria"
                 />
                <TextInput 
                 placeholder='Colegio'
@@ -72,8 +150,19 @@ const ContactSection = () => {
                 // value={username}
                 // onChange={e => setUsername(e.target.value)}
                 // error={error}
+                name="from_school"
+                error={schoolError}
+                errorMessage="Su colegio es necesario"
                 />
-                <button className='bg-gradient-to-r from-violet-600 to-indigo-950  border-none py-4 px-8 rounded-3xl text-white font-bold text-xl' type='submit'>Enviar</button>
+                <Textarea 
+                placeholder="Mensaje"
+                name="message"
+                value={message}
+                onValueChange={value => setMessage(value)}
+                error={messageError}
+                errorMessage="Su mensaje es necesario"
+                />
+                <button disabled={disable} className='bg-gradient-to-r from-violet-600 to-indigo-950  border-none py-4 px-8 rounded-3xl text-white font-bold text-xl' type='submit'>Enviar</button>
             </form>
         </div>
         <div className="absolute z-[0] w-[50%] h-[65%] bottom-0 left-0 pink__gradient" />
