@@ -3,22 +3,25 @@ export const features = [
         title: 'Acceso 24/7 a la Información Académica',
         description: 'Acceso 24/7 a la Información Académica',
         imgUrl: '',
-        styles: 'text-left '
+        styles: '',
     },
     {
         title: 'Notificaciones',
         description: 'Reciben notificaciones sobre cualquier actualización relacionada con la asistencia, actividades, calificaciones y anuncios.',
-        imgUrl: ''
+        imgUrl: '',
+        styles: 'flex-row-reverse',
     },
     {
         title: 'Automatización del Proceso de Calificación',
         description: 'La aplicación automatiza el proceso de calificación, ahorrando tiempo y reduciendo errores.',
-        imgUrl: ''
+        imgUrl: '',
+        styles: ''
     },
     {
         title: 'Visualización de Información Académica',
         description: ' Proporciona una gran visualización de la información académica de los estudiantes, facilitando el seguimiento del progreso.',
-        imgUrl: ''
+        imgUrl: '',
+        styles: 'flex-row-reverse',
     },
     {
         title: 'ltamente Personalizable',

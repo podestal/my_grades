@@ -1,13 +1,10 @@
 import Hero from "./Hero"
-import AcademicAccess from "./AcademicAccess"
-import Attandance from "./Attandance"
-import TeacherDashboard from "./TeacherDashboard"
-import TeachersCreate from "./TeachersCreate"
-import KeepInfo from "./KeepInfo"
 import ContactSection from "./ContactSection"
 import Why from "./Why"
 import Footer from "./Footer"
 import FAQ from "./FAQ"
+import Features from "./Features"
+import { features } from "../../constants"
 
 const Home = () => {
   return (
@@ -19,11 +16,7 @@ const Home = () => {
       </div>
       <div className="bg-primary sm:px-16 px-6 flex justify-center items-start">
         <div className="xl:max-w-[1280px] w-full text-white">
-          <AcademicAccess />
-          <Attandance />
-          <TeacherDashboard />
-          <TeachersCreate />
-          <KeepInfo />
+          {features.map( feature => (<Features key={feature.title} feature={feature}/>))}
           <FAQ />
           <ContactSection />
           <Why />

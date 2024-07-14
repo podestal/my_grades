@@ -1,6 +1,35 @@
 export const name = 'Edumétrica'
 import { RiLockFill, RiGlobalLine, RiDragDropFill, RiCustomerService2Fill } from "@remixicon/react"
 
+import academicProgress from '../assets/academic-progress.png'
+
+
+export const features = [
+    {
+        title: 'Acceso 24/7 y Notificaciones',
+        description: 'Los padres pueden iniciar sesión en la aplicación utilizando sus credenciales proporcionadas para ver la asistencia, calificaciones, actividades y anuncios de su hijo las 24 horas del día, los 7 días de la semana. Ademéas envío de notificaciones sobre cualquier actualización relacionada con la asistencia, actividades, calificaciones y anuncios.',
+        imgUrl: academicProgress,
+        styles: 'flex-row-reverse',
+    },
+    {
+        title: 'Automatización del Proceso de Calificación',
+        description: 'La aplicación cuenta con herramientas avanzadas que automatizan el proceso de calificación, permitiendo a los maestros ahorrar tiempo y reducir errores. Los maestros pueden ingresar los resultados de las evaluaciones y la aplicación se encarga de calcular automáticamente las calificaciones finales, generando informes detallados y precisos.',
+        imgUrl: academicProgress,
+        styles: ''
+    },
+    {
+        title: 'Visualización de Información Académica',
+        description: 'La aplicación ofrece una visualización clara y detallada de la información académica de los estudiantes. Los maestros pueden acceder a gráficos, tablas y reportes que muestran el rendimiento y progreso de los estudiantes de manera comprensible. Esta funcionalidad ayuda a identificar áreas de mejora y a tomar decisiones informadas sobre el proceso de enseñanza.',
+        imgUrl: academicProgress,
+        styles: 'flex-row-reverse',
+    },
+    {
+        title: 'Altamente Personalizable',
+        description: 'Los maestros tienen la capacidad de personalizar la aplicación para adaptarse a sus métodos de enseñanza y evaluación. Pueden crear y gestionar actividades específicas, definir categorías de evaluación, y configurar anuncios personalizados. Esta flexibilidad permite a los maestros diseñar un entorno de aprendizaje que se ajuste a las necesidades individuales de sus estudiantes.',
+        imgUrl: academicProgress,
+        styles: '',
+    },
+]
 
 export const faqs = [
     {
@@ -24,13 +53,13 @@ export const faqs = [
         answer: 'La aplicación emplea medidas de seguridad robustas, incluyendo encriptación y autenticación segura, para garantizar que la información académica de su hijo esté protegida.',
     },
     {
-        question: '¿Cómo puedo personalizar actividades, categorías y métodos de calificación?',
-        answer: 'La aplicación permite a los maestros crear y personalizar actividades, categorías y métodos de calificación para adaptarse a sus necesidades específicas y estilos de enseñanza.',
+        question: '¿Cómo reporto un problema técnico?',
+        answer: 'Puede reportar problemas técnicos contactando al equipo de soporte a través de la sección de soporte de la aplicación o mediante la información de contacto proporcionada.'
     },
     {
-        question: '¿Existe una forma de visualizar el progreso académico de los estudiantes?',
-        answer: 'Sí, la aplicación ofrece herramientas de visualización completas para ayudar a los maestros a monitorear y evaluar el progreso académico de los estudiantes de manera efectiva.',
-    },
+        question: '¿Qué dispositivos y navegadores son compatibles?',
+        answer: 'La aplicación es compatible con los principales navegadores como Chrome, Firefox, Safari y Edge, y se puede acceder desde computadoras de escritorio, tabletas y teléfonos inteligentes.'
+    }
 ]
 
 export const reasons = [
