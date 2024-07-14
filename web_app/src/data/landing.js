@@ -1,6 +1,31 @@
-export const name = 'Edumétrica'
-import { RiLockFill, RiGlobalLine, RiDragDropFill, RiCustomerService2Fill } from "@remixicon/react"
-
+export const features = [
+    {
+        title: 'Acceso 24/7 a la Información Académica',
+        description: 'Acceso 24/7 a la Información Académica',
+        imgUrl: '',
+        styles: 'text-left '
+    },
+    {
+        title: 'Notificaciones',
+        description: 'Reciben notificaciones sobre cualquier actualización relacionada con la asistencia, actividades, calificaciones y anuncios.',
+        imgUrl: ''
+    },
+    {
+        title: 'Automatización del Proceso de Calificación',
+        description: 'La aplicación automatiza el proceso de calificación, ahorrando tiempo y reduciendo errores.',
+        imgUrl: ''
+    },
+    {
+        title: 'Visualización de Información Académica',
+        description: ' Proporciona una gran visualización de la información académica de los estudiantes, facilitando el seguimiento del progreso.',
+        imgUrl: ''
+    },
+    {
+        title: 'ltamente Personalizable',
+        description: ' Los maestros pueden crear y gestionar de manera flexible: actividades, categorías, anuncios, calificaciones y asistencias',
+        imgUrl: ''
+    },
+]
 
 export const faqs = [
     {
@@ -33,70 +58,3 @@ export const faqs = [
     },
 ]
 
-export const reasons = [
-    {
-        title: 'Seguridad',
-        description: 'La seguridad es una prioridad en Edumétrica. Utilizamos encriptación avanzada para proteger la información académica.',
-        icon: RiLockFill,
-    },
-    {
-        title: 'Facilidad de Uso',
-        description: 'Con una interfaz intuitiva y amigable, tanto los padres como los maestros pueden navegar y utilizar todas las funciones de manera eficiente.',
-        icon: RiDragDropFill,
-    },
-    {
-        title: 'Soporte Técnico 24/7',
-        description: 'Ofrecemos soporte técnico disponible las 24 horas del día, los 7 días de la semana, para resolver cualquier problema o duda que pueda surgir.',
-        icon: RiCustomerService2Fill
-    },
-    {
-        title: 'Acceso',
-        description: 'Nuestra aplicación es accesible desde cualquier dispositivo con conexión a Internet, incluyendo computadoras de escritorio, tabletas y teléfonos inteligentes. ',
-        icon: RiGlobalLine,
-    },
-]
-
-export const footerLinks = [
-    {
-        title: 'Recursos',
-        links: [
-            {
-                name: 'Características',
-                link: '/#faq'
-            },
-            {
-                name: 'Por qué',
-                link: '/#contact'
-            },
-
-        ]
-    },
-    {
-        title: 'Empresa',
-        links: [
-            {
-                name: 'Carreras',
-                link: '/#faq'
-            },
-            {
-                name: 'Privacidad',
-                link: '/#contact'
-            },
-
-        ]
-    },
-    {
-        title: 'Soporte',
-        links: [
-            {
-                name: 'Preguntas Frequentes',
-                link: '/#faq'
-            },
-            {
-                name: 'Contáctenos',
-                link: '/#contact'
-            },
-
-        ]
-    },
-]
