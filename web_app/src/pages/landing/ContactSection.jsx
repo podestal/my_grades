@@ -92,14 +92,14 @@ const ContactSection = () => {
 
   return (
     <section id='contact' className='flex md:flex-row flex-col sm:py-16 py-6 relative z-10'>
-        <div className='flex-1 flex flex-col justify-start items-start max-lg:items-center max-lg:text-center'>
+        <div className='relative z-30 flex-1 flex flex-col justify-start items-start max-lg:items-center max-lg:text-center'>
             <h2 className='font-poppins font-semibold xs-text-[48px] text-[40px] text-white xs:leading-[76px] leading-[66px] w-full'>Contáctenos</h2>
             <p className='font-poppins font-normal text-gray-400 text-[18px] leading-[30px] mt-4'>Contáctenos al número 973000006</p>
             <p className='font-poppins font-normal text-gray-400 text-[18px] leading-[30px] mt-4'>O envíenos un correo, llenando el siguiente formulario</p>
             <p className='font-poppins font-normal text-gray-400 text-[18px] leading-[30px] mt-4'>Estamos ubicados en Urb Luz y Fuerza D-8 Mollendo-Islay-Arequipa</p>
             <img src={ubication} alt="" className="rounded-[35px] my-8" />
         </div>
-        <div className='flex-1 flex flex-col justify-center items-center gap-6 md:ml-10 ml-0 md:mt-0 mt-10'>
+        <div className=' relative z-30 flex-1 flex flex-col justify-center items-center gap-6 md:ml-10 ml-0 md:mt-0 mt-10'>
             {success && <Callout title="Su mensaje ha sido enviado" color='teal'/>}
             {error && <Callout title="Ocurrió un error" color='red'/>}
             <form ref={form} onSubmit={e => handleSubmit(e)} className='flex flex-col justify-center items-center gap-8 w-[400px]'>
@@ -107,17 +107,12 @@ const ContactSection = () => {
                 placeholder='Nombre y Apellido'
                 ref={name}
                 name="from_name"
-                // value={username}
-                // onChange={e => setUsername(e.target.value)}
                 error={nameError}
                 errorMessage="Su nombre es necesario"
                 />
                <TextInput 
                 placeholder='Correo Electrónico'
                 ref={email}
-                // value={username}
-                // onChange={e => setUsername(e.target.value)}
-                // error={error}
                 type="email"
                 name="from_email"
                 error={emailError}
@@ -126,9 +121,6 @@ const ContactSection = () => {
                 <TextInput 
                 placeholder='Teléfono'
                 ref={phone}
-                // value={username}
-                // onChange={e => setUsername(e.target.value)}
-                // error={error}
                 type="phone"
                 name="from_phone"
                 error={phoneError}
@@ -137,9 +129,6 @@ const ContactSection = () => {
                 <TextInput 
                 placeholder='Ciudad'
                 ref={city}
-                // value={password}
-                // onChange={e => setPassword(e.target.value)}
-                // error={error}
                 name="from_city"
                 error={cityError}
                 errorMessage="Su ciudad es necesaria"
@@ -147,9 +136,6 @@ const ContactSection = () => {
                <TextInput 
                 placeholder='Colegio'
                 ref={school}
-                // value={username}
-                // onChange={e => setUsername(e.target.value)}
-                // error={error}
                 name="from_school"
                 error={schoolError}
                 errorMessage="Su colegio es necesario"
@@ -165,7 +151,7 @@ const ContactSection = () => {
                 <button disabled={disable} className='bg-gradient-to-r from-violet-600 to-indigo-950  border-none py-4 px-8 rounded-3xl text-white font-bold text-xl' type='submit'>Enviar</button>
             </form>
         </div>
-        <div className="absolute z-[0] w-[50%] h-[65%] bottom-0 left-0 pink__gradient" />
+        <div className="absolute z-20 w-[50%] h-[65%] bottom-0 left-0 pink__gradient" />
     </section>
   )
 }
