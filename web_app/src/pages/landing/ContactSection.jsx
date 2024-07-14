@@ -1,10 +1,25 @@
 import { TextInput } from "@tremor/react"
 import ubication from '../../assets/contact-ubication.png'
+import emailjs from '@emailjs/browser'
+import { useRef } from "react"
 
 const ContactSection = () => {
 
-    const handleSubmit = () => {
+    const form = useRef(null)
+    const name = useRef(null)
+    const email = useRef(null)
+    const phone = useRef(null)
+    const city = useRef(null)
+    const school = useRef(null)
 
+    const handleSubmit = e => {
+        e.preventDefault()
+        console.log('hola')
+        emailjs.sendForm('service_uoi14fu', 'template_v7o1xlg', form.current, {
+            publicKey: 'JWOBBVI0xbGxiZOd0'
+        })
+        .then( res => console.log('success'))
+        .catch( err => console.log('err'))
     }
 
   return (
@@ -17,29 +32,27 @@ const ContactSection = () => {
             <img src={ubication} alt="" className="rounded-[35px] my-8" />
         </div>
         <div className='flex-1 flex justify-center items-center md:ml-10 ml-0 md:mt-0 mt-10'>
-            <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center gap-8 w-[400px]'>
+            <form ref={form} onSubmit={e => handleSubmit(e)} className='flex flex-col justify-center items-center gap-8 w-[400px]'>
                 <TextInput 
-                placeholder='Nombre'
-                // value={username}
-                // onChange={e => setUsername(e.target.value)}
-                // error={error}
-                
-                />
-                <TextInput 
-                placeholder='Apellido'
+                placeholder='Nombre y Apellido'
+                ref={name}
+                name="from_name"
                 // value={username}
                 // onChange={e => setUsername(e.target.value)}
                 // error={error}
                 />
                <TextInput 
                 placeholder='Correo Electrónico'
+                ref={email}
                 // value={username}
                 // onChange={e => setUsername(e.target.value)}
                 // error={error}
                 type="email"
+                name="email_id"
                 />
                 <TextInput 
                 placeholder='Teléfono'
+                ref={phone}
                 // value={username}
                 // onChange={e => setUsername(e.target.value)}
                 // error={error}
@@ -47,6 +60,7 @@ const ContactSection = () => {
                 />
                 <TextInput 
                 placeholder='Ciudad'
+                ref={city}
                 // value={password}
                 // onChange={e => setPassword(e.target.value)}
                 // error={error}
@@ -54,6 +68,7 @@ const ContactSection = () => {
                 />
                <TextInput 
                 placeholder='Colegio'
+                ref={school}
                 // value={username}
                 // onChange={e => setUsername(e.target.value)}
                 // error={error}
