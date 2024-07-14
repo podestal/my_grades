@@ -94,11 +94,11 @@ export const footerLinks = [
         links: [
             {
                 name: 'Características',
-                link: '/#faq'
+                link: '/#features'
             },
             {
                 name: 'Por qué',
-                link: '/#contact'
+                link: '/#why'
             },
 
         ]

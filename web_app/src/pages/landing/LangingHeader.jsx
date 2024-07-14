@@ -14,10 +14,10 @@ const LangingHeader = () => {
                 <Link to={'/'}><img src={logo} width={400}/></Link>
                 <div className='flex-1 flex justify-end items-center gap-16 max-lg:hidden'>
                     {/* <Link className='font-montserrat text-white-400 text-xl hover:text-white' to={'/'}>Principal</Link> */}
-                    <a className='font-montserrat text-white-400 text-xl hover:text-white' href='/#features'>Carácterísticas</a>
-                    <a className='font-montserrat text-white-400 text-xl hover:text-white' href='/#faq'>Preguntas Frecuentes</a>
-                    <a className='font-montserrat text-white-400 text-xl hover:text-white' href='/#contact'>Contáctenos</a>
-                    <Link className='font-montserrat text-white-400 text-xl hover:text-white' to={'/login'}>Ingresar</Link>
+                    <a className='font-montserrat text-white-400 text-lg hover:text-white' href='/#features'>Carácterísticas</a>
+                    <a className='font-montserrat text-white-400 text-lg hover:text-white' href='/#faq'>Preguntas Frecuentes</a>
+                    <a className='font-montserrat text-white-400 text-lg hover:text-white' href='/#contact'>Contáctenos</a>
+                    <Link className='font-montserrat text-white-400 text-lg hover:text-white' to={'/login'}>Ingresar</Link>
                 </div>
                 <div className='hidden max-lg:block'>
                     <img src={toggle ? close : hamburger} onClick={() => setToggle( prev => !prev)} alt="Hamburger" width={25} height={25}/>

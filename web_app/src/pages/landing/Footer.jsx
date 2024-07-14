@@ -38,7 +38,7 @@ const Footer = () => {
                                     ? 
                                     <Link to={link.link}>{link.name}</Link> 
                                     : 
-                                    <p>{link.name}</p>
+                                    <a href={link.link}><p>{link.name}</p></a>
                                     } 
                                 </li>
                             ))}
