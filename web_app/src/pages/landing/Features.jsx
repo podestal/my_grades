@@ -1,7 +1,7 @@
 const Features = ({ feature }) => {
   return (
-    <section id='features' className={`flex  sm:py-16 py-6 gap-10 ${feature.styles}`}>
-        <div className='flex-1 flex flex-col justify-center items-start'>
+    <section id='features' className={`flex max-lg:flex-col sm:py-16 py-6 gap-10 ${feature.styles}`}>
+        <div className='flex-1 flex flex-col justify-center items-start max-lg:text-center'>
             <h2 className='font-poppins font-semibold xs-text-[48px] text-[40px] text-white xs:leading-[76px] leading-[66px] w-full'>{feature.title}</h2>
             <p className='font-poppins font-normal text-gray-400 text-[18px] leading-[30px] mt-4'>{feature.description}</p>
         </div>

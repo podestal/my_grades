@@ -92,7 +92,7 @@ const ContactSection = () => {
 
   return (
     <section id='contact' className='flex md:flex-row flex-col sm:py-16 py-6 relative z-10'>
-        <div className='flex-1 flex flex-col justify-start items-start'>
+        <div className='flex-1 flex flex-col justify-start items-start max-lg:items-center max-lg:text-center'>
             <h2 className='font-poppins font-semibold xs-text-[48px] text-[40px] text-white xs:leading-[76px] leading-[66px] w-full'>Contáctenos</h2>
             <p className='font-poppins font-normal text-gray-400 text-[18px] leading-[30px] mt-4'>Contáctenos al número 973000006</p>
             <p className='font-poppins font-normal text-gray-400 text-[18px] leading-[30px] mt-4'>O envíenos un correo, llenando el siguiente formulario</p>

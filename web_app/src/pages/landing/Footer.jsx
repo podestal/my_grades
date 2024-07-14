@@ -8,10 +8,10 @@ const Footer = () => {
   return (
     <footer className='flex justify-center items-center flex-col sm:py-16 py-6 relative z-40 mt-16'>
         <div className='flex justify-center items-start md:flex-row flex-col mb-8 w-full'>
-            <div className="flex-1 flex flex-col justify-start mr-10">
+            <div className="w-full flex-1 flex flex-col max-lg:items-center justify-start mr-10">
                 <a href="/#header"><img src={logo} width={200}/></a>
                 {/* <Link to={'/'}><img src={logo} width={200}/></Link> */}
-                <p className='mt-4  max-w-[310px] font-poppins font-normal text-slate-400 text-[18px] leading-[30.8px]'>
+                <p className='mt-4  max-w-[310px] font-poppins font-normal text-slate-400 text-[18px] leading-[30.8px] max-lg:text-center'>
                     Información académica al alcance de todos.
                 </p>
                 <div className="flex flex-row gap-4 items-center justify-start my-4">
@@ -19,11 +19,11 @@ const Footer = () => {
                     <img src={apple} alt="apple" className="w-[128px] h-[42px] object-contain cursor-pointer" />
                 </div>
             </div>
-            <div className="flex-[1.5] w-full flex flex-row justify-between flex-wrap md:mt-0 mt-10">
+            <div className="flex-[1.5] w-full flex max-lg:flex-col max-lg:items-center justify-between flex-wrap md:mt-0 mt-10">
                 {footerLinks.map( footerLink => (
                     <div
                         key={footerLink.title}
-                        className="flex flex-col ss:my-0 my-4 min-w-[150px]"
+                        className="flex flex-col ss:my-0 my-4 min-w-[150px] max-lg:text-center"
                     >
                         <h4 className="font-poppins font-medium text-[22px] leading-[27px] text-white">{footerLink.title}</h4>
                         <ul className="list-none mt-4">
