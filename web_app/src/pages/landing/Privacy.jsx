@@ -1,4 +1,11 @@
+import { useEffect } from "react"
+
 const Privacy = () => {
+
+  useEffect(() => {
+    window.scroll(0, 0)
+  })
+
   return (
     <div className="min-h-screen text-slate-50 lg:max-w-[1280px] text-lg mx-auto flex flex-col gap-6 font-palanquin pb-10">
         <h2 className="text-4xl">Privacidad en Edumétrica</h2>
